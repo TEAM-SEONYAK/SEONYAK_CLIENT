@@ -1,0 +1,22 @@
+name: PRs Size Labeler
+
+on: [pull_request]
+
+jobs:
+  labeler:
+    runs-on: ubuntu-latest
+    name: Label the PR size
+    steps:
+      - uses: friendsofgo/pr-size-labeler@v1.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          xs_max_size: '10'
+          s_max_size: '100'
+          m_max_size: '500'
+          l_max_size: '1000'
+          fail_if_xl: 'false'
+          message_if_xl: 'This PR is so big! Please, split it 😊'
+          files_to_ignore: |
+            "package-lock.json"
+            "*.lock"
+            "docs/*"
