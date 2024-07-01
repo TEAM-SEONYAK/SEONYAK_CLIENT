@@ -1,9 +1,9 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+  "extends": ["stylelint-config-standard"],
   "plugins": ["stylelint-order", "stylelint-prettier"],
   "overrides": [
     {
-      "customSyntax": "@stylelint/postcss-css-in-js",
+      "customSyntax": "postcss-styled-syntax",
       "files": ["**/*.{ts,tsx,css}"]
     }
   ],
@@ -13,26 +13,11 @@
       "/^border/": ["px"],
       "font-size": ["rem", "%"]
     },
-    "unit-allowed-list": [
-      "%",
-      "deg",
-      "px",
-      "rem",
-      "ms",
-      "vw",
-      "s",
-      "dvh",
-      "turn"
-    ],
+    "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "vw", "s", "dvh", "turn"],
     "declaration-empty-line-before": [
       "always",
       {
-        "ignore": [
-          "after-comment",
-          "after-declaration",
-          "first-nested",
-          "inside-single-line-block"
-        ]
+        "ignore": ["after-comment", "after-declaration", "first-nested", "inside-single-line-block"]
       }
     ],
     "order/properties-order": [
