@@ -41,8 +41,6 @@
     "react/react-in-jsx-scope": "off", // import React from "react"가 필수였던 시기에 필요한 규칙이므로 off
     "arrow-parens": ["error", "always"], // arrow-function 인자가 2개 이상이면 괄호 필수
     "no-duplicate-imports": "error", // 중복 Import 금지
-    "simple-import-sort/imports": "error", //import 정렬 강제
-    "simple-import-sort/exports": "error", //export 정렬 강제
     "no-unused-vars": "error", // 사용하지 않는 변수 error처리
     "no-undef": "error", // 정의 안 한 변수 사용 x
     "indent": "off", // 프리티어 충돌로 인한 OFF
