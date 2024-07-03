@@ -1,0 +1,29 @@
+name: labeler
+
+on: [pull_request]
+
+jobs:
+  labeler:
+    runs-on: ubuntu-latest
+    name: Label the PR size
+    steps:
+      - uses: Gascon1/pr-size-labeler@v1.3.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          xs_label: 'size/xs'
+          xs_diff: '10'
+          s_label: 'size/s'
+          s_diff: '50'
+          m_label: 'size/m'
+          m_diff: '250'
+          l_label: 'size/l'
+          l_diff: '500'
+          xl_label: 'size/xl'
+          fail_if_xl: 'false'
+          message_if_xl: >
+            PR이 1000줄을 넘었는데 진정 이것이 PR인지 다시 생각해보세오
+            이슈를 여러개 파서 PR을 분리하는게 어떠싱지 ㅋ
+          excluded_files: |
+            "package-lock.json"
+            "*.lock"
+            "docs/*"
