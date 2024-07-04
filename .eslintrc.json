@@ -1,0 +1,99 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "@typescript-eslint/eslint-plugin",
+    "jsx-a11y",
+    "prettier",
+    "import"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "rules": {
+    "quotes": ["off", "single"], // 쌍따옴표가 아닌 홑따옴표를 사용
+    "semi": ["error", "always"], // semi colon을 강제함
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+    "no-multi-spaces": "error", // 스페이스 여러개 금지
+    "comma-dangle": ["error", "always-multiline"], // 두 줄 이상의 경우에는 후행 쉼표를 항상 사용, 한 개 일 때는 사용하지 않음
+    "object-curly-spacing": ["error", "always"], // 객체 괄호 앞 뒤 공백 추가
+    "space-in-parens": ["error", "never"], // 일반 괄호 앞 뒤 공백 추가
+    "computed-property-spacing": ["error", "never"], // 대괄호 앞 뒤 공백 추가하지 않음
+    "comma-spacing": ["error", { "before": false, "after": true }], // 반점 앞 뒤 공백: 앞에는 없고, 뒤에는 있게
+    "eol-last": ["error", "always"], // line의 가장 마지막 줄에는 개행 넣기
+    "no-tabs": ["error", { "allowIndentationTabs": true }], // \t의 사용을 금지하고 tab키의 사용은 허용
+    "react-hooks/rules-of-hooks": "error", // 리액트 훅의 순서를 지키게끔 한다. (React는 Hook이 호출되는 순서에 의존하기 때문에)
+    "react-hooks/exhaustive-deps": "off", // Checks effect dependencies
+    "react/react-in-jsx-scope": "off", // import React from "react"가 필수였던 시기에 필요한 규칙이므로 off
+    "arrow-parens": ["error", "always"], // arrow-function 인자가 2개 이상이면 괄호 필수
+    "no-duplicate-imports": "error", // 중복 Import 금지
+    "no-unused-vars": "error", // 사용하지 않는 변수 error처리
+    "no-undef": "error", // 정의 안 한 변수 사용 x
+    "indent": "off", // 프리티어 충돌로 인한 OFF
+    "import/no-unresolved": "off", // 타입스크립트에서 경로를 제대로 잡지 못할 때 사용 or  eslint-import-resolver-typescript 설치
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }], // 콘솔은 확인 뒤 지우기
+    "prettier/prettier": "error", // ESLint 내에서 Prettier를 실행하는 규칙
+
+    "import/order": [
+      "error",
+      {
+        "groups": [["builtin", "external"], "internal", ["parent", "sibling"], "index"], //import 순서를 고정. builtin- 외부- 내부
+        "pathGroups": [
+          {
+            "pattern": "react*", // path가 react로 시작하면
+            "group": "external", // external 앞에
+            "position": "before"
+          }
+        ],
+        "alphabetize": {
+          "order": "asc", // 알파벳 순서 정렬 방식
+          "caseInsensitive": true // 알파벳 대소문자 구분
+        }
+        // "newlines-between": "always" // group들 사이마다 개행 적용 (group 내부에서 개행 적용 불가)
+      }
+    ]
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      // ECMAScript의 언어 확장 기능을 설정
+      "jsx": true // ECMScript 규격의 JSX 사용 여부
+    },
+    "ecmaVersion": "latest", // 사용할 ECMAScript 버전을 설정
+    "sourceType": "module"
+  },
+  "ignorePatterns": ["build", "dist", "public"], // lint 무시 파일 정하기
+
+  // 플러그인이나 parser 등의 환경 설정을 제어하는 데 사용됨.
+  "settings": {
+    // import 문을 해석하는 방법을 지정
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts", ".svg"]
+      }
+    },
+    //  React 관련 규칙을 사용할 때 필요한 정보를 제공
+    "react": {
+      "version": "detect" // react의 버전을 자동으로 감지하여 적절한 규칙을 적용
+    },
+    // import 문을 파싱하는 데 사용할 parser를 지정
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx", ".js"]
+    }
+  }
+}
