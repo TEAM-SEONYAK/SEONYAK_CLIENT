@@ -41,7 +41,7 @@ export default App;
 
 const Wrapper = styled.div`
   min-height: calc(var(--vh, 1vh) * 100);
-  border: none;
+  border: 1px solid black;
 
-  background-color: '#FFFFFF';
+  background-color: #fff;
 `;
