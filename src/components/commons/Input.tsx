@@ -15,9 +15,10 @@ const Input = (props: InputPropType) => {
   const onChangeInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(e.currentTarget.value);
   };
+
   return (
-    <>
-      <Wrapper>
+    <Wrapper>
+      <TextareaLayout>
         <Textarea
           placeholder={placeholder}
           onChange={onChangeInput}
@@ -28,18 +29,24 @@ const Input = (props: InputPropType) => {
           <Word $isLimit={inputVal.length <= wordLimit}>{inputVal.length}</Word>
           <WordLimit>/{wordLimit}</WordLimit>
         </WordLimitContainer>
-      </Wrapper>    
-      <LimitWarnContainer>
+      </TextareaLayout>
+
+      <LimitWarnContainer $isLimit={inputVal.length <= wordLimit}>
         <WarnIc />
         <LimitWarnText>글자 수가 초과되었어요</LimitWarnText>
       </LimitWarnContainer>
-    </>
+    </Wrapper>
   );
 };
 
 export default Input;
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TextareaLayout = styled.div`
   position: relative;
 `;
 
@@ -76,8 +83,8 @@ const WordLimit = styled.span`
   color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
 
-const LimitWarnContainer = styled.div`
-  display: flex;
+const LimitWarnContainer = styled.div<{ $isLimit: boolean }>`
+  display: ${({ $isLimit }) => ($isLimit ? 'none' : 'flex')};
   gap: 0.5rem;
   align-items: center;
 
