@@ -2,7 +2,6 @@ import { Global, ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect } from 'react';
 
-import Main from './pages/main/Main';
 import globalStyle from './styles/globalStyle';
 import theme from './styles/theme';
 
@@ -31,7 +30,6 @@ const App = () => {
     <Wrapper>
       <ThemeProvider theme={theme}>
         <Global styles={globalStyle} />
-        <Main />
       </ThemeProvider>
     </Wrapper>
   );
@@ -41,7 +39,7 @@ export default App;
 
 const Wrapper = styled.div`
   min-height: calc(var(--vh, 1vh) * 100);
-  border: 1px solid black;
+  border: none;
 
   background-color: #fff;
 `;
