@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useEffect } from 'react';
 
 import Input from './components/commons/Input';
+import ProgressBar from './components/commons/ProgressBar';
 import globalStyle from './styles/globalStyle';
 import theme from './styles/theme';
 
@@ -31,6 +32,7 @@ const App = () => {
     <Wrapper>
       <ThemeProvider theme={theme}>
         <Global styles={globalStyle} />
+        <ProgressBar />
         <Input placeholder="주요 경력 및 이력을 최대 60자까지 작성해주세요" wordLimit={200} height={24.1} />
       </ThemeProvider>
     </Wrapper>
