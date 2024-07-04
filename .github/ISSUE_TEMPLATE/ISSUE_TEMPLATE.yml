@@ -1,0 +1,33 @@
+name: '💎 Issue Template'
+description: 선약 FE 이슈 템플릿
+title: '[ Feat ] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        작성 예시 : "🚀[ Feat ] 카드 컴포넌트 구현"
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: 🔨 Issue
+      description: 이슈에 대해 간략하게 작성해주세요
+      placeholder: 설명을 적어주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: todo-description
+    attributes:
+      label: ✅ To-do
+      description: 진행할 작업에 대해 작성해주세요
+      value: |
+        - [ ] To-do
+    validations:
+      required: true
+  - type: textarea
+    id: reference-description
+    attributes:
+      label: 📄 Reference
+      description: (선택)참고 자료 및 특이사항을 작성해주세요
+      placeholder: 설명을 적어주세요.
+    validations:
+      required: false
