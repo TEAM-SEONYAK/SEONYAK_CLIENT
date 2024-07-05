@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { WarnIc } from '../../assets/svgs';
+import { ErrorIc } from '../../assets/svgs';
 
 interface InputPropType {
   placeholder: string;
@@ -32,7 +32,7 @@ const Input = (props: InputPropType) => {
       </TextareaLayout>
 
       <LimitWarnContainer $isLimit={inputVal.length <= wordLimit}>
-        <WarnIc />
+        <ErrorIc />
         <LimitWarnText>글자 수가 초과되었어요</LimitWarnText>
       </LimitWarnContainer>
     </Wrapper>
