@@ -1,5 +1,5 @@
-const Main = () => {
-  return <div>Main</div>;
+const JuniorPromise = () => {
+  return <div>JuniorPromise</div>;
 };
 
-export default Main;
+export default JuniorPromise;
