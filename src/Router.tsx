@@ -1,5 +1,47 @@
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import App from './App';
+import Home from './pages/home/Home';
+import JuniorOnboarding from './pages/juniorOnboarding/JuniorOnboarding';
+import JuniorPromise from './pages/juniorPromise/JuniorPromise';
+import MyPage from './pages/myPage/MyPage';
+import SeniorOnboarding from './pages/seniorOnboarding/SeniorOnboarding';
+import SeniorProfile from './pages/seniorProfile/SeniorProfile';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: 'seniorOnboarding',
+        element: <SeniorOnboarding />,
+      },
+      {
+        path: 'juniorOnboarding',
+        element: <JuniorOnboarding />,
+      },
+      {
+        path: 'seniorProfile',
+        element: <SeniorProfile />,
+      },
+      {
+        path: 'juniorProfile',
+        element: <JuniorPromise />,
+      },
+      {
+        path: 'myPage',
+        element: <MyPage />,
+      },
+    ],
+  },
+]);
+
 const Router = () => {
-  return <div>Router</div>;
+  return <RouterProvider router={router} />;
 };
 
 export default Router;
