@@ -13,7 +13,7 @@
       "/^border/": ["px"],
       "font-size": ["rem", "%"]
     },
-    "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "vw", "s", "dvh", "turn"],
+    "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "vw", "s", "dvh", "turn", "vh"],
     "declaration-empty-line-before": [
       "always",
       {
