@@ -32,17 +32,23 @@ export default GoogleLogin;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+
   width: 33.5rem;
   height: 5.6rem;
-  background-color: ${theme.colors.grayScaleBG};
-  color: white;
   border-radius: 5px;
+
+  background-color: ${theme.colors.grayScaleBG};
+
+  color: white;
+
   cursor: pointer;
 `;
 
 const Text = styled.span`
   display: flex;
+
   padding-left: 5.85rem;
+
   ${theme.fonts.Head2_SB_18};
   text-align: center;
 `;
