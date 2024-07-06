@@ -1,25 +1,10 @@
 import styled from '@emotion/styled';
-import { useGoogleLogin } from '@react-oauth/google';
-import { useEffect, useState } from 'react';
 import GoogleIcon from '../../../../assets/svgs/googleLogo.svg?react';
 import theme from '../../../../styles/theme';
-import { useLoginQuery } from '../apis/useLoginQuery';
-import axios from 'axios';
+import useGoogleLoginHook from '../apis/useLoginQuery';
 
 const GoogleLogin = () => {
-  const [token, setToken] = useState('');
-  const { data } = useLoginQuery(token);
-
-  const login = useGoogleLogin({
-    onSuccess: async (res) => {
-      console.log({ res });
-      const { access_token } = res;
-      setToken(access_token);
-    },
-    onError: (err) => {
-      console.log({ err });
-    },
-  });
+  const { login } = useGoogleLoginHook();
 
   return (
     <Wrapper onClick={() => login()}>

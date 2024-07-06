@@ -1,29 +1,60 @@
-import { useQuery } from '@tanstack/react-query';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 
-type LoginResponse = {
+type successResponse = {
   code: string;
   data: {
     accessToken: string;
   };
 };
 
-const login = (google_accessToken: string) => {
-  console.log('login called');
+type failureResponse = {
+  code: string;
+  message: string;
+}
 
-  return axios
-    .post('/api/v1/auth/login', {
-      google_accessToken,
-    })
-    .then(({ data }) => data as LoginResponse);
+const loginAxios = (authorizationCode: string) => {
+  return axios.post(
+    'https://www.seonyak.p-e.kr/api/v1/auth/login',
+    {
+      redirectUri: 'https://www.seonyak.p-e.kr/login/oauth2/code/google',
+      socialType: 'GOOGLE',
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        authorizationCode,
+      },
+    },
+  );
 };
 
-export const useLoginQuery = (google_accessToken: string) => {
-  const data = useQuery({
-    queryKey: ['login'],
-    queryFn: () => login(google_accessToken),
-    enabled: !!google_accessToken,
-    staleTime: Infinity,
+const useGoogleLoginHook = () => {
+  const mutation = useMutation({
+    mutationFn: (authorizationCode) => loginAxios(authorizationCode),
+    onSuccess: (data: successResponse) => {
+      console.log('Access Token:', data.data.accessToken);
+    },
+    onError: (error: failureResponse) => {
+      console.error('Error:', error);
+    },
   });
-  return data;
+
+  const login = useGoogleLogin({
+    onSuccess: (response) => {
+      const authorizationCode = response.code;
+      mutation.mutate({ authorizationCode });
+    },
+    onError: (error) => {
+      console.log('Login Failed:', error);
+    },
+    flow: 'auth-code',
+  });
+
+  return { login, mutation };
 };
+
+export default useGoogleLoginHook;
