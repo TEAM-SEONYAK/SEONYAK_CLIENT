@@ -26,7 +26,7 @@ const Progress = styled.div<{ $width: number }>`
   width: ${({ $width }) => `${$width}%`};
   height: 0.8rem;
   padding: 0;
-  border-radius: 0 2px;
+  border-radius: 0 2px 2px 0;
 
   background-color: ${({ theme }) => theme.colors.primaryBlue300};
 `;
