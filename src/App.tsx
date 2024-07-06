@@ -34,7 +34,7 @@ const App = () => {
     <Wrapper>
       <ThemeProvider theme={theme}>
         <Global styles={globalStyle} />
-        <ProgressBar />
+        <ProgressBar max={10} current={1} />
         <Input
           placeholder="주요 경력 및 이력을 최대 60자까지 작성해주세요"
           wordLimit={200}

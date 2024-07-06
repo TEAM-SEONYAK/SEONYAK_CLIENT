@@ -1,12 +1,16 @@
 import styled from '@emotion/styled';
 
-const ProgressBar = () => {
-  const maxProgress = 4;
-  const progress = 1;
+interface ProgressBarPropType {
+  max: number;
+  current: number;
+}
+
+const ProgressBar = (props: ProgressBarPropType) => {
+  const { max, current } = props;
 
   return (
     <ProgressBarWrapper>
-      <Progress $width={(progress * 100) / maxProgress} />
+      <Progress $width={(current * 100) / max} />
     </ProgressBarWrapper>
   );
 };
