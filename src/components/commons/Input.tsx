@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { ErrorIc } from '../../assets/svgs';
+import WarnDescription from './WarnDescription';
 
 interface InputPropType {
   placeholder: string;
@@ -24,6 +24,7 @@ const Input = (props: InputPropType) => {
           onChange={onChangeInput}
           $isValid={inputVal.length <= wordLimit}
           $height={height}
+          maxLength={wordLimit}
         />
         <WordLimitContainer>
           <Word $isLimit={inputVal.length <= wordLimit}>{inputVal.length}</Word>
@@ -31,10 +32,7 @@ const Input = (props: InputPropType) => {
         </WordLimitContainer>
       </TextareaLayout>
 
-      <LimitWarnContainer $isLimit={inputVal.length <= wordLimit}>
-        <ErrorIc />
-        <LimitWarnText>글자 수가 초과되었어요</LimitWarnText>
-      </LimitWarnContainer>
+      <WarnDescription isLimit={inputVal.length <= wordLimit} warnText="글자 수가 초과되었어요" />
     </Wrapper>
   );
 };
@@ -81,17 +79,4 @@ const Word = styled.span<{ $isLimit: boolean }>`
 const WordLimit = styled.span`
   ${({ theme }) => theme.fonts.Caption3_M_12};
   color: ${({ theme }) => theme.colors.grayScaleMG2};
-`;
-
-const LimitWarnContainer = styled.div<{ $isLimit: boolean }>`
-  display: ${({ $isLimit }) => ($isLimit ? 'none' : 'flex')};
-  gap: 0.5rem;
-  align-items: center;
-
-  margin-top: 0.6rem;
-`;
-
-const LimitWarnText = styled.span`
-  ${({ theme }) => theme.fonts.Caption3_M_12};
-  color: ${({ theme }) => theme.colors.Red};
 `;
