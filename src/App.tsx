@@ -1,13 +1,10 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
-
-import Input from './components/commons/Input';
-import ProgressBar from './components/commons/ProgressBar';
-import globalStyle from './styles/globalStyle';
-import theme from './styles/theme';
+import { useEffect } from 'react';
 
 import { Outlet } from 'react-router-dom';
+import globalStyle from './styles/globalStyle';
+import theme from './styles/theme';
 
 const App = () => {
   const setScreenSize = () => {
@@ -20,8 +17,6 @@ const App = () => {
     const maxWidth = Math.min(375, windowWidth);
     document.documentElement.style.setProperty('--app-max-width', `${maxWidth}px`);
   };
-
-  const [inputVal, setInputVal] = useState('');
 
   useEffect(() => {
     setScreenSize();
@@ -36,14 +31,6 @@ const App = () => {
     <Wrapper>
       <ThemeProvider theme={theme}>
         <Global styles={globalStyle} />
-        <ProgressBar max={10} current={1} />
-        <Input
-          placeholder="주요 경력 및 이력을 최대 60자까지 작성해주세요"
-          wordLimit={200}
-          height={24.1}
-          inputVal={inputVal}
-          setInputVal={setInputVal}
-        />
         <Outlet />
       </ThemeProvider>
     </Wrapper>
