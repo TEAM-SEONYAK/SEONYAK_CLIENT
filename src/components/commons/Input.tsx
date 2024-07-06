@@ -1,16 +1,17 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import WarnDescription from './WarnDescription';
 
 interface InputPropType {
   placeholder: string;
   wordLimit: number;
   height: number;
+  inputVal: string;
+  setInputVal: Dispatch<SetStateAction<string>>;
 }
 
 const Input = (props: InputPropType) => {
-  const { placeholder, wordLimit, height } = props;
-  const [inputVal, setInputVal] = useState('');
+  const { placeholder, wordLimit, height, inputVal, setInputVal } = props;
 
   const onChangeInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputVal(e.currentTarget.value);
@@ -49,6 +50,8 @@ const TextareaLayout = styled.div`
 `;
 
 const Textarea = styled.textarea<{ $isValid: boolean; $height: number }>`
+  overflow: hidden;
+
   width: 33.5rem;
   height: ${({ $height }) => `${$height}rem`};
   padding: 1.1rem 1.4rem 3rem;

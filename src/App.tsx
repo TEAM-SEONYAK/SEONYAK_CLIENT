@@ -1,6 +1,6 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Input from './components/commons/Input';
 import ProgressBar from './components/commons/ProgressBar';
@@ -19,6 +19,8 @@ const App = () => {
     document.documentElement.style.setProperty('--app-max-width', `${maxWidth}px`);
   };
 
+  const [inputVal, setInputVal] = useState('');
+
   useEffect(() => {
     setScreenSize();
     window.addEventListener('resize', setScreenSize);
@@ -33,7 +35,13 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <Global styles={globalStyle} />
         <ProgressBar />
-        <Input placeholder="주요 경력 및 이력을 최대 60자까지 작성해주세요" wordLimit={200} height={24.1} />
+        <Input
+          placeholder="주요 경력 및 이력을 최대 60자까지 작성해주세요"
+          wordLimit={200}
+          height={24.1}
+          inputVal={inputVal}
+          setInputVal={setInputVal}
+        />
       </ThemeProvider>
     </Wrapper>
   );
