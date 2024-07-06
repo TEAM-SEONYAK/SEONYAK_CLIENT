@@ -1,12 +1,20 @@
 import styled from '@emotion/styled';
 import { useGoogleLogin } from '@react-oauth/google';
+import { useEffect, useState } from 'react';
 import GoogleIcon from '../../../../assets/svgs/googleLogo.svg?react';
 import theme from '../../../../styles/theme';
+import { useLoginQuery } from '../apis/useLoginQuery';
+import axios from 'axios';
 
 const GoogleLogin = () => {
+  const [token, setToken] = useState('');
+  const { data } = useLoginQuery(token);
+
   const login = useGoogleLogin({
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       console.log({ res });
+      const { access_token } = res;
+      setToken(access_token);
     },
     onError: (err) => {
       console.log({ err });
