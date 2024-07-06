@@ -2,6 +2,7 @@ import { Global, ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 
+import { FullBtn } from './components/commons/Button';
 import Input from './components/commons/Input';
 import ProgressBar from './components/commons/ProgressBar';
 import globalStyle from './styles/globalStyle';
@@ -30,6 +31,10 @@ const App = () => {
     };
   }, []);
 
+  const onClickTest = () => {
+    alert('hi');
+  };
+
   return (
     <Wrapper>
       <ThemeProvider theme={theme}>
@@ -42,6 +47,7 @@ const App = () => {
           inputVal={inputVal}
           setInputVal={setInputVal}
         />
+        <FullBtn isActive={true} text="다음으로" onClick={onClickTest} />
       </ThemeProvider>
     </Wrapper>
   );
