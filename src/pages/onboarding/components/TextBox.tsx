@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { ReactNode } from 'react';
 
-export const InputBox = ({ placeholder }: { placeholder: string }) => {
-  return <Input type="text" placeholder={placeholder} />;
+export const InputBox = ({ label, placeholder }: { label: string; placeholder: string }) => {
+  return <Input type="text" id={label} placeholder={placeholder} />;
 };
 
 export const Caption = ({ children }: { children: string }) => {
@@ -16,7 +16,7 @@ interface TextBoxProps {
 export const TextBox = ({ label, children }: TextBoxProps) => {
   return (
     <Wrapper>
-      <LabelText>{label}</LabelText>
+      <LabelText htmlFor={label}>{label}</LabelText>
       {children}
     </Wrapper>
   );
