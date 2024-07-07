@@ -2,6 +2,7 @@ import { Global, ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect } from 'react';
 
+import { Outlet } from 'react-router-dom';
 import globalStyle from './styles/globalStyle';
 import theme from './styles/theme';
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
     <Wrapper>
       <ThemeProvider theme={theme}>
         <Global styles={globalStyle} />
+        <Outlet />
       </ThemeProvider>
     </Wrapper>
   );
