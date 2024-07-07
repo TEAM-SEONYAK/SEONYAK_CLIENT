@@ -1,10 +1,6 @@
 export const SENIOR_PROFILE_STEPS = [
   {
-    meta: '',
-    description: '',
-  },
-  {
-    meta: '다른 선배들은 프로필을 이렇게 등록했어요',
+    meta: '다른 선배들은 프로필을<br/>이렇게 등록했어요',
     description: '',
   },
   {
@@ -12,20 +8,20 @@ export const SENIOR_PROFILE_STEPS = [
     description: '',
   },
   {
-    meta: ' 님을 표현할 수 있는 문장을 작성해주세요',
+    meta: ' 님을 표현할 수 있는 문장을<br/>작성해주세요',
     description: '',
   },
   {
-    meta: ' 님의 경력과 수상이력을 작성해주세요',
+    meta: ' 님의 경력과 수상이력을<br/>작성해주세요',
+    description: '수상 이력은 검증 후 프로필에 표시됩니다',
+  },
+  {
+    meta: ' 님이 후배에게 들려주고 싶은<br/>이야기를 작성해주세요',
     description: '',
   },
   {
-    meta: ' 님이 후배에게 들려주고 싶은 이야기를 작성해주세요',
-    description: '',
-  },
-  {
-    meta: '약속이 가능한 일정을 모두 입력해주세요',
-    description: '주중/주말로 구분하여 시간을 설정하거나 요일 별로 각각 시간을 설정할 수 있어요',
+    meta: '약속이 가능한 일정을<br/>모두 입력해주세요',
+    description: '주중/주말로 구분하여 시간을 설정하거나<br/>요일 별로 각각 시간을 설정할 수 있어요',
   },
   {
     meta: '마지막으로 완성된 프로필을 확인해주세요',

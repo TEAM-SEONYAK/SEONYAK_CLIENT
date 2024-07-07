@@ -6,9 +6,9 @@ import Example from './components/Example';
 import Sentence from './components/Sentence';
 import Story from './components/Story';
 import TimeSelect from './components/TimeSelect';
+import { SENIOR_PROFILE_STEPS } from './constants';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
-import { SENIOR_PROFILE_STEPS } from './constants';
 
 const getComponent = (step: number) => {
   switch (step) {
@@ -33,25 +33,29 @@ const SeniorProfilePage = () => {
   const [step, setStep] = useState(0);
   const btnText = step === 8 ? '프로필 등록하기' : '다음으로';
   const component = getComponent(step);
-
+  const userName = step >= 2 && step <= 4 ? '도현' : '';
   return (
     <div>
-      {step > 2 && <ProgressBar max={5} current={step - 2} />}
-      <Meta>{SENIOR_PROFILE_STEPS[step].meta}</Meta>
-      <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
+      {step >= 2 && step <= 6 && <ProgressBar max={5} current={step - 1} />}
+      <Title>
+        <Meta dangerouslySetInnerHTML={{ __html: userName + SENIOR_PROFILE_STEPS[step].meta }} />
+        <Description dangerouslySetInnerHTML={{ __html: SENIOR_PROFILE_STEPS[step].description }} />
+      </Title>
       {component}
-      <button onClick={() => setStep((prev) => prev + 1)}>{btnText}</button>
+      <button onClick={() => setStep((prev) => prev + 1)}>{btnText + step + '번째'}</button>
     </div>
   );
 };
 
 export default SeniorProfilePage;
 
+const Title = styled.div`
+  padding: 3rem 0 4px 2rem;
+`;
+
 const Meta = styled.p`
   ${theme.fonts.Head1_SB_20};
-  width: 18rem;
   color: ${theme.colors.grayScaleBG};
-  background-color: red;
 `;
 
 const Description = styled.p`
