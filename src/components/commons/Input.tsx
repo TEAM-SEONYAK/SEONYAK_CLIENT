@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import React, { Dispatch, SetStateAction } from 'react';
-import WarnDescription from './WarnDescription';
 
 interface InputPropType {
   placeholder: string;
@@ -25,15 +24,13 @@ const Input = (props: InputPropType) => {
           onChange={onChangeInput}
           $isValid={inputVal.length <= wordLimit}
           $height={height}
-          maxLength={wordLimit}
+          // maxLength={wordLimit}
         />
         <WordLimitContainer>
           <Word $isLimit={inputVal.length <= wordLimit}>{inputVal.length}</Word>
           <WordLimit>/{wordLimit}</WordLimit>
         </WordLimitContainer>
       </TextareaLayout>
-
-      <WarnDescription isLimit={inputVal.length <= wordLimit} warnText="글자 수가 초과되었어요" />
     </Wrapper>
   );
 };
@@ -43,6 +40,8 @@ export default Input;
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
+
+  margin-bottom: 0.6rem;
 `;
 
 const TextareaLayout = styled.div`

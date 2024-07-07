@@ -6,6 +6,7 @@ interface FullBtnPropType {
   text: string;
   onClick: () => void;
 }
+
 export const FullBtn = (props: FullBtnPropType) => {
   const { isActive, text, onClick } = props;
   return (

@@ -7,6 +7,7 @@ import { FullBtn } from './components/commons/Button';
 import { Header } from './components/commons/Header';
 import Input from './components/commons/Input';
 import ProgressBar from './components/commons/ProgressBar';
+import WarnDescription from './components/commons/WarnDescription';
 import globalStyle from './styles/globalStyle';
 import theme from './styles/theme';
 const App = () => {
@@ -48,10 +49,11 @@ const App = () => {
         <Input
           placeholder="주요 경력 및 이력을 최대 60자까지 작성해주세요"
           wordLimit={200}
-          height={24.1}
+          height={29.1}
           inputVal={inputVal}
           setInputVal={setInputVal}
         />
+        <WarnDescription show={inputVal.length > 200} warnText="글자 수가 초과되었어요" />
         <FullBtn isActive={true} text="다음으로" onClick={onClickTest} />
       </ThemeProvider>
     </Wrapper>
