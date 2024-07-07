@@ -42,7 +42,7 @@ const SeniorProfilePage = () => {
         <Description dangerouslySetInnerHTML={{ __html: SENIOR_PROFILE_STEPS[step].description }} />
       </Title>
       {component}
-      <button onClick={() => setStep((prev) => prev + 1)}>{btnText + step + '번째'}</button>
+      {step !== 7 && <button onClick={() => setStep((prev) => prev + 1)}>{btnText + step + '번째'}</button>}
     </div>
   );
 };
