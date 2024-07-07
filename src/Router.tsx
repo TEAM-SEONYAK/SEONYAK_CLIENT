@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <SeniorProfile />,
       },
       {
-        path: 'juniorProfile',
+        path: 'juniorPromise',
         element: <JuniorPromise />,
       },
       {
