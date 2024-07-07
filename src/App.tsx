@@ -40,6 +40,7 @@ const App = () => {
 export default App;
 
 const Wrapper = styled.div`
+  width: 100vw;
   min-height: calc(var(--vh, 1vh) * 100);
   border: none;
 
