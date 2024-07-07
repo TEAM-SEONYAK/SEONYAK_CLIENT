@@ -47,7 +47,7 @@
     "import/no-unresolved": "off", // 타입스크립트에서 경로를 제대로 잡지 못할 때 사용 or  eslint-import-resolver-typescript 설치
     "no-console": ["warn", { "allow": ["warn", "error", "info"] }], // 콘솔은 확인 뒤 지우기
     "prettier/prettier": "error", // ESLint 내에서 Prettier를 실행하는 규칙
-
+    "import/no-named-as-default": 0,
     "import/order": [
       "error",
       {
