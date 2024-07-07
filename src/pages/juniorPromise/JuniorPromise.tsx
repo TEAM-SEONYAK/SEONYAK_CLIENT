@@ -1,5 +1,5 @@
-const JuniorPromise = () => {
+const JuniorPromisePage = () => {
   return <div>JuniorPromise</div>;
 };
 
-export default JuniorPromise;
+export default JuniorPromisePage;

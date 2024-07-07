@@ -1,5 +1,5 @@
-const SeniorOnboarding = () => {
+const SeniorOnboardingPage = () => {
   return <div>SeniorOnboarding</div>;
 };
 
-export default SeniorOnboarding;
+export default SeniorOnboardingPage;

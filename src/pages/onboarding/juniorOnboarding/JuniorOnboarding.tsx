@@ -1,5 +1,5 @@
-const JuniorOnboarding = () => {
+const JuniorOnboardingPath = () => {
   return <div>JuniorOnboarding</div>;
 };
 
-export default JuniorOnboarding;
+export default JuniorOnboardingPath;
