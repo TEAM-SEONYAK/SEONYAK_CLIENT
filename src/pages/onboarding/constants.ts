@@ -1,4 +1,4 @@
-export const SENIOR_STEPS = [
+export const SENIOR_ONBOARDING_STEPS = [
   {
     title: '아래 약관을 확인해 주세요',
     description: '개인정보는 안전하게 보관되어 누구에게도 공개되지 않아요.',
@@ -45,7 +45,7 @@ export const SENIOR_STEPS = [
   },
 ];
 
-export const JUNIOR_STEPS = [
+export const JUNIOR_ONBOARDING_STEPS = [
   {
     title: '아래 약관을 확인해 주세요',
     description: '개인정보는 안전하게 보관되어 누구에게도 공개되지 않아요.',
