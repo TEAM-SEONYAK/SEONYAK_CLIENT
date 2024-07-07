@@ -12,9 +12,9 @@ type successResponse = {
 type failureResponse = {
   code: string;
   message: string;
-}
+};
 
-const loginAxios = (authorizationCode: string) => {
+const loginAxios = (authorizationCode: string | undefined) => {
   return axios.post(
     'https://www.seonyak.p-e.kr/api/v1/auth/login',
     {
@@ -34,11 +34,11 @@ const loginAxios = (authorizationCode: string) => {
 
 const useGoogleLoginHook = () => {
   const mutation = useMutation({
-    mutationFn: (authorizationCode) => loginAxios(authorizationCode),
-    onSuccess: (data: successResponse) => {
+    mutationFn: (authorizationCode: string) => loginAxios(authorizationCode),
+    onSuccess: (data) => {
       console.log('Access Token:', data.data.accessToken);
     },
-    onError: (error: failureResponse) => {
+    onError: (error) => {
       console.error('Error:', error);
     },
   });
