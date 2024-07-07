@@ -3,7 +3,7 @@ import { ErrorIc } from '../../assets/svgs';
 
 interface LimitWarnPropType {
   show: boolean;
-  warnText?: string;
+  warnText: string;
 }
 
 const WarnDescription = (props: LimitWarnPropType) => {
