@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 
 import { FullBtn } from './components/commons/Button';
+import { DefaultHeader } from './components/commons/Header';
 import Input from './components/commons/Input';
 import ProgressBar from './components/commons/ProgressBar';
 import globalStyle from './styles/globalStyle';
@@ -39,6 +40,7 @@ const App = () => {
     <Wrapper>
       <ThemeProvider theme={theme}>
         <Global styles={globalStyle} />
+        <DefaultHeader title="개인정보 입력" onClick={onClickTest} />
         <ProgressBar max={10} current={1} />
         <Input
           placeholder="주요 경력 및 이력을 최대 60자까지 작성해주세요"
