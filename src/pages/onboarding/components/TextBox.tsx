@@ -1,13 +1,31 @@
 import styled from '@emotion/styled';
 import { ReactNode } from 'react';
 
-export const InputBox = ({ label, placeholder }: { label: string; placeholder: string }) => {
-  return <Input type="text" id={label} placeholder={placeholder} />;
+export const InnerButton = ({ text }: { text: string }) => {
+  return <Button type="button">{text}</Button>;
+};
+
+export const InputBox = ({
+  label,
+  placeholder,
+  children,
+}: {
+  label: string;
+  placeholder: string;
+  children: ReactNode;
+}) => {
+  return (
+    <InputWrapper>
+      <Input type="text" id={label} placeholder={placeholder} />
+      {children}
+    </InputWrapper>
+  );
 };
 
 export const Caption = ({ children }: { children: string }) => {
   return <CaptionText>{children}</CaptionText>;
 };
+
 interface TextBoxProps {
   label: string;
   children: ReactNode;
@@ -33,7 +51,11 @@ const LabelText = styled.label`
   color: ${({ theme }) => theme.colors.grayScaleBG};
 `;
 
+const InputWrapper = styled.div`
+  position: relative;
+`;
 const Input = styled.input`
+  width: 100%;
   height: 5.1rem;
   margin-top: 0.4rem;
   padding: 1rem 1.5rem;
@@ -53,4 +75,22 @@ const Input = styled.input`
 const CaptionText = styled.p`
   ${({ theme }) => theme.fonts.Caption3_M_12};
   color: ${({ theme }) => theme.colors.grayScaleMG2};
+`;
+
+const Button = styled.button`
+  display: inline;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: fit-content;
+  height: 3.1rem;
+  margin: 1rem 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleBG};
+
+  ${({ theme }) => theme.fonts.Caption2_SB_12};
+  color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
