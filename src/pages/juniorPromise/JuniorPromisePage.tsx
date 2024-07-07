@@ -1,9 +1,9 @@
-import JuniorPromiseTimeSelection from './components/JuniorPromiseTimeSelection';
+import TimeSelectionTitleWrapper from './components/TimeSelectionTitleWrapper';
 
 const JuniorPromisePage = () => {
   return (
     <div>
-      <JuniorPromiseTimeSelection />
+      <TimeSelectionTitleWrapper />
     </div>
   );
 };
