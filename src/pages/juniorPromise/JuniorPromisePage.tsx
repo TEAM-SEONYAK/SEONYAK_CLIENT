@@ -1,5 +1,11 @@
+import JuniorPromiseTitle from './components/JuniorPromiseTitle';
+
 const JuniorPromisePage = () => {
-  return <div>JuniorPromise</div>;
+  return (
+    <div>
+      <JuniorPromiseTitle />
+    </div>
+  );
 };
 
 export default JuniorPromisePage;

@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useEffect } from 'react';
 
 import { Outlet } from 'react-router-dom';
+import JuniorPromisePage from './pages/juniorPromise/JuniorPromisePage';
 import globalStyle from './styles/globalStyle';
 import theme from './styles/theme';
 
@@ -31,6 +32,7 @@ const App = () => {
     <Wrapper>
       <ThemeProvider theme={theme}>
         <Global styles={globalStyle} />
+        <JuniorPromisePage />
         <Outlet />
       </ThemeProvider>
     </Wrapper>
