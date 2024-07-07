@@ -2,14 +2,14 @@ import styled from '@emotion/styled';
 
 interface TitleBoxProps {
   title: string;
-  children: string;
+  description: string;
 }
 
-const TitleBox = ({ title, children }: TitleBoxProps) => {
+const TitleBox = ({ title, description }: TitleBoxProps) => {
   return (
     <Wrapper>
       <Heading1>{title}</Heading1>
-      <Description>{children}</Description>
+      <Description>{description}</Description>
     </Wrapper>
   );
 };
