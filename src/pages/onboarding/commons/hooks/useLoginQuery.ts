@@ -1,6 +1,6 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import { loginAxios } from '../apis/loginAxios';
 
 type successResponse = {
   code: string;
@@ -12,24 +12,6 @@ type successResponse = {
 type failureResponse = {
   code: string;
   message: string;
-};
-
-const loginAxios = (authorizationCode: string | undefined) => {
-  return axios.post(
-    'https://www.seonyak.p-e.kr/api/v1/auth/login',
-    {
-      redirectUri: 'https://www.seonyak.p-e.kr/login/oauth2/code/google',
-      socialType: 'GOOGLE',
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      params: {
-        authorizationCode,
-      },
-    },
-  );
 };
 
 const useGoogleLoginHook = () => {

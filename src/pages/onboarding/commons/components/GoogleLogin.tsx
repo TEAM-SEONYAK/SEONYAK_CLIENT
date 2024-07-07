@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import GoogleIcon from '../../../../assets/svgs/googleLogo.svg?react';
 import theme from '../../../../styles/theme';
-import useGoogleLoginHook from '../apis/useLoginQuery';
+import useGoogleLoginHook from '../hooks/useLoginQuery';
 
 const GoogleLogin = () => {
   const { login } = useGoogleLoginHook();
