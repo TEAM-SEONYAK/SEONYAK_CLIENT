@@ -24,7 +24,7 @@ const Input = (props: InputPropType) => {
           onChange={onChangeInput}
           $isValid={inputVal.length <= wordLimit}
           $height={height}
-          // maxLength={wordLimit}
+          maxLength={wordLimit}
         />
         <WordLimitContainer>
           <Word $isLimit={inputVal.length <= wordLimit}>{inputVal.length}</Word>
