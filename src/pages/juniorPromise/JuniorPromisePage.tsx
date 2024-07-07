@@ -1,5 +1,11 @@
+import JuniorPromiseTimeSelection from './components/JuniorPromiseTimeSelection';
+
 const JuniorPromisePage = () => {
-  return <div>JuniorPromise</div>;
+  return (
+    <div>
+      <JuniorPromiseTimeSelection />
+    </div>
+  );
 };
 
 export default JuniorPromisePage;
