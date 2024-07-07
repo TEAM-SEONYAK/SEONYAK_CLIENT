@@ -80,7 +80,7 @@ const CaptionText = styled.p`
 const Button = styled.button`
   display: inline;
   position: absolute;
-  top: 0;
+  top: 0.4rem;
   right: 0;
 
   width: fit-content;
