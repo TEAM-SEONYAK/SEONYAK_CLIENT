@@ -1,8 +1,8 @@
 import TitleBox from '../components/TitleBox';
-import { STEP_TITLE } from '../constants';
+import { SENIOR_STEPS } from '../constants';
 
 const SeniorOnboardingPage = () => {
-  const { title, description } = STEP_TITLE[0];
+  const { title, description } = SENIOR_STEPS[0];
   return (
     <div>
       <TitleBox title={title} description={description} />
