@@ -3,7 +3,6 @@ import { ButtonCheckIc } from '../../../assets/svgs';
 import { TIME_SELECTION_TITLE } from '../constants/constants';
 
 function TimeSelectionButton() {
-  // const buttonValue = '7월 8일 13:00 ~ 13:20';
   const buttonValue = null;
 
   return (
@@ -11,11 +10,7 @@ function TimeSelectionButton() {
       {TIME_SELECTION_TITLE.map((item) => (
         <Wrapper key={item.id} $isActive={buttonValue !== null}>
           <Title2>{buttonValue ? buttonValue : item.title}</Title2>
-          {buttonValue && (
-            <SvgWrapper>
-              <img src={ButtonCheckIc} alt="check complete button" />
-            </SvgWrapper>
-          )}
+          {buttonValue && <StyledButtonCheckIc />}
         </Wrapper>
       ))}
     </Container>
@@ -55,10 +50,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const SvgWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const StyledButtonCheckIc = styled(ButtonCheckIc)`
   position: relative;
   left: 14rem;
 
