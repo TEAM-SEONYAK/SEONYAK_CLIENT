@@ -4,12 +4,13 @@ import { TIME_SELECTION_TITLE } from '../constants/constants';
 
 function TimeSelectionButton() {
   const buttonValue = '7월 8일 13:00 ~ 13:20';
+  // const buttonValue = null;
 
   return (
     <Container>
       {TIME_SELECTION_TITLE.map((item, index) => (
         <Wrapper key={index} isActive={buttonValue !== null}>
-          <Title2>{buttonValue !== null ? buttonValue : item.title}</Title2>
+          <Title2>{buttonValue ? buttonValue : item.title}</Title2>
           {buttonValue && (
             <SvgWrapper>
               <img src={ButtonCheckIc} alt="check complete button" />
