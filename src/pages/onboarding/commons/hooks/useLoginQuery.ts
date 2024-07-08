@@ -7,6 +7,7 @@ const useGoogleLoginHook = () => {
     mutationFn: (authorizationCode: string) => loginAxios(authorizationCode),
     onSuccess: (data) => {
       console.log('Access Token:', data.data.data.accessToken);
+      localStorage.setItem('accessToken', data.data.data.accessToken);
     },
     onError: (error) => {
       console.error('Error:', error);
