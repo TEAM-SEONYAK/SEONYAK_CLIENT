@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 // 화면 하단 풀사이즈 버튼
 interface FullBtnPropType {
-  isActive: boolean;
+  isActive?: boolean;
   text: string;
   onClick: () => void;
 }

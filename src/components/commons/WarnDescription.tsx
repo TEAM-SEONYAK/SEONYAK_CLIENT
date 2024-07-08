@@ -2,14 +2,14 @@ import styled from '@emotion/styled';
 import { ErrorIc } from '../../assets/svgs';
 
 interface LimitWarnPropType {
-  show: boolean;
+  isShown: boolean;
   warnText: string;
 }
 
 const WarnDescription = (props: LimitWarnPropType) => {
-  const { show, warnText } = props;
+  const { isShown, warnText } = props;
   return (
-    <Wrapper $show={show}>
+    <Wrapper $isShown={isShown}>
       <ErrorIc />
       <WarnText>{warnText}</WarnText>
     </Wrapper>
@@ -18,8 +18,8 @@ const WarnDescription = (props: LimitWarnPropType) => {
 
 export default WarnDescription;
 
-const Wrapper = styled.div<{ $show: boolean }>`
-  display: ${({ $show }) => ($show ? 'flex' : 'none')};
+const Wrapper = styled.div<{ $isShown: boolean }>`
+  display: ${({ $isShown }) => ($isShown ? 'flex' : 'none')};
   gap: 0.5rem;
   align-items: center;
 

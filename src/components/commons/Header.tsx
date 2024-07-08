@@ -13,20 +13,16 @@ export const Header = (props: HeaderPropType) => {
   const { LeftSvg, onClickLeft, onClickRight, RightSvg, title } = props;
   return (
     <Wrapper>
-      {LeftSvg ? (
+      {LeftSvg && (
         <LeftSvgWrapper>
           <LeftSvg onClick={onClickLeft} />
         </LeftSvgWrapper>
-      ) : (
-        <></>
       )}
       {title ? <Title>{title}</Title> : <></>}
-      {RightSvg ? (
+      {RightSvg && (
         <RightSvgWrapper>
           <RightSvg onClick={onClickRight} />
         </RightSvgWrapper>
-      ) : (
-        <></>
       )}
     </Wrapper>
   );

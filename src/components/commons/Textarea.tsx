@@ -1,27 +1,28 @@
+/* eslint-disable no-unused-vars */
 import styled from '@emotion/styled';
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 
 interface InputPropType {
   placeholder: string;
   wordLimit: number;
   height: number;
   inputVal: string;
-  setInputVal: Dispatch<SetStateAction<string>>;
+  handleInputVal: (val: string) => void;
 }
 
-const Input = (props: InputPropType) => {
-  const { placeholder, wordLimit, height, inputVal, setInputVal } = props;
+const Textarea = (props: InputPropType) => {
+  const { placeholder, wordLimit, height, inputVal, handleInputVal } = props;
 
-  const onChangeInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputVal(e.currentTarget.value);
+  const handleChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    handleInputVal(e.currentTarget.value);
   };
 
   return (
     <Wrapper>
       <TextareaLayout>
-        <Textarea
+        <TextareaContainer
           placeholder={placeholder}
-          onChange={onChangeInput}
+          onChange={handleChangeTextarea}
           $isValid={inputVal.length <= wordLimit}
           $height={height}
           maxLength={wordLimit}
@@ -35,7 +36,7 @@ const Input = (props: InputPropType) => {
   );
 };
 
-export default Input;
+export default Textarea;
 
 const Wrapper = styled.section`
   display: flex;
@@ -48,7 +49,7 @@ const TextareaLayout = styled.div`
   position: relative;
 `;
 
-const Textarea = styled.textarea<{ $isValid: boolean; $height: number }>`
+const TextareaContainer = styled.textarea<{ $isValid: boolean; $height: number }>`
   overflow: hidden;
 
   width: 33.5rem;
