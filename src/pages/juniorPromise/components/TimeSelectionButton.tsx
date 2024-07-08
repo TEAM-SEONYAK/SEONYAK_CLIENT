@@ -9,7 +9,7 @@ function TimeSelectionButton() {
   return (
     <Container>
       {TIME_SELECTION_TITLE.map((item) => (
-        <Wrapper key={item.id} isActive={buttonValue !== null}>
+        <Wrapper key={item.id} $isActive={buttonValue !== null}>
           <Title2>{buttonValue ? buttonValue : item.title}</Title2>
           {buttonValue && (
             <SvgWrapper>
@@ -24,17 +24,19 @@ function TimeSelectionButton() {
 
 export default TimeSelectionButton;
 
-const Wrapper = styled.div<{ isActive: boolean }>`
+const Wrapper = styled.div<{ $isActive: boolean }>`
   display: flex;
   gap: 1.2rem;
   align-items: center;
 
   width: 33.5rem;
   height: 4.8rem;
-  border: 1px solid ${({ theme, isActive }) => (isActive ? theme.colors.transparentBlue_50 : theme.colors.grayScaleLG2)};
+  border: 1px solid
+    ${({ theme, $isActive }) => ($isActive ? theme.colors.transparentBlue_50 : theme.colors.grayScaleLG2)};
   border-radius: 8px;
 
-  background-color: ${({ theme, isActive }) => (isActive ? theme.colors.transparentBlue_5 : theme.colors.grayScaleWG)};
+  background-color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.transparentBlue_5 : theme.colors.grayScaleWG};
 `;
 
 const Title2 = styled.span`
