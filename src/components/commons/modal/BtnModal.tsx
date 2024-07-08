@@ -1,13 +1,13 @@
+/* eslint-disable no-unused-vars */
 import styled from '@emotion/styled';
 import React, { useRef, useState } from 'react';
 import BtnModalContent from './BtnModalContent';
-import { CloseIc } from '../../assets/svgs';
-import useClickOutside from '../../hooks/useClickOutside';
+import { CloseIc } from '../../../assets/svgs';
+import useClickOutside from '../../../hooks/useClickOutside';
 
 interface BtnCloseModalPropType {
   title: string;
   showModal: boolean;
-  // eslint-disable-next-line no-unused-vars
   handleShowModal: (type: boolean) => void;
   children?: React.ReactNode;
   btnText: string;
