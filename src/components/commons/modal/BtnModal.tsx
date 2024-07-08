@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import styled from '@emotion/styled';
 import React, { useRef, useState } from 'react';
-import BtnModalContent from './BtnModalContent';
 import { CloseIc } from '../../../assets/svgs';
 import useClickOutside from '../../../hooks/useClickOutside';
 
@@ -44,7 +43,6 @@ export const BtnCloseModal = (props: BtnCloseModalPropType) => {
         <CloseIcon onClick={handleModalClose} />
         <BtnModalTitle>{title}</BtnModalTitle>
         {children}
-        <BtnModalContent />
         <BtnModalBtn onClick={handleModalClose}>{btnText}</BtnModalBtn>
       </BtnModalWrapper>
     </ModalBackground>
