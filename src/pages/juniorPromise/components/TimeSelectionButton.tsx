@@ -3,13 +3,13 @@ import { ButtonCheckIc } from '../../../assets/svgs';
 import { TIME_SELECTION_TITLE } from '../constants/constants';
 
 function TimeSelectionButton() {
-  const buttonValue = '7월 8일 13:00 ~ 13:20';
-  // const buttonValue = null;
+  // const buttonValue = '7월 8일 13:00 ~ 13:20';
+  const buttonValue = null;
 
   return (
     <Container>
-      {TIME_SELECTION_TITLE.map((item, index) => (
-        <Wrapper key={index} isActive={buttonValue !== null}>
+      {TIME_SELECTION_TITLE.map((item) => (
+        <Wrapper key={item.id} isActive={buttonValue !== null}>
           <Title2>{buttonValue ? buttonValue : item.title}</Title2>
           {buttonValue && (
             <SvgWrapper>
