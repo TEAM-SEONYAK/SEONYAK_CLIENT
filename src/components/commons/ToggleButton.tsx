@@ -10,26 +10,18 @@ const ToggleButton: React.FC<Props> = ({ left, right }) => {
   const [activeButton, setActiveButton] = useState<'left' | 'right'>('left');
 
   return (
-    <TestWrapper>
-      <Wrapper>
-        <ToggleBtn isActive={activeButton === 'left'} onClick={() => setActiveButton('left')}>
-          {left}
-        </ToggleBtn>
-        <ToggleBtn isActive={activeButton === 'right'} onClick={() => setActiveButton('right')}>
-          {right}
-        </ToggleBtn>
-      </Wrapper>
-    </TestWrapper>
+    <Wrapper>
+      <ToggleBtn isActive={activeButton === 'left'} onClick={() => setActiveButton('left')}>
+        {left}
+      </ToggleBtn>
+      <ToggleBtn isActive={activeButton === 'right'} onClick={() => setActiveButton('right')}>
+        {right}
+      </ToggleBtn>
+    </Wrapper>
   );
 };
 
 export default ToggleButton;
-
-const TestWrapper = styled.div`
-  /* width: 100vw; */
-
-  padding: 0 2rem;
-`;
 
 const Wrapper = styled.div`
   display: flex;
