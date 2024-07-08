@@ -2,10 +2,12 @@ import styled from '@emotion/styled';
 
 const TimeSelectionTitleWrapper = () => {
   return (
-    <Wrapper>
-      <TimeSelectionTitle>선약 시간을 선택해주세요</TimeSelectionTitle>
-      <TimeSelectionDescription>제안하신 3가지 일정 중 선배가 하나를 선택해요</TimeSelectionDescription>
-    </Wrapper>
+    <Container>
+      <Wrapper>
+        <TimeSelectionTitle>선약 시간을 선택해주세요</TimeSelectionTitle>
+        <TimeSelectionDescription>제안하신 3가지 일정 중 선배가 하나를 선택해요</TimeSelectionDescription>
+      </Wrapper>
+    </Container>
   );
 };
 
@@ -22,9 +24,12 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  position: relative;
-  left: 2rem;
 
   width: 33.5rem;
   height: 4.9rem;
+`;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
