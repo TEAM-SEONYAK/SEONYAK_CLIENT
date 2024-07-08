@@ -13,6 +13,7 @@ const JuniorPromisePage = () => {
           company={List.company}
           field={List.field}
           position={List.position}
+          detailPosition={List.detailPosition}
           level={List.level}
         />
       ))}
