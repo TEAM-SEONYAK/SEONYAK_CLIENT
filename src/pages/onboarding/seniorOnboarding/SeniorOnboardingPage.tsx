@@ -1,8 +1,11 @@
+import TitleBox from '../components/TitleBox';
+import { SENIOR_ONBOARDING_STEPS } from '../constants';
 import { Caption, InnerButton, InputBox, TextBox } from '../components/TextBox';
 
 const SeniorOnboardingPage = () => {
   return (
     <div>
+      <TitleBox title={title} description={description} />
       <TextBox label="닉네임">
         <InputBox label="닉네임" placeholder="닉네임을 입력해주세요">
           <InnerButton text="중복확인" />
