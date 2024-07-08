@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   height: 5.6rem;
   border-radius: 5px;
 
-  background-color: ${theme.colors.grayScaleBG};
+  background-color: ${({ theme }) => theme.colors.grayScaleBG};
 
   color: white;
 
