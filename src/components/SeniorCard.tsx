@@ -35,17 +35,20 @@ export default SeniorCard;
 const SeniorCardWrapper = styled.div`
   display: flex;
 
-  width: 33.5rem;
+  width: 100%;
   height: 14.2rem;
   border-radius: 8px;
 
-  background: ${({ theme }) => theme.colors.grayScaleWhite};
+  background-color: pink;
+
+  /* background: ${({ theme }) => theme.colors.grayScaleWhite}; */
 `;
 
 const SeniorImg = styled.div`
   width: 7.8rem;
   height: 9.8rem;
   margin: 2.2rem 2rem;
+  border-radius: 6.88px;
 
   background: blue;
 `;
