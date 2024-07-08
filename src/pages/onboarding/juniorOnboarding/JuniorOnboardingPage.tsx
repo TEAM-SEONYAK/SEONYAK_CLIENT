@@ -1,5 +1,7 @@
+import Layout from '../components/Layout';
+
 const JuniorOnboardingPage = () => {
-  return <div>JuniorOnboarding</div>;
+  return <Layout>JuniorOnboarding</Layout>;
 };
 
 export default JuniorOnboardingPage;
