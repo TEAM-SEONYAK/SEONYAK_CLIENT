@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
+import { SearchIc } from '../../../assets/svgs';
 
 const SearchBox = () => {
   return (
     <div>
       <Input type="text" />
+      <SearchIc />
     </div>
   );
 };
