@@ -9,8 +9,15 @@ interface ISeniorList {
   detailPosition: string;
   level: number;
 }
-export const SeniorCard = ({ nickname, company, field, position, detailPosition, level }: ISeniorList) => {
+
+interface CompanyProps {
+  $randomColor: number;
+}
+
+export const SeniorCard = (props: ISeniorList) => {
+  const { nickname, company, field, position, detailPosition, level } = props;
   const levelName = getLevelName(level);
+  const randomColor = Math.floor(Math.random() * 3);
 
   return (
     <>
@@ -19,7 +26,7 @@ export const SeniorCard = ({ nickname, company, field, position, detailPosition,
         <SeniorCardLayout>
           <Nickname>{nickname}</Nickname>
           <SeniorInfo>
-            <Company>{company}</Company>
+            <Company $randomColor={randomColor}>{company}</Company>
             <Field>{field}</Field>
           </SeniorInfo>
           <SeniorJob>
@@ -48,9 +55,9 @@ const SeniorCardWrapper = styled.div`
   padding: 1.9rem 2.5rem 1.8rem 2rem;
   border-radius: 8px;
 
-  background-color: pink;
+  /* background-color: pink; */
 
-  /* background: ${({ theme }) => theme.colors.grayScaleWhite}; */
+  background: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const SeniorImg = styled.div`
@@ -79,7 +86,7 @@ const SeniorInfo = styled.div`
   margin-top: 0.8rem;
 `;
 
-const Company = styled.p`
+const Company = styled.p<CompanyProps>`
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -89,10 +96,32 @@ const Company = styled.p`
   padding: 0.4rem 0.6rem;
   border-radius: 6px;
 
-  background: ${({ theme }) => theme.colors.chipBlueBg};
-
-  color: ${({ theme }) => theme.colors.chipBlueText};
   ${({ theme }) => theme.fonts.Caption2_SB_12};
+  background: ${({ $randomColor, theme }) => {
+    switch ($randomColor) {
+      case 0:
+        return theme.colors.chipBlueBg;
+      case 1:
+        return theme.colors.chipGreenBg;
+      case 2:
+        return theme.colors.chipPurpleBg;
+      default:
+        return theme.colors.chipBlueBg;
+    }
+  }};
+
+  color: ${({ $randomColor, theme }) => {
+    switch ($randomColor) {
+      case 0:
+        return theme.colors.chipBlueText;
+      case 1:
+        return theme.colors.chipGreenText;
+      case 2:
+        return theme.colors.chipPurpleText;
+      default:
+        return theme.colors.chipBlueBg;
+    }
+  }};
 `;
 
 const Field = styled.p`
