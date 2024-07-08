@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import SeniorCard from '../../components/\bSeniorCard';
-import { SENIOR_LIST } from '../../components/seniorCardConstants';
+import SeniorCard from '../../components/commons/seniorCard/SeniorCard';
+import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConstants';
 
 const JuniorPromisePage = () => {
   const { seniorList } = SENIOR_LIST;

@@ -5,9 +5,10 @@ interface ISeniorList {
   company: string;
   field: string;
   position: string;
+  detailPosition: string;
   level: number;
 }
-export const SeniorCard = ({ nickname, company, field, position, level }: ISeniorList) => {
+export const SeniorCard = ({ nickname, company, field, position, detailPosition, level }: ISeniorList) => {
   return (
     <>
       <SeniorCardWrapper>
@@ -19,9 +20,9 @@ export const SeniorCard = ({ nickname, company, field, position, level }: ISenio
             <Field>{field}</Field>
           </SeniorInfo>
           <SeniorJob>
-            <Job>디자인</Job>
-            <Divider />
             <Position>{position}</Position>
+            <Divider />
+            <DetailPosition>{detailPosition}</DetailPosition>
           </SeniorJob>
           <Level>주니어 ({level}년차)</Level>
         </SeniorCardLayout>
@@ -34,9 +35,12 @@ export default SeniorCard;
 
 const SeniorCardWrapper = styled.div`
   display: flex;
+  gap: 2rem;
+  align-items: center;
 
   width: 100%;
   height: 14.2rem;
+  padding: 1.9rem 2.5rem 1.8rem 2rem;
   border-radius: 8px;
 
   background-color: pink;
@@ -47,14 +51,14 @@ const SeniorCardWrapper = styled.div`
 const SeniorImg = styled.div`
   width: 7.8rem;
   height: 9.8rem;
-  margin: 2.2rem 2rem;
   border-radius: 6.88px;
 
   background: blue;
 `;
 
 const SeniorCardLayout = styled.div`
-  margin: 1.9rem 2.5rem 1.8rem 0;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Nickname = styled.span`
@@ -66,7 +70,6 @@ const SeniorInfo = styled.div`
   display: flex;
   gap: 0.4rem;
   align-items: center;
-  align-self: stretch;
 
   margin-top: 0.8rem;
 `;
@@ -77,7 +80,6 @@ const Company = styled.p`
   justify-content: center;
   align-items: center;
 
-  width: 11.4rem;
   height: 2.5rem;
   padding: 0.4rem 0.6rem;
   border-radius: 6px;
@@ -108,14 +110,10 @@ const SeniorJob = styled.div`
   gap: 1rem;
   align-items: center;
 
-  width: 19.2rem;
-  height: 2.2rem;
   margin-top: 0.5rem;
 `;
 
-const Job = styled.p`
-  width: 3.6rem;
-
+const DetailPosition = styled.p`
   color: ${({ theme }) => theme.colors.grayScaleDG};
   ${({ theme }) => theme.fonts.Body1_M_14};
 `;
@@ -128,9 +126,7 @@ const Divider = styled.div`
 `;
 
 const Position = styled.p`
-  width: 13.6rem;
-
-  ${({ theme }) => theme.fonts.Body1_M_14};
+  ${({ theme }) => theme.fonts.Body1_M_14}
   color: ${({ theme }) => theme.colors.grayScaleDG};
 `;
 

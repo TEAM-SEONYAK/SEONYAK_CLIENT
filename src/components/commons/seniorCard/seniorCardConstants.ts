@@ -7,7 +7,7 @@ export const SENIOR_LIST = {
       position: '개발',
       detailPosition: '백엔드 개발자',
       field: '공학 계열',
-      level: 5,
+      level: 8,
     },
     {
       seniorId: 2,
@@ -25,7 +25,7 @@ export const SENIOR_LIST = {
       position: '개발',
       detailPosition: '프론트엔드 개발자',
       field: '예체능 계열',
-      level: 124,
+      level: 24,
     },
   ],
 };
