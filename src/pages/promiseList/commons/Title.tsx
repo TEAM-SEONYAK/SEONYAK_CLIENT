@@ -9,9 +9,15 @@ const Title = (props: TitlePropType) => {
   const { name, userRole, count } = props;
   return (
     <Wrapper>
-      {count
-        ? `${name} ${userRole === 'SENIOR' ? '선배' : '후배'}, \n다가오는 선약이 ${count}개 있어요`
-        : `${name} ${userRole === 'SENIOR' ? '선배' : '후배'}, \n아직 다가오는 선약이 없어요`}
+      {count ? (
+        <>
+          {`${name} ${userRole === 'SENIOR' ? '선배' : '후배'}, \n다가오는 선약이 `}
+          <Count>{count}개</Count>
+          {` 있어요`}
+        </>
+      ) : (
+        `${name} ${userRole === 'SENIOR' ? '선배' : '후배'}, \n아직 다가오는 선약이 없어요`
+      )}
     </Wrapper>
   );
 };
@@ -24,4 +30,8 @@ const Wrapper = styled.h1`
   color: ${({ theme }) => theme.colors.grayScaleBG};
   white-space: pre-wrap;
   ${({ theme }) => theme.fonts.Head1_SB_20};
+`;
+
+const Count = styled.span`
+  color: ${({ theme }) => theme.colors.Blue};
 `;
