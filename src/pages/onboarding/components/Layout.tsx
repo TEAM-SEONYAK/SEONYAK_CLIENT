@@ -24,6 +24,7 @@ const Layout = ({ step, children }: { step: number; children: ReactNode }) => {
           console.log('클릭하셨다');
         }}
       />
+      <ButtonBg />
     </Wrapper>
   );
 };
@@ -46,4 +47,15 @@ const Content = styled.article`
 
   height: 100%;
   padding-top: 3rem;
+`;
+
+const ButtonBg = styled.footer`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 6.4rem;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
