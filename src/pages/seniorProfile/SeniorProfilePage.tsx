@@ -7,6 +7,7 @@ import Sentence from './components/Sentence';
 import Story from './components/Story';
 import TimeSelect from './components/TimeSelect';
 import { SENIOR_PROFILE_STEPS } from './constants';
+import { FullBtn } from '../../components/commons/FullButton';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
 
@@ -30,8 +31,9 @@ const getComponent = (step: number) => {
 };
 
 const SeniorProfilePage = () => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(5);
   const btnText = step === 8 ? '프로필 등록하기' : '다음으로';
+  const isBtnActive = true;
   const component = getComponent(step);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
   return (
@@ -42,7 +44,7 @@ const SeniorProfilePage = () => {
         <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
       </Title>
       {component}
-      {step !== 7 && <button onClick={() => setStep((prev) => prev + 1)}>{btnText + step + '번째'}</button>}
+      {step !== 7 && <FullBtn isActive={isBtnActive} text={btnText} onClick={() => setStep((prev) => prev + 1)} />}
     </div>
   );
 };
