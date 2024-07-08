@@ -1,10 +1,10 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import HomePage from './pages/home/Home';
-import JuniorPromisePage from './pages/juniorPromise/JuniorPromise';
-import JuniorOnboardingPath from './pages/onboarding/juniorOnboarding/JuniorOnboarding';
-import SeniorOnboardingPage from './pages/onboarding/seniorOnboarding/SeniorOnboarding';
-import SeniorProfilePage from './pages/seniorProfile/SeniorProfile';
+import HomePage from './pages/home/HomePage';
+import JuniorPromisePage from './pages/juniorPromise/JuniorPromisePage';
+import JuniorOnboardingPage from './pages/onboarding/juniorOnboarding/JuniorOnboardingPage';
+import SeniorOnboardingPage from './pages/onboarding/seniorOnboarding/SeniorOnboardingPage';
+import SeniorProfilePage from './pages/seniorProfile/SeniorProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'juniorOnboarding',
-        element: <JuniorOnboardingPath />,
+        element: <JuniorOnboardingPage />,
       },
       {
         path: 'seniorProfile',
