@@ -38,8 +38,8 @@ const SeniorProfilePage = () => {
     <div>
       {step >= 2 && step <= 6 && <ProgressBar max={5} current={step - 1} />}
       <Title>
-        <Meta dangerouslySetInnerHTML={{ __html: userName + SENIOR_PROFILE_STEPS[step].meta }} />
-        <Description dangerouslySetInnerHTML={{ __html: SENIOR_PROFILE_STEPS[step].description }} />
+        <Meta>{userName + SENIOR_PROFILE_STEPS[step].meta}</Meta>
+        <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
       </Title>
       {component}
       {step !== 7 && <button onClick={() => setStep((prev) => prev + 1)}>{btnText + step + '번째'}</button>}
@@ -56,9 +56,11 @@ const Title = styled.div`
 const Meta = styled.p`
   ${theme.fonts.Head1_SB_20};
   color: ${theme.colors.grayScaleBG};
+  white-space: pre-wrap;
 `;
 
 const Description = styled.p`
   ${theme.fonts.Body1_M_14};
   color: ${theme.colors.grayScaleMG2};
+  white-space: pre-wrap;
 `;
