@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { CancelIc, SearchIc } from '../../../assets/svgs';
 
-const SearchBox = () => {
+const SearchBox = ({ placeholder }: { placeholder: string }) => {
   return (
     <InputWrapper>
-      <Input type="text" />
+      <Input type="text" placeholder={placeholder} />
       <IconWrapper>
         <CancelIc />
         <SearchIc />
