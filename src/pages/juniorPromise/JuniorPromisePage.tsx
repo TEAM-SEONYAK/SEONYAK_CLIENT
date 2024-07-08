@@ -5,7 +5,7 @@ import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConst
 const JuniorPromisePage = () => {
   const { seniorList } = SENIOR_LIST;
   return (
-    <TestDiv>
+    <SeniorListWrapper>
       {seniorList.map((List) => (
         <SeniorCard
           key={List.seniorId}
@@ -17,13 +17,13 @@ const JuniorPromisePage = () => {
           level={List.level}
         />
       ))}
-    </TestDiv>
+    </SeniorListWrapper>
   );
 };
 
 export default JuniorPromisePage;
 
-const TestDiv = styled.div`
+const SeniorListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;

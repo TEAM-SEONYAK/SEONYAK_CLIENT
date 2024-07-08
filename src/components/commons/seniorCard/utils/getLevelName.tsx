@@ -1,4 +1,4 @@
-export function checkLevel(level: number): string {
+export function getLevelName(level: number): string {
   if (level >= 1 && level <= 4) {
     return '주니어';
   } else if (level >= 5 && level <= 8) {
