@@ -28,7 +28,7 @@ const useGoogleLoginHook = () => {
   const login = useGoogleLogin({
     onSuccess: (response) => {
       const authorizationCode = response.code;
-      mutation.mutate({ authorizationCode });
+      mutation.mutate(authorizationCode);
     },
     onError: (error) => {
       console.log('Login Failed:', error);
