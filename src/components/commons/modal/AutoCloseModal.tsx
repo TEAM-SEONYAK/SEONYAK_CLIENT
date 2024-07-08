@@ -1,15 +1,16 @@
 /* eslint-disable no-unused-vars */
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 interface AutoCloseModalPropType {
   text: string;
   showModal: boolean;
   handleShowModal: (type: boolean) => void;
+  children: React.ReactNode;
 }
 
 export const AutoCloseModal = (props: AutoCloseModalPropType) => {
-  const { text, showModal, handleShowModal } = props;
+  const { text, showModal, handleShowModal, children } = props;
 
   useEffect(() => {
     if (showModal) {
@@ -24,7 +25,7 @@ export const AutoCloseModal = (props: AutoCloseModalPropType) => {
   return (
     <ModalBackground $showModal={showModal}>
       <AutoCloseModalWrapper>
-        <Img />
+        {children}
         <AutoCloseModalText>{text}</AutoCloseModalText>
       </AutoCloseModalWrapper>
     </ModalBackground>
@@ -57,14 +58,6 @@ const AutoCloseModalWrapper = styled.section`
   border-radius: 8px;
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
-`;
-
-// 이미지 크기에 따라 바뀌어야 함
-const Img = styled.div`
-  width: 100%;
-  height: 17.1rem;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleMG1};
 `;
 
 const AutoCloseModalText = styled.span`
