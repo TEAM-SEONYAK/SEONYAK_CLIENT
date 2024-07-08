@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { checkLevel } from './utils/checkLevel';
 
 interface ISeniorList {
   nickname: string;
@@ -9,6 +10,8 @@ interface ISeniorList {
   level: number;
 }
 export const SeniorCard = ({ nickname, company, field, position, detailPosition, level }: ISeniorList) => {
+  const levelName = checkLevel(level);
+
   return (
     <>
       <SeniorCardWrapper>
@@ -24,7 +27,9 @@ export const SeniorCard = ({ nickname, company, field, position, detailPosition,
             <Divider />
             <DetailPosition>{detailPosition}</DetailPosition>
           </SeniorJob>
-          <Level>주니어 ({level}년차)</Level>
+          <Level>
+            {levelName} / ({level}년차)
+          </Level>
         </SeniorCardLayout>
       </SeniorCardWrapper>
     </>
