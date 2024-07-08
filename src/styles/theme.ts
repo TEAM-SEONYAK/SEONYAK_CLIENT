@@ -127,6 +127,13 @@ export const theme = {
       line-height: 100%;
       letter-spacing: -0.03rem;
     `,
+    navigation: css`
+      font-family: 'Pretendard Variable', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 100%;
+      letter-spacing: normal;
+    `,
   },
 };
 

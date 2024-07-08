@@ -44,6 +44,7 @@ declare module '@emotion/react' {
       Caption1_R_12: SerializedStyles;
       Caption2_SB_12: SerializedStyles;
       Caption3_M_12: SerializedStyles;
+      navigation: SerializedStyles;
     };
   }
 }

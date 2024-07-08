@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Title from './Title';
 import { TempLogoIc, AlarmIc } from '../../../assets/svgs';
 import { Header } from '../../../components/commons/Header';
+import Nav from '../../../components/commons/Nav';
 
 const Layout = () => {
   return (
@@ -10,6 +11,7 @@ const Layout = () => {
       <Wrapper>
         <Title name="예솔" userRole="SENIOR" count={1} />
       </Wrapper>
+      <Nav />
     </>
   );
 };
