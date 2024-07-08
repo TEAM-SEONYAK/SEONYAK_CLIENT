@@ -1,10 +1,22 @@
-import axios from 'axios';
+import * as _axios from 'axios';
 
-axios.defaults.baseURL = '/api';
-axios.defaults.withCredentials = true;
-
-export const auth = axios.create({
-  headers: {
-    Authorization: '',
-  },
+export const axios = _axios.default.create({
+  baseURL: '/api',
 });
+
+export const authAxios = _axios.default.create({
+  baseURL: '/api',
+});
+
+authAxios.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      config.headers.Authorization = 'Bearer ${accessToken}';
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);

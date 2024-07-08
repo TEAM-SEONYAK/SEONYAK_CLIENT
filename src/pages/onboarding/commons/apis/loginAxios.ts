@@ -1,8 +1,8 @@
-import axios from 'axios';
+import { axios } from '../../../../utils/apis';
 
 export const loginAxios = (authorizationCode: string | undefined) => {
   return axios.post(
-    '/api/v1/auth/login',
+    '/v1/auth/login',
     {
       redirectUri: 'http://localhost:5173',
       socialType: 'GOOGLE',
