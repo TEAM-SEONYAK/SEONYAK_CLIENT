@@ -55,8 +55,6 @@ const SeniorCardWrapper = styled.div`
   padding: 1.9rem 2.5rem 1.8rem 2rem;
   border-radius: 8px;
 
-  /* background-color: pink; */
-
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
