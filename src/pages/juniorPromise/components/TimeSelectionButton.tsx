@@ -3,23 +3,40 @@ import { ButtonCheckIc } from '../../../assets/svgs';
 import { TIME_SELECTION_TITLE } from '../constants/constants';
 
 function TimeSelectionButton() {
-  const buttonValue = null;
+  // const buttonValue = null;
+  const buttonValue = 'string';
 
   return (
-    <Container>
+    <Wrapper>
       {TIME_SELECTION_TITLE.map((item) => (
-        <Wrapper key={item.id} $isActive={buttonValue !== null}>
+        <Layout key={item.id} $isActive={buttonValue !== null}>
           <Title2>{buttonValue ? buttonValue : item.title}</Title2>
           {buttonValue && <StyledButtonCheckIc />}
-        </Wrapper>
+        </Layout>
       ))}
-    </Container>
+    </Wrapper>
   );
 }
 
 export default TimeSelectionButton;
 
-const Wrapper = styled.div<{ $isActive: boolean }>`
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Title2 = styled.span`
+  position: relative;
+  left: 2rem;
+
+  ${({ theme }) => theme.fonts.Title2_M_16}
+  color: ${({ theme }) => theme.colors.grayScaleDG};
+`;
+
+const Layout = styled.div<{ $isActive: boolean }>`
   display: flex;
   gap: 1.2rem;
   align-items: center;
@@ -34,25 +51,9 @@ const Wrapper = styled.div<{ $isActive: boolean }>`
     $isActive ? theme.colors.transparentBlue_5 : theme.colors.grayScaleWG};
 `;
 
-const Title2 = styled.span`
-  position: relative;
-  left: 2rem;
-
-  ${({ theme }) => theme.fonts.Title2_M_16}
-  color: ${({ theme }) => theme.colors.grayScaleDG};
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  justify-content: center;
-  align-items: center;
-`;
-
 const StyledButtonCheckIc = styled(ButtonCheckIc)`
   position: relative;
-  left: 14rem;
+  left: 25rem;
 
   width: 2rem;
   height: 2rem;
