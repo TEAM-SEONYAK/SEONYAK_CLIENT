@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React from 'react';
 
 interface Props {
   left: string;
   right: string;
+  activeButton: 'left' | 'right';
+  // eslint-disable-next-line no-unused-vars
+  setActiveButton: (button: 'left' | 'right') => void;
 }
 
-const ToggleButton: React.FC<Props> = ({ left, right }) => {
-  const [activeButton, setActiveButton] = useState<'left' | 'right'>('left');
-
+const ToggleButton: React.FC<Props> = ({ left, right, activeButton, setActiveButton }) => {
   return (
     <Wrapper>
       <ToggleBtn isActive={activeButton === 'left'} onClick={() => setActiveButton('left')}>
@@ -44,7 +45,7 @@ const ToggleBtn = styled.div<{ isActive: boolean }>`
   background-color: ${({ theme, isActive }) => (isActive ? theme.colors.grayScaleBG : theme.colors.grayScaleLG1)};
 
   color: ${({ theme, isActive }) => (isActive ? theme.colors.grayScaleWhite : theme.colors.grayScaleMG2)};
-  ${({ theme }) => theme.fonts.Title2_M_16};
 
+  ${({ theme }) => theme.fonts.Title2_M_16};
   cursor: pointer;
 `;
