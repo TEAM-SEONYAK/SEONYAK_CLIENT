@@ -9,11 +9,11 @@ export const SeniorListBackground = () => {
           <SearchTitle>선배를 찾아볼까요?</SearchTitle>
           <BtnLayout>
             <FilterBtnContainer>
-              <FilterBtn>
+              <FilterBtn type="button">
                 계열
                 <ArrowDownIc />
               </FilterBtn>
-              <FilterBtn>
+              <FilterBtn type="button">
                 직무
                 <ArrowDownIc />
               </FilterBtn>
