@@ -18,7 +18,7 @@ const TimeAlldays = () => {
 export default TimeAlldays;
 
 const Wrapper = styled.div`
-  padding: 3rem 0 0 2rem;
+  padding: 3rem 0 8rem 2rem;
 `;
 
 const Container = styled.section`

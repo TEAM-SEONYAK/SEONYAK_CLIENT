@@ -27,5 +27,7 @@ const TimeSelect = () => {
 export default TimeSelect;
 
 const Wrapper = styled.div`
+  overflow-y: scroll;
+
   padding-top: 3.2rem;
 `;
