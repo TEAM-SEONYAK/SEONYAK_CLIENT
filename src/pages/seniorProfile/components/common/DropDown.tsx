@@ -16,7 +16,7 @@ const DropDown = ({ variant = 'default', defaultValue = '시작 시간' }: DropD
   };
 
   return (
-    <DropdownContainer $isShort={variant === 'default'}>
+    <DropdownContainer $isDefault={variant === 'default'}>
       <Text>{selectedValue}</Text>
       <ArrowDownIcon />
     </DropdownContainer>
@@ -25,14 +25,14 @@ const DropDown = ({ variant = 'default', defaultValue = '시작 시간' }: DropD
 
 export default DropDown;
 
-const DropdownContainer = styled.section<{ $isShort: boolean }>`
+const DropdownContainer = styled.section<{ $isDefault: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  width: ${({ $isShort }) => ($isShort ? '13rem' : '12rem')};
+  width: ${({ $isDefault }) => ($isDefault ? '13rem' : '12rem')};
   height: 4rem;
-  padding: 0.3rem 0 0.3rem 1.4rem;
+  padding: 0.3rem 0 0.3rem ${({ $isDefault }) => ($isDefault ? '1.4rem' : '1.2rem')};
   border: 1px solid ${({ theme }) => theme.colors.grayScaleLG1};
   border-radius: 4px;
 

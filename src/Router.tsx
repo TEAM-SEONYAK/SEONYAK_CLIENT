@@ -17,10 +17,6 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: 'login',
-        element: <LoginPage />,
-      },
-      {
         path: 'seniorOnboarding',
         element: <SeniorOnboardingPage />,
       },

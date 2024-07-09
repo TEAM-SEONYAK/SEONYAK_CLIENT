@@ -32,3 +32,5 @@ export const SENIOR_PROFILE_STEPS = [
     description: `프로필은 마이페이지에서 수정할 수 있어요`,
   },
 ];
+
+export const WEEKENDS = ['월', '화', '수', '목', '금', '토', '일'];
