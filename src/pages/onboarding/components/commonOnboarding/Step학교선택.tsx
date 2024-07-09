@@ -1,5 +1,7 @@
+import SearchBox from '../SearchBox';
+
 const Step학교선택 = () => {
-  return <div>학교선택</div>;
+  return <SearchBox placeholder="학교명을 입력해주세요" />;
 };
 
 export default Step학교선택;
