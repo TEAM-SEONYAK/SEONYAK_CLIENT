@@ -5,11 +5,21 @@ import TimeWeekdays from './TimeWeekdays';
 import ToggleButton from '../../../components/commons/ToggleButton';
 
 const TimeSelect = () => {
-  const [isWeekday, setIsWeekday] = useState(false);
+  const [activeButton, setActiveButton] = useState<'left' | 'right'>('left');
+
+  const handleActiveButton = () => {
+    setActiveButton((prev) => (prev === 'left' ? 'right' : 'left'));
+  };
+
   return (
     <Wrapper>
-      <ToggleButton left="주중/주말 선택" right="모든 요일 선택" />
-      {isWeekday ? <TimeWeekdays /> : <TimeAlldays />}
+      <ToggleButton
+        left="주중/주말 선택"
+        right="모든 요일 선택"
+        activeButton={activeButton}
+        onToggle={handleActiveButton}
+      />
+      {activeButton === 'left' ? <TimeWeekdays /> : <TimeAlldays />}
     </Wrapper>
   );
 };
