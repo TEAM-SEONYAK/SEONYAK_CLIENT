@@ -63,7 +63,7 @@ const SeniorImg = styled.div`
   height: 9.8rem;
   border-radius: 6.88px;
 
-  background: blue;
+  background: ${({ theme }) => theme.colors.Blue};
 `;
 
 const SeniorCardLayout = styled.div`
@@ -117,7 +117,7 @@ const Company = styled.p<CompanyProps>`
       case 2:
         return theme.colors.chipPurpleText;
       default:
-        return theme.colors.chipBlueBg;
+        return theme.colors.chipBlueText;
     }
   }};
 `;
