@@ -1,4 +1,4 @@
-export const TIME_SELECTION_TITLE = [
+export const TIME_SELECTION_BUTTON = [
   {
     id: 0,
     title: '첫 번째 일정 선택하기',

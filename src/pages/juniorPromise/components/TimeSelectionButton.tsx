@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { ButtonCheckIc } from '../../../assets/svgs';
-import { TIME_SELECTION_TITLE } from '../constants/constants';
+import { TIME_SELECTION_BUTTON } from '../constants/constants';
 
 function TimeSelectionButton() {
   // const buttonValue = null;
@@ -8,7 +8,7 @@ function TimeSelectionButton() {
 
   return (
     <Wrapper>
-      {TIME_SELECTION_TITLE.map((item) => (
+      {TIME_SELECTION_BUTTON.map((item) => (
         <Layout key={item.id} $isActive={buttonValue !== null}>
           <Title2>{buttonValue || item.title}</Title2>
           {buttonValue && <StyledButtonCheckIc />}
