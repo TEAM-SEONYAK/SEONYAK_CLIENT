@@ -20,6 +20,7 @@ const FullBtnWrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 
   width: 33.5rem;
   height: 4.5rem;
