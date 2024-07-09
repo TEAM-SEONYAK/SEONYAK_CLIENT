@@ -47,21 +47,21 @@ export default SeniorCard;
 
 const SeniorCardWrapper = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
+  justify-content: center;
   align-items: center;
 
   width: 100%;
   height: 14.2rem;
-  padding: 1.9rem 2.5rem 1.8rem 2rem;
   border-radius: 8px;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
-const SeniorImg = styled.div`
-  width: 7.8rem;
-  height: 9.8rem;
-  border-radius: 6.88px;
+const SeniorImg = styled.img`
+  width: 8.8rem;
+  height: 8.8rem;
+  border-radius: 112.82px;
 
   background: ${({ theme }) => theme.colors.Blue};
 `;
@@ -142,12 +142,12 @@ const SeniorJob = styled.div`
   gap: 1rem;
   align-items: center;
 
+  width: 19.2rem;
   margin-top: 0.5rem;
 `;
-
-const DetailPosition = styled.p`
+const Position = styled.p`
+  ${({ theme }) => theme.fonts.Body1_M_14}
   color: ${({ theme }) => theme.colors.grayScaleDG};
-  ${({ theme }) => theme.fonts.Body1_M_14};
 `;
 
 const Divider = styled.div`
@@ -157,9 +157,9 @@ const Divider = styled.div`
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
-const Position = styled.p`
-  ${({ theme }) => theme.fonts.Body1_M_14}
+const DetailPosition = styled.p`
   color: ${({ theme }) => theme.colors.grayScaleDG};
+  ${({ theme }) => theme.fonts.Body1_M_14};
 `;
 
 const Level = styled.p`

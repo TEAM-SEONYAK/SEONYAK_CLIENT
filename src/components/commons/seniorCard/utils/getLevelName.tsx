@@ -5,7 +5,7 @@ export function getLevelName(level: number): string {
     return '미들';
   } else if (level >= 9 && level <= 12) {
     return '시니어';
-  } else {
-    return '익스퍼트';
   }
+
+  return '익스퍼트';
 }
