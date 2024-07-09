@@ -12,12 +12,14 @@ interface Props {
 const ToggleButton: React.FC<Props> = ({ left, right, activeButton, setActiveButton }) => {
   return (
     <Wrapper>
-      <ToggleBtn isActive={activeButton === 'left'} onClick={() => setActiveButton('left')}>
-        {left}
-      </ToggleBtn>
-      <ToggleBtn isActive={activeButton === 'right'} onClick={() => setActiveButton('right')}>
-        {right}
-      </ToggleBtn>
+      <Layout>
+        <ToggleBtn isActive={activeButton === 'left'} onClick={() => setActiveButton('left')}>
+          {left}
+        </ToggleBtn>
+        <ToggleBtn isActive={activeButton === 'right'} onClick={() => setActiveButton('right')}>
+          {right}
+        </ToggleBtn>
+      </Layout>
     </Wrapper>
   );
 };
@@ -25,6 +27,10 @@ const ToggleButton: React.FC<Props> = ({ left, right, activeButton, setActiveBut
 export default ToggleButton;
 
 const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const Layout = styled.div`
   display: flex;
 
   width: 33.7rem;
