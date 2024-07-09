@@ -4,14 +4,27 @@ import { ButtonCheckIc } from '../../../assets/svgs';
 import { WORRY_SELECTION_BUTTON } from '../constants/constants';
 
 const SelectJuniorWorryButton: React.FC = () => {
-  const [buttonValue, setButtonValue] = useState<string | null>(null);
+  const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
+
+  const handleButtonClick = (title: string) => {
+    setSelectedButtons((prevSelectedButtons) => {
+      if (prevSelectedButtons.includes(title)) {
+        return prevSelectedButtons.filter((buttonTitle) => buttonTitle !== title);
+      } else {
+        return [...prevSelectedButtons, title];
+      }
+    });
+  };
 
   return (
     <Wrapper>
       {WORRY_SELECTION_BUTTON.map((item) => (
-        <Layout key={item.id} $isActive={buttonValue === item.title} onClick={() => setButtonValue(item.title)}>
+        <Layout
+          key={item.id}
+          $isActive={selectedButtons.includes(item.title)}
+          onClick={() => handleButtonClick(item.title)}>
           <Title2>{item.title}</Title2>
-          {buttonValue === item.title && <StyledButtonCheckIc />}
+          {selectedButtons.includes(item.title) && <StyledButtonCheckIc />}
         </Layout>
       ))}
     </Wrapper>
