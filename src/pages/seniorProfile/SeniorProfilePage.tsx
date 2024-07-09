@@ -1,3 +1,4 @@
+import { ArrowLeftIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import Career from './components/Career';
@@ -8,9 +9,9 @@ import Story from './components/Story';
 import TimeSelect from './components/TimeSelect';
 import { SENIOR_PROFILE_STEPS } from './constants';
 import { FullBtn } from '../../components/commons/FullButton';
+import { Header } from '../../components/commons/Header';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
-import { Header } from '../../components/commons/Header';
 
 const getComponent = (step: number) => {
   switch (step) {
@@ -34,19 +35,20 @@ const getComponent = (step: number) => {
 const SeniorProfilePage = () => {
   const [step, setStep] = useState(5);
   const btnText = step === 8 ? '프로필 등록하기' : '다음으로';
-  const isBtnActive = true;
+  const [isNextActive, setIsNextActive] = useState(true);
   const component = getComponent(step);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
+
   return (
     <div>
-      <Header title="프로필 등록" />
+      {step > 0 && <Header title="프로필 등록" LeftSvg={ArrowLeftIc} onClickLeft={() => setStep((prev) => prev - 1)} />}
       {step >= 2 && step <= 6 && <ProgressBar max={5} current={step - 1} />}
       <Title>
         <Meta>{userName + SENIOR_PROFILE_STEPS[step].meta}</Meta>
         <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
       </Title>
       {component}
-      {step !== 7 && <FullBtn isActive={isBtnActive} text={btnText} onClick={() => setStep((prev) => prev + 1)} />}
+      {step !== 7 && <FullBtn isActive={isNextActive} text={btnText} onClick={() => setStep((prev) => prev + 1)} />}
     </div>
   );
 };

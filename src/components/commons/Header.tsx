@@ -40,7 +40,7 @@ const Wrapper = styled.header<{ $hasTitle: boolean }>`
   height: ${({ $hasTitle }) => ($hasTitle ? '5rem' : '4.4rem')};
   padding: 1rem 2rem;
 
-  background-color: transparent;
+  background-color: white;
 `;
 
 const Title = styled.span`
