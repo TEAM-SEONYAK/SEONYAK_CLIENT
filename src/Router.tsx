@@ -3,8 +3,7 @@ import App from './App';
 import HomePage from './pages/home/HomePage';
 import JuniorPromisePage from './pages/juniorPromise/JuniorPromisePage';
 import LoginPage from './pages/login/LoginPage';
-import JuniorOnboardingPage from './pages/onboarding/juniorOnboarding/JuniorOnboardingPage';
-import SeniorOnboardingPage from './pages/onboarding/seniorOnboarding/SeniorOnboardingPage';
+import OnboardingPage from './pages/onboarding/OnboardingPage';
 import SeniorProfilePage from './pages/seniorProfile/SeniorProfilePage';
 
 const router = createBrowserRouter([
@@ -21,12 +20,8 @@ const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: 'seniorOnboarding',
-        element: <SeniorOnboardingPage />,
-      },
-      {
-        path: 'juniorOnboarding',
-        element: <JuniorOnboardingPage />,
+        path: 'onboarding',
+        element: <OnboardingPage />,
       },
       {
         path: 'seniorProfile',
