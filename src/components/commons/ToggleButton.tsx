@@ -6,17 +6,17 @@ interface Props {
   right: string;
   activeButton: 'left' | 'right';
   // eslint-disable-next-line no-unused-vars
-  setActiveButton: (button: 'left' | 'right') => void;
+  onToggle: (button: 'left' | 'right') => void;
 }
 
-const ToggleButton: React.FC<Props> = ({ left, right, activeButton, setActiveButton }) => {
+const ToggleButton: React.FC<Props> = ({ left, right, activeButton, onToggle }) => {
   return (
     <Wrapper>
       <Layout>
-        <ToggleBtn isActive={activeButton === 'left'} onClick={() => setActiveButton('left')}>
+        <ToggleBtn isActive={activeButton === 'left'} onClick={() => onToggle('left')}>
           {left}
         </ToggleBtn>
-        <ToggleBtn isActive={activeButton === 'right'} onClick={() => setActiveButton('right')}>
+        <ToggleBtn isActive={activeButton === 'right'} onClick={() => onToggle('right')}>
           {right}
         </ToggleBtn>
       </Layout>
@@ -30,6 +30,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const Layout = styled.div`
   display: flex;
 
@@ -46,6 +47,7 @@ const ToggleBtn = styled.div<{ isActive: boolean }>`
   width: 50%;
   height: 4.4rem;
   padding: 0.9rem 2.7rem;
+  padding-left: 1.8rem; /* 고정된 padding-left 값 */
   border-radius: 8px;
 
   background-color: ${({ theme, isActive }) => (isActive ? theme.colors.grayScaleBG : theme.colors.grayScaleLG1)};
