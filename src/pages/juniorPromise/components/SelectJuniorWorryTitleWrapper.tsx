@@ -3,7 +3,7 @@ import { SELECT_JUNIOR_TITLE } from '../constants/constants';
 
 const titleDescription = SELECT_JUNIOR_TITLE[1];
 
-const SelectJuniorWorrySection = () => {
+const SelectJuniorWorryTitle = () => {
   return (
     <Wrapper>
       <Layout>
@@ -14,7 +14,7 @@ const SelectJuniorWorrySection = () => {
   );
 };
 
-export default SelectJuniorWorrySection;
+export default SelectJuniorWorryTitle;
 
 const TimeSelectionTitle = styled.h3`
   ${({ theme }) => theme.fonts.Head2_SB_18};
