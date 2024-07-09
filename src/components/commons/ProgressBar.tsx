@@ -19,6 +19,9 @@ export default ProgressBar;
 
 const ProgressBarWrapper = styled.div`
   overflow: hidden;
+  position: fixed;
+  top: 5rem;
+  left: 0;
 
   width: 100vw;
   height: 0.8rem;
