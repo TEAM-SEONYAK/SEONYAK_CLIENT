@@ -1,7 +1,7 @@
+import GoogleIc from '@assets/svgs/googleLogoIc.svg?react';
 import styled from '@emotion/styled';
+import theme from '@styles/theme';
 import useGoogleLoginHook from './hooks/useLoginQuery';
-import GoogleIc from '../../../../assets/svgs/googleLogoIc.svg?react';
-import theme from '../../styles/theme';
 
 const LoginPage = () => {
   const { login } = useGoogleLoginHook();
