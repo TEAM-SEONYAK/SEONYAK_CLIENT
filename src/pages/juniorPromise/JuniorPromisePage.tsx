@@ -1,5 +1,11 @@
+import { SeniorListBackground } from './components/SeniorListBackground';
+
 const JuniorPromisePage = () => {
-  return <div>JuniorPromise</div>;
+  return (
+    <>
+      <SeniorListBackground />
+    </>
+  );
 };
 
 export default JuniorPromisePage;
