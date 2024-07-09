@@ -26,7 +26,7 @@ export default ToggleButton;
 const Wrapper = styled.div`
   display: flex;
 
-  width: 100%;
+  width: 33.7rem;
   height: 4.4rem;
   border-radius: 8px;
 `;
