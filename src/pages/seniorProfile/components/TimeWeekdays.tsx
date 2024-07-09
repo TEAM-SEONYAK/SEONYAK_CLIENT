@@ -45,4 +45,6 @@ export const DeleteIcon = styled(DeleteIc)`
   border-radius: 4px;
 
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
+  cursor: pointer;
 `;

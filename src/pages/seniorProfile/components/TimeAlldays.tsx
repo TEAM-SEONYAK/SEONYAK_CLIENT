@@ -9,7 +9,7 @@ const TimeAlldays = () => {
       {WEEKENDS.map((w, idx) => (
         <Container key={idx}>
           <CategoryText>{w}</CategoryText>
-          <DurationSelect variant="secondary" />
+          <DurationSelect variant="secondary" isLatter={idx > 3} />
           <DeleteIcon />
         </Container>
       ))}

@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import DropDown from './DropDown';
 import styled from '@emotion/styled';
+import DropDown from './DropDown';
 
 interface DurationPropType {
   variant?: 'default' | 'secondary';
+  isLatter?: boolean;
 }
 
-const DurationSelect = ({ variant = 'default' }: DurationPropType) => {
-  const [isActive, setIsActive] = useState(true);
-
+const DurationSelect = ({ variant = 'default', isLatter = false }: DurationPropType) => {
   return (
     <Wrapper $isDefault={variant === 'default'}>
-      <DropDown variant={variant} />
+      <DropDown variant={variant} isLatter={isLatter} />
       <WaveText>~</WaveText>
-      <DropDown variant={variant} defaultValue="마지막 시간" />
+      <DropDown variant={variant} defaultValue="마지막 시간" isLatter={isLatter} />
     </Wrapper>
   );
 };
