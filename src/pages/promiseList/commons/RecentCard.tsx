@@ -1,13 +1,28 @@
+import { CardArrowRightGrayIc } from '@assets/svgs';
 import styled from '@emotion/styled';
-import React from 'react';
-// import { CardArrowRightGrayIc } from '../../../assets/svgs';
+import React, { useState, useEffect } from 'react';
+import PromiseTimerBtn from './PromiseTimerBtn';
+import { calculateTimeLeft } from '../utils/calculateTimeLeft';
 
 interface RecentCardPropType {
   children?: React.ReactDOM;
 }
 
 const RecentCard = (props: RecentCardPropType) => {
-  const { children } = props;
+  const dummyDate = '2024.07.10';
+  const startTime = '06:17';
+  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(dummyDate, startTime));
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft(dummyDate, startTime));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [dummyDate, startTime]);
+
+  const { days, hours, minutes, diffText } = timeLeft;
+
   // 약속 개수 임시 데이터
   const length = 0;
   return (
@@ -32,8 +47,9 @@ const RecentCard = (props: RecentCardPropType) => {
           </MajorDiv>
           <Description>면접에 관해 얘기하고 싶어요</Description>
         </InfoContainer>
-        {/* <CardArrowRightGrayIcon /> */}
+        <CardArrowRightGrayIcon />
       </ProfileContainer>
+      <PromiseTimerBtn isActive={days === 0 && hours === 0 && minutes === 0} diff={diffText} />
     </Wrapper>
   );
 };
@@ -41,7 +57,9 @@ const RecentCard = (props: RecentCardPropType) => {
 export default RecentCard;
 
 const Wrapper = styled.section`
-  width: 100%;
+  position: relative;
+
+  width: 33.6rem;
   padding: 1rem 1.1rem 1rem 1rem;
   border-radius: 8px;
 
@@ -108,7 +126,6 @@ const DashedDivider = styled.div`
 const ProfileContainer = styled.div`
   display: flex;
   gap: 1.4rem;
-  position: relative;
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
@@ -116,6 +133,7 @@ const ProfileContainer = styled.div`
 const TempImg = styled.div`
   width: 8.6rem;
   height: 8.6rem;
+  border-radius: 100px;
 
   background-color: ${({ theme }) => theme.colors.primaryBlue50};
 `;
@@ -164,8 +182,8 @@ const Description = styled.div`
   text-overflow: ellipsis;
 `;
 
-// const CardArrowRightGrayIcon = styled(CardArrowRightGrayIc)`
-//   position: absolute;
-//   top: 9.3rem;
-//   right: 0.7rem;
-// `;
+const CardArrowRightGrayIcon = styled(CardArrowRightGrayIc)`
+  position: absolute;
+  top: 9.3rem;
+  right: 0.7rem;
+`;
