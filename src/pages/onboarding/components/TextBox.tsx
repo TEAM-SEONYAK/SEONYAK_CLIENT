@@ -12,7 +12,7 @@ export const InputBox = ({
 }: {
   label: string;
   placeholder: string;
-  children: ReactNode;
+  children?: ReactNode;
 }) => {
   return (
     <InputWrapper>
