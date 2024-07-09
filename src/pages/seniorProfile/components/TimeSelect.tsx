@@ -1,5 +1,9 @@
+import { useState } from 'react';
+import DropDown from './common/DropDown';
+
 const TimeSelect = () => {
-  return <div>SeniorProfileStep6</div>;
+  const [isWeekday, setIsWeekday] = useState(true);
+  return <DropDown />;
 };
 
 export default TimeSelect;
