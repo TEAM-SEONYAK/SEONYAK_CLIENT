@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { SELECT_JUNIOR_TITLE } from '../constants/constants';
 
-const titleDescription = SELECT_JUNIOR_TITLE[0];
+const titleDescription = SELECT_JUNIOR_TITLE[1];
 
-const TimeSelectionTitleWrapper = () => {
+const SelectJuniorWorrySection = () => {
   return (
     <Wrapper>
       <Layout>
@@ -14,7 +14,7 @@ const TimeSelectionTitleWrapper = () => {
   );
 };
 
-export default TimeSelectionTitleWrapper;
+export default SelectJuniorWorrySection;
 
 const TimeSelectionTitle = styled.h3`
   ${({ theme }) => theme.fonts.Head2_SB_18};
