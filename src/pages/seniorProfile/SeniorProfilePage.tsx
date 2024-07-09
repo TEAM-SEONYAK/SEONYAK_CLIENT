@@ -10,6 +10,7 @@ import { SENIOR_PROFILE_STEPS } from './constants';
 import { FullBtn } from '../../components/commons/FullButton';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
+import { Header } from '../../components/commons/Header';
 
 const getComponent = (step: number) => {
   switch (step) {
@@ -38,6 +39,7 @@ const SeniorProfilePage = () => {
   const userName = step >= 2 && step <= 4 ? '도현' : '';
   return (
     <div>
+      <Header title="프로필 등록" />
       {step >= 2 && step <= 6 && <ProgressBar max={5} current={step - 1} />}
       <Title>
         <Meta>{userName + SENIOR_PROFILE_STEPS[step].meta}</Meta>
@@ -52,7 +54,7 @@ const SeniorProfilePage = () => {
 export default SeniorProfilePage;
 
 const Title = styled.div`
-  padding: 3rem 0 4px 2rem;
+  padding: 8.8rem 0 4px 2rem;
 `;
 
 const Meta = styled.p`
