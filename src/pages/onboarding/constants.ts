@@ -75,3 +75,5 @@ export const JUNIOR_ONBOARDING_STEPS = [
     description: '주전공과 부전공을 선택해주세요 ! ( 최대 3개 )',
   },
 ];
+
+export const 계열_LIST = ['공학계열', '교육계열', '사회계열', '자연계열', '인문계열', '의약계열', '예체능계열'];
