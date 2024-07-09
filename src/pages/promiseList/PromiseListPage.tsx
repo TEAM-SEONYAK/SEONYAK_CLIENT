@@ -4,7 +4,7 @@ import RecentCard from './commons/RecentCard';
 const PromiseListPage = () => {
   return (
     <TempWrapper>
-      <RecentCard />
+      <RecentCard></RecentCard>
     </TempWrapper>
   );
 };
