@@ -18,7 +18,16 @@ export const InputBox = ({
 }) => {
   return (
     <InputWrapper>
-      <Input type={type} id={label} placeholder={placeholder} />
+      {type === 'text' ? (
+        <Input type={type} id={label} placeholder={placeholder} />
+      ) : (
+        <>
+          <FileLabel>
+            파일 첨부하기
+            <FileInput type="file" accept="image/*, .pdf" />
+          </FileLabel>
+        </>
+      )}
       {children}
     </InputWrapper>
   );
@@ -95,4 +104,25 @@ const Button = styled.button`
 
   ${({ theme }) => theme.fonts.Caption2_SB_12};
   color: ${({ theme }) => theme.colors.grayScaleWhite};
+`;
+
+const FileLabel = styled.label`
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 5.1rem;
+  margin-top: 0.4rem;
+  padding: 1rem 1.5rem;
+  ${({ theme }) => theme.fonts.Title2_M_16};
+  border: none;
+  border-radius: 8px;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
+  color: ${({ theme }) => theme.colors.grayScaleMG2};
+`;
+
+const FileInput = styled.input`
+  display: none;
 `;
