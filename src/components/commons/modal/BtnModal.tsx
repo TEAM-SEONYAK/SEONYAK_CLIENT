@@ -5,23 +5,23 @@ import { CloseIc } from '../../../assets/svgs';
 
 interface BtnCloseModalPropType {
   title: string;
-  showModal: boolean;
-  handleShowModal: (type: boolean) => void;
+  isModalOpen: boolean;
+  handleModalOpen: (type: boolean) => void;
   children?: React.ReactNode;
   btnText: string;
 }
 
 export const BtnCloseModal = (props: BtnCloseModalPropType) => {
-  const { title, showModal, handleShowModal, children, btnText } = props;
+  const { title, isModalOpen, handleModalOpen, children, btnText } = props;
 
   const handleModalClose = () => {
-    handleShowModal(false);
+    handleModalOpen(false);
   };
 
   return (
     <Wrapper>
-      <ModalBackground $showModal={showModal} onClick={handleModalClose} />
-      <BtnModalWrapper $showModal={showModal}>
+      <ModalBackground $isModalOpen={isModalOpen} onClick={handleModalClose} />
+      <BtnModalWrapper $isModalOpen={isModalOpen}>
         <CloseIcon onClick={handleModalClose} />
         <BtnModalTitle>{title}</BtnModalTitle>
         {children}
@@ -41,8 +41,8 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-const ModalBackground = styled.div<{ $showModal: boolean }>`
-  display: ${({ $showModal }) => ($showModal ? 'flex' : 'none')};
+const ModalBackground = styled.div<{ $isModalOpen: boolean }>`
+  display: ${({ $isModalOpen }) => ($isModalOpen ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -55,8 +55,8 @@ const ModalBackground = styled.div<{ $showModal: boolean }>`
   background-color: ${({ theme }) => theme.colors.transparentBlack_65};
 `;
 
-const BtnModalWrapper = styled.section<{ $showModal: boolean }>`
-  display: ${({ $showModal }) => ($showModal ? 'flex' : 'none')};
+const BtnModalWrapper = styled.section<{ $isModalOpen: boolean }>`
+  display: ${({ $isModalOpen }) => ($isModalOpen ? 'flex' : 'none')};
   flex-direction: column;
   gap: 1.8rem;
   align-items: center;
