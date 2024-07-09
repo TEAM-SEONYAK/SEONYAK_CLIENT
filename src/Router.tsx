@@ -4,6 +4,7 @@ import HomePage from './pages/home/HomePage';
 import JuniorPromisePage from './pages/juniorPromise/JuniorPromisePage';
 import JuniorOnboardingPage from './pages/onboarding/juniorOnboarding/JuniorOnboardingPage';
 import SeniorOnboardingPage from './pages/onboarding/seniorOnboarding/SeniorOnboardingPage';
+import PromiseListPage from './pages/promiseList/PromiseListPage';
 import SeniorProfilePage from './pages/seniorProfile/SeniorProfilePage';
 
 const router = createBrowserRouter([
@@ -13,7 +14,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <PromiseListPage />,
       },
       {
         path: 'seniorOnboarding',
