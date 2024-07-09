@@ -1,6 +1,7 @@
+import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { ButtonCheckIc, ErrorSmallIc } from '../../../assets/svgs';
+import { ButtonCheckIc } from '../../../assets/svgs';
 import { WORRY_SELECTION_BUTTON } from '../constants/constants';
 
 const SelectJuniorWorryButton: React.FC = () => {
@@ -27,14 +28,7 @@ const SelectJuniorWorryButton: React.FC = () => {
           {selectedButtons.includes(item.title) && <StyledButtonCheckIc />}
         </Layout>
       ))}
-      <WarningLayout>
-        {selectedButtons.length === 0 && (
-          <MinimumOneText>
-            <ErrorSmallIc />
-            최소 1개 이상 선택해주세요
-          </MinimumOneText>
-        )}
-      </WarningLayout>
+      <WarnDescription isShown={selectedButtons.length === 0} warnText={'최소 1개 이상 선택해주세요'} />
     </Wrapper>
   );
 };
@@ -74,26 +68,10 @@ const Layout = styled.div<{ $isActive: boolean }>`
   cursor: pointer;
 `;
 
-const WarningLayout = styled.div`
-  display: flex;
-  position: relative;
-  right: 12rem;
-`;
-
 const StyledButtonCheckIc = styled(ButtonCheckIc)`
   position: relative;
   right: 1rem;
 
   width: 2rem;
   height: 2rem;
-`;
-
-const MinimumOneText = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  align-items: center;
-
-  ${({ theme }) => theme.fonts.Caption3_M_12}
-  color: ${({ theme }) => theme.colors.Red};
 `;
