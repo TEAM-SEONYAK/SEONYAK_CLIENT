@@ -20,6 +20,10 @@ const FullBtnWrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  bottom: 3.8rem;
+  left: 50%;
+  transform: translateX(-50%);
 
   width: 33.5rem;
   height: 4.5rem;
@@ -29,11 +33,6 @@ const FullBtnWrapper = styled.button`
 
   ${({ theme }) => theme.fonts.Head2_SB_18}
   color: ${({ theme }) => theme.colors.grayScaleWhite};
-
-  position: fixed;
-  bottom: 3.8rem;
-  left: 50%;
-  transform: translateX(-50%);
 
   &:disabled {
     background-color: ${({ theme }) => theme.colors.grayScaleMG2};
