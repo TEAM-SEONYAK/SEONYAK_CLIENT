@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import styled from '@emotion/styled';
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { CloseIc } from '../../../assets/svgs';
-import useClickOutside from '../../../hooks/useClickOutside';
 
 interface BtnCloseModalPropType {
   title: string;
@@ -14,40 +13,33 @@ interface BtnCloseModalPropType {
 
 export const BtnCloseModal = (props: BtnCloseModalPropType) => {
   const { title, showModal, handleShowModal, children, btnText } = props;
-  const modalRef = useRef(null);
 
   const handleModalClose = () => {
     handleShowModal(false);
   };
 
-  // 커스텀 훅 활성화용 state
-  const [modalBgClickActive, setModalBgClickActive] = useState(showModal);
-
-  // 커스텀 훅 전달 함수
-  const handleOutSideClick = () => {
-    if (showModal) {
-      setModalBgClickActive(true);
-    }
-    if (modalBgClickActive) {
-      handleShowModal(false);
-      setModalBgClickActive(false);
-    }
-  };
-
-  // 커스텀 훅 사용
-  useClickOutside(modalRef, handleOutSideClick);
-
   return (
-    <ModalBackground $showModal={showModal}>
-      <BtnModalWrapper ref={modalRef}>
+    <Wrapper>
+      <ModalBackground $showModal={showModal} onClick={handleModalClose} />
+      <BtnModalWrapper $showModal={showModal}>
         <CloseIcon onClick={handleModalClose} />
         <BtnModalTitle>{title}</BtnModalTitle>
         {children}
         <BtnModalBtn onClick={handleModalClose}>{btnText}</BtnModalBtn>
       </BtnModalWrapper>
-    </ModalBackground>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  width: 100vw;
+  height: 100vh;
+`;
 
 const ModalBackground = styled.div<{ $showModal: boolean }>`
   display: ${({ $showModal }) => ($showModal ? 'flex' : 'none')};
@@ -63,12 +55,13 @@ const ModalBackground = styled.div<{ $showModal: boolean }>`
   background-color: ${({ theme }) => theme.colors.transparentBlack_65};
 `;
 
-const BtnModalWrapper = styled.section`
-  display: flex;
+const BtnModalWrapper = styled.section<{ $showModal: boolean }>`
+  display: ${({ $showModal }) => ($showModal ? 'flex' : 'none')};
   flex-direction: column;
   gap: 1.8rem;
   align-items: center;
-  position: relative;
+  position: fixed;
+  z-index: 5;
 
   width: 30rem;
   padding: 3.6rem 1.3rem 1.5rem;
