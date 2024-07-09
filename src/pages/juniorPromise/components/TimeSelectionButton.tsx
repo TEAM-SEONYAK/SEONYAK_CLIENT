@@ -10,7 +10,7 @@ function TimeSelectionButton() {
     <Wrapper>
       {TIME_SELECTION_TITLE.map((item) => (
         <Layout key={item.id} $isActive={buttonValue !== null}>
-          <Title2>{buttonValue ? buttonValue : item.title}</Title2>
+          <Title2>{buttonValue || item.title}</Title2>
           {buttonValue && <StyledButtonCheckIc />}
         </Layout>
       ))}
