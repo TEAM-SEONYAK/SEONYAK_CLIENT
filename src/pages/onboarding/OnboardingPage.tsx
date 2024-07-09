@@ -6,6 +6,7 @@ import Step약관동의 from './components/commonOnboarding/Step약관동의';
 import Step학과선택 from './components/commonOnboarding/Step학과선택';
 import Step학교선택 from './components/commonOnboarding/Step학교선택';
 import Layout from './components/Layout';
+import Step졸업인증 from './components/seniorOnboarding/Step졸업인증';
 
 const OnboardingPage = () => {
   // 테스트
@@ -27,6 +28,8 @@ const OnboardingPage = () => {
         return <Step계열선택 />;
       case 5:
         return <Step학과선택 />;
+      case 6:
+        return <Step졸업인증 />;
       case 10:
         return <Step번호입력 />;
     }
