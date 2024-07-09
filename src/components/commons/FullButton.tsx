@@ -17,14 +17,23 @@ export const FullBtn = (props: FullBtnPropType) => {
 };
 
 const FullBtnWrapper = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 33.5rem;
-  padding: 1.55rem 13.65rem;
+  height: 4.5rem;
   border-radius: 5px;
 
   background-color: ${({ theme }) => theme.colors.Blue};
 
   ${({ theme }) => theme.fonts.Head2_SB_18}
   color: ${({ theme }) => theme.colors.grayScaleWhite};
+
+  position: fixed;
+  bottom: 3.8rem;
+  left: 50%;
+  transform: translateX(-50%);
 
   &:disabled {
     background-color: ${({ theme }) => theme.colors.grayScaleMG2};
