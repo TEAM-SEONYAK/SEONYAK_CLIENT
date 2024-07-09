@@ -7,7 +7,15 @@ import { Header } from '../../../components/commons/Header';
 import ProgressBar from '../../../components/commons/ProgressBar';
 import { SENIOR_ONBOARDING_STEPS } from '../constants';
 
-const Layout = ({ step, children }: { step: number; children: ReactNode }) => {
+const Layout = ({
+  step,
+  handleSetNextStep,
+  children,
+}: {
+  step: number;
+  handleSetNextStep: () => void;
+  children: ReactNode;
+}) => {
   const { title, description } = SENIOR_ONBOARDING_STEPS[step - 1];
   return (
     <Wrapper>
@@ -17,13 +25,7 @@ const Layout = ({ step, children }: { step: number; children: ReactNode }) => {
         <TitleBox title={title} description={description} />
         {children}
       </Content>
-      <FullBtn
-        text="텍스트"
-        isActive
-        onClick={() => {
-          console.log('클릭하셨다');
-        }}
-      />
+      <FullBtn text="텍스트" isActive onClick={handleSetNextStep} />
       <ButtonBg />
     </Wrapper>
   );
