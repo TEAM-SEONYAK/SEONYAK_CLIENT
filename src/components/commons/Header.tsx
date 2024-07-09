@@ -12,7 +12,7 @@ interface HeaderPropType {
 export const Header = (props: HeaderPropType) => {
   const { LeftSvg, onClickLeft, onClickRight, RightSvg, title } = props;
   return (
-    <Wrapper>
+    <Wrapper $hasTitle={!!title}>
       {LeftSvg && (
         <LeftSvgWrapper>
           <LeftSvg onClick={onClickLeft} />
@@ -28,15 +28,17 @@ export const Header = (props: HeaderPropType) => {
   );
 };
 
-const Wrapper = styled.header`
+const Wrapper = styled.header<{ $hasTitle: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
 
   width: 100vw;
-  height: 4.4rem;
-  padding: 1.1rem 2rem;
+  height: ${({ $hasTitle }) => ($hasTitle ? '5rem' : '4.4rem')};
+  padding: 1rem 2rem;
 
   background-color: transparent;
 `;
