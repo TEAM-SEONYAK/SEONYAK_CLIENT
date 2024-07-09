@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import DurationSelect from './common/DurationSelect';
-import { DeleteIcon } from './TimeWeekdays';
 import { WEEKENDS } from '../constants';
 
 const TimeAlldays = () => {
@@ -10,7 +9,6 @@ const TimeAlldays = () => {
         <Container key={idx}>
           <CategoryText>{w}</CategoryText>
           <DurationSelect variant="secondary" isLatter={idx > 3} />
-          <DeleteIcon />
         </Container>
       ))}
     </Wrapper>

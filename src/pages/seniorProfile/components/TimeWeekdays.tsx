@@ -8,12 +8,10 @@ const TimeWeekdays = () => {
       <CategoryText>주중</CategoryText>
       <TimeContainer>
         <DurationSelect />
-        <DeleteIcon />
       </TimeContainer>
       <CategoryText>주말</CategoryText>
       <TimeContainer>
         <DurationSelect />
-        <DeleteIcon />
       </TimeContainer>
     </Wrapper>
   );

@@ -7,21 +7,32 @@ interface DropDownPropType {
   variant?: 'default' | 'secondary';
   defaultValue?: '시작 시간' | '마지막 시간';
   isLatter?: boolean;
+  isActive?: boolean;
 }
 
-const DropDown = ({ variant = 'default', defaultValue = '시작 시간', isLatter = false }: DropDownPropType) => {
+const DropDown = ({
+  variant = 'default',
+  defaultValue = '시작 시간',
+  isLatter = false,
+  isActive = true,
+}: DropDownPropType) => {
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
-  const [isActive, setIsActive] = useState(false);
+  const [isSelectDown, setIsSelectDown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleClickDropdown = () => {
+    if (isActive) setIsSelectDown((prev) => !prev);
+  };
+
   // eslint-disable-next-line no-undef
   const handleSelect = (value: string) => {
     setSelectedValue(value);
-    setIsActive(false);
+    setIsSelectDown(false);
   };
 
   const handleClickOutside = (e: MouseEvent) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-      setIsActive(false);
+      setIsSelectDown(false);
     }
   };
 
@@ -34,11 +45,11 @@ const DropDown = ({ variant = 'default', defaultValue = '시작 시간', isLatte
 
   return (
     <div ref={dropdownRef}>
-      <DropdownContainer $isDefault={variant === 'default'} onClick={() => setIsActive((prev) => !prev)}>
-        <Text>{selectedValue}</Text>
-        <ArrowDownIc />
+      <DropdownContainer $isDefault={variant === 'default'} onClick={handleClickDropdown} $isActive={isActive}>
+        <SelectedText $isActive={isActive}>{selectedValue}</SelectedText>
+        <ArrowDownIcon $isActive={isActive} />
       </DropdownContainer>
-      {isActive && (
+      {isSelectDown && (
         <SelectContainer $isDefault={variant === 'default'} $isLatter={isLatter}>
           {TIME_LIST.map((option) => (
             <SelectOption key={option} onClick={() => handleSelect(option)}>
@@ -53,7 +64,7 @@ const DropDown = ({ variant = 'default', defaultValue = '시작 시간', isLatte
 
 export default DropDown;
 
-const DropdownContainer = styled.section<{ $isDefault: boolean }>`
+const DropdownContainer = styled.section<{ $isDefault: boolean; $isActive: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -66,11 +77,16 @@ const DropdownContainer = styled.section<{ $isDefault: boolean }>`
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 
-  cursor: pointer;
+  cursor: ${({ $isActive }) => $isActive && 'pointer'};
 `;
 
-const Text = styled.p`
+const SelectedText = styled.p<{ $isActive: boolean }>`
   ${({ theme }) => theme.fonts.Title2_M_16};
+  color: ${({ $isActive, theme }) => !$isActive && theme.colors.grayScaleMG1};
+`;
+
+const ArrowDownIcon = styled(ArrowDownIc)<{ $isActive: boolean }>`
+  fill: ${({ $isActive }) => ($isActive ? '#A2A7B0' : '#E7EAF2')};
 `;
 
 const SelectContainer = styled.ul<{ $isDefault: boolean; $isLatter: boolean }>`
