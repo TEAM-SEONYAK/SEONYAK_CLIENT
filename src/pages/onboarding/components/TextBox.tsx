@@ -9,14 +9,16 @@ export const InputBox = ({
   label,
   placeholder,
   children,
+  type = 'text',
 }: {
   label: string;
   placeholder: string;
+  type?: 'text' | 'file';
   children?: ReactNode;
 }) => {
   return (
     <InputWrapper>
-      <Input type="text" id={label} placeholder={placeholder} />
+      <Input type={type} id={label} placeholder={placeholder} />
       {children}
     </InputWrapper>
   );
