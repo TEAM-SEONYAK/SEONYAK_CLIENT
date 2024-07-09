@@ -36,10 +36,6 @@ export const SENIOR_ONBOARDING_STEPS = [
     description: '선배님의 직무와 연차를 선택해주세요',
   },
   {
-    title: '직무를 알려 주세요',
-    description: '선배님의 직무와 연차를 선택해주세요',
-  },
-  {
     title: '휴대전화 번호를 입력해 주세요',
     description: '개인정보는 안전하게 보관되어 누구에게도 공개되지 않아요.',
   },

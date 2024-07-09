@@ -27,7 +27,7 @@ const OnboardingPage = () => {
         return <Step계열선택 />;
       case 5:
         return <Step학과선택 />;
-      case 6:
+      case 10:
         return <Step번호입력 />;
     }
   };
