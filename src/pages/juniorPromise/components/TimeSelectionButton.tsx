@@ -26,6 +26,8 @@ const Wrapper = styled.div`
   gap: 1.2rem;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
 `;
 
 const Title2 = styled.span`
@@ -39,9 +41,10 @@ const Title2 = styled.span`
 const Layout = styled.div<{ $isActive: boolean }>`
   display: flex;
   gap: 1.2rem;
+  justify-content: space-between;
   align-items: center;
 
-  width: 33.5rem;
+  width: 100%;
   height: 4.8rem;
   border: 1px solid
     ${({ theme, $isActive }) => ($isActive ? theme.colors.transparentBlue_50 : theme.colors.grayScaleLG2)};
@@ -53,7 +56,7 @@ const Layout = styled.div<{ $isActive: boolean }>`
 
 const StyledButtonCheckIc = styled(ButtonCheckIc)`
   position: relative;
-  left: 25rem;
+  right: 1rem;
 
   width: 2rem;
   height: 2rem;

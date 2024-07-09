@@ -54,7 +54,7 @@ const Layout = styled.div<{ $isActive: boolean }>`
   justify-content: space-between;
   align-items: center;
 
-  width: 33.5rem;
+  width: 100%;
   height: 4.8rem;
   border: 1px solid
     ${({ theme, $isActive }) => ($isActive ? theme.colors.transparentBlue_50 : theme.colors.grayScaleLG2)};

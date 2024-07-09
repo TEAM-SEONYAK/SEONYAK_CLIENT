@@ -33,6 +33,6 @@ const Layout = styled.div`
   flex-direction: column;
   gap: 0.2rem;
 
-  width: 33.5rem;
+  width: 100vw;
   height: 4.9rem;
 `;

@@ -25,14 +25,13 @@ const TimeSelectionDescription = styled.span`
 `;
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+
+  width: 100%;
 `;
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 
-  width: 33.5rem;
   height: 4.9rem;
 `;
