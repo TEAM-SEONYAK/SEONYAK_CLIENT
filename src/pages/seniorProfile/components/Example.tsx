@@ -20,6 +20,7 @@ const Example = ({ setStep }: funnelComponentPropType) => {
           position="디자인"
           detailPosition="프로덕트그래픽 디자이너"
           level={1}
+          variation="secondary"
         />
         <SeniorCard
           nickname="도리야끼다요"
@@ -28,6 +29,7 @@ const Example = ({ setStep }: funnelComponentPropType) => {
           position="디자인"
           detailPosition="프로덕트그래픽 디자이너"
           level={1}
+          variation="secondary"
         />
         <SeniorCard
           nickname="도리야끼다요"
@@ -36,6 +38,7 @@ const Example = ({ setStep }: funnelComponentPropType) => {
           position="디자인"
           detailPosition="프로덕트그래픽 디자이너"
           level={1}
+          variation="secondary"
         />
       </CardContainer>
     </Wrapper>
@@ -58,6 +61,8 @@ const LogoIcon = styled(LogoIc)`
 `;
 
 const CardContainer = styled.section`
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 
   padding: 3rem 0 0;

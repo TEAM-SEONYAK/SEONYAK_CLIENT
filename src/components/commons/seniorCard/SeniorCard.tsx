@@ -8,6 +8,7 @@ interface ISeniorList {
   position: string;
   detailPosition: string;
   level: number;
+  variation?: 'default' | 'secondary';
 }
 
 interface CompanyProps {
@@ -15,44 +16,42 @@ interface CompanyProps {
 }
 
 export const SeniorCard = (props: ISeniorList) => {
-  const { nickname, company, field, position, detailPosition, level } = props;
+  const { nickname, company, field, position, detailPosition, level, variation = 'default' } = props;
   const levelName = getLevelName(level);
   const randomColor = Math.floor(Math.random() * 3);
 
   return (
-    <>
-      <SeniorCardWrapper>
-        <SeniorImg />
-        <SeniorCardLayout>
-          <Nickname>{nickname}</Nickname>
-          <SeniorInfo>
-            <Company $randomColor={randomColor}>{company}</Company>
-            <Field>{field}</Field>
-          </SeniorInfo>
-          <SeniorJob>
-            <Position>{position}</Position>
-            <Divider />
-            <DetailPosition>{detailPosition}</DetailPosition>
-          </SeniorJob>
-          <Level>
-            {levelName} ({level}년 차)
-          </Level>
-        </SeniorCardLayout>
-      </SeniorCardWrapper>
-    </>
+    <SeniorCardWrapper $isSmall={variation === 'secondary'}>
+      <SeniorImg />
+      <SeniorCardLayout>
+        <Nickname>{nickname}</Nickname>
+        <SeniorInfo>
+          <Company $randomColor={randomColor}>{company}</Company>
+          <Field>{field}</Field>
+        </SeniorInfo>
+        <SeniorJob>
+          <Position>{position}</Position>
+          <Divider />
+          <DetailPosition>{detailPosition}</DetailPosition>
+        </SeniorJob>
+        <Level>
+          {levelName} ({level}년 차)
+        </Level>
+      </SeniorCardLayout>
+    </SeniorCardWrapper>
   );
 };
 
 export default SeniorCard;
 
-const SeniorCardWrapper = styled.div`
+const SeniorCardWrapper = styled.div<{ $isSmall: boolean }>`
   display: flex;
   gap: 1.5rem;
   justify-content: center;
   align-items: center;
 
   width: 100%;
-  height: 14.2rem;
+  height: ${({ $isSmall }) => ($isSmall ? '12.6rem' : '14.2rem')};
   border-radius: 8px;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
