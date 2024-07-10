@@ -40,7 +40,14 @@ const SeniorProfilePage = () => {
 
   return (
     <div>
-      {step > 0 && <Header title="프로필 등록" LeftSvg={ArrowLeftIc} onClickLeft={() => setStep((prev) => prev - 1)} />}
+      {step > 0 && (
+        <Header
+          title="프로필 등록"
+          LeftSvg={ArrowLeftIc}
+          onClickLeft={() => setStep((prev) => prev - 1)}
+          bgColor="white"
+        />
+      )}
       {step >= 2 && step <= 6 && <ProgressBar max={5} current={step - 1} />}
       <Title>
         <Meta>{userName + SENIOR_PROFILE_STEPS[step].meta}</Meta>
