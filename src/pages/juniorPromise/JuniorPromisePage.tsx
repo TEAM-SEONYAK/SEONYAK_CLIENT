@@ -1,23 +1,35 @@
+import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
-import TimeSelectionButton from './components/TimeSelectionButton';
-import TimeSelectionTitleWrapper from './components/TimeSelectionTitleWrapper';
+import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConstants';
 
 const JuniorPromisePage = () => {
+  const { seniorList } = SENIOR_LIST;
   return (
-    <TimeSelectionContainer>
-      <TimeSelectionTitleWrapper />
-      <TimeSelectionButton />
-    </TimeSelectionContainer>
+    <SeniorListWrapper>
+      {seniorList.map((List) => (
+        <SeniorCard
+          key={List.seniorId}
+          nickname={List.nickname}
+          company={List.company}
+          field={List.field}
+          position={List.position}
+          detailPosition={List.detailPosition}
+          level={List.level}
+        />
+      ))}
+    </SeniorListWrapper>
   );
 };
 
 export default JuniorPromisePage;
 
-const TimeSelectionContainer = styled.div`
+const SeniorListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
+  align-items: center;
 
-  width: 100%;
-  padding: 0 2rem;
+  width: 100vw;
+  height: 100vh;
+  padding: 0.8rem 2rem;
 `;
