@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { dayType, preferredTimeType, profilePropType } from '@pages/seniorProfile/types';
+import { TimeCategoryType, dayType, preferredTimeType, profilePropType } from '@pages/seniorProfile/types';
 import DurationSelect from './common/DurationSelect';
 import { WEEKENDS } from '../constants';
 
 const TimeAlldays = ({ profile, setProfile }: profilePropType) => {
-  const dayOfWeekSetProfile = (key: dayType) => (timeCategory: 'startTime' | 'endTime') => (selectedValue: string) =>
+  const dayOfWeekSetProfile = (key: dayType) => (timeCategory: TimeCategoryType) => (selectedValue: string | boolean) =>
     setProfile((prev) => ({
       ...prev,
       preferredTimeList: {
@@ -38,7 +38,7 @@ const TimeAlldays = ({ profile, setProfile }: profilePropType) => {
 export default TimeAlldays;
 
 const Wrapper = styled.div`
-  padding: 3rem 0 10rem 2rem;
+  padding-left: 2rem;
 `;
 
 const Container = styled.section`

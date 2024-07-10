@@ -5,6 +5,7 @@ export interface seniorProfileAPIType {
   story: string;
   level: number;
   isDayOfWeek: boolean;
+  isWarning: boolean;
   preferredTimeList: preferredTimeListType;
 }
 
@@ -14,9 +15,14 @@ export interface preferredTimeListType {
 }
 
 export interface preferredTimeType {
+  isActive: boolean;
   startTime: string;
   endTime: string;
+  isStartValid: boolean;
+  isEndValid: boolean;
 }
+
+export type TimeCategoryType = 'isActive' | 'startTime' | 'endTime' | 'isStartValid' | 'isEndValid';
 
 export interface dayOfWeekTimeList {
   월: preferredTimeType[];
@@ -43,62 +49,90 @@ export const seniorProfileInitial: seniorProfileAPIType = {
   story: '',
   level: 0,
   isDayOfWeek: false,
+  isWarning: false,
   preferredTimeList: {
     dayOfWeek: {
       월: [
         {
+          isActive: false,
           startTime: '시작 시간',
           endTime: '마지막 시간',
+          isStartValid: true,
+          isEndValid: true,
         },
       ],
       화: [
         {
+          isActive: false,
           startTime: '시작 시간',
           endTime: '마지막 시간',
+          isStartValid: true,
+          isEndValid: true,
         },
       ],
       수: [
         {
+          isActive: false,
           startTime: '시작 시간',
           endTime: '마지막 시간',
+          isStartValid: true,
+          isEndValid: true,
         },
       ],
       목: [
         {
+          isActive: false,
           startTime: '시작 시간',
           endTime: '마지막 시간',
+          isStartValid: true,
+          isEndValid: true,
         },
       ],
       금: [
         {
+          isActive: false,
           startTime: '시작 시간',
           endTime: '마지막 시간',
+          isStartValid: true,
+          isEndValid: true,
         },
       ],
       토: [
         {
+          isActive: false,
           startTime: '시작 시간',
           endTime: '마지막 시간',
+          isStartValid: true,
+          isEndValid: true,
         },
       ],
       일: [
         {
+          isActive: false,
           startTime: '시작 시간',
           endTime: '마지막 시간',
+          isStartValid: true,
+          isEndValid: true,
         },
       ],
     },
     weekend: {
       주말: [
         {
+          isActive: false,
           startTime: '시작 시간',
           endTime: '마지막 시간',
+          isStartValid: true,
+          isEndValid: true,
         },
       ],
       주중: [
         {
+          isActive: false,
           startTime: '시작 시간',
           endTime: '마지막 시간',
+          isStartValid: true,
+          isEndValid: true,
         },
       ],
     },
@@ -109,4 +143,6 @@ export interface profilePropType {
   profile: seniorProfileAPIType;
   // eslint-disable-next-line no-undef
   setProfile: React.Dispatch<React.SetStateAction<seniorProfileAPIType>>;
+  // eslint-disable-next-line no-undef
+  setIsNextActive?: React.Dispatch<React.SetStateAction<boolean>>;
 }

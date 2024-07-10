@@ -1,23 +1,24 @@
 import styled from '@emotion/styled';
-import { preferredTimeType, profilePropType, weekendType } from '@pages/seniorProfile/types';
+import { TimeCategoryType, preferredTimeType, profilePropType, weekendType } from '@pages/seniorProfile/types';
 import DurationSelect from './common/DurationSelect';
 import DeleteIc from '../../../assets/svgs/ic_delete_btn.svg?react';
 
 const TimeWeekdays = ({ profile, setProfile }: profilePropType) => {
-  const weekendsSetProfile = (key: weekendType) => (timeCategory: 'startTime' | 'endTime') => (selectedValue: string) =>
-    setProfile((prev) => ({
-      ...prev,
-      preferredTimeList: {
-        ...prev.preferredTimeList,
-        weekend: {
-          ...prev.preferredTimeList.weekend,
-          [key]: prev.preferredTimeList.weekend[key].map((time: preferredTimeType) => ({
-            ...time,
-            [timeCategory]: selectedValue,
-          })),
+  const weekendsSetProfile =
+    (key: weekendType) => (timeCategory: TimeCategoryType) => (selectedValue: string | boolean) =>
+      setProfile((prev) => ({
+        ...prev,
+        preferredTimeList: {
+          ...prev.preferredTimeList,
+          weekend: {
+            ...prev.preferredTimeList.weekend,
+            [key]: prev.preferredTimeList.weekend[key].map((time: preferredTimeType) => ({
+              ...time,
+              [timeCategory]: selectedValue,
+            })),
+          },
         },
-      },
-    }));
+      }));
 
   return (
     <Wrapper>
@@ -42,7 +43,7 @@ const TimeWeekdays = ({ profile, setProfile }: profilePropType) => {
 export default TimeWeekdays;
 
 export const Wrapper = styled.div`
-  padding: 2rem 0 0 2rem;
+  padding-left: 2rem;
 `;
 
 export const TimeContainer = styled.div`

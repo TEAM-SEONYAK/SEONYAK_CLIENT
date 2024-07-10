@@ -32,11 +32,12 @@ const SeniorProfilePage = () => {
       case 4:
         return <Story profile={profile} setProfile={setProfile} />;
       case 5:
-        return <TimeSelect profile={profile} setProfile={setProfile} />;
+        return <TimeSelect profile={profile} setProfile={setProfile} setIsNextActive={setIsNextActive} />;
       default:
         return null;
     }
   };
+
   return (
     <div>
       {step > 0 && <Header title="프로필 등록" LeftSvg={ArrowLeftIc} onClickLeft={() => setStep((prev) => prev - 1)} />}
@@ -64,6 +65,8 @@ const Title = styled.div`
 `;
 
 const Meta = styled.p`
+  padding-bottom: 0.4rem;
+
   ${theme.fonts.Head1_SB_20};
   color: ${theme.colors.grayScaleBG};
   white-space: pre-wrap;

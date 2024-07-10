@@ -1,17 +1,15 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import DeleteIc from '@assets/svgs/ic_delete_btn.svg?react';
 import PlusIc from '@assets/svgs/ic_plus_btn.svg?react';
 import styled from '@emotion/styled';
 import DropDown from '@pages/seniorProfile/components/common/DropDown';
-import { preferredTimeType } from '@pages/seniorProfile/types';
+import { TimeCategoryType, preferredTimeType } from '@pages/seniorProfile/types';
 import { useState } from 'react';
 
 interface DurationPropType {
   variant?: 'default' | 'secondary';
   selectValue: preferredTimeType;
-  setProfile: (timeCategory: 'startTime' | 'endTime') => (selectedValue: string) => void;
+  setProfile: (timeCategory: TimeCategoryType) => (selectedValue: string | boolean) => void;
 }
 
 const DurationSelect = ({ variant = 'default', selectValue, setProfile }: DurationPropType) => {
@@ -21,6 +19,12 @@ const DurationSelect = ({ variant = 'default', selectValue, setProfile }: Durati
     setIsActive((prev) => !prev);
     setProfile('startTime')('시작 시간');
     setProfile('endTime')('마지막 시간');
+    setProfile('isActive')(false);
+  };
+
+  const handlePlus = () => {
+    setIsActive((prev) => !prev);
+    setProfile('isActive')(true);
   };
 
   return (
@@ -42,7 +46,7 @@ const DurationSelect = ({ variant = 'default', selectValue, setProfile }: Durati
         setProfile={setProfile('endTime')}
         isStartTime={false}
       />
-      {isActive ? <DeleteIcon onClick={handleDelete} /> : <PlusIcon onClick={() => setIsActive((prev) => !prev)} />}
+      {isActive ? <DeleteIcon onClick={handleDelete} /> : <PlusIcon onClick={handlePlus} />}
     </Wrapper>
   );
 };

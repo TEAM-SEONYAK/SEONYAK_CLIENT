@@ -8,7 +8,7 @@ interface DropDownPropType {
   isActive?: boolean;
   defaultValue: string;
   // eslint-disable-next-line no-unused-vars
-  setProfile: (selectedValue: string) => void;
+  setProfile: (selectedValue: string | boolean) => void;
   isStartTime: boolean;
 }
 
