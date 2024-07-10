@@ -16,3 +16,4 @@ export { default as NaviMyGrayIc } from './ic_navi_my_gray.svg?react';
 export { default as NaviLookGrayIc } from './ic_navi_look_gray.svg?react';
 export { default as NaviPromiseGrayIc } from './ic_navi_promise_gray.svg?react';
 export { default as CardArrowRightGrayIc } from './ic_cardarrow_right_gray.svg?react';
+export { default as ClockIc } from './ic_clock.svg?react';

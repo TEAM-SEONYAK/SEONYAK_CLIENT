@@ -1,24 +1,19 @@
 import styled from '@emotion/styled';
-import React from 'react';
 import PromiseTap from './PromiseTap';
+import RecentCard from './RecentCard';
 import Title from './Title';
 import { TempLogoIc, AlarmIc } from '../../../assets/svgs';
 import { Header } from '../../../components/commons/Header';
 import Nav from '../../../components/commons/Nav';
 
-interface LayoutPropType {
-  children: React.ReactNode;
-}
-
-const Layout = (props: LayoutPropType) => {
-  const { children } = props;
+const Layout = () => {
   return (
     <>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
       <Wrapper>
         <RecentLayout>
           <Title name="예솔" userRole="SENIOR" count={1} />
-          {children}
+          <RecentCard />
         </RecentLayout>
         <PromiseTap />
         <Nav />
