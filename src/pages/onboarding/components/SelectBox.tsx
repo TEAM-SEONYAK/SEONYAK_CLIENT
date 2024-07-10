@@ -83,4 +83,18 @@ const OptionList = styled.ul`
     color: ${({ theme }) => theme.colors.grayScaleMG2};
     ${({ theme }) => theme.fonts.Title2_M_16};
   }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+
+    background: ${({ theme }) => theme.colors.grayScaleDG};
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.colors.grayScaleMG1};
+  }
 `;
