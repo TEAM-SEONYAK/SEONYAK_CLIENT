@@ -1,6 +1,7 @@
 import { DropdownIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import { 연차_LIST } from '../constants';
 
 const SelectBox = () => {
   const PLACEHOLDER = '연차를 선택해 주세요';
@@ -12,6 +13,11 @@ const SelectBox = () => {
         <SelectBtn $isSelected={select !== PLACEHOLDER}>{PLACEHOLDER}</SelectBtn>
         <DropdownIcon />
       </SelectWrapper>
+      <OptionList>
+        {연차_LIST.map((el) => (
+          <li key={el}>{el}</li>
+        ))}
+      </OptionList>
     </Wrapper>
   );
 };
@@ -60,4 +66,21 @@ const DropdownIcon = styled(DropdownIc)`
   right: 0;
 
   margin-right: 1rem;
+`;
+
+const OptionList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  overflow-y: scroll;
+
+  height: 27.1rem;
+  padding: 1rem;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
+  & > li {
+    color: ${({ theme }) => theme.colors.grayScaleMG2};
+    ${({ theme }) => theme.fonts.Title2_M_16};
+  }
 `;
