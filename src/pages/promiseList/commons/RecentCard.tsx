@@ -1,14 +1,10 @@
 import { CardArrowRightGrayIc } from '@assets/svgs';
 import styled from '@emotion/styled';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PromiseTimerBtn from './PromiseTimerBtn';
 import { calculateTimeLeft } from '../utils/calculateTimeLeft';
 
-interface RecentCardPropType {
-  children?: React.ReactDOM;
-}
-
-const RecentCard = (props: RecentCardPropType) => {
+const RecentCard = () => {
   // 약속 개수 임시 데이터
   const length = 0;
   const dummyDate = '2024.07.10';
@@ -31,7 +27,6 @@ const RecentCard = (props: RecentCardPropType) => {
       <RecentNav>
         <RecentDayWrapper>
           <RecentChip>{length ? '가장 가까운 약속' : '약속 없음'}</RecentChip>
-          {/* 날짜 계산해서 넣어야 됨 */}
           <DdayCountChip>{dDayDiff === 0 ? 'D-DAY' : ` D-${dDayDiff}`}</DdayCountChip>
         </RecentDayWrapper>
         <UserGuideBtn type="button">선약 이용방법 보기</UserGuideBtn>
