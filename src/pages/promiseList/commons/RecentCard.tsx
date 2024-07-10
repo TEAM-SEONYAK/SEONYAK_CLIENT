@@ -9,8 +9,11 @@ interface RecentCardPropType {
 }
 
 const RecentCard = (props: RecentCardPropType) => {
-  const dummyDate = '2024.07.10';
-  const startTime = '06:17';
+  // 약속 개수 임시 데이터
+  const length = 0;
+  const dummyDate = '2024.07.11';
+  const startTime = '06:42';
+
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(dummyDate, startTime));
 
   useEffect(() => {
@@ -21,17 +24,15 @@ const RecentCard = (props: RecentCardPropType) => {
     return () => clearInterval(timer);
   }, [dummyDate, startTime]);
 
-  const { days, hours, minutes, diffText } = timeLeft;
+  const { diffText, diff, dDayDiff } = timeLeft;
 
-  // 약속 개수 임시 데이터
-  const length = 0;
   return (
     <Wrapper>
       <RecentNav>
         <RecentDayWrapper>
           <RecentChip>{length ? '가장 가까운 약속' : '약속 없음'}</RecentChip>
           {/* 날짜 계산해서 넣어야 됨 */}
-          <DdayCountChip>D-3</DdayCountChip>
+          <DdayCountChip>{dDayDiff === 0 ? 'D-DAY' : ` D-${dDayDiff}`}</DdayCountChip>
         </RecentDayWrapper>
         <UserGuideBtn type="button">선약 이용방법 보기</UserGuideBtn>
       </RecentNav>
@@ -49,7 +50,7 @@ const RecentCard = (props: RecentCardPropType) => {
         </InfoContainer>
         <CardArrowRightGrayIcon />
       </ProfileContainer>
-      <PromiseTimerBtn isActive={days === 0 && hours === 0 && minutes === 0} diff={diffText} />
+      <PromiseTimerBtn isActive={diff <= 0} diff={diffText} />
     </Wrapper>
   );
 };

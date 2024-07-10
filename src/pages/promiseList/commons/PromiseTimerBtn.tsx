@@ -7,7 +7,7 @@ interface PromiseTimerBtnPropType {
 
 const PromiseTimerBtn = (props: PromiseTimerBtnPropType) => {
   const { isActive, diff } = props;
-  return <Wrapper disabled={!isActive}>약속 시간까지 {diff}</Wrapper>;
+  return <Wrapper disabled={!isActive}>{isActive ? '지금 입장하기' : `약속 시간까지 ${diff}`}</Wrapper>;
 };
 
 export default PromiseTimerBtn;
