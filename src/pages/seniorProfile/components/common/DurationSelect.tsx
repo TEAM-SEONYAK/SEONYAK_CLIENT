@@ -1,19 +1,21 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import DeleteIc from '@assets/svgs/ic_delete_btn.svg?react';
 import PlusIc from '@assets/svgs/ic_plus_btn.svg?react';
 import styled from '@emotion/styled';
 import DropDown from '@pages/seniorProfile/components/common/DropDown';
-import { dayType, profilePropType, weekendType } from '@pages/seniorProfile/types';
+import { preferredTimeType } from '@pages/seniorProfile/types';
 import { useState } from 'react';
 
-interface DurationPropType extends profilePropType {
+interface DurationPropType {
   variant?: 'default' | 'secondary';
   isLatter?: boolean;
-  key: string;
+  selectValue: preferredTimeType;
+  setProfile: (timeCategory: 'startTime' | 'endTime') => (selectedValue: string) => void;
 }
 
-const DurationSelect = ({ variant = 'default', isLatter = false, key, profile, setProfile }: DurationPropType) => {
+const DurationSelect = ({ variant = 'default', isLatter = false, selectValue, setProfile }: DurationPropType) => {
   const [isActive, setIsActive] = useState(true);
 
   return (
@@ -22,22 +24,18 @@ const DurationSelect = ({ variant = 'default', isLatter = false, key, profile, s
         variant={variant}
         isLatter={isLatter}
         isActive={isActive}
-        profile={profile}
-        setProfile={setProfile}
-        timeCategory="startTime"
-        day={key as dayType | weekendType}
+        defaultValue={selectValue.startTime}
+        setProfile={setProfile('startTime')}
       />
       <WaveText $isDefault={variant === 'default'} $isActive={isActive}>
         ~
       </WaveText>
       <DropDown
         variant={variant}
-        timeCategory="endTime"
         isLatter={isLatter}
         isActive={isActive}
-        profile={profile}
-        setProfile={setProfile}
-        day={key as dayType | weekendType}
+        defaultValue={selectValue.endTime}
+        setProfile={setProfile('endTime')}
       />
       {isActive ? (
         <DeleteIcon onClick={() => setIsActive((prev) => !prev)} />

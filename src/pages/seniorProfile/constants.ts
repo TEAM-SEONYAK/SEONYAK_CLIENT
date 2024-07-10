@@ -1,3 +1,5 @@
+import { dayType } from '@pages/seniorProfile/types';
+
 export const SENIOR_PROFILE_STEPS = [
   {
     meta: `다른 선배들은 프로필을\n이렇게 등록했어요`,
@@ -33,7 +35,7 @@ export const SENIOR_PROFILE_STEPS = [
   },
 ];
 
-export const WEEKENDS = ['월', '화', '수', '목', '금', '토', '일'];
+export const WEEKENDS: dayType[] = ['월', '화', '수', '목', '금', '토', '일'];
 
 export const TIME_LIST = [
   '00:00',

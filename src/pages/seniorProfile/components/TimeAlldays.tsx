@@ -1,15 +1,35 @@
 import styled from '@emotion/styled';
-import { profilePropType } from '@pages/seniorProfile/types';
+import { dayType, preferredTimeType, profilePropType } from '@pages/seniorProfile/types';
 import DurationSelect from './common/DurationSelect';
 import { WEEKENDS } from '../constants';
 
 const TimeAlldays = ({ profile, setProfile }: profilePropType) => {
+  const dayOfWeekSetProfile = (key: dayType) => (timeCategory: 'startTime' | 'endTime') => (selectedValue: string) =>
+    setProfile((prev) => ({
+      ...prev,
+      preferredTimeList: {
+        ...prev.preferredTimeList,
+        dayOfWeek: {
+          ...prev.preferredTimeList.dayOfWeek,
+          [key]: prev.preferredTimeList.dayOfWeek[key].map((time: preferredTimeType) => ({
+            ...time,
+            [timeCategory]: selectedValue,
+          })),
+        },
+      },
+    }));
+
   return (
     <Wrapper>
       {WEEKENDS.map((w, idx) => (
         <Container key={idx}>
           <CategoryText>{w}</CategoryText>
-          <DurationSelect variant="secondary" isLatter={idx > 3} key={w} profile={profile} setProfile={setProfile} />
+          <DurationSelect
+            variant="secondary"
+            isLatter={idx > 3}
+            selectValue={profile.preferredTimeList.dayOfWeek[w][0]}
+            setProfile={dayOfWeekSetProfile(w)}
+          />
         </Container>
       ))}
     </Wrapper>

@@ -1,18 +1,39 @@
 import styled from '@emotion/styled';
-import { profilePropType } from '@pages/seniorProfile/types';
+import { preferredTimeType, profilePropType, weekendType } from '@pages/seniorProfile/types';
 import DurationSelect from './common/DurationSelect';
 import DeleteIc from '../../../assets/svgs/ic_delete_btn.svg?react';
 
 const TimeWeekdays = ({ profile, setProfile }: profilePropType) => {
+  const weekendsSetProfile = (key: weekendType) => (timeCategory: 'startTime' | 'endTime') => (selectedValue: string) =>
+    setProfile((prev) => ({
+      ...prev,
+      preferredTimeList: {
+        ...prev.preferredTimeList,
+        weekend: {
+          ...prev.preferredTimeList.weekend,
+          [key]: prev.preferredTimeList.weekend[key].map((time: preferredTimeType) => ({
+            ...time,
+            [timeCategory]: selectedValue,
+          })),
+        },
+      },
+    }));
+
   return (
     <Wrapper>
       <CategoryText>주중</CategoryText>
       <TimeContainer>
-        <DurationSelect profile={profile} setProfile={setProfile} key="주중" />
+        <DurationSelect
+          selectValue={profile.preferredTimeList.weekend.주중[0]}
+          setProfile={weekendsSetProfile('주중')}
+        />
       </TimeContainer>
       <CategoryText>주말</CategoryText>
       <TimeContainer>
-        <DurationSelect profile={profile} setProfile={setProfile} key="주말" />
+        <DurationSelect
+          selectValue={profile.preferredTimeList.weekend.주말[0]}
+          setProfile={weekendsSetProfile('주말')}
+        />
       </TimeContainer>
     </Wrapper>
   );

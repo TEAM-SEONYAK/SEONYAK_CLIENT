@@ -1,41 +1,25 @@
 import styled from '@emotion/styled';
 import { TIME_LIST } from '@pages/seniorProfile/constants';
-import {
-  profilePropType,
-  preferredTimeType,
-  dayType,
-  weekendType,
-  dayOfWeekTimeList,
-  weekendTimeList,
-} from '@pages/seniorProfile/types';
 import { useEffect, useRef, useState } from 'react';
 import ArrowDownIc from '../../../../assets/svgs/ic_arrow_down_mg.svg?react';
 
-interface DropDownPropType extends profilePropType {
+interface DropDownPropType {
   variant?: 'default' | 'secondary';
   isLatter?: boolean;
   isActive?: boolean;
-  category?: 'dayOfWeek' | 'weekend';
-  timeCategory: 'startTime' | 'endTime';
-  day: dayType | weekendType;
+  defaultValue: string;
+  // eslint-disable-next-line no-unused-vars
+  setProfile: (selectedValue: string) => void;
 }
 
 const DropDown = ({
   variant = 'default',
   isLatter = false,
   isActive = true,
-  category = 'dayOfWeek',
-  timeCategory,
-  day = '월',
-  profile,
+  defaultValue,
   setProfile,
 }: DropDownPropType) => {
-  const initialValue =
-    category === 'dayOfWeek'
-      ? (profile.preferredTimeList[category] as dayOfWeekTimeList)[day as dayType][0][timeCategory]
-      : (profile.preferredTimeList[category] as weekendTimeList)[day as weekendType][0][timeCategory];
-
-  const [selectedValue, setSelectedValue] = useState<string>(initialValue);
+  const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
   const [isSelectDown, setIsSelectDown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -63,26 +47,14 @@ const DropDown = ({
   }, []);
 
   useEffect(() => {
-    setProfile((prev) => ({
-      ...prev,
-      preferredTimeList: {
-        ...prev.preferredTimeList,
-        category: {
-          ...prev.preferredTimeList[category],
-          [day]: prev.preferredTimeList[category][day].map((time: preferredTimeType) => ({
-            ...time,
-            timeCategory: selectedValue,
-          })),
-        },
-      },
-    }));
+    setProfile(selectedValue);
   }, [selectedValue]);
 
   return (
     <div ref={dropdownRef}>
       <DropdownContainer $isDefault={variant === 'default'} onClick={handleClickDropdown} $isActive={isActive}>
         <SelectedText $isActive={isActive}>{selectedValue}</SelectedText>
-        <ArrowDownIcon $isActive={isActive} />
+        <ArrowDownIcon isactive={isActive.toString()} />
       </DropdownContainer>
       {isSelectDown && (
         <SelectContainer $isDefault={variant === 'default'} $isLatter={isLatter}>
@@ -112,16 +84,16 @@ const DropdownContainer = styled.section<{ $isDefault: boolean; $isActive: boole
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 
-  cursor: ${({ $isActive }) => $isActive && 'pointer'};
+  cursor: ${({ $isActive }) => ($isActive ? 'pointer' : 'default')};
 `;
 
 const SelectedText = styled.p<{ $isActive: boolean }>`
   ${({ theme }) => theme.fonts.Title2_M_16};
-  color: ${({ $isActive, theme }) => !$isActive && theme.colors.grayScaleMG1};
+  color: ${({ $isActive, theme }) => ($isActive ? 'black' : theme.colors.grayScaleMG1)};
 `;
 
-const ArrowDownIcon = styled(ArrowDownIc)<{ $isActive: boolean }>`
-  fill: ${({ $isActive }) => ($isActive ? '#A2A7B0' : '#E7EAF2')};
+const ArrowDownIcon = styled(ArrowDownIc)<{ isactive: string }>`
+  fill: ${({ isactive }) => (isactive === 'true' ? '#A2A7B0' : '#E7EAF2')};
 `;
 
 const SelectContainer = styled.ul<{ $isDefault: boolean; $isLatter: boolean }>`
