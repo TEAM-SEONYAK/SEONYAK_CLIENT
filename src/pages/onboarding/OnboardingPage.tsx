@@ -13,8 +13,8 @@ const OnboardingPage = () => {
   const role = 'SENIOR';
   const [step, setStep] = useState(1);
 
-  const handleSetNextStep = () => {
-    setStep((prev) => prev + 1);
+  const handleSetStep = (dir: 'NEXT' | 'PREV') => {
+    dir === 'NEXT' ? setStep((prev) => prev + 1) : setStep((prev) => prev - 1);
   };
 
   const Step = () => {
@@ -37,7 +37,7 @@ const OnboardingPage = () => {
   };
 
   return (
-    <Layout role={role} step={step} handleSetNextStep={handleSetNextStep}>
+    <Layout role={role} step={step} handleSetStep={handleSetStep}>
       <Step />
     </Layout>
   );

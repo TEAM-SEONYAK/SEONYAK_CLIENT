@@ -11,12 +11,12 @@ import convertToGroupStep from '../utils/convertToGroupStep';
 const Layout = ({
   role,
   step,
-  handleSetNextStep,
+  handleSetStep,
   children,
 }: {
   role: 'SENIOR' | 'JUNIOR';
   step: number;
-  handleSetNextStep: () => void;
+  handleSetStep: (dir: 'NEXT' | 'PREV') => void;
   children: ReactNode;
 }) => {
   const { title, description } = SENIOR_ONBOARDING_STEPS[step - 1];
@@ -24,13 +24,17 @@ const Layout = ({
 
   return (
     <Wrapper>
-      <Header title={ONBOARDING_HEADER[GROUP_STEP - 1]} LeftSvg={ArrowLeftIc} />
+      <Header
+        title={ONBOARDING_HEADER[GROUP_STEP - 1]}
+        LeftSvg={ArrowLeftIc}
+        onClickLeft={() => handleSetStep('PREV')}
+      />
       <ProgressBar max={role === 'SENIOR' ? 4 : 3} current={GROUP_STEP} />
       <Content>
         <TitleBox title={title} description={description} />
         {children}
       </Content>
-      <FullBtn text="텍스트" isActive onClick={handleSetNextStep} />
+      <FullBtn text="텍스트" isActive onClick={() => handleSetStep('NEXT')} />
       <ButtonBg />
     </Wrapper>
   );
