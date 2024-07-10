@@ -6,6 +6,7 @@ interface PromiseTapPropType {
 }
 
 const PromiseTap = (props: PromiseTapPropType) => {
+  const length = 0;
   const { userRole } = props;
   return (
     <Wrapper>
@@ -14,13 +15,17 @@ const PromiseTap = (props: PromiseTapPropType) => {
         <TapText $isActive={false}>예정 약속</TapText>
         <TapText $isActive={false}>지난 약속</TapText>
       </TapContainer>
-      <ProfilWrapper>
-        <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
-        <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" />
-        <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
-        <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
-        <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" />
-      </ProfilWrapper>
+      {length ? (
+        <ProfileWrapper>
+          <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
+          {/* <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" />
+          <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
+          <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
+          <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" /> */}
+        </ProfileWrapper>
+      ) : (
+        <EmptyView>예정된 약속이 없어요</EmptyView>
+      )}
     </Wrapper>
   );
 };
@@ -52,7 +57,19 @@ const TapText = styled.span<{ $isActive: boolean }>`
   color: ${({ theme, $isActive }) => ($isActive ? theme.colors.grayScaleBG : theme.colors.grayScaleMG2)};
 `;
 
-const ProfilWrapper = styled.div`
+const ProfileWrapper = styled.div`
   width: 100vw;
   padding: 0 2rem;
+`;
+
+const EmptyView = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 18.9rem;
+
+  ${({ theme }) => theme.fonts.Title2_M_16};
+  color: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
