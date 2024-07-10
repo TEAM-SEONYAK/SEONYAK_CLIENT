@@ -10,6 +10,7 @@ import Step졸업인증 from './components/seniorOnboarding/Step졸업인증';
 
 const OnboardingPage = () => {
   // 테스트
+  const role = 'SENIOR';
   const [step, setStep] = useState(1);
 
   const handleSetNextStep = () => {
@@ -36,7 +37,7 @@ const OnboardingPage = () => {
   };
 
   return (
-    <Layout step={step} handleSetNextStep={handleSetNextStep}>
+    <Layout role={role} step={step} handleSetNextStep={handleSetNextStep}>
       <Step />
     </Layout>
   );

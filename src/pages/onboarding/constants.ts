@@ -79,3 +79,5 @@ export const 약관_LIST = [
   '(필수) 하나 추가',
   '(선택) 서비스 혜택 정보 수신',
 ];
+
+export const ONBOARDING_HEADER = ['약관 동의', '개인정보 입력', '학교 인증', '재직 인증'];
