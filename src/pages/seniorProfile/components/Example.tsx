@@ -1,5 +1,6 @@
 import LogoIc from '@assets/svgs/ic_main_logo.svg?react';
 import { FullBtn } from '@components/commons/FullButton';
+import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
 import { SENIOR_PROFILE_STEPS } from '@pages/seniorProfile/constants';
 import { Meta } from '@pages/seniorProfile/SeniorProfilePage';
@@ -11,7 +12,32 @@ const Example = ({ setStep }: funnelComponentPropType) => {
       <LogoIcon />
       <Meta>{SENIOR_PROFILE_STEPS[1].meta}</Meta>
       <FullBtn text="다음으로" onClick={() => setStep && setStep((prev) => prev + 1)} isActive={true} />
-      <CardContainer></CardContainer>
+      <CardContainer>
+        <SeniorCard
+          nickname="도리야끼다요"
+          company="비바리퍼블리카 (토스)"
+          field="예체능 계열"
+          position="디자인"
+          detailPosition="프로덕트그래픽 디자이너"
+          level={1}
+        />
+        <SeniorCard
+          nickname="도리야끼다요"
+          company="비바리퍼블리카 (토스)"
+          field="예체능 계열"
+          position="디자인"
+          detailPosition="프로덕트그래픽 디자이너"
+          level={1}
+        />
+        <SeniorCard
+          nickname="도리야끼다요"
+          company="비바리퍼블리카 (토스)"
+          field="예체능 계열"
+          position="디자인"
+          detailPosition="프로덕트그래픽 디자이너"
+          level={1}
+        />
+      </CardContainer>
     </Wrapper>
   );
 };
