@@ -3,12 +3,28 @@ import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
+interface CalendarTileProperties {
+  date: Date;
+  view: string;
+}
+
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const CustomCalendar = () => {
   const [value, onChange] = useState<Value>(new Date());
+
+  const tileDisabled = ({ date, view }: CalendarTileProperties) => {
+    return view === 'month' && date <= new Date();
+  };
+
+  const tileClassName = ({ date, view }: CalendarTileProperties) => {
+    if (view === 'month' && date <= new Date()) {
+      return 'disabled-date';
+    }
+    return '';
+  };
 
   return (
     <CalendarContainer>
@@ -22,6 +38,8 @@ const CustomCalendar = () => {
         calendarType={'iso8601'}
         defaultValue={[new Date(2024, 7, 1), new Date(2024, 7, 1)]}
         formatDay={(locale, date) => date.getDate().toString()}
+        tileDisabled={tileDisabled}
+        tileClassName={tileClassName}
       />
     </CalendarContainer>
   );
@@ -72,7 +90,6 @@ const StyledCalendar = styled(Calendar)`
 
   .react-calendar__month-view__weekdays {
     color: ${({ theme }) => theme.colors.grayScaleMG2};
-
     ${({ theme }) => theme.fonts.Title2_M_16};
   }
 
@@ -109,5 +126,11 @@ const StyledCalendar = styled(Calendar)`
 
   .react-calendar__month-view__weekdays abbr {
     text-decoration: none;
+  }
+
+  .disabled-date {
+    color: ${({ theme }) => theme.colors.grayScaleLG2} !important;
+
+    cursor: not-allowed;
   }
 `;
