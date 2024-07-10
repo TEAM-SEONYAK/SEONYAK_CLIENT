@@ -1,5 +1,5 @@
+import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
-import SeniorCard from '../../components/commons/seniorCard/SeniorCard';
 import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConstants';
 
 const JuniorPromisePage = () => {
@@ -18,6 +18,7 @@ const JuniorPromisePage = () => {
         />
       ))}
     </SeniorListWrapper>
+  );
 };
 
 export default JuniorPromisePage;

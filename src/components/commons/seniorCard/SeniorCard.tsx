@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { getLevelName } from './utils/getLevelName';
+import { getLevelName } from './utils/getLevelName';
 
 interface ISeniorList {
   nickname: string;
