@@ -37,7 +37,7 @@ const TestBg = styled.div`
   z-index: 2;
 
   width: 100%;
-  height: 70.2rem;
+  height: 100dvh;
 
   background: ${({ theme }) => theme.colors.Blue};
 `;
@@ -51,24 +51,25 @@ const BottomSheetWrapper = styled.form<{ $isSheetOpen: boolean }>`
   flex-direction: column;
   gap: 43.5rem;
   position: absolute;
+  top: calc(100% - 61rem); /* 시트가 얼마나 높이 위치할지 */
   z-index: 1;
 
   width: 100%;
-  height: 61rem;
-  margin-top: 5.7rem;
+  height: 100vh;
   border-radius: 16px 16px 0 0;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
+
+  transition: transform 650ms ease-out;
 `;
 const TitleLayout = styled.header`
-  margin-bottom: 0.4rem;
-  padding: 2rem 0 0 2rem;
+  padding: 1.4rem 16.1rem 1.6rem 2rem;
 `;
 
 const Line = styled.div`
   width: 4.7rem;
   height: 0.3rem;
-  margin: 1.4rem 16.4rem;
+  margin: 0 14.4rem 3.3rem;
   border-radius: 5px;
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
