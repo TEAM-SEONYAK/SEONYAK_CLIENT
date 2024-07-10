@@ -48,19 +48,21 @@ const SeniorProfilePage = () => {
 
   return (
     <div>
-      {step > 0 && (
-        <Header
-          title="프로필 등록"
-          LeftSvg={ArrowLeftIc}
-          onClickLeft={() => setStep((prev) => prev - 1)}
-          bgColor="white"
-        />
+      {step > 1 && (
+        <>
+          <Header
+            title="프로필 등록"
+            LeftSvg={ArrowLeftIc}
+            onClickLeft={() => setStep((prev) => prev - 1)}
+            bgColor="white"
+          />
+          {step >= 2 && step <= 6 && <ProgressBar max={5} current={step - 1} />}
+          <Title>
+            <Meta>{userName + SENIOR_PROFILE_STEPS[step].meta}</Meta>
+            <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
+          </Title>
+        </>
       )}
-      {step >= 2 && step <= 6 && <ProgressBar max={5} current={step - 1} />}
-      <Title>
-        <Meta>{userName + SENIOR_PROFILE_STEPS[step].meta}</Meta>
-        <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
-      </Title>
       {getComponent()}
     </div>
   );
@@ -72,7 +74,7 @@ const Title = styled.div`
   padding: 8.8rem 0 4px 2rem;
 `;
 
-const Meta = styled.p`
+export const Meta = styled.p`
   padding-bottom: 0.4rem;
 
   ${theme.fonts.Head1_SB_20};
