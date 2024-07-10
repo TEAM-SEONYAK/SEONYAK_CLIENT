@@ -1,17 +1,24 @@
 import styled from '@emotion/styled';
+import React from 'react';
 import PromiseTap from './PromiseTap';
 import Title from './Title';
 import { TempLogoIc, AlarmIc } from '../../../assets/svgs';
 import { Header } from '../../../components/commons/Header';
 import Nav from '../../../components/commons/Nav';
 
-const Layout = () => {
+interface LayoutPropType {
+  children: React.ReactNode;
+}
+
+const Layout = (props: LayoutPropType) => {
+  const { children } = props;
   return (
     <>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
       <Wrapper>
         <RecentLayout>
           <Title name="예솔" userRole="SENIOR" count={1} />
+          {children}
         </RecentLayout>
         <PromiseTap />
         <Nav />
@@ -23,6 +30,10 @@ const Layout = () => {
 export default Layout;
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   width: 100vw;
   height: 100%;
   margin-top: 4.4rem;
@@ -32,6 +43,5 @@ const Wrapper = styled.div`
 
 const RecentLayout = styled.div`
   width: 100vw;
-  height: 31.5rem;
   padding: 1.5rem 2rem 0;
 `;

@@ -7,6 +7,8 @@ import { calculateTimeLeft } from '../utils/calculateTimeLeft';
 
 const RecentCard = () => {
   // 약속 개수 임시 데이터
+  const name = '도리야끼다요';
+  const userRole = 'JUNIOR';
   const length = 2;
   const dummyDate = '2024.07.14';
   const startTime = '14:42';
@@ -24,7 +26,7 @@ const RecentCard = () => {
   const { diffText, diff, dDayDiff } = timeLeft;
 
   return (
-    <Wrapper>
+    <Wrapper $userRole={userRole}>
       <RecentNav>
         <RecentDayWrapper>
           <ProfileChip type="promiseNum" content={length ? '가장 가까운 약속' : '약속 없음'} />
@@ -36,13 +38,21 @@ const RecentCard = () => {
       <ProfileContainer>
         <TempImg />
         <InfoContainer>
-          <Name>도리야끼다요 선배</Name>
+          <Name>
+            {name} {userRole === 'SENIOR' ? '선배' : '후배'}
+          </Name>
+          {userRole === 'JUNIOR' && (
+            <CompanyContainer>
+              <ProfileChip type="company" content="비바리퍼블리카 (토스)" />
+              <ProfileChip type="field" content="예체능계열" />
+            </CompanyContainer>
+          )}
           <MajorDiv>
-            <Major>예체능계열</Major>
+            <Major>디자이너</Major>
             <Divider />
-            <Major>시각디자인과</Major>
+            <Major>프로덕트그래픽 디자이너</Major>
           </MajorDiv>
-          <Description>면접에 관해 얘기하고 싶어요</Description>
+          <Description>주니어 (1년차)</Description>
         </InfoContainer>
         <CardArrowRightGrayIcon />
       </ProfileContainer>
@@ -53,10 +63,11 @@ const RecentCard = () => {
 
 export default RecentCard;
 
-const Wrapper = styled.section`
+const Wrapper = styled.section<{ $userRole: string }>`
   position: relative;
 
   width: 33.6rem;
+  margin-bottom: ${({ $userRole }) => ($userRole === 'SENIOR' ? '2.4rem' : '1.5rem')};
   padding: 1rem 1.1rem 1rem 1rem;
   border-radius: 8px;
 
@@ -149,4 +160,12 @@ const CardArrowRightGrayIcon = styled(CardArrowRightGrayIc)`
   position: absolute;
   top: 9.3rem;
   right: 0.7rem;
+`;
+
+const CompanyContainer = styled.div`
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+
+  margin-bottom: 0.6rem;
 `;

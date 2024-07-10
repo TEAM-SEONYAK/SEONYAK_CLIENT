@@ -35,8 +35,6 @@ export const theme = {
     transparentBlue_50: 'rgba(70, 133, 255, 0.5)',
     transparentRed_15: 'rgba(255, 57, 80, 0.15)',
     transparentRed_40: 'rgba(255, 57, 80, 0.4)',
-    chipBlueBg: 'rgba(232, 245, 255, 1)',
-    chipBlueText: 'rgba(61, 146, 247, 1)',
   },
   fonts: {
     Head1_B_20: css`
