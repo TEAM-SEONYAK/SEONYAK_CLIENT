@@ -18,7 +18,6 @@ const JuniorPromisePage = () => {
         />
       ))}
     </SeniorListWrapper>
-  );
 };
 
 export default JuniorPromisePage;

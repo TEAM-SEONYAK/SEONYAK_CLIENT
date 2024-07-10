@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import globalStyle from './styles/globalStyle';
 import theme from './styles/theme';
-
 const App = () => {
   const setScreenSize = () => {
     // vh 관련
