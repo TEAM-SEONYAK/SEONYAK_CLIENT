@@ -1,12 +1,21 @@
 // import styled from '@emotion/styled';
 // import TimeSelectionButton from './components/TimeSelectionButton';
 // import TimeSelectionTitleWrapper from './components/TimeSelectionTitleWrapper';
+import { useState } from 'react';
 import { BottomSheetBg } from './components/BottomSheetBg';
 
 const JuniorPromisePage = () => {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const handleSheetOpen = () => {
+    setIsSheetOpen(true);
+  };
+  const handleSheetClose = () => {
+    setIsSheetOpen(false);
+  };
+
   return (
     <>
-      <BottomSheetBg />
+      <BottomSheetBg isSheetOpen={isSheetOpen} handleSheetOpen={handleSheetOpen} handleSheetClose={handleSheetClose} />
     </>
     // <TimeSelectionContainer>
     //   <TimeSelectionTitleWrapper />
