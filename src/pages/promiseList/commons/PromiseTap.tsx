@@ -16,10 +16,10 @@ const PromiseTap = (props: PromiseTapPropType) => {
       </TapContainer>
       <ProfilWrapper>
         <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
+        <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" />
         <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
         <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
-        <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
-        <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
+        <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" />
       </ProfilWrapper>
     </Wrapper>
   );

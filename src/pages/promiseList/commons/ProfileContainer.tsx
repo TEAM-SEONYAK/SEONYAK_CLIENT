@@ -5,7 +5,7 @@ import ProfileChip from './ProfileChip';
 interface ProfileContainerPropType {
   name: string;
   userRole: string;
-  type: 'waitingAppointments' | 'plannedAppointments' | 'lastAppointments' | 'default';
+  type: 'waitingAppointments' | 'plannedAppointments' | 'lastAppointments' | 'rejected' | 'default';
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
@@ -16,26 +16,31 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
       <Wrapper $type={type}>
         <TempImg />
         <InfoContainer>
-          <Name>
-            {name} {userRole === 'SENIOR' ? '선배' : '후배'}
-          </Name>
+          <NameContainer>
+            <Name>
+              {name} {userRole === 'SENIOR' ? '선배' : '후배'}
+            </Name>
+            {type === 'rejected' && <RejectedChip>거절</RejectedChip>}
+          </NameContainer>
           {userRole === 'JUNIOR' && (
             <ChipContainer>
               <ProfileChip type="company" content="비바리퍼블리카 (토스)" />
               <ProfileChip type="field" content="예체능계열" />
             </ChipContainer>
           )}
-          {((userRole === 'SENIOR' && type === 'waitingAppointments') ||
-            type === 'plannedAppointments' ||
-            type === 'lastAppointments') && (
-            <>
-              <ChipContainer>
-                <ProfileChip type="field" content="예체능 계열" />
-                <ProfileChip type="field" content="시각디자인학과" />
-              </ChipContainer>
-              {type === 'waitingAppointments' && <Description>면접에 관해 얘기하고 싶어요</Description>}
-            </>
-          )}
+          {userRole === 'SENIOR' &&
+            (type === 'waitingAppointments' ||
+              type === 'plannedAppointments' ||
+              type === 'lastAppointments' ||
+              type === 'rejected') && (
+              <>
+                <ChipContainer>
+                  <ProfileChip type="field" content="예체능계열" />
+                  <ProfileChip type="field" content="시각디자인학과" />
+                </ChipContainer>
+                {type === 'waitingAppointments' && <Description>면접에 관해 얘기하고 싶어요</Description>}
+              </>
+            )}
           {userRole === 'SENIOR' && type === 'default' && (
             <>
               <MajorDiv>
@@ -62,6 +67,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
               <TimeSpan>7월 6일 20:30 - 21:00</TimeSpan>
             </TimeContainer>
           )}
+          {type === 'rejected' && <Description>거절 라이팅 들어갈 예정입니다 하하하하</Description>}
         </InfoContainer>
         <CardArrowRightGrayIcon />
       </Wrapper>
@@ -101,7 +107,6 @@ const Wrapper = styled.div<{ $type: string }>`
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 
   &:last-child {
-    /* margin-bottom: ${({ $type }) => ($type === 'default' ? 0 : '8.8rem')}; */
     border-bottom: none;
   }
 `;
@@ -120,9 +125,15 @@ const InfoContainer = styled.div`
   justify-content: flex-start;
 `;
 
-const Name = styled.span`
-  margin-bottom: 0.8rem;
+const NameContainer = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
 
+  margin-bottom: 0.8rem;
+`;
+
+const Name = styled.span`
   ${({ theme }) => theme.fonts.Title1_SB_16};
   color: ${({ theme }) => theme.colors.grayScaleBG};
 `;
@@ -198,4 +209,19 @@ const ReviewBtn = styled.button`
 
   ${({ theme }) => theme.fonts.Body3_SB_14};
   cursor: pointer;
+`;
+
+const RejectedChip = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 2.9rem;
+  height: 2.1rem;
+  border-radius: 4px;
+
+  background-color: ${({ theme }) => theme.colors.Red};
+
+  color: ${({ theme }) => theme.colors.grayScaleWhite};
+  ${({ theme }) => theme.fonts.Caption2_SB_12};
 `;
