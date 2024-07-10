@@ -1,13 +1,14 @@
 import { CardArrowRightGrayIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
+import ProfileChip from './ProfileChip';
 import PromiseTimerBtn from './PromiseTimerBtn';
 import { calculateTimeLeft } from '../utils/calculateTimeLeft';
 
 const RecentCard = () => {
   // 약속 개수 임시 데이터
-  const length = 0;
-  const dummyDate = '2024.07.10';
+  const length = 2;
+  const dummyDate = '2024.07.14';
   const startTime = '14:42';
 
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(dummyDate, startTime));
@@ -26,10 +27,10 @@ const RecentCard = () => {
     <Wrapper>
       <RecentNav>
         <RecentDayWrapper>
-          <RecentChip>{length ? '가장 가까운 약속' : '약속 없음'}</RecentChip>
-          <DdayCountChip>{dDayDiff === 0 ? 'D-DAY' : ` D-${dDayDiff}`}</DdayCountChip>
+          <ProfileChip type="promiseNum" content={length ? '가장 가까운 약속' : '약속 없음'} />
+          <ProfileChip type="dDay" content={dDayDiff === 0 ? 'D-DAY' : ` D-${dDayDiff}`} />
         </RecentDayWrapper>
-        <UserGuideBtn type="button">선약 이용방법 보기</UserGuideBtn>
+        <ProfileChip type="userGuide" content="선약 이용방법 보기" />
       </RecentNav>
       <DashedDivider />
       <ProfileContainer>
@@ -75,40 +76,6 @@ const RecentDayWrapper = styled.div`
   gap: 0.6rem;
   justify-content: flex-start;
   align-items: center;
-`;
-
-const RecentChip = styled.div`
-  padding: 0.4rem 0.6rem;
-  border-radius: 6px;
-
-  ${({ theme }) => theme.fonts.Caption2_SB_12};
-  background-color: ${({ theme }) => theme.colors.grayScaleBG};
-
-  color: ${({ theme }) => theme.colors.grayScaleWhite};
-`;
-
-const DdayCountChip = styled.div`
-  height: 2.5rem;
-  padding: 0.4rem 0.6rem;
-  border: 1px solid ${({ theme }) => theme.colors.transparentRed_40};
-  border-radius: 6px;
-
-  background-color: ${({ theme }) => theme.colors.transparentRed_15};
-
-  color: ${({ theme }) => theme.colors.Red};
-  ${({ theme }) => theme.fonts.Caption2_SB_12};
-`;
-
-const UserGuideBtn = styled.button`
-  height: 2.5rem;
-  padding: 0.4rem 0.6rem;
-  border: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
-  border-radius: 6px;
-
-  color: ${({ theme }) => theme.colors.grayScaleMG1};
-
-  ${({ theme }) => theme.fonts.Caption2_SB_12};
-  cursor: pointer;
 `;
 
 const DashedDivider = styled.div`

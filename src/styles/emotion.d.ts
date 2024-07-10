@@ -30,6 +30,8 @@ declare module '@emotion/react' {
       transparentBlue_50: string;
       transparentRed_15: string;
       transparentRed_40: string;
+      chipBlueBg: string;
+      chipBlueText: string;
     };
     fonts: {
       Head1_B_20: SerializedStyles;
