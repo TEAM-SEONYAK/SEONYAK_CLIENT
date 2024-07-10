@@ -12,8 +12,17 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
+// 내일 날짜를 구하는 함수
+const getTomorrow = () => {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  return tomorrow;
+};
+
 const CustomCalendar = () => {
-  const [value, onChange] = useState<Value>(new Date());
+  // 초기값을 내일 날짜로 설정
+  const [value, onChange] = useState<Value>(getTomorrow());
 
   const tileDisabled = ({ date, view }: CalendarTileProperties) => {
     return view === 'month' && date <= new Date();
