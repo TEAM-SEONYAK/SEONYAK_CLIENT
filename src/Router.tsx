@@ -1,9 +1,10 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import HomePage from './pages/home/HomePage';
+// import HomePage from './pages/home/HomePage';
 import JuniorPromisePage from './pages/juniorPromise/JuniorPromisePage';
-import JuniorOnboardingPage from './pages/onboarding/juniorOnboarding/JuniorOnboardingPage';
-import SeniorOnboardingPage from './pages/onboarding/seniorOnboarding/SeniorOnboardingPage';
+import LoginPage from './pages/login/LoginPage';
+import OnboardingPage from './pages/onboarding/OnboardingPage';
+import PromiseListPage from './pages/promiseList/PromiseListPage';
 import SeniorProfilePage from './pages/seniorProfile/SeniorProfilePage';
 
 const router = createBrowserRouter([
@@ -13,15 +14,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <PromiseListPage />,
       },
       {
-        path: 'seniorOnboarding',
-        element: <SeniorOnboardingPage />,
+        path: 'login',
+        element: <LoginPage />,
       },
       {
-        path: 'juniorOnboarding',
-        element: <JuniorOnboardingPage />,
+        path: 'onboarding',
+        element: <OnboardingPage />,
       },
       {
         path: 'seniorProfile',
