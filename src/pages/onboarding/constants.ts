@@ -28,6 +28,10 @@ export const SENIOR_ONBOARDING_STEPS = [
     description: '개인정보는 안전하게 보관되어 누구에게도 공개되지 않아요.',
   },
   {
+    title: '인증이 완료되었어요',
+    description: '명함 정보를 확인해 주세요',
+  },
+  {
     title: '회사 재직 기간을 알려 주세요',
     description: '선배님의 직무와 연차를 선택해주세요',
   },
