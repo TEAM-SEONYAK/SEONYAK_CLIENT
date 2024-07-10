@@ -1,9 +1,12 @@
 import { ArrowLeftIc } from '@assets/svgs';
 import styled from '@emotion/styled';
+import AfterProfile from '@pages/seniorProfile/components/AfterProfile';
+import Complete from '@pages/seniorProfile/components/Complete';
+import Init from '@pages/seniorProfile/components/Init';
+import PrevProfile from '@pages/seniorProfile/components/PrevProfile';
 import { seniorProfileAPIType, seniorProfileInitial } from '@pages/seniorProfile/types';
 import { useState } from 'react';
 import Career from './components/Career';
-import Check from './components/Check';
 import Example from './components/Example';
 import Sentence from './components/Sentence';
 import Story from './components/Story';
@@ -21,17 +24,23 @@ const SeniorProfilePage = () => {
   const getComponent = () => {
     switch (step) {
       case 0:
-        return <Example profile={profile} setProfile={setProfile} setStep={setStep} />;
+        return <Init setStep={setStep} />;
       case 1:
-        return <Check profile={profile} setProfile={setProfile} setStep={setStep} />;
+        return <Example profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 2:
-        return <Sentence profile={profile} setProfile={setProfile} setStep={setStep} />;
+        return <PrevProfile />;
       case 3:
-        return <Career profile={profile} setProfile={setProfile} setStep={setStep} />;
+        return <Sentence profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 4:
-        return <Story profile={profile} setProfile={setProfile} setStep={setStep} />;
+        return <Career profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 5:
+        return <Story profile={profile} setProfile={setProfile} setStep={setStep} />;
+      case 6:
         return <TimeSelect profile={profile} setProfile={setProfile} setStep={setStep} />;
+      case 7:
+        return <AfterProfile />;
+      case 8:
+        return <Complete />;
       default:
         return null;
     }

@@ -2,6 +2,10 @@ import { dayType } from '@pages/seniorProfile/types';
 
 export const SENIOR_PROFILE_STEPS = [
   {
+    meta: '',
+    description: '',
+  },
+  {
     meta: `다른 선배들은 프로필을\n이렇게 등록했어요`,
     description: ``,
   },

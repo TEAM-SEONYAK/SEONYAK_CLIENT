@@ -14,11 +14,6 @@ const Sentence = ({ profile, setProfile, setStep }: funnelComponentPropType) => 
   };
 
   const handleNextButton = () => {
-    setProfile &&
-      setProfile((prev) => ({
-        ...prev,
-        catchphrase,
-      }));
     setStep && setStep((prev) => prev + 1);
   };
 
