@@ -6,7 +6,6 @@ const useGoogleLoginHook = () => {
   const mutation = useMutation({
     mutationFn: (authorizationCode: string) => loginAxios(authorizationCode),
     onSuccess: (data) => {
-      console.log('Access Token:', data.data.data.accessToken);
       localStorage.setItem('accessToken', data.data.data.accessToken);
     },
     onError: (error) => {
@@ -23,7 +22,6 @@ const useGoogleLoginHook = () => {
       console.log('Login Failed:', error);
     },
     flow: 'auth-code',
-    redirect_uri: 'https://api.seonyak-dev.kro.kr/login/oauth2/code/google',
   });
 
   return { login, mutation };
