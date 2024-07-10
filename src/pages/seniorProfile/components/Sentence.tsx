@@ -1,5 +1,6 @@
 import { FullBtn } from '@components/commons/FullButton';
 import Textarea from '@components/commons/Textarea';
+import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import { profilePropType } from '@pages/seniorProfile/types';
 import { useEffect, useState } from 'react';
@@ -7,7 +8,8 @@ import { useEffect, useState } from 'react';
 const Sentence = ({ setProfile, setStep }: profilePropType) => {
   const [isNextActive, setIsNextActive] = useState(false);
   const [sentence, setSentence] = useState('');
-
+  const [isWarning, setIsWarning] = useState(false);
+  console.log({ isWarning });
   const handleChangeSentence = (inputVal: string) => {
     setSentence(inputVal);
   };
@@ -24,6 +26,8 @@ const Sentence = ({ setProfile, setStep }: profilePropType) => {
   useEffect(() => {
     if (sentence.length > 0) setIsNextActive(true);
     else setIsNextActive(false);
+
+    if (sentence.length >= 30) setIsWarning(false);
   }, [sentence]);
 
   return (
@@ -36,6 +40,7 @@ const Sentence = ({ setProfile, setStep }: profilePropType) => {
           inputVal={sentence}
           handleInputVal={handleChangeSentence}
         />
+        <WarnDescription isShown={isWarning} warnText="글자 수가 초과되었어요" />
       </Container>
       <FullBtn isActive={isNextActive} text="다음으로" onClick={handleNextButton} />
     </Wrapper>
