@@ -8,13 +8,11 @@ const SelectJuniorWorryButton: React.FC = () => {
   const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
 
   const handleButtonClick = (title: string) => {
-    setSelectedButtons((prevSelectedButtons) => {
-      if (prevSelectedButtons.includes(title)) {
-        return prevSelectedButtons.filter((buttonTitle) => buttonTitle !== title);
-      } else {
-        return [...prevSelectedButtons, title];
-      }
-    });
+    setSelectedButtons((prevSelectedButtons) =>
+      prevSelectedButtons.includes(title)
+        ? prevSelectedButtons.filter((buttonTitle) => buttonTitle !== title)
+        : [...prevSelectedButtons, title],
+    );
   };
 
   return (
