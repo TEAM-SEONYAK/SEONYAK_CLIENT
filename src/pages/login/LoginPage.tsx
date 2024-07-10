@@ -1,9 +1,9 @@
+import GoogleIc from '@assets/svgs/googleLogoIc.svg?react';
 import styled from '@emotion/styled';
-import GoogleIc from '../../../../assets/svgs/googleLogoIc.svg?react';
-import theme from '../../../../styles/theme';
-import useGoogleLoginHook from '../hooks/useLoginQuery';
+import theme from '@styles/theme';
+import useGoogleLoginHook from './hooks/useLoginQuery';
 
-const GoogleLogin = () => {
+const LoginPage = () => {
   const { login } = useGoogleLoginHook();
 
   return (
@@ -14,7 +14,7 @@ const GoogleLogin = () => {
   );
 };
 
-export default GoogleLogin;
+export default LoginPage;
 
 const Wrapper = styled.div`
   display: flex;

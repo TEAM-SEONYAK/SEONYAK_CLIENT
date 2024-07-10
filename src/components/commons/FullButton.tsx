@@ -17,6 +17,8 @@ export const FullBtn = (props: FullBtnPropType) => {
 };
 
 const FullBtnWrapper = styled.button`
+  z-index: 1;
+
   width: 33.5rem;
   padding: 1.55rem 13.65rem;
   border-radius: 5px;
