@@ -6,18 +6,31 @@ import { 연차_LIST } from '../constants';
 const SelectBox = () => {
   const PLACEHOLDER = '연차를 선택해 주세요';
   const [select, setSelect] = useState('연차를 선택해 주세요');
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClickItem = (item: string) => {
+    setSelect(item);
+    setIsOpen(false);
+  };
+
   return (
     <Wrapper>
       <SubTitle>연차</SubTitle>
-      <SelectWrapper>
-        <SelectBtn $isSelected={select !== PLACEHOLDER}>{PLACEHOLDER}</SelectBtn>
+      <SelectWrapper onClick={() => setIsOpen(true)}>
+        <SelectBtn $isSelected={select !== PLACEHOLDER}>{select || PLACEHOLDER}</SelectBtn>
         <DropdownIcon />
       </SelectWrapper>
-      <OptionList>
-        {연차_LIST.map((el) => (
-          <li key={el}>{el}</li>
-        ))}
-      </OptionList>
+      {isOpen && (
+        <OptionList>
+          {연차_LIST.map((el) => (
+            <li key={el}>
+              <OptionItem onClick={() => handleClickItem(el)} $isSelectedItem={select === el}>
+                {el}
+              </OptionItem>
+            </li>
+          ))}
+        </OptionList>
+      )}
     </Wrapper>
   );
 };
@@ -41,6 +54,7 @@ const SelectWrapper = styled.div`
 
   margin-top: 0.4rem;
 `;
+
 const SelectBtn = styled.button<{ $isSelected: boolean }>`
   display: flex;
   align-items: center;
@@ -79,11 +93,6 @@ const OptionList = styled.ul`
 
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
 
-  & > li {
-    color: ${({ theme }) => theme.colors.grayScaleMG2};
-    ${({ theme }) => theme.fonts.Title2_M_16};
-  }
-
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -97,4 +106,9 @@ const OptionList = styled.ul`
   &::-webkit-scrollbar-track {
     background: ${({ theme }) => theme.colors.grayScaleMG1};
   }
+`;
+
+const OptionItem = styled.button<{ $isSelectedItem: boolean }>`
+  color: ${({ $isSelectedItem, theme }) => ($isSelectedItem ? theme.colors.grayScaleBG : theme.colors.grayScaleMG2)};
+  ${({ theme }) => theme.fonts.Title2_M_16};
 `;
