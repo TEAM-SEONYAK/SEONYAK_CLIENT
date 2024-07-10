@@ -17,7 +17,7 @@ import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
 
 const SeniorProfilePage = () => {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(0);
   const [profile, setProfile] = useState<seniorProfileAPIType>(seniorProfileInitial);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
   console.log({ profile });
