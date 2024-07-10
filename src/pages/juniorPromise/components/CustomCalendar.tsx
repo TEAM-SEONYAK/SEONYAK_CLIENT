@@ -109,6 +109,7 @@ const StyledCalendar = styled(Calendar)`
 
   .react-calendar__navigation button {
     ${({ theme }) => theme.fonts.Head2_SB_18};
+    min-width: 4rem;
   }
 
   .react-calendar__navigation button:disabled {
