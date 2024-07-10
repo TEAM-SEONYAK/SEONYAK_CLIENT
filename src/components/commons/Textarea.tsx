@@ -26,6 +26,7 @@ const Textarea = (props: InputPropType) => {
           $isValid={inputVal.length <= wordLimit}
           $height={height}
           maxLength={wordLimit}
+          value={inputVal}
         />
         <WordLimitContainer>
           <Word $isLimit={inputVal.length <= wordLimit}>{inputVal.length}</Word>

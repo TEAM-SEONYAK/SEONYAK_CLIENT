@@ -14,7 +14,7 @@ import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
 
 const SeniorProfilePage = () => {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(3);
   const [profile, setProfile] = useState<seniorProfileAPIType>(seniorProfileInitial);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
   console.log({ profile });
@@ -25,7 +25,7 @@ const SeniorProfilePage = () => {
       case 1:
         return <Check profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 2:
-        return <Sentence setProfile={setProfile} setStep={setStep} />;
+        return <Sentence profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 3:
         return <Career profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 4:
