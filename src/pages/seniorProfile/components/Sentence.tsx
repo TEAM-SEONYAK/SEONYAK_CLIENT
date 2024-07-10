@@ -24,10 +24,13 @@ const Sentence = ({ setProfile, setStep }: profilePropType) => {
   };
 
   useEffect(() => {
-    if (sentence.length > 0) setIsNextActive(true);
-    else setIsNextActive(false);
-
-    if (sentence.length >= 30) setIsWarning(false);
+    if (sentence.length > 0) {
+      setIsNextActive(true);
+      if (sentence.length > 30) {
+        setIsWarning(true);
+        setIsNextActive(false);
+      } else setIsWarning(false);
+    } else setIsNextActive(false);
   }, [sentence]);
 
   return (
