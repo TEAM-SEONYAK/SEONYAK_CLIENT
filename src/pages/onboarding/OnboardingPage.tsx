@@ -6,7 +6,7 @@ import Step약관동의 from './components/commonOnboarding/Step약관동의';
 import Step학과선택 from './components/commonOnboarding/Step학과선택';
 import Step학교선택 from './components/commonOnboarding/Step학교선택';
 import Layout from './components/Layout';
-import Step명함인증 from './components/seniorOnboarding/Step명함인증';
+import Step인증완료 from './components/seniorOnboarding/Step인증완료';
 import Step재직기간 from './components/seniorOnboarding/Step재직기간';
 import Step졸업인증 from './components/seniorOnboarding/Step졸업인증';
 import Step직무선택 from './components/seniorOnboarding/Step직무선택';
@@ -35,7 +35,7 @@ const OnboardingPage = () => {
       case 6:
         return <Step졸업인증 />;
       case 7:
-        return <Step명함인증 />;
+        return <Step인증완료 />;
       case 8:
         return <Step재직기간 />;
       case 9:
