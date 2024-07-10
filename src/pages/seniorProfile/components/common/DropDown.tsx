@@ -5,19 +5,19 @@ import ArrowDownIc from '../../../../assets/svgs/ic_arrow_down_mg.svg?react';
 
 interface DropDownPropType {
   variant?: 'default' | 'secondary';
-  isLatter?: boolean;
   isActive?: boolean;
   defaultValue: string;
   // eslint-disable-next-line no-unused-vars
   setProfile: (selectedValue: string) => void;
+  isStartTime: boolean;
 }
 
 const DropDown = ({
   variant = 'default',
-  isLatter = false,
   isActive = true,
   defaultValue,
   setProfile,
+  isStartTime,
 }: DropDownPropType) => {
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
   const [isSelectDown, setIsSelectDown] = useState(false);
@@ -61,7 +61,7 @@ const DropDown = ({
         <ArrowDownIcon isactive={isActive.toString()} />
       </DropdownContainer>
       {isSelectDown && (
-        <SelectContainer $isDefault={variant === 'default'} $isLatter={isLatter}>
+        <SelectContainer $isStartTime={isStartTime}>
           {TIME_LIST.map((option) => (
             <SelectOption key={option} onClick={() => handleSelect(option)}>
               {option}
@@ -100,14 +100,16 @@ const ArrowDownIcon = styled(ArrowDownIc)<{ isactive: string }>`
   fill: ${({ isactive }) => (isactive === 'true' ? '#A2A7B0' : '#E7EAF2')};
 `;
 
-const SelectContainer = styled.ul<{ $isDefault: boolean; $isLatter: boolean }>`
+const SelectContainer = styled.ul<{ $isStartTime: boolean }>`
   overflow-y: scroll;
   position: fixed;
+  top: 10rem;
+  right: ${({ $isStartTime }) => !$isStartTime && '2.5rem'};
+  left: ${({ $isStartTime }) => $isStartTime && '2.5rem'};
   z-index: 2;
 
-  width: ${({ $isDefault }) => ($isDefault ? '13rem' : '12rem')};
-  height: 16rem;
-  margin-top: ${({ $isLatter }) => ($isLatter ? '-20rem' : '0.5rem')};
+  width: 20rem;
+  height: 50rem;
   padding: 0;
   border: 1px solid ${({ theme }) => theme.colors.grayScaleLG1};
   border-radius: 4px;

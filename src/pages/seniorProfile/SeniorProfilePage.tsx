@@ -20,7 +20,6 @@ const SeniorProfilePage = () => {
   const [isNextActive, setIsNextActive] = useState(true);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
   const getComponent = () => {
-    console.log({ profile });
     switch (step) {
       case 0:
         return <Example profile={profile} setProfile={setProfile} />;

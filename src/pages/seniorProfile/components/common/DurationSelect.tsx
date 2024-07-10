@@ -10,12 +10,11 @@ import { useState } from 'react';
 
 interface DurationPropType {
   variant?: 'default' | 'secondary';
-  isLatter?: boolean;
   selectValue: preferredTimeType;
   setProfile: (timeCategory: 'startTime' | 'endTime') => (selectedValue: string) => void;
 }
 
-const DurationSelect = ({ variant = 'default', isLatter = false, selectValue, setProfile }: DurationPropType) => {
+const DurationSelect = ({ variant = 'default', selectValue, setProfile }: DurationPropType) => {
   const [isActive, setIsActive] = useState(true);
 
   const handleDelete = () => {
@@ -28,20 +27,20 @@ const DurationSelect = ({ variant = 'default', isLatter = false, selectValue, se
     <Wrapper>
       <DropDown
         variant={variant}
-        isLatter={isLatter}
         isActive={isActive}
         defaultValue={selectValue.startTime}
         setProfile={setProfile('startTime')}
+        isStartTime={true}
       />
       <WaveText $isDefault={variant === 'default'} $isActive={isActive}>
         ~
       </WaveText>
       <DropDown
         variant={variant}
-        isLatter={isLatter}
         isActive={isActive}
         defaultValue={selectValue.endTime}
         setProfile={setProfile('endTime')}
+        isStartTime={false}
       />
       {isActive ? <DeleteIcon onClick={handleDelete} /> : <PlusIcon onClick={() => setIsActive((prev) => !prev)} />}
     </Wrapper>

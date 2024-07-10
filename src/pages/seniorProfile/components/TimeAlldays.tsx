@@ -26,7 +26,6 @@ const TimeAlldays = ({ profile, setProfile }: profilePropType) => {
           <CategoryText>{w}</CategoryText>
           <DurationSelect
             variant="secondary"
-            isLatter={idx > 3}
             selectValue={profile.preferredTimeList.dayOfWeek[w][0]}
             setProfile={dayOfWeekSetProfile(w)}
           />
