@@ -5,6 +5,12 @@ declare module '@emotion/react' {
     colors: {
       Blue: string;
       Red: string;
+      chipBlueBg: string;
+      chipBlueText: string;
+      chipGreenBg: string;
+      chipGreenText: string;
+      chipPurpleBg: string;
+      chipPurpleText: string;
       primaryBlue50: string;
       primaryBlue100: string;
       primaryBlue200: string;
