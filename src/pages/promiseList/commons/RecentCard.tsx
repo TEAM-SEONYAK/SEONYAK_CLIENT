@@ -11,8 +11,8 @@ interface RecentCardPropType {
 const RecentCard = (props: RecentCardPropType) => {
   // 약속 개수 임시 데이터
   const length = 0;
-  const dummyDate = '2024.07.11';
-  const startTime = '06:42';
+  const dummyDate = '2024.07.10';
+  const startTime = '14:42';
 
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(dummyDate, startTime));
 
