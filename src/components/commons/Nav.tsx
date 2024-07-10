@@ -27,6 +27,7 @@ const Wrapper = styled.nav`
   justify-content: space-between;
   position: fixed;
   bottom: 0;
+  z-index: 3;
 
   width: 100vw;
   padding: 0.9rem 5.5rem 1.7rem;
