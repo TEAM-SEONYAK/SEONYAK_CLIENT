@@ -9,30 +9,29 @@ import Sentence from './components/Sentence';
 import Story from './components/Story';
 import TimeSelect from './components/TimeSelect';
 import { SENIOR_PROFILE_STEPS } from './constants';
-import { FullBtn } from '../../components/commons/FullButton';
 import { Header } from '../../components/commons/Header';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
 
 const SeniorProfilePage = () => {
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(2);
   const [profile, setProfile] = useState<seniorProfileAPIType>(seniorProfileInitial);
-  const [isNextActive, setIsNextActive] = useState(true);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
+  console.log({ profile });
   const getComponent = () => {
     switch (step) {
       case 0:
-        return <Example profile={profile} setProfile={setProfile} />;
+        return <Example profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 1:
-        return <Check profile={profile} setProfile={setProfile} />;
+        return <Check profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 2:
-        return <Sentence profile={profile} setProfile={setProfile} />;
+        return <Sentence setProfile={setProfile} setStep={setStep} />;
       case 3:
-        return <Career profile={profile} setProfile={setProfile} />;
+        return <Career profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 4:
-        return <Story profile={profile} setProfile={setProfile} />;
+        return <Story profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 5:
-        return <TimeSelect profile={profile} setProfile={setProfile} setIsNextActive={setIsNextActive} />;
+        return <TimeSelect profile={profile} setProfile={setProfile} setStep={setStep} />;
       default:
         return null;
     }
@@ -54,13 +53,6 @@ const SeniorProfilePage = () => {
         <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
       </Title>
       {getComponent()}
-      {step !== 7 && (
-        <FullBtn
-          isActive={isNextActive}
-          text={step === 6 ? '프로필 등록하기' : '다음으로'}
-          onClick={() => setStep((prev) => prev + 1)}
-        />
-      )}
     </div>
   );
 };
