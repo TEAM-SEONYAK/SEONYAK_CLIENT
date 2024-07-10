@@ -113,6 +113,8 @@ const StyledCalendar = styled(Calendar)`
 
   .react-calendar__navigation button:disabled {
     background: none;
+
+    color: ${({ theme }) => theme.colors.grayScaleDG};
   }
 
   .react-calendar__navigation button:hover,
