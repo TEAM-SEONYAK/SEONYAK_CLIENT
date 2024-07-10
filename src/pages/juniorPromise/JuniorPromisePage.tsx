@@ -23,7 +23,6 @@ const JuniorPromisePage = () => {
     // </TimeSelectionContainer>
   );
 };
-
 export default JuniorPromisePage;
 
 // const TimeSelectionContainer = styled.div`
