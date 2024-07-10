@@ -14,8 +14,16 @@ export default ProfileChip;
 
 const Wrapper = styled.div<{ $type: string }>`
   padding: 0.3rem 0.5rem;
-  border: ${({ $type, theme }) =>
-    $type === 'dDay' ? `1px solid ${theme.colors.transparentRed_40}` : `1px solid transparent`};
+  border: ${({ theme, $type }) => {
+    switch ($type) {
+      case 'dDay':
+        return `1px solid ${theme.colors.transparentRed_40}`;
+      case 'userGuide':
+        return `1px solid ${theme.colors.grayScaleLG2}`;
+      default:
+        return `1px solid transparent`;
+    }
+  }};
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.Caption2_SB_12};
