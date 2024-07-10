@@ -66,7 +66,7 @@ export default RecentCard;
 const Wrapper = styled.section<{ $userRole: string }>`
   position: relative;
 
-  width: 33.6rem;
+  width: 100%;
   margin-bottom: ${({ $userRole }) => ($userRole === 'SENIOR' ? '2.4rem' : '1.5rem')};
   padding: 1rem 1.1rem 1rem 1rem;
   border-radius: 8px;

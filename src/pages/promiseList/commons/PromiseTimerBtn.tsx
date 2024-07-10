@@ -17,7 +17,7 @@ const Wrapper = styled.button`
   justify-content: center;
   align-items: center;
 
-  width: 31.1rem;
+  width: 100%;
   margin-top: 1rem;
   padding: 0.6rem 0 0.5rem;
   border-radius: 5px;
