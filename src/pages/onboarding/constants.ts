@@ -36,10 +36,6 @@ export const SENIOR_ONBOARDING_STEPS = [
     description: '선배님의 직무와 연차를 선택해주세요',
   },
   {
-    title: '직무를 알려 주세요',
-    description: '선배님의 직무와 연차를 선택해주세요',
-  },
-  {
     title: '휴대전화 번호를 입력해 주세요',
     description: '개인정보는 안전하게 보관되어 누구에게도 공개되지 않아요.',
   },
@@ -75,3 +71,13 @@ export const JUNIOR_ONBOARDING_STEPS = [
     description: '주전공과 부전공을 선택해주세요 ! ( 최대 3개 )',
   },
 ];
+
+export const 계열_LIST = ['공학계열', '교육계열', '사회계열', '자연계열', '인문계열', '의약계열', '예체능계열'];
+export const 약관_LIST = [
+  '(필수) 개인정보 수집 및 이용 동의',
+  '(필수) 만 14세 이상',
+  '(필수) 하나 추가',
+  '(선택) 서비스 혜택 정보 수신',
+];
+
+export const ONBOARDING_HEADER = ['약관 동의', '개인정보 입력', '학교 인증', '재직 인증'];
