@@ -1,7 +1,12 @@
 import styled from '@emotion/styled';
 import ProfileContainer from './ProfileContainer';
 
-const PromiseTap = () => {
+interface PromiseTapPropType {
+  userRole: string;
+}
+
+const PromiseTap = (props: PromiseTapPropType) => {
+  const { userRole } = props;
   return (
     <Wrapper>
       <TapContainer>
@@ -10,11 +15,11 @@ const PromiseTap = () => {
         <TapText $isActive={false}>지난 약속</TapText>
       </TapContainer>
       <ProfilWrapper>
-        <ProfileContainer name="도리야끼다요" userRole="SENIOR" type="waitingAppointments" />
-        <ProfileContainer name="도리야끼다요" userRole="SENIOR" type="waitingAppointments" />
-        <ProfileContainer name="도리야끼다요" userRole="SENIOR" type="waitingAppointments" />
-        <ProfileContainer name="도리야끼다요" userRole="SENIOR" type="waitingAppointments" />
-        <ProfileContainer name="도리야끼다요" userRole="SENIOR" type="waitingAppointments" />
+        <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
+        <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
+        <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
+        <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
+        <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
       </ProfilWrapper>
     </Wrapper>
   );
