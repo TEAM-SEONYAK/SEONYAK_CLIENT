@@ -50,6 +50,10 @@ const DropDown = ({
     setProfile(selectedValue);
   }, [selectedValue]);
 
+  useEffect(() => {
+    setSelectedValue(defaultValue);
+  }, [isActive]);
+
   return (
     <div ref={dropdownRef}>
       <DropdownContainer $isDefault={variant === 'default'} onClick={handleClickDropdown} $isActive={isActive}>

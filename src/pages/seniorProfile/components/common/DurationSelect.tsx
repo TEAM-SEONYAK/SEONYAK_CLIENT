@@ -18,6 +18,12 @@ interface DurationPropType {
 const DurationSelect = ({ variant = 'default', isLatter = false, selectValue, setProfile }: DurationPropType) => {
   const [isActive, setIsActive] = useState(true);
 
+  const handleDelete = () => {
+    setIsActive((prev) => !prev);
+    setProfile('startTime')('시작 시간');
+    setProfile('endTime')('마지막 시간');
+  };
+
   return (
     <Wrapper>
       <DropDown
@@ -37,11 +43,7 @@ const DurationSelect = ({ variant = 'default', isLatter = false, selectValue, se
         defaultValue={selectValue.endTime}
         setProfile={setProfile('endTime')}
       />
-      {isActive ? (
-        <DeleteIcon onClick={() => setIsActive((prev) => !prev)} />
-      ) : (
-        <PlusIcon onClick={() => setIsActive((prev) => !prev)} />
-      )}
+      {isActive ? <DeleteIcon onClick={handleDelete} /> : <PlusIcon onClick={() => setIsActive((prev) => !prev)} />}
     </Wrapper>
   );
 };
