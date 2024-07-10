@@ -5,10 +5,14 @@ import ProfileContainer from './ProfileContainer';
 import PromiseTimerBtn from './PromiseTimerBtn';
 import { calculateTimeLeft } from '../utils/calculateTimeLeft';
 
-const RecentCard = () => {
+interface RecentCardPropType {
+  userRole: string;
+}
+
+const RecentCard = (props: RecentCardPropType) => {
+  const { userRole } = props;
   // 약속 개수 임시 데이터
   const name = '도리야끼다요';
-  const userRole = 'SENIOR';
   const length = 2;
   const dummyDate = '2024.07.14';
   const startTime = '14:42';

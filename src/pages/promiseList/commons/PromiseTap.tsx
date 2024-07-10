@@ -49,5 +49,5 @@ const TapText = styled.span<{ $isActive: boolean }>`
 
 const ProfilWrapper = styled.div`
   width: 100vw;
-  padding: 2rem;
+  padding: 0 2rem;
 `;

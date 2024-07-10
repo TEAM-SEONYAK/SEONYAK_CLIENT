@@ -4,7 +4,7 @@ import ProfileChip from './ProfileChip';
 
 interface ProfileContainerPropType {
   name: string;
-  userRole: 'SENIOR' | 'JUNIOR';
+  userRole: string;
   type: 'waitingAppointments' | 'plannedAppointments' | 'lastAppointments' | 'default';
 }
 
@@ -59,17 +59,21 @@ export default ProfileContainer;
 
 // 이미지카드
 const Wrapper = styled.div<{ $type: string }>`
+  box-sizing: content-box;
+
   display: flex;
   gap: 1.4rem;
   position: relative;
 
   width: 100%;
-  margin-bottom: ${({ $type }) => ($type === 'default' ? '0' : '2rem')};
+  padding: ${({ $type }) => ($type === 'default' ? '0' : '2rem 0')};
+  border-bottom: ${({ $type, theme }) => ($type === 'default' ? 'none' : `1px solid ${theme.colors.grayScaleLG2}`)};
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 
   &:last-child {
     margin-bottom: 8.8rem;
+    border-bottom: none;
   }
 `;
 

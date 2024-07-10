@@ -13,7 +13,7 @@ const Layout = () => {
       <Wrapper>
         <RecentLayout>
           <Title name="예솔" userRole="SENIOR" count={1} />
-          <RecentCard />
+          <RecentCard userRole="JUNIOR" />
         </RecentLayout>
         <PromiseTap />
         <Nav />
