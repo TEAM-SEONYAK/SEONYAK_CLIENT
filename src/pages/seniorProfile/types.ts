@@ -140,7 +140,7 @@ export const seniorProfileInitial: seniorProfileAPIType = {
   },
 };
 
-export interface profilePropType {
+export interface funnelComponentPropType {
   profile?: seniorProfileAPIType;
   setProfile?: React.Dispatch<React.SetStateAction<seniorProfileAPIType>>;
   setIsNextActive?: React.Dispatch<React.SetStateAction<boolean>>;

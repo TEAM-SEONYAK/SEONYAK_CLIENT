@@ -3,10 +3,10 @@ import Textarea from '@components/commons/Textarea';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import { useValidation } from '@pages/seniorProfile/hook';
-import { profilePropType } from '@pages/seniorProfile/types';
-import { useState } from 'react';
+import { funnelComponentPropType } from '@pages/seniorProfile/types';
+import { useEffect, useState } from 'react';
 
-const Sentence = ({ profile, setProfile, setStep }: profilePropType) => {
+const Sentence = ({ profile, setProfile, setStep }: funnelComponentPropType) => {
   const [catchphrase, setCatchphrase] = useState(profile?.catchphrase + '');
   const { isNextActive, isWarning } = useValidation(catchphrase, 30);
   const handleChangeSentence = (inputVal: string) => {
@@ -21,6 +21,14 @@ const Sentence = ({ profile, setProfile, setStep }: profilePropType) => {
       }));
     setStep && setStep((prev) => prev + 1);
   };
+
+  useEffect(() => {
+    setProfile &&
+      setProfile((prev) => ({
+        ...prev,
+        catchphrase,
+      }));
+  }, [catchphrase]);
 
   return (
     <Wrapper>

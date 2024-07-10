@@ -1,12 +1,12 @@
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
-import { profilePropType } from '@pages/seniorProfile/types';
+import { funnelComponentPropType } from '@pages/seniorProfile/types';
 import { useState } from 'react';
 import TimeAlldays from './TimeAlldays';
 import TimeWeekdays from './TimeWeekdays';
 import ToggleButton from '../../../components/commons/ToggleButton';
 
-const TimeSelect = ({ profile, setProfile }: profilePropType) => {
+const TimeSelect = ({ profile, setProfile }: funnelComponentPropType) => {
   const [selectToggle, setSelectToggle] = useState<'left' | 'right'>('left');
   // const [isWarning, setIsWarning] = useState(false);
   const isWarning = false;

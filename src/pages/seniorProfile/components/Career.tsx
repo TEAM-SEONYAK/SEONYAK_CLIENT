@@ -3,10 +3,10 @@ import Textarea from '@components/commons/Textarea';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import { useValidation } from '@pages/seniorProfile/hook';
-import { profilePropType } from '@pages/seniorProfile/types';
-import { useState } from 'react';
+import { funnelComponentPropType } from '@pages/seniorProfile/types';
+import { useEffect, useState } from 'react';
 
-const Career = ({ profile, setProfile, setStep }: profilePropType) => {
+const Career = ({ profile, setProfile, setStep }: funnelComponentPropType) => {
   const [career, setCareer] = useState(profile?.career + '');
   const { isNextActive: isCareerNext, isWarning: isCareerWarning } = useValidation(career, 60);
 
@@ -21,14 +21,17 @@ const Career = ({ profile, setProfile, setStep }: profilePropType) => {
   };
 
   const handleNextButton = () => {
+    setStep && setStep((prev) => prev + 1);
+  };
+
+  useEffect(() => {
     setProfile &&
       setProfile((prev) => ({
         ...prev,
         career,
         award,
       }));
-    setStep && setStep((prev) => prev + 1);
-  };
+  }, [career, award]);
 
   return (
     <Wrapper>

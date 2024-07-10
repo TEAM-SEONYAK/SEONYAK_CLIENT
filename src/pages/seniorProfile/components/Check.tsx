@@ -1,6 +1,6 @@
-import { profilePropType } from '@pages/seniorProfile/types';
+import { funnelComponentPropType } from '@pages/seniorProfile/types';
 
-const Check = ({ profile, setProfile }: profilePropType) => {
+const Check = ({ profile, setProfile }: funnelComponentPropType) => {
   return <div>SeniorProfileStep1</div>;
 };
 
