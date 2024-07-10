@@ -25,13 +25,15 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
               <ProfileChip type="field" content="예체능계열" />
             </ChipContainer>
           )}
-          {userRole === 'SENIOR' && type === 'waitingAppointments' && (
+          {((userRole === 'SENIOR' && type === 'waitingAppointments') ||
+            type === 'plannedAppointments' ||
+            type === 'lastAppointments') && (
             <>
               <ChipContainer>
                 <ProfileChip type="field" content="예체능 계열" />
                 <ProfileChip type="field" content="시각디자인학과" />
               </ChipContainer>
-              <Description>면접에 관해 얘기하고 싶어요</Description>
+              {type === 'waitingAppointments' && <Description>면접에 관해 얘기하고 싶어요</Description>}
             </>
           )}
           {userRole === 'SENIOR' && type === 'default' && (
@@ -64,6 +66,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         <CardArrowRightGrayIcon />
       </Wrapper>
       {userRole === 'JUNIOR' && type === 'lastAppointments' && <ReviewBtn>리뷰 작성하기</ReviewBtn>}
+      {userRole === 'SENIOR' && type === 'lastAppointments' && <ReviewBtn>작성된 리뷰 없음</ReviewBtn>}
     </ReviewWrapper>
   );
 };
@@ -98,7 +101,7 @@ const Wrapper = styled.div<{ $type: string }>`
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 
   &:last-child {
-    margin-bottom: ${({ $type }) => ($type === 'default' ? 0 : '8.8rem')};
+    /* margin-bottom: ${({ $type }) => ($type === 'default' ? 0 : '8.8rem')}; */
     border-bottom: none;
   }
 `;
@@ -157,8 +160,8 @@ const Description = styled.div`
 
 const CardArrowRightGrayIcon = styled(CardArrowRightGrayIc)`
   position: absolute;
-  top: 45%;
-  right: 0.7rem;
+  top: 50%;
+  right: 0;
 `;
 
 const ChipContainer = styled.div`

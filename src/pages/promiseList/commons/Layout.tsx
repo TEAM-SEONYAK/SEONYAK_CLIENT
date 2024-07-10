@@ -13,9 +13,9 @@ const Layout = () => {
       <Wrapper>
         <RecentLayout>
           <Title name="예솔" userRole="SENIOR" count={1} />
-          <RecentCard userRole="JUNIOR" />
+          <RecentCard userRole="SENIOR" />
         </RecentLayout>
-        <PromiseTap userRole="JUNIOR" />
+        <PromiseTap userRole="SENIOR" />
         <Nav />
       </Wrapper>
     </>
