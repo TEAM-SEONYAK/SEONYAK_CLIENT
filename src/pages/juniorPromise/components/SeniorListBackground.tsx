@@ -1,19 +1,27 @@
+import { ResetIc, Line292Ic } from '@assets/svgs';
 import styled from '@emotion/styled';
+import React, { ReactNode } from 'react';
 import { FilterButton } from './FilterButton';
-import { ResetIc, Line292Ic } from '../../../assets/svgs/index';
-export const SeniorListBackground = () => {
+
+interface SeniorListBackgroundProps {
+  children: ReactNode;
+  handleSheetOpen: () => void;
+}
+
+export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({ children, handleSheetOpen }) => {
   return (
     <ListBackground>
       <SeniorSearchWrapper>
         <SearchTitle>선배를 찾아볼까요?</SearchTitle>
         <BtnLayout>
-          <FilterButton />
+          <FilterButton handleSheetOpen={handleSheetOpen} />
           <LineWrapper>
             <Line292Ic />
           </LineWrapper>
           <ResetIc />
         </BtnLayout>
       </SeniorSearchWrapper>
+      {children}
     </ListBackground>
   );
 };
@@ -41,6 +49,7 @@ const SearchTitle = styled.h2`
   color: ${({ theme }) => theme.colors.grayScaleBG};
   ${({ theme }) => theme.fonts.Head2_SB_18};
 `;
+
 const BtnLayout = styled.div`
   display: flex;
   justify-content: space-between;

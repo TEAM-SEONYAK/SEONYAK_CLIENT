@@ -6,11 +6,11 @@ interface BottomSheetPropType {
   handleSheetClose: () => void;
 }
 
-export const BottomSheetBg = ({ isSheetOpen, handleSheetOpen, handleSheetClose }: BottomSheetPropType) => {
+export const BottomSheet = ({ isSheetOpen, handleSheetClose }: BottomSheetPropType) => {
   return (
     <>
-      <TestBtn onClick={handleSheetOpen}>바텀시트 올리는 버튼</TestBtn>
-      <TestBg $isSheetOpen={isSheetOpen} onClick={handleSheetClose} />
+      {/* <TestBtn onClick={handleSheetOpen}>바텀시트 올리는 버튼</TestBtn> */}
+      <Background $isSheetOpen={isSheetOpen} onClick={handleSheetClose} />
       <BottomSheetWrapper $isSheetOpen={isSheetOpen}>
         <TitleLayout>
           <Line />
@@ -29,8 +29,11 @@ export const BottomSheetBg = ({ isSheetOpen, handleSheetOpen, handleSheetClose }
     </>
   );
 };
+// const TestBtn = styled.button`
+//   display: flex;
+// `;
 
-const TestBg = styled.div<{ $isSheetOpen: boolean }>`
+const Background = styled.div<{ $isSheetOpen: boolean }>`
   display: ${({ $isSheetOpen }) => ($isSheetOpen ? 'flex' : 'none')};
   position: fixed;
   top: 0;
@@ -40,10 +43,6 @@ const TestBg = styled.div<{ $isSheetOpen: boolean }>`
   height: 100dvh;
 
   background: ${({ theme }) => theme.colors.transparentBlack_65};
-`;
-
-const TestBtn = styled.button`
-  display: flex;
 `;
 
 const BottomSheetWrapper = styled.form<{ $isSheetOpen: boolean }>`
