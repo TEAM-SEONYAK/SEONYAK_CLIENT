@@ -1,5 +1,6 @@
 import { ArrowLeftIc } from '@assets/svgs';
 import styled from '@emotion/styled';
+import { seniorProfileAPIType, seniorProfileInitial } from '@pages/seniorProfile/types';
 import { useState } from 'react';
 import Career from './components/Career';
 import Check from './components/Check';
@@ -13,32 +14,30 @@ import { Header } from '../../components/commons/Header';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
 
-const getComponent = (step: number) => {
-  switch (step) {
-    case 0:
-      return <Example />;
-    case 1:
-      return <Check />;
-    case 2:
-      return <Sentence />;
-    case 3:
-      return <Career />;
-    case 4:
-      return <Story />;
-    case 5:
-      return <TimeSelect />;
-    default:
-      return null;
-  }
-};
-
 const SeniorProfilePage = () => {
   const [step, setStep] = useState(5);
-  const btnText = step === 8 ? '프로필 등록하기' : '다음으로';
+  const [profile, setProfile] = useState<seniorProfileAPIType>(seniorProfileInitial);
   const [isNextActive, setIsNextActive] = useState(true);
-  const component = getComponent(step);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
 
+  const getComponent = () => {
+    switch (step) {
+      case 0:
+        return <Example profile={profile} setProfile={setProfile} />;
+      case 1:
+        return <Check profile={profile} setProfile={setProfile} />;
+      case 2:
+        return <Sentence profile={profile} setProfile={setProfile} />;
+      case 3:
+        return <Career profile={profile} setProfile={setProfile} />;
+      case 4:
+        return <Story profile={profile} setProfile={setProfile} />;
+      case 5:
+        return <TimeSelect profile={profile} setProfile={setProfile} />;
+      default:
+        return null;
+    }
+  };
   return (
     <div>
       {step > 0 && <Header title="프로필 등록" LeftSvg={ArrowLeftIc} onClickLeft={() => setStep((prev) => prev - 1)} />}
@@ -47,8 +46,14 @@ const SeniorProfilePage = () => {
         <Meta>{userName + SENIOR_PROFILE_STEPS[step].meta}</Meta>
         <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
       </Title>
-      {component}
-      {step !== 7 && <FullBtn isActive={isNextActive} text={btnText} onClick={() => setStep((prev) => prev + 1)} />}
+      {getComponent()}
+      {step !== 7 && (
+        <FullBtn
+          isActive={isNextActive}
+          text={step === 6 ? '프로필 등록하기' : '다음으로'}
+          onClick={() => setStep((prev) => prev + 1)}
+        />
+      )}
     </div>
   );
 };

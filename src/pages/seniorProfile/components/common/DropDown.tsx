@@ -1,22 +1,41 @@
 import styled from '@emotion/styled';
 import { TIME_LIST } from '@pages/seniorProfile/constants';
+import {
+  profilePropType,
+  preferredTimeType,
+  dayType,
+  weekendType,
+  dayOfWeekTimeList,
+  weekendTimeList,
+} from '@pages/seniorProfile/types';
 import { useEffect, useRef, useState } from 'react';
 import ArrowDownIc from '../../../../assets/svgs/ic_arrow_down_mg.svg?react';
 
-interface DropDownPropType {
+interface DropDownPropType extends profilePropType {
   variant?: 'default' | 'secondary';
-  defaultValue?: '시작 시간' | '마지막 시간';
   isLatter?: boolean;
   isActive?: boolean;
+  category?: 'dayOfWeek' | 'weekend';
+  timeCategory: 'startTime' | 'endTime';
+  day: dayType | weekendType;
 }
 
 const DropDown = ({
   variant = 'default',
-  defaultValue = '시작 시간',
   isLatter = false,
   isActive = true,
+  category = 'dayOfWeek',
+  timeCategory,
+  day = '월',
+  profile,
+  setProfile,
 }: DropDownPropType) => {
-  const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
+  const initialValue =
+    category === 'dayOfWeek'
+      ? (profile.preferredTimeList[category] as dayOfWeekTimeList)[day as dayType][0][timeCategory]
+      : (profile.preferredTimeList[category] as weekendTimeList)[day as weekendType][0][timeCategory];
+
+  const [selectedValue, setSelectedValue] = useState<string>(initialValue);
   const [isSelectDown, setIsSelectDown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -42,6 +61,22 @@ const DropDown = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    setProfile((prev) => ({
+      ...prev,
+      preferredTimeList: {
+        ...prev.preferredTimeList,
+        category: {
+          ...prev.preferredTimeList[category],
+          [day]: prev.preferredTimeList[category][day].map((time: preferredTimeType) => ({
+            ...time,
+            timeCategory: selectedValue,
+          })),
+        },
+      },
+    }));
+  }, [selectedValue]);
 
   return (
     <div ref={dropdownRef}>

@@ -1,4 +1,4 @@
-const Story = () => {
+const Story = ({ profile, setProfile }: funnelComponentProps) => {
   return <div>SeniorProfileStep4</div>;
 };
 

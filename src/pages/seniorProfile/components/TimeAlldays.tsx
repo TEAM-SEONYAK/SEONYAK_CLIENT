@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
+import { profilePropType } from '@pages/seniorProfile/types';
 import DurationSelect from './common/DurationSelect';
 import { WEEKENDS } from '../constants';
 
-const TimeAlldays = () => {
+const TimeAlldays = ({ profile, setProfile }: profilePropType) => {
   return (
     <Wrapper>
       {WEEKENDS.map((w, idx) => (
         <Container key={idx}>
           <CategoryText>{w}</CategoryText>
-          <DurationSelect variant="secondary" isLatter={idx > 3} />
+          <DurationSelect variant="secondary" isLatter={idx > 3} key={w} profile={profile} setProfile={setProfile} />
         </Container>
       ))}
     </Wrapper>

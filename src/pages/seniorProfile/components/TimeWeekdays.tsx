@@ -1,17 +1,18 @@
 import styled from '@emotion/styled';
+import { profilePropType } from '@pages/seniorProfile/types';
 import DurationSelect from './common/DurationSelect';
 import DeleteIc from '../../../assets/svgs/ic_delete_btn.svg?react';
 
-const TimeWeekdays = () => {
+const TimeWeekdays = ({ profile, setProfile }: profilePropType) => {
   return (
     <Wrapper>
       <CategoryText>주중</CategoryText>
       <TimeContainer>
-        <DurationSelect />
+        <DurationSelect profile={profile} setProfile={setProfile} key="주중" />
       </TimeContainer>
       <CategoryText>주말</CategoryText>
       <TimeContainer>
-        <DurationSelect />
+        <DurationSelect profile={profile} setProfile={setProfile} key="주말" />
       </TimeContainer>
     </Wrapper>
   );

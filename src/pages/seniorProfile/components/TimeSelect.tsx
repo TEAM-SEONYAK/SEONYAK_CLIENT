@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import { profilePropType } from '@pages/seniorProfile/types';
 import { useState } from 'react';
 import TimeAlldays from './TimeAlldays';
 import TimeWeekdays from './TimeWeekdays';
 import ToggleButton from '../../../components/commons/ToggleButton';
 
-const TimeSelect = () => {
+const TimeSelect = ({ profile, setProfile }: profilePropType) => {
   const [activeButton, setActiveButton] = useState<'left' | 'right'>('left');
 
   const handleActiveButton = () => {
@@ -19,7 +20,11 @@ const TimeSelect = () => {
         activeButton={activeButton}
         onToggle={handleActiveButton}
       />
-      {activeButton === 'left' ? <TimeWeekdays /> : <TimeAlldays />}
+      {activeButton === 'left' ? (
+        <TimeWeekdays profile={profile} setProfile={setProfile} />
+      ) : (
+        <TimeAlldays profile={profile} setProfile={setProfile} />
+      )}
     </Wrapper>
   );
 };

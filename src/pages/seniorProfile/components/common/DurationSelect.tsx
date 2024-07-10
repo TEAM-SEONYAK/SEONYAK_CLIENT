@@ -3,24 +3,42 @@
 import DeleteIc from '@assets/svgs/ic_delete_btn.svg?react';
 import PlusIc from '@assets/svgs/ic_plus_btn.svg?react';
 import styled from '@emotion/styled';
+import DropDown from '@pages/seniorProfile/components/common/DropDown';
+import { dayType, profilePropType, weekendType } from '@pages/seniorProfile/types';
 import { useState } from 'react';
-import DropDown from './DropDown';
 
-interface DurationPropType {
+interface DurationPropType extends profilePropType {
   variant?: 'default' | 'secondary';
   isLatter?: boolean;
+  key: string;
 }
 
-const DurationSelect = ({ variant = 'default', isLatter = false }: DurationPropType) => {
+const DurationSelect = ({ variant = 'default', isLatter = false, key, profile, setProfile }: DurationPropType) => {
   const [isActive, setIsActive] = useState(true);
 
   return (
     <Wrapper>
-      <DropDown variant={variant} isLatter={isLatter} isActive={isActive} />
+      <DropDown
+        variant={variant}
+        isLatter={isLatter}
+        isActive={isActive}
+        profile={profile}
+        setProfile={setProfile}
+        timeCategory="startTime"
+        day={key as dayType | weekendType}
+      />
       <WaveText $isDefault={variant === 'default'} $isActive={isActive}>
         ~
       </WaveText>
-      <DropDown variant={variant} defaultValue="마지막 시간" isLatter={isLatter} isActive={isActive} />
+      <DropDown
+        variant={variant}
+        timeCategory="endTime"
+        isLatter={isLatter}
+        isActive={isActive}
+        profile={profile}
+        setProfile={setProfile}
+        day={key as dayType | weekendType}
+      />
       {isActive ? (
         <DeleteIcon onClick={() => setIsActive((prev) => !prev)} />
       ) : (
