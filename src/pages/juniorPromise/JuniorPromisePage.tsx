@@ -1,3 +1,4 @@
+import Nav from '@components/commons/Nav';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
 import { useState } from 'react';
@@ -39,6 +40,7 @@ const JuniorPromisePage = () => {
             />
           ))}
         </SeniorListWrapper>
+        <Nav />
       </SeniorListBackground>
       <BottomSheet
         isSheetOpen={isSheetOpen}
