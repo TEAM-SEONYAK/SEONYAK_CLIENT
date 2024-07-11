@@ -1,10 +1,12 @@
+import { SeniorListBackground } from './components/SeniorListBackground';
+import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
-import SeniorCard from '../../components/commons/seniorCard/SeniorCard';
 import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConstants';
 
 const JuniorPromisePage = () => {
   const { seniorList } = SENIOR_LIST;
   return (
+    <SeniorListBackground>
     <SeniorListWrapper>
       {seniorList.map((List) => (
         <SeniorCard
@@ -18,6 +20,8 @@ const JuniorPromisePage = () => {
         />
       ))}
     </SeniorListWrapper>
+      </SeniorListBackground >
+  );
 };
 
 export default JuniorPromisePage;
