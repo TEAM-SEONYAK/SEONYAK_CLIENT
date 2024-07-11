@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import BottomBar from './BottomBar';
 import CustomCalendar from './CustomCalendar';
+import GrayLine from './GrayLine';
 import TimeList from './TimeList';
 
 interface BottomSheetPropType {
@@ -31,13 +32,6 @@ const CalendarBottomSheet = ({ isSheetOpen, handleSheetClose }: BottomSheetPropT
 };
 
 export default CalendarBottomSheet;
-
-const GrayLine = styled.div`
-  width: 100%;
-  height: 1rem;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleWG};
-`;
 
 const Background = styled.div<{ isSheetOpen: boolean }>`
   display: ${({ isSheetOpen }) => (isSheetOpen ? 'flex' : 'none')};

@@ -1,6 +1,7 @@
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import GrayLine from './GrayLine';
 import SelectJuniorWorryButton from '../components/SelectJuniorWorryButton';
 import SelectJuniorWorryTextBoxWrapper from '../components/SelectJuniorWorryTextareaWrapper';
 import SelectJuniorWorryTitleWrapper from '../components/SelectJuniorWorryTitleWrapper';
@@ -19,6 +20,7 @@ const SelectJuniorPromiseSection = () => {
     <TimeSelectionContainer>
       <TimeSelectionTitleWrapper />
       <TimeSelectionButton />
+      <GrayLine />
       <SelectJuniorWorryTitleWrapper />
       <ToggleButton left="선택할게요" right="작성할게요" activeButton={activeButton} onToggle={handleToggle} />
       {activeButton === 'left' ? <SelectJuniorWorryButton /> : <SelectJuniorWorryTextBoxWrapper />}
