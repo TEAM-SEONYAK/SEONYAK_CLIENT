@@ -1,4 +1,4 @@
-import styled from '@emotion/styled/';
+import styled from '@emotion/styled';
 
 interface summaryPropType {
   description1: string;
@@ -31,8 +31,8 @@ export default ProfileSummary;
 
 const Wrapper = styled.div`
   display: flex;
-  margin: 0 2rem;
-  padding: 1.2rem;
+  align-items: center;
+  padding: 1.2rem 0;
 
   border-radius: 8px;
 
@@ -41,13 +41,16 @@ const Wrapper = styled.div`
 
 const Container = styled.section`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 0.3rem;
   width: 11.2rem;
 `;
 
 const Meta = styled.p`
   ${({ theme }) => theme.fonts.Caption3_M_12};
+  color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
 
 const Description = styled.p`
@@ -56,7 +59,6 @@ const Description = styled.p`
 
 const Divider = styled.hr`
   height: 1.6rem;
-  width: 0px;
-  stroke-width: 1.6px;
+  width: 1.6px;
   stroke: ${({ theme }) => theme.colors.grayScaleLG2};
 `;

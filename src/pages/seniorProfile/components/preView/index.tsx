@@ -1,5 +1,6 @@
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
+import ImgTextBox from '@pages/seniorProfile/components/preView/ImgTextBox';
 import ProfileSummary from '@pages/seniorProfile/components/preView/ProfileSummary';
 
 const dummy = {
@@ -28,8 +29,15 @@ const PreView = () => {
         position={dummy.data.position}
         detailPosition={dummy.data.detailPosition}
         level={dummy.data.level}
+        variant="medium"
       />
       <ProfileSummary description1="미제공" description2={1} description3="미제공" />
+      <Meta>선배의 이력 · 수상</Meta>
+      <ImgTextBox text={dummy.data.career} />
+      <ImgTextBox text={dummy.data.award} />
+      <Meta2>{dummy.data.catchphrase}</Meta2>
+      <Description>{dummy.data.story}</Description>
+      <Meta2>선배의 타임 테이블</Meta2>
     </Wrapper>
   );
 };
@@ -40,4 +48,19 @@ const Wrapper = styled.div`
   padding: 3rem 2rem;
 
   overflow-y: scroll;
+`;
+
+const Meta = styled.p`
+  ${({ theme }) => theme.fonts.Title1_SB_16};
+  padding-top: 3rem;
+`;
+
+const Meta2 = styled.p`
+  ${({ theme }) => theme.fonts.Title1_SB_16};
+  padding: 3.6rem 0 1.2rem;
+  width: 19.9rem;
+`;
+
+const Description = styled.p`
+  ${({ theme }) => theme.fonts.Body1_M_14};
 `;
