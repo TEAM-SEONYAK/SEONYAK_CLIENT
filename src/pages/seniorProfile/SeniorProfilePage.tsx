@@ -47,7 +47,7 @@ const SeniorProfilePage = () => {
 
   return (
     <div>
-      {step > 1 && (
+      {step > 1 && step < 8 && (
         <>
           <Header
             title={step == 2 ? '' : '프로필 등록'}
@@ -55,7 +55,7 @@ const SeniorProfilePage = () => {
             onClickLeft={() => setStep((prev) => prev - 1)}
             bgColor="white"
           />
-          {step > 2 && step <= 7 && <ProgressBar max={5} current={step - 2} />}
+          {step > 2 && <ProgressBar max={5} current={step - 2} />}
           <Title>
             <Meta>{userName + SENIOR_PROFILE_STEPS[step].meta}</Meta>
             <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
