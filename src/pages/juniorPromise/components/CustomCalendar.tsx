@@ -84,6 +84,8 @@ const StyledCalendar = styled(Calendar)`
     border-radius: 100px;
 
     background-color: ${({ theme }) => theme.colors.Blue};
+
+    color: ${({ theme }) => theme.colors.grayScaleWhite};
   }
 
   .react-calendar__month-view__weekdays {
@@ -107,6 +109,13 @@ const StyledCalendar = styled(Calendar)`
     background: none;
 
     color: ${({ theme }) => theme.colors.grayScaleDG};
+  }
+
+  .react-calendar__tile--active:enabled:hover,
+  .react-calendar__tile--active:enabled:focus {
+    background: ${({ theme }) => theme.colors.Blue};
+
+    color: ${({ theme }) => theme.colors.grayScaleWhite};
   }
 
   .react-calendar__navigation button:hover,
