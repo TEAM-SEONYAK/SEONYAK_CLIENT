@@ -24,13 +24,15 @@ const getComponent = (step: number) => {
       return <Story />;
     case 5:
       return <TimeSelect />;
+    case 6:
+      return <Check />;
     default:
       return null;
   }
 };
 
 const SeniorProfilePage = () => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(6);
   const btnText = step === 8 ? '프로필 등록하기' : '다음으로';
   const component = getComponent(step);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
