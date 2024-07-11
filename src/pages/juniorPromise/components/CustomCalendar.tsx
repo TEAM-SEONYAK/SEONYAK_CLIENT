@@ -34,7 +34,6 @@ const CustomCalendar = () => {
         prev2Label={null}
         showNeighboringMonth={false}
         calendarType={'iso8601'}
-        defaultValue={[new Date(2024, 7, 1), new Date(2024, 7, 1)]}
         formatDay={(locale, date) => date.getDate().toString()}
         tileDisabled={tileDisabled}
         tileClassName={tileClassName}
