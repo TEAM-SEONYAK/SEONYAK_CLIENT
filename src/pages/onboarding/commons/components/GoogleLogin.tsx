@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import GoogleIcon from '../../../../assets/svgs/googleLogo.svg?react';
+import GoogleIc from '../../../../assets/svgs/googleLogo.svg?react';
 import theme from '../../../../styles/theme';
 import useGoogleLoginHook from '../hooks/useLoginQuery';
 
@@ -8,13 +8,7 @@ const GoogleLogin = () => {
 
   return (
     <Wrapper onClick={() => login()}>
-      <GoogleIcon
-        style={{
-          width: '33px',
-          height: '33px',
-          margin: '10px',
-        }}
-      />
+      <GoogleIcon />
       <Text>구글로 시작하기</Text>
     </Wrapper>
   );
@@ -35,6 +29,12 @@ const Wrapper = styled.div`
   color: white;
 
   cursor: pointer;
+`;
+
+const GoogleIcon = styled(GoogleIc)`
+  width: 3.3rem;
+  height: 3.3rem;
+  margin: 1rem;
 `;
 
 const Text = styled.span`
