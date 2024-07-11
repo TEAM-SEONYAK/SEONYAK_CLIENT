@@ -11,6 +11,7 @@ export { default as ArrowLeftIc } from './icn_arrow_left.svg?react';
 export { default as AlarmIc } from './logo-alarm.svg?react';
 export { default as TempLogoIc } from './TempLogo.svg?react';
 export { default as CloseIc } from './ic_close.svg?react';
+export { default as TechCharacterIc } from './tech_character.svg?react';
 export { default as ErrorSmallIc } from './ic_error_small.svg?react';
 export { default as CameraIc } from './ic_camera.svg?react';
 export { default as CheckItemIc } from './ic_check_item.svg?react';
@@ -21,3 +22,4 @@ export { default as NaviMyGrayIc } from './ic_navi_my_gray.svg?react';
 export { default as NaviLookGrayIc } from './ic_navi_look_gray.svg?react';
 export { default as NaviPromiseGrayIc } from './ic_navi_promise_gray.svg?react';
 export { default as ReloadIc } from './ReloadIc.svg?react';
+
