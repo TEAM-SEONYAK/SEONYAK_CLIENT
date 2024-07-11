@@ -5,6 +5,12 @@ declare module '@emotion/react' {
     colors: {
       Blue: string;
       Red: string;
+      chipBlueBg: string;
+      chipBlueText: string;
+      chipGreenBg: string;
+      chipGreenText: string;
+      chipPurpleBg: string;
+      chipPurpleText: string;
       primaryBlue50: string;
       primaryBlue100: string;
       primaryBlue200: string;
@@ -44,6 +50,7 @@ declare module '@emotion/react' {
       Caption1_R_12: SerializedStyles;
       Caption2_SB_12: SerializedStyles;
       Caption3_M_12: SerializedStyles;
+      navigation: SerializedStyles;
     };
   }
 }

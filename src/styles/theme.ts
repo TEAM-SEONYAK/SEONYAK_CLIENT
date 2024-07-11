@@ -4,6 +4,12 @@ export const theme = {
   colors: {
     Blue: '#4685FF',
     Red: '#FF3C53',
+    chipBlueBg: '#E8F5FF',
+    chipBlueText: '#3D92F7',
+    chipGreenBg: '#E4FCF5',
+    chipGreenText: '#29B199',
+    chipPurpleBg: '#F6E9FB',
+    chipPurpleText: '#A844E6',
     primaryBlue50: '#E5EEFF',
     primaryBlue100: '#CCDDFF',
     primaryBlue200: '#99BBFF',
@@ -126,6 +132,13 @@ export const theme = {
       font-weight: 500;
       line-height: 100%;
       letter-spacing: -0.03rem;
+    `,
+    navigation: css`
+      font-family: 'Pretendard Variable', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 100%;
+      letter-spacing: normal;
     `,
   },
 };

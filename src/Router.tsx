@@ -1,11 +1,11 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import Home from './pages/home/Home';
-import JuniorPromise from './pages/juniorPromise/JuniorPromise';
-import MyPage from './pages/myPage/MyPage';
-import JuniorOnboarding from './pages/onboarding/juniorOnboarding/JuniorOnboarding';
-import SeniorOnboarding from './pages/onboarding/seniorOnboarding/SeniorOnboarding';
-import SeniorProfile from './pages/seniorProfile/SeniorProfile';
+// import HomePage from './pages/home/HomePage';
+import JuniorPromisePage from './pages/juniorPromise/JuniorPromisePage';
+import LoginPage from './pages/login/LoginPage';
+import OnboardingPage from './pages/onboarding/OnboardingPage';
+import PromiseListPage from './pages/promiseList/PromiseListPage';
+import SeniorProfilePage from './pages/seniorProfile/SeniorProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -14,27 +14,23 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <PromiseListPage />,
       },
       {
-        path: 'seniorOnboarding',
-        element: <SeniorOnboarding />,
+        path: 'login',
+        element: <LoginPage />,
       },
       {
-        path: 'juniorOnboarding',
-        element: <JuniorOnboarding />,
+        path: 'onboarding',
+        element: <OnboardingPage />,
       },
       {
         path: 'seniorProfile',
-        element: <SeniorProfile />,
+        element: <SeniorProfilePage />,
       },
       {
-        path: 'juniorProfile',
-        element: <JuniorPromise />,
-      },
-      {
-        path: 'myPage',
-        element: <MyPage />,
+        path: 'juniorPromise',
+        element: <JuniorPromisePage />,
       },
     ],
   },
