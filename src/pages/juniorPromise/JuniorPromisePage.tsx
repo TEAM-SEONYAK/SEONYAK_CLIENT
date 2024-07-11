@@ -59,9 +59,6 @@ const JuniorPromisePage = () => {
         position={listedPosition} //BottomSheet에 직무 목록 전달
         turnFieldState={turnFieldState}
         turnPositionState={turnPositionState}
-        handleSheetOpen={function (): void {
-          throw new Error('Function not implemented.');
-        }}
       />
     </>
   );

@@ -1,13 +1,13 @@
 import { ReloadIc } from '@assets/svgs';
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import { FieldList } from './FieldList';
 import { PositionList } from './PositionList';
 
 interface BottomSheetPropType {
   isSheetOpen: boolean;
   isClickField: boolean;
-  handleSheetOpen: () => void;
   handleSheetClose: () => void;
   field: string[];
   position: string[];
@@ -16,6 +16,8 @@ interface BottomSheetPropType {
 }
 
 export const BottomSheet = ({ isSheetOpen, isClickField, handleSheetClose, field, position }: BottomSheetPropType) => {
+  const [activeButton, setActiveButton] = useState('계열');
+
   return (
     <>
       <Background $isSheetOpen={isSheetOpen} onClick={handleSheetClose} />
@@ -25,14 +27,7 @@ export const BottomSheet = ({ isSheetOpen, isClickField, handleSheetClose, field
           <Title>원하는 선배를 찾아볼까요?</Title>
           <Desc>계열, 직무로 원하는 선배를 찾을 수 있어요.</Desc>
         </TitleLayout>
-        <ToggleButton
-          left="계열"
-          right="직무"
-          activeButton={'left'}
-          onToggle={function (): void {
-            throw new Error('Function not implemented.');
-          }}
-        />
+        <ToggleButton left="계열" right="직무" activeButton={activeButton} onToggle={setActiveButton} />
         <Content>
           {isClickField ? (
             <FieldLayout>
