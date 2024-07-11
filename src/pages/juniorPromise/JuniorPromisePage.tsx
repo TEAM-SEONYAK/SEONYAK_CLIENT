@@ -1,3 +1,5 @@
+import { TempLogoIc, AlarmIc } from '@assets/svgs';
+import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
@@ -7,7 +9,6 @@ import { SeniorListBackground } from './components/SeniorListBackground';
 import { FIELD_LIST } from './constants/fieldList';
 import { POSITION_LIST } from './constants/positionList';
 import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConstants';
-
 const JuniorPromisePage = () => {
   const { seniorList } = SENIOR_LIST;
   const [isSheetOpen, setSheetOpen] = useState(false);
@@ -21,7 +22,7 @@ const JuniorPromisePage = () => {
   const turnFieldState = () => {
     setSheetOpen(true);
     setClickField(true);
-    setListedField(FIELD_LIST.fieldList.map((item) => item.field)); // 모든 필드 렌더링
+    setListedField(FIELD_LIST.fieldList.map((item) => item.field)); // 모든 계열 렌더링
   };
 
   const turnPositionState = () => {
@@ -32,6 +33,7 @@ const JuniorPromisePage = () => {
 
   return (
     <>
+      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
       <SeniorListBackground turnFieldState={turnFieldState} turnPositionState={turnPositionState}>
         <SeniorListWrapper>
           {seniorList.map((list) => (
