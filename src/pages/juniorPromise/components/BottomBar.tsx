@@ -30,12 +30,16 @@ const ButtonLayout = styled.footer`
   display: flex;
   gap: 1.1rem;
   justify-content: center;
+  position: fixed;
+  bottom: 0;
 
+  width: 100%;
   height: 9.4rem;
   margin-bottom: 2.6rem;
   padding: 1.5rem 0 3rem;
 
-  box-shadow: 0 -4px 8px rgb(0 0 0 / 10%);
+  background: ${({ theme }) => theme.colors.grayScaleWhite};
+  box-shadow: 0 -8px 30px rgb(0 0 0 / 10%);
 `;
 
 const ReloadBtn = styled.button`
