@@ -21,12 +21,8 @@ const CustomCalendar = () => {
     return view === 'month' && date <= new Date();
   };
 
-  const tileClassName = ({ date, view }: CalendarTileProperties) => {
-    if (view === 'month' && date <= new Date()) {
-      return 'disabled-date';
-    }
-    return '';
-  };
+  const tileClassName = ({ date, view }: CalendarTileProperties) =>
+    view === 'month' && date <= new Date() ? 'disabled-date' : '';
 
   return (
     <CalendarContainer>
