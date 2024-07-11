@@ -7,7 +7,7 @@ interface ISeniorList {
   field: string;
   position: string;
   detailPosition: string;
-  level: number;
+  level: string;
 }
 
 interface CompanyProps {
