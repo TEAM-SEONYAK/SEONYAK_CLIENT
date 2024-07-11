@@ -9,6 +9,7 @@ import { SeniorListBackground } from './components/SeniorListBackground';
 import { FIELD_LIST } from './constants/fieldList';
 import { POSITION_LIST } from './constants/positionList';
 import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConstants';
+
 const JuniorPromisePage = () => {
   const { seniorList } = SENIOR_LIST;
   const [isSheetOpen, setSheetOpen] = useState(false);
