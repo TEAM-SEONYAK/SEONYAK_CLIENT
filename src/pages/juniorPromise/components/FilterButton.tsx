@@ -1,14 +1,18 @@
 import styled from '@emotion/styled';
+import React from 'react';
 import { ArrowDownIc } from '../../../assets/svgs/index';
 
-export const FilterButton = () => {
+interface FilterButtonProps {
+  handleSheetOpen: () => void;
+}
+export const FilterButton: React.FC<FilterButtonProps> = ({ handleSheetOpen }) => {
   return (
     <FilterBtnContainer>
-      <FilterBtn type="button">
+      <FilterBtn type="button" onClick={handleSheetOpen}>
         계열
         <ArrowDownIc />
       </FilterBtn>
-      <FilterBtn type="button">
+      <FilterBtn type="button" onClick={handleSheetOpen}>
         직무
         <ArrowDownIc />
       </FilterBtn>
