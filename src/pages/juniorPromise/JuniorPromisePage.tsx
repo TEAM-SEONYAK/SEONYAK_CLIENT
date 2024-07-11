@@ -13,20 +13,26 @@ const JuniorPromisePage = () => {
   const [isSheetOpen, setSheetOpen] = useState(false);
   const [listedField, setListedField] = useState<string[]>([]); // 계열 목록 저장
   const [listedPosition, setListedPosition] = useState<string[]>([]); // 직무 목록 저장
-
-  const handleSheetOpen = () => {
-    setListedField(FIELD_LIST.fieldList.map((item) => item.field)); // 모든 필드 렌더링
-    setListedPosition(POSITION_LIST.positionList.map((item) => item.position)); //모든 직무 렌더링
-    setSheetOpen(true);
-  };
+  const [isClickField, setClickField] = useState(false);
 
   const handleSheetClose = () => {
     setSheetOpen(false);
   };
+  const turnFieldState = () => {
+    setSheetOpen(true);
+    setClickField(true);
+    setListedField(FIELD_LIST.fieldList.map((item) => item.field)); // 모든 필드 렌더링
+  };
+
+  const turnPositionState = () => {
+    setSheetOpen(true);
+    setClickField(false);
+    setListedPosition(POSITION_LIST.positionList.map((item) => item.position)); //모든 직무 렌더링
+  };
 
   return (
     <>
-      <SeniorListBackground handleSheetOpen={handleSheetOpen}>
+      <SeniorListBackground turnFieldState={turnFieldState} turnPositionState={turnPositionState}>
         <SeniorListWrapper>
           {seniorList.map((list) => (
             <SeniorCard
@@ -44,9 +50,12 @@ const JuniorPromisePage = () => {
       </SeniorListBackground>
       <BottomSheet
         isSheetOpen={isSheetOpen}
+        isClickField={isClickField}
         handleSheetClose={handleSheetClose}
         field={listedField} // BottomSheet에 계열 목록 전달
         position={listedPosition} //BottomSheet에 직무 목록 전달
+        turnFieldState={turnFieldState}
+        turnPositionState={turnPositionState}
         handleSheetOpen={function (): void {
           throw new Error('Function not implemented.');
         }}

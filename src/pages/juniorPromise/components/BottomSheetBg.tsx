@@ -1,18 +1,21 @@
 import { ReloadIc } from '@assets/svgs';
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
-// import { FieldList } from './FieldList';
+import { FieldList } from './FieldList';
 import { PositionList } from './PositionList';
 
 interface BottomSheetPropType {
   isSheetOpen: boolean;
+  isClickField: boolean;
   handleSheetOpen: () => void;
   handleSheetClose: () => void;
   field: string[];
   position: string[];
+  turnFieldState: () => void;
+  turnPositionState: () => void;
 }
 
-export const BottomSheet = ({ isSheetOpen, handleSheetClose, field, position }: BottomSheetPropType) => {
+export const BottomSheet = ({ isSheetOpen, isClickField, handleSheetClose, field, position }: BottomSheetPropType) => {
   return (
     <>
       <Background $isSheetOpen={isSheetOpen} onClick={handleSheetClose} />
@@ -31,14 +34,19 @@ export const BottomSheet = ({ isSheetOpen, handleSheetClose, field, position }: 
           }}
         />
         <Content>
-          {/* {field.map((list) => (
-          <FieldList key={list} field={list} /> // 각 필드에 대해 FieldList 컴포넌트 생성
-        ))} */}
-          <PositionLayout>
-            {position.map((list) => (
-              <PositionList key={list} position={list} />
-            ))}
-          </PositionLayout>
+          {isClickField ? (
+            <FieldLayout>
+              {field.map((list) => (
+                <FieldList key={list} field={list} />
+              ))}
+            </FieldLayout>
+          ) : (
+            <PositionLayout>
+              {position.map((list) => (
+                <PositionList key={list} position={list} />
+              ))}
+            </PositionLayout>
+          )}
         </Content>
         <ButtonLayout>
           <ReloadIcon type="reset">
@@ -95,13 +103,23 @@ const Content = styled.div`
   height: 35.2rem;
 `;
 
+const FieldLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin: 0 2rem;
+  padding: 1rem 0;
+`;
 const PositionLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 1.2rem 1rem;
+  gap: 12px 10px;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-shrink: 0;
 
-  margin: 2rem;
-  padding: 0.4rem 0;
+  margin: 1rem 2rem;
 `;
 
 const Line = styled.div`

@@ -5,16 +5,21 @@ import { FilterButton } from './FilterButton';
 
 interface SeniorListBackgroundProps {
   children: ReactNode;
-  handleSheetOpen: () => void;
+  turnFieldState: () => void;
+  turnPositionState: () => void;
 }
 
-export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({ children, handleSheetOpen }) => {
+export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
+  children,
+  turnFieldState,
+  turnPositionState,
+}) => {
   return (
     <ListBackground>
       <SeniorSearchWrapper>
         <SearchTitle>선배를 찾아볼까요?</SearchTitle>
         <BtnLayout>
-          <FilterButton handleSheetOpen={handleSheetOpen} />
+          <FilterButton turnFieldState={turnFieldState} turnPositionState={turnPositionState} />
           <LineWrapper>
             <Line292Ic />
           </LineWrapper>

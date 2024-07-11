@@ -13,16 +13,16 @@ export const PositionList = ({ position }: IPositionList) => {
 
 const PositionTitle = styled.p`
   display: flex;
-  gap: 0.4rem;
+  gap: 4px;
   align-items: center;
 
-  height: 4rem;
-  padding: 0.8rem 1.6rem;
+  height: 40px;
+  padding: 8px 16px;
   border: 0.406px solid ${({ theme }) => theme.colors.grayScaleLG2};
   border-radius: 8px;
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 
-  color: ${({ theme }) => theme.colors.grayScaleDG};
   ${({ theme }) => theme.fonts.Caption2_SB_12};
+  color: ${({ theme }) => theme.colors.grayScaleDG};
 `;

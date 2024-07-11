@@ -5,18 +5,19 @@ interface IFieldList {
 }
 export const FieldList = ({ field }: IFieldList) => {
   return (
-    <FieldWrapper>
+    <FieldWrpper>
       <FieldTitle>{field}</FieldTitle>
       <CheckBox type="checkbox" />
-    </FieldWrapper>
+    </FieldWrpper>
   );
 };
-const FieldWrapper = styled.div`
+
+const FieldWrpper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.2rem 1rem;
   justify-content: space-between;
 
-  margin: 2rem;
   padding: 1rem 0;
 `;
 const FieldTitle = styled.p`
