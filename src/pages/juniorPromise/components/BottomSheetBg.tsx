@@ -28,9 +28,6 @@ export const BottomSheet = ({ isSheetOpen, handleSheetClose }: BottomSheetPropTy
     </>
   );
 };
-// const TestBtn = styled.button`
-//   display: flex;
-// `;
 
 const Background = styled.div<{ $isSheetOpen: boolean }>`
   display: ${({ $isSheetOpen }) => ($isSheetOpen ? 'flex' : 'none')};
@@ -61,8 +58,8 @@ const BottomSheetWrapper = styled.form<{ $isSheetOpen: boolean }>`
   transform: translateY(${({ $isSheetOpen }) => ($isSheetOpen ? '0' : '100%')});
 
   transition:
-    transform 250ms ease-out,
-    opacity 250ms ease-out;
+    transform 250ms ease-in-out,
+    opacity 250ms ease-in-out;
 `;
 const TitleLayout = styled.header`
   padding: 1.4rem 16.1rem 1.6rem 2rem;
