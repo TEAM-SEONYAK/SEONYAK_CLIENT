@@ -47,7 +47,7 @@ export default CustomCalendar;
 
 const CalendarContainer = styled.div`
   max-width: 100%;
-  padding: 20px;
+  padding: 2rem;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
@@ -94,6 +94,8 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__tile:enabled:focus {
     ${({ theme }) => theme.fonts.Title2_M_16};
     background: ${({ theme }) => theme.colors.Blue};
+
+    color: ${({ theme }) => theme.colors.grayScaleWhite};
   }
 
   .react-calendar__navigation button {
