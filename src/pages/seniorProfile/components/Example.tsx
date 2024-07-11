@@ -20,7 +20,7 @@ const Example = ({ setStep }: funnelComponentPropType) => {
           position="디자인"
           detailPosition="프로덕트그래픽 디자이너"
           level={1}
-          variation="secondary"
+          variant="secondary"
         />
         <SeniorCard
           nickname="도리야끼다요"
@@ -29,7 +29,7 @@ const Example = ({ setStep }: funnelComponentPropType) => {
           position="디자인"
           detailPosition="프로덕트그래픽 디자이너"
           level={1}
-          variation="secondary"
+          variant="secondary"
         />
         <SeniorCard
           nickname="도리야끼다요"
@@ -38,7 +38,7 @@ const Example = ({ setStep }: funnelComponentPropType) => {
           position="디자인"
           detailPosition="프로덕트그래픽 디자이너"
           level={1}
-          variation="secondary"
+          variant="secondary"
         />
       </CardContainer>
     </Wrapper>

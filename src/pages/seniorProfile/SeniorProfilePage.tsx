@@ -1,9 +1,8 @@
 import { ArrowLeftIc } from '@assets/svgs';
 import styled from '@emotion/styled';
-import AfterProfile from '@pages/seniorProfile/components/AfterProfile';
 import Complete from '@pages/seniorProfile/components/Complete';
 import Init from '@pages/seniorProfile/components/Init';
-import PrevProfile from '@pages/seniorProfile/components/PrevProfile';
+import PreView from '@pages/seniorProfile/components/PreView';
 import { seniorProfileAPIType, seniorProfileInitial } from '@pages/seniorProfile/types';
 import { useState } from 'react';
 import Career from './components/Career';
@@ -26,9 +25,9 @@ const SeniorProfilePage = () => {
       case 0:
         return <Init setStep={setStep} />;
       case 1:
-        return <Example profile={profile} setProfile={setProfile} setStep={setStep} />;
+        return <Example setStep={setStep} />;
       case 2:
-        return <PrevProfile />;
+        return <PreView profile={profile} variant="secondary" setStep={setStep} />;
       case 3:
         return <Sentence profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 4:
@@ -38,7 +37,7 @@ const SeniorProfilePage = () => {
       case 6:
         return <TimeSelect profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 7:
-        return <AfterProfile />;
+        return <PreView profile={profile} setStep={setStep} />;
       case 8:
         return <Complete />;
       default:
@@ -51,12 +50,12 @@ const SeniorProfilePage = () => {
       {step > 1 && (
         <>
           <Header
-            title="프로필 등록"
+            title={step == 2 ? '' : '프로필 등록'}
             LeftSvg={ArrowLeftIc}
             onClickLeft={() => setStep((prev) => prev - 1)}
             bgColor="white"
           />
-          {step >= 2 && step <= 6 && <ProgressBar max={5} current={step - 1} />}
+          {step > 2 && step <= 7 && <ProgressBar max={5} current={step - 2} />}
           <Title>
             <Meta>{userName + SENIOR_PROFILE_STEPS[step].meta}</Meta>
             <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
