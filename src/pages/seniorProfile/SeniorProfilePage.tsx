@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import Career from './components/Career';
-import Check from './components/Check';
 import Example from './components/Example';
+import PreView from './components/preView';
 import Sentence from './components/Sentence';
 import Story from './components/Story';
 import TimeSelect from './components/TimeSelect';
@@ -15,7 +15,7 @@ const getComponent = (step: number) => {
     case 0:
       return <Example />;
     case 1:
-      return <Check />;
+      return <PreView />;
     case 2:
       return <Sentence />;
     case 3:
@@ -25,7 +25,7 @@ const getComponent = (step: number) => {
     case 5:
       return <TimeSelect />;
     case 6:
-      return <Check />;
+      return <PreView />;
     default:
       return null;
   }
@@ -44,7 +44,6 @@ const SeniorProfilePage = () => {
         <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
       </Title>
       {component}
-      {step !== 7 && <button onClick={() => setStep((prev) => prev + 1)}>{btnText + step + '번째'}</button>}
     </div>
   );
 };

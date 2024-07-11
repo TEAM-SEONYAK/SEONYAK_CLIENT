@@ -24,7 +24,7 @@ export const SENIOR_PROFILE_STEPS = [
     description: `주중/주말로 구분하여 시간을 설정하거나\n요일 별로 각각 시간을 설정할 수 있어요`,
   },
   {
-    meta: `마지막으로 완성된 프로필을 확인해주세요`,
+    meta: `마지막으로 완성된\n프로필을 확인해주세요`,
     description: ``,
   },
   {
