@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
 
   return {
-    plugins: [react(), svgr()],
+    plugins: [react(), svgr(), tsconfigPaths()],
     server: {
       port: 5173,
       proxy: {

@@ -1,4 +1,4 @@
-import { axios } from '../../../../utils/apis';
+import { axios } from '@utils/apis';
 
 export const loginAxios = (authorizationCode: string | undefined) => {
   return axios.post(
