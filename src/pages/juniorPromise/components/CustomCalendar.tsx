@@ -70,6 +70,7 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__tile {
     max-width: 100%;
     ${({ theme }) => theme.fonts.Title2_M_16};
+    padding: 1.1rem 0;
     border-radius: 100px;
 
     background: none;
