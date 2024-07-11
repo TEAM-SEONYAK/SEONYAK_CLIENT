@@ -1,4 +1,5 @@
 import { ReloadIc } from '@assets/svgs';
+import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
 // import { FieldList } from './FieldList';
 import { PositionList } from './PositionList';
@@ -21,6 +22,14 @@ export const BottomSheet = ({ isSheetOpen, handleSheetClose, field, position }: 
           <Title>원하는 선배를 찾아볼까요?</Title>
           <Desc>계열, 직무로 원하는 선배를 찾을 수 있어요.</Desc>
         </TitleLayout>
+        <ToggleButton
+          left="계열"
+          right="직무"
+          activeButton={'left'}
+          onToggle={function (): void {
+            throw new Error('Function not implemented.');
+          }}
+        />
         {/* {field.map((list) => (
           <FieldList key={list} field={list} /> // 각 필드에 대해 FieldList 컴포넌트 생성
         ))} */}
@@ -84,7 +93,7 @@ const PositionLayout = styled.div`
   flex-wrap: wrap;
   gap: 1.2rem 1rem;
 
-  margin: 0 2rem;
+  margin: 2rem;
   padding: 0.4rem 0;
 `;
 
@@ -113,7 +122,7 @@ const ButtonLayout = styled.footer`
   justify-content: center;
   align-items: center;
 
-  margin: 0.9rem 0 2.6rem;
+  margin-bottom: 2.6rem;
   padding: 0.3rem 2rem;
 `;
 

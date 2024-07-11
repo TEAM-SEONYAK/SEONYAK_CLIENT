@@ -16,7 +16,7 @@ const FieldWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  margin: 0 2rem;
+  margin: 2rem;
   padding: 1rem 0;
 `;
 const FieldTitle = styled.p`
