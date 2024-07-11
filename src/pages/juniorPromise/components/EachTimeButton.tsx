@@ -1,15 +1,16 @@
 import styled from '@emotion/styled';
+import React from 'react';
 
 interface EachButtonPropType {
   startTime: string;
   endTime: string;
+  isActive: boolean;
+  onClick: () => void;
 }
 
-const EachTimeButton = (props: EachButtonPropType) => {
-  const { startTime, endTime } = props;
-
+const EachTimeButton: React.FC<EachButtonPropType> = ({ startTime, endTime, isActive, onClick }) => {
   return (
-    <Wrapper>
+    <Wrapper $isActive={isActive} onClick={onClick}>
       {startTime} ~ {endTime}
     </Wrapper>
   );
@@ -17,7 +18,7 @@ const EachTimeButton = (props: EachButtonPropType) => {
 
 export default EachTimeButton;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ $isActive: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,9 +26,15 @@ const Wrapper = styled.div`
   width: 10.8rem;
   height: 3.8rem;
   margin: 0.5rem 0.3rem;
-  border: 1px solid ${({ theme }) => theme.colors.grayScaleLG1};
+  border: ${({ $isActive, theme }) =>
+    $isActive ? `1px solid ${theme.colors.Blue}` : `1px solid ${theme.colors.grayScaleLG1}`};
   border-radius: 8px;
+
+  background-color: ${({ $isActive, theme }) =>
+    $isActive ? theme.colors.transparentBlue_5 : theme.colors.grayScaleWhite};
 
   ${({ theme }) => theme.fonts.Body1_M_14};
   color: ${({ theme }) => theme.colors.grayScaleMG1};
+
+  cursor: pointer;
 `;

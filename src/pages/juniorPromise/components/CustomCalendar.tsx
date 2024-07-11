@@ -53,6 +53,7 @@ const CalendarContainer = styled.div`
 
 const StyledCalendar = styled(Calendar)`
   width: 100%;
+  padding-bottom: 3rem;
   border: none;
   border-radius: 8px;
 
