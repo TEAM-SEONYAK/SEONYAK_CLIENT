@@ -1,12 +1,17 @@
 import { ReloadIc } from '@assets/svgs';
 import styled from '@emotion/styled';
+// import { FieldList } from './FieldList';
+import { PositionList } from './PositionList';
+
 interface BottomSheetPropType {
   isSheetOpen: boolean;
   handleSheetOpen: () => void;
   handleSheetClose: () => void;
+  field: string[];
+  position: string[];
 }
 
-export const BottomSheet = ({ isSheetOpen, handleSheetClose }: BottomSheetPropType) => {
+export const BottomSheet = ({ isSheetOpen, handleSheetClose, field, position }: BottomSheetPropType) => {
   return (
     <>
       <Background $isSheetOpen={isSheetOpen} onClick={handleSheetClose} />
@@ -16,6 +21,14 @@ export const BottomSheet = ({ isSheetOpen, handleSheetClose }: BottomSheetPropTy
           <Title>원하는 선배를 찾아볼까요?</Title>
           <Desc>계열, 직무로 원하는 선배를 찾을 수 있어요.</Desc>
         </TitleLayout>
+        {/* {field.map((list) => (
+          <FieldList key={list} field={list} /> // 각 필드에 대해 FieldList 컴포넌트 생성
+        ))} */}
+        <PositionLayout>
+          {position.map((list) => (
+            <PositionList key={list} position={list} />
+          ))}
+        </PositionLayout>
         <ButtonLayout>
           <ReloadIcon type="reset">
             <ReloadIc />
@@ -61,8 +74,18 @@ const BottomSheetWrapper = styled.form<{ $isSheetOpen: boolean }>`
     transform 250ms ease-in-out,
     opacity 250ms ease-in-out;
 `;
+
 const TitleLayout = styled.header`
   padding: 1.4rem 16.1rem 1.6rem 2rem;
+`;
+
+const PositionLayout = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem 1rem;
+
+  margin: 0 2rem;
+  padding: 0.4rem 0;
 `;
 
 const Line = styled.div`
@@ -73,6 +96,7 @@ const Line = styled.div`
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
+
 const Title = styled.h1`
   ${({ theme }) => theme.fonts.Head2_SB_18};
   color: ${({ theme }) => theme.colors.grayScaleBG};
@@ -89,9 +113,10 @@ const ButtonLayout = styled.footer`
   justify-content: center;
   align-items: center;
 
-  margin-bottom: 2.6rem;
+  margin: 0.9rem 0 2.6rem;
   padding: 0.3rem 2rem;
 `;
+
 const ReloadIcon = styled.button`
   width: 5rem;
   height: 5rem;
