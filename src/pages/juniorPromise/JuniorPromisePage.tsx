@@ -1,38 +1,38 @@
-import ToggleButton from '@components/commons/ToggleButton';
+import { SeniorListBackground } from './components/SeniorListBackground';
+import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import SelectJuniorWorryButton from './components/SelectJuniorWorryButton';
-import SelectJuniorWorryTextBoxWrapper from './components/SelectJuniorWorryTextareaWrapper';
-import SelectJuniorWorryTitleWrapper from './components/SelectJuniorWorryTitleWrapper';
-import TimeSelectionButton from './components/TimeSelectionButton';
-import TimeSelectionTitleWrapper from './components/TimeSelectionTitleWrapper';
+import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConstants';
 
 const JuniorPromisePage = () => {
-  const [activeButton, setActiveButton] = useState<'left' | 'right'>('left');
-
-  // onToggle 함수 정의
-  const handleToggle = (button: 'left' | 'right') => {
-    setActiveButton(button);
-  };
-
+  const { seniorList } = SENIOR_LIST;
   return (
-    <TimeSelectionContainer>
-      <TimeSelectionTitleWrapper />
-      <TimeSelectionButton />
-      <SelectJuniorWorryTitleWrapper />
-      <ToggleButton left="선택할게요" right="작성할게요" activeButton={activeButton} onToggle={handleToggle} />
-      {activeButton === 'left' ? <SelectJuniorWorryButton /> : <SelectJuniorWorryTextBoxWrapper />}
-    </TimeSelectionContainer>
+    <SeniorListBackground>
+    <SeniorListWrapper>
+      {seniorList.map((List) => (
+        <SeniorCard
+          key={List.seniorId}
+          nickname={List.nickname}
+          company={List.company}
+          field={List.field}
+          position={List.position}
+          detailPosition={List.detailPosition}
+          level={List.level}
+        />
+      ))}
+    </SeniorListWrapper>
+      </SeniorListBackground >
   );
 };
 
 export default JuniorPromisePage;
 
-const TimeSelectionContainer = styled.div`
+const SeniorListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
+  align-items: center;
 
-  width: 100%;
-  padding: 0 2rem;
+  width: 100vw;
+  height: 100vh;
+  padding: 0.8rem 2rem;
 `;

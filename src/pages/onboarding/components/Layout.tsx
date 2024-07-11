@@ -1,29 +1,40 @@
 import styled from '@emotion/styled';
 import { ReactNode } from 'react';
 import TitleBox from './TitleBox';
-import { AlarmIc, TempLogoIc } from '../../../assets/svgs';
+import { ArrowLeftIc } from '../../../assets/svgs';
 import { FullBtn } from '../../../components/commons/FullButton';
 import { Header } from '../../../components/commons/Header';
 import ProgressBar from '../../../components/commons/ProgressBar';
-import { SENIOR_ONBOARDING_STEPS } from '../constants';
+import { ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } from '../constants';
+import convertToGroupStep from '../utils/convertToGroupStep';
 
-const Layout = ({ step, children }: { step: number; children: ReactNode }) => {
+const Layout = ({
+  role,
+  step,
+  handleSetStep,
+  children,
+}: {
+  role: 'SENIOR' | 'JUNIOR';
+  step: number;
+  handleSetStep: (dir: 'NEXT' | 'PREV') => void;
+  children: ReactNode;
+}) => {
   const { title, description } = SENIOR_ONBOARDING_STEPS[step - 1];
+  const GROUP_STEP = convertToGroupStep(role, step);
+
   return (
     <Wrapper>
-      <Header title="타이틀" LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
-      <ProgressBar max={10} current={step} />
+      <Header
+        title={ONBOARDING_HEADER[GROUP_STEP - 1]}
+        LeftSvg={ArrowLeftIc}
+        onClickLeft={() => handleSetStep('PREV')}
+      />
+      <ProgressBar max={role === 'SENIOR' ? 4 : 3} current={GROUP_STEP} />
       <Content>
         <TitleBox title={title} description={description} />
         {children}
       </Content>
-      <FullBtn
-        text="텍스트"
-        isActive
-        onClick={() => {
-          console.log('클릭하셨다');
-        }}
-      />
+      <FullBtn text="텍스트" isActive onClick={() => handleSetStep('NEXT')} />
       <ButtonBg />
     </Wrapper>
   );
