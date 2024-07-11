@@ -64,5 +64,25 @@ export const POSITION_LIST = {
       id: 16,
       position: '연구 ・ R&B',
     },
+    {
+      id: 17,
+      position: '엔지니어링 ・ 설계',
+    },
+    {
+      id: 18,
+      position: '생산 ・ 품질',
+    },
+    {
+      id: 19,
+      position: '교육B',
+    },
+    {
+      id: 20,
+      position: '법률 ・ 특허',
+    },
+    {
+      id: 21,
+      position: '공공 ・ 복지 ・ 환경',
+    },
   ],
 };

@@ -30,14 +30,16 @@ export const BottomSheet = ({ isSheetOpen, handleSheetClose, field, position }: 
             throw new Error('Function not implemented.');
           }}
         />
-        {/* {field.map((list) => (
+        <Content>
+          {/* {field.map((list) => (
           <FieldList key={list} field={list} /> // 각 필드에 대해 FieldList 컴포넌트 생성
         ))} */}
-        <PositionLayout>
-          {position.map((list) => (
-            <PositionList key={list} position={list} />
-          ))}
-        </PositionLayout>
+          <PositionLayout>
+            {position.map((list) => (
+              <PositionList key={list} position={list} />
+            ))}
+          </PositionLayout>
+        </Content>
         <ButtonLayout>
           <ReloadIcon type="reset">
             <ReloadIc />
@@ -86,6 +88,11 @@ const BottomSheetWrapper = styled.form<{ $isSheetOpen: boolean }>`
 
 const TitleLayout = styled.header`
   padding: 1.4rem 16.1rem 1.6rem 2rem;
+`;
+const Content = styled.div`
+  overflow: scroll;
+
+  height: 35.2rem;
 `;
 
 const PositionLayout = styled.div`
