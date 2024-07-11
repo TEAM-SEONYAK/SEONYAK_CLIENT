@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { getTomorrow } from '../utils/getTomorrow';
 
 interface CalendarTileProperties {
   date: Date;
@@ -11,14 +12,6 @@ interface CalendarTileProperties {
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-// 내일 날짜를 구하는 함수
-const getTomorrow = () => {
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-  return tomorrow;
-};
 
 const CustomCalendar = () => {
   // 초기값을 내일 날짜로 설정
