@@ -3,29 +3,29 @@ import { useState, useEffect } from 'react';
 import ProfileChip from './ProfileChip';
 import ProfileContainer from './ProfileContainer';
 import PromiseTimerBtn from './PromiseTimerBtn';
+import { SENIOR_DATA_SCHEDULED } from '../constants/constants';
 import { calculateTimeLeft } from '../utils/calculateTimeLeft';
 
 interface RecentCardPropType {
   userRole: string;
+  recentAppointment: SENIOR_DATA_SCHEDULED;
+  appointmentNum: number;
 }
 
 const RecentCard = (props: RecentCardPropType) => {
-  const { userRole } = props;
-  // 약속 개수 임시 데이터
-  const name = '도리야끼다요';
-  const length = 2;
-  const dummyDate = '2024.07.14';
-  const startTime = '14:42';
+  const { userRole, recentAppointment, appointmentNum } = props;
 
-  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(dummyDate, startTime));
+  const [timeLeft, setTimeLeft] = useState(() =>
+    calculateTimeLeft(recentAppointment.date, recentAppointment.startTime),
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft(dummyDate, startTime));
+      setTimeLeft(calculateTimeLeft(recentAppointment.date, recentAppointment.startTime));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [dummyDate, startTime]);
+  }, [recentAppointment.date, recentAppointment.startTime]);
 
   const { diffText, diff, dDayDiff } = timeLeft;
 
@@ -33,13 +33,13 @@ const RecentCard = (props: RecentCardPropType) => {
     <Wrapper $userRole={userRole}>
       <RecentNav>
         <RecentDayWrapper>
-          <ProfileChip type="promiseNum" content={length ? '가장 가까운 약속' : '약속 없음'} />
+          <ProfileChip type="promiseNum" content={appointmentNum ? '가장 가까운 약속' : '약속 없음'} />
           <ProfileChip type="dDay" content={dDayDiff === 0 ? 'D-DAY' : ` D-${dDayDiff}`} />
         </RecentDayWrapper>
         <ProfileChip type="userGuide" content="선약 이용방법 보기" />
       </RecentNav>
       <DashedDivider />
-      <ProfileContainer name={name} userRole={userRole} type="default" />
+      <ProfileContainer userRole={userRole} type="default" profileCardData={recentAppointment} />
       <PromiseTimerBtn isActive={diff <= 0} diff={diffText} />
     </Wrapper>
   );

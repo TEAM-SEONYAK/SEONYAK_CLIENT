@@ -6,7 +6,7 @@ interface PromiseTapPropType {
 }
 
 const PromiseTap = (props: PromiseTapPropType) => {
-  const length = 0;
+  const length = 1;
   const { userRole } = props;
   return (
     <Wrapper>
@@ -18,10 +18,10 @@ const PromiseTap = (props: PromiseTapPropType) => {
       {length ? (
         <ProfileWrapper>
           <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
-          {/* <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" />
+          <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" />
           <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
           <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
-          <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" /> */}
+          <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" />
         </ProfileWrapper>
       ) : (
         <EmptyView>예정된 약속이 없어요</EmptyView>

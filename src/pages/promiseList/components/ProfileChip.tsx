@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 interface RecentChipPropType {
   type: string;
-  content: string;
+  content: string | undefined;
 }
 
 const ProfileChip = (props: RecentChipPropType) => {

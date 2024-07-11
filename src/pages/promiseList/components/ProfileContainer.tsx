@@ -1,16 +1,40 @@
 import { CardArrowRightGrayIc, ClockIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import ProfileChip from './ProfileChip';
+import { profileCardDataType } from '../constants/constants';
+
+// interface ProfileContainerPropType {
+//   userRole: string; // 유저 선후배 여부
+//   nickname: string; // 선후배 닉네임
+//   field: string; // 선후배 계열
+//   department: string; // 후배 학과
+//   topic: string; // 후배 상담 토픽
+//   company: string; // 선배 회사
+//   detailPosition: string; // 선배 직업
+//   level: string; // 선배 연차 -> 숫자에 따라 텍스트로 변경 필요
+//   date: string; // 약속 날짜 -> 월, 일만 빼서 써야함
+//   startTime: string; // 시작 시간
+//   endTime: string; // 끝 시간
+//   type: 'waitingAppointments' | 'plannedAppointments' | 'lastAppointments' | 'rejected' | 'default';
+// }
+
+// interface ProfileContainerPropType {
+//   userRole: string; // 유저 선후배 여부
+//   seniorWaiting?: SENIOR_DATA_PENDING;
+//   seniorPlanned?: SENIOR_DATA_SCHEDULED;
+//   seniorLast?: SENIOR_DATA_PAST;
+//   type: 'waitingAppointments' | 'plannedAppointments' | 'lastAppointments' | 'rejected' | 'default';
+// }
 
 interface ProfileContainerPropType {
-  name: string;
   userRole: string;
   type: 'waitingAppointments' | 'plannedAppointments' | 'lastAppointments' | 'rejected' | 'default';
+  profileCardData: profileCardDataType;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  const { name, userRole, type } = props;
-
+  // const { userRole, seniorWaiting, seniorPlanned, seniorLast, type } = props;
+  const { userRole, profileCardData, type } = props;
   return (
     <ReviewWrapper $type={type}>
       <Wrapper $type={type}>
@@ -18,14 +42,14 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         <InfoContainer>
           <NameContainer>
             <Name>
-              {name} {userRole === 'SENIOR' ? '선배' : '후배'}
+              {profileCardData.nickname} {userRole === 'SENIOR' ? '선배' : '후배'}
             </Name>
             {type === 'rejected' && <RejectedChip>거절</RejectedChip>}
           </NameContainer>
           {userRole === 'JUNIOR' && (
             <ChipContainer>
-              <ProfileChip type="company" content="비바리퍼블리카 (토스)" />
-              <ProfileChip type="field" content="예체능계열" />
+              <ProfileChip type="company" content={profileCardData.company} />
+              <ProfileChip type="field" content={profileCardData.field} />
             </ChipContainer>
           )}
           {userRole === 'SENIOR' &&
@@ -35,36 +59,40 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
               type === 'rejected') && (
               <>
                 <ChipContainer>
-                  <ProfileChip type="field" content="예체능계열" />
-                  <ProfileChip type="field" content="시각디자인학과" />
+                  <ProfileChip type="field" content={profileCardData.field} />
+                  <ProfileChip type="field" content={profileCardData.department} />
                 </ChipContainer>
-                {type === 'waitingAppointments' && <Description>면접에 관해 얘기하고 싶어요</Description>}
+                {type === 'waitingAppointments' && <Description>{profileCardData.topic}</Description>}
               </>
             )}
           {userRole === 'SENIOR' && type === 'default' && (
             <>
               <MajorDiv>
-                <Major>예체능 계열</Major>
+                <Major>{profileCardData.field}</Major>
                 <Divider />
-                <Major>시각디자인과</Major>
+                <Major>{profileCardData.department}</Major>
               </MajorDiv>
-              <Description>면접에 관해 얘기하고 싶어요</Description>
+              <Description>{profileCardData.topic}</Description>
             </>
           )}
           {userRole === 'JUNIOR' && (
             <>
               <MajorDiv>
-                <Major>디자인</Major>
+                <Major>{profileCardData.department}</Major>
                 <Divider />
-                <Major>프로덕트그래픽 디자이너</Major>
+                <Major>{profileCardData.detailPosition}</Major>
               </MajorDiv>
-              <Description>주니어 (1년 차)</Description>
+              {/* level로 직무 텍스트로 변경 필요 */}
+              <Description>`주니어 (${profileCardData.level}년 차)`</Description>
             </>
           )}
           {(type === 'plannedAppointments' || type === 'lastAppointments') && (
             <TimeContainer>
               <ClockIc />
-              <TimeSpan>7월 6일 20:30 - 21:00</TimeSpan>
+              {/* date에서 월,일만 빼서 써야함 */}
+              <TimeSpan>
+                `7월 6일 ${profileCardData.startTime} - ${profileCardData.endTime}`
+              </TimeSpan>
             </TimeContainer>
           )}
           {type === 'rejected' && <Description>거절 라이팅 들어갈 예정입니다 하하하하</Description>}
