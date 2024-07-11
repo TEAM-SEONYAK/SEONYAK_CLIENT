@@ -6,22 +6,21 @@ import { FieldList } from './FieldList';
 import { PositionList } from './PositionList';
 
 interface BottomSheetPropType {
-  isSheetOpen: boolean;
-  isClickField: boolean;
+  filter: string;
   handleSheetClose: () => void;
   field: string[];
   position: string[];
-  turnFieldState: () => void;
-  turnPositionState: () => void;
+  onField: () => void;
+  onPosition: () => void;
 }
 
-export const BottomSheet = ({ isSheetOpen, isClickField, handleSheetClose, field, position }: BottomSheetPropType) => {
+export const BottomSheet = ({ filter, handleSheetClose, field, position }: BottomSheetPropType) => {
   const [activeButton, setActiveButton] = useState('계열');
 
   return (
     <>
-      <Background $isSheetOpen={isSheetOpen} onClick={handleSheetClose} />
-      <BottomSheetWrapper $isSheetOpen={isSheetOpen}>
+      <Background $filter={filter} onClick={handleSheetClose} />
+      <BottomSheetWrapper $filter={filter}>
         <TitleLayout>
           <Line />
           <Title>원하는 선배를 찾아볼까요?</Title>
@@ -29,7 +28,7 @@ export const BottomSheet = ({ isSheetOpen, isClickField, handleSheetClose, field
         </TitleLayout>
         <ToggleButton left="계열" right="직무" activeButton={activeButton} onToggle={setActiveButton} />
         <Content>
-          {isClickField ? (
+          {filter === '계열' ? (
             <FieldLayout>
               {field.map((list) => (
                 <FieldList key={list} field={list} />
@@ -56,8 +55,8 @@ export const BottomSheet = ({ isSheetOpen, isClickField, handleSheetClose, field
   );
 };
 
-const Background = styled.div<{ $isSheetOpen: boolean }>`
-  display: ${({ $isSheetOpen }) => ($isSheetOpen ? 'flex' : 'none')};
+const Background = styled.div<{ $filter: string }>`
+  display: ${({ $filter }) => ($filter ? 'flex' : 'none')};
   position: fixed;
   top: 0;
   z-index: 2;
@@ -68,7 +67,7 @@ const Background = styled.div<{ $isSheetOpen: boolean }>`
   background: ${({ theme }) => theme.colors.transparentBlack_65};
 `;
 
-const BottomSheetWrapper = styled.form<{ $isSheetOpen: boolean }>`
+const BottomSheetWrapper = styled.form<{ $filter: string }>`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -81,8 +80,8 @@ const BottomSheetWrapper = styled.form<{ $isSheetOpen: boolean }>`
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 
-  opacity: ${({ $isSheetOpen }) => ($isSheetOpen ? 1 : 0)};
-  transform: translateY(${({ $isSheetOpen }) => ($isSheetOpen ? '0' : '100%')});
+  opacity: ${({ $filter }) => ($filter ? 1 : 0)};
+  transform: translateY(${({ $filter }) => ($filter ? '0' : '100%')});
 
   transition:
     transform 250ms ease-in-out,

@@ -12,30 +12,29 @@ import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConst
 
 const JuniorPromisePage = () => {
   const { seniorList } = SENIOR_LIST;
-  const [isSheetOpen, setSheetOpen] = useState(false);
+  const [filter, setFilter] = useState('');
   const [listedField, setListedField] = useState<string[]>([]); // 계열 목록 저장
   const [listedPosition, setListedPosition] = useState<string[]>([]); // 직무 목록 저장
-  const [isClickField, setClickField] = useState(false);
 
   const handleSheetClose = () => {
-    setSheetOpen(false);
+    setFilter('');
   };
-  const turnFieldState = () => {
-    setSheetOpen(true);
-    setClickField(true);
+  const onField = () => {
+    setFilter('계열');
+
     setListedField(FIELD_LIST.fieldList.map((item) => item.field)); // 모든 계열 렌더링
   };
 
-  const turnPositionState = () => {
-    setSheetOpen(true);
-    setClickField(false);
+  const onPosition = () => {
+    setFilter('직무');
+
     setListedPosition(POSITION_LIST.positionList.map((item) => item.position)); //모든 직무 렌더링
   };
 
   return (
     <>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
-      <SeniorListBackground turnFieldState={turnFieldState} turnPositionState={turnPositionState}>
+      <SeniorListBackground onField={onField} onPosition={onPosition}>
         <SeniorListWrapper>
           {seniorList.map((list) => (
             <SeniorCard
@@ -52,13 +51,12 @@ const JuniorPromisePage = () => {
         <Nav />
       </SeniorListBackground>
       <BottomSheet
-        isSheetOpen={isSheetOpen}
-        isClickField={isClickField}
+        filter={filter}
         handleSheetClose={handleSheetClose}
         field={listedField} // BottomSheet에 계열 목록 전달
         position={listedPosition} //BottomSheet에 직무 목록 전달
-        turnFieldState={turnFieldState}
-        turnPositionState={turnPositionState}
+        onField={onField}
+        onPosition={onPosition}
       />
     </>
   );

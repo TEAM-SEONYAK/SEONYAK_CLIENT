@@ -2,18 +2,18 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { ArrowDownIc } from '../../../assets/svgs/index';
 interface FilterButtonProps {
-  turnFieldState: () => void;
-  turnPositionState: () => void;
+  onField: () => void;
+  onPosition: () => void;
 }
 
-export const FilterButton: React.FC<FilterButtonProps> = ({ turnFieldState, turnPositionState }) => {
+export const FilterButton: React.FC<FilterButtonProps> = ({ onField, onPosition }) => {
   return (
     <FilterBtnContainer>
-      <FilterBtn type="button" onClick={turnFieldState}>
+      <FilterBtn type="button" onClick={onField}>
         계열
         <ArrowDownIc />
       </FilterBtn>
-      <FilterBtn type="button" onClick={turnPositionState}>
+      <FilterBtn type="button" onClick={onPosition}>
         직무
         <ArrowDownIc />
       </FilterBtn>
