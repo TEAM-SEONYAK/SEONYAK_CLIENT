@@ -1,13 +1,17 @@
 import styled from '@emotion/styled';
 import ProfileContainer from './ProfileContainer';
+import { profileCardDataType } from '../constants/constants';
 
 interface PromiseTapPropType {
   userRole: string;
+  pending: profileCardDataType[];
+  scheduled: profileCardDataType[];
+  past: profileCardDataType[];
 }
 
 const PromiseTap = (props: PromiseTapPropType) => {
   const length = 1;
-  const { userRole } = props;
+  const { userRole, pending, scheduled, past } = props;
   return (
     <Wrapper>
       <TapContainer>
@@ -17,11 +21,12 @@ const PromiseTap = (props: PromiseTapPropType) => {
       </TapContainer>
       {length ? (
         <ProfileWrapper>
-          <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
-          <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" />
-          <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
-          <ProfileContainer name="도리야끼다요" userRole={userRole} type="lastAppointments" />
-          <ProfileContainer name="도리야끼다요" userRole={userRole} type="rejected" />
+          {}
+          <ProfileContainer userRole={userRole} type="past" profileCardData={past[0]} />
+          <ProfileContainer userRole={userRole} type="rejected" profileCardData={past[1]} />
+          {/* <ProfileContainer userRole={userRole} type="lastAppointments" />
+          <ProfileContainer userRole={userRole} type="lastAppointments" />
+          <ProfileContainer userRole={userRole} type="rejected" /> */}
         </ProfileWrapper>
       ) : (
         <EmptyView>예정된 약속이 없어요</EmptyView>

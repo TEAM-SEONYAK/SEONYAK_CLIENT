@@ -2,39 +2,17 @@ import { CardArrowRightGrayIc, ClockIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import ProfileChip from './ProfileChip';
 import { profileCardDataType } from '../constants/constants';
-
-// interface ProfileContainerPropType {
-//   userRole: string; // 유저 선후배 여부
-//   nickname: string; // 선후배 닉네임
-//   field: string; // 선후배 계열
-//   department: string; // 후배 학과
-//   topic: string; // 후배 상담 토픽
-//   company: string; // 선배 회사
-//   detailPosition: string; // 선배 직업
-//   level: string; // 선배 연차 -> 숫자에 따라 텍스트로 변경 필요
-//   date: string; // 약속 날짜 -> 월, 일만 빼서 써야함
-//   startTime: string; // 시작 시간
-//   endTime: string; // 끝 시간
-//   type: 'waitingAppointments' | 'plannedAppointments' | 'lastAppointments' | 'rejected' | 'default';
-// }
-
-// interface ProfileContainerPropType {
-//   userRole: string; // 유저 선후배 여부
-//   seniorWaiting?: SENIOR_DATA_PENDING;
-//   seniorPlanned?: SENIOR_DATA_SCHEDULED;
-//   seniorLast?: SENIOR_DATA_PAST;
-//   type: 'waitingAppointments' | 'plannedAppointments' | 'lastAppointments' | 'rejected' | 'default';
-// }
+import { extractMonthAndDay } from '../utils/extractMonthAndDay';
 
 interface ProfileContainerPropType {
   userRole: string;
-  type: 'waitingAppointments' | 'plannedAppointments' | 'lastAppointments' | 'rejected' | 'default';
+  type: 'pending' | 'scheduled' | 'past' | 'rejected' | 'default';
   profileCardData: profileCardDataType;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  // const { userRole, seniorWaiting, seniorPlanned, seniorLast, type } = props;
   const { userRole, profileCardData, type } = props;
+  const { month, day } = extractMonthAndDay(profileCardData.date + '');
   return (
     <ReviewWrapper $type={type}>
       <Wrapper $type={type}>
@@ -42,7 +20,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         <InfoContainer>
           <NameContainer>
             <Name>
-              {profileCardData.nickname} {userRole === 'SENIOR' ? '선배' : '후배'}
+              {profileCardData.nickname} {userRole === 'SENIOR' ? '후배' : '선배'}
             </Name>
             {type === 'rejected' && <RejectedChip>거절</RejectedChip>}
           </NameContainer>
@@ -53,16 +31,13 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
             </ChipContainer>
           )}
           {userRole === 'SENIOR' &&
-            (type === 'waitingAppointments' ||
-              type === 'plannedAppointments' ||
-              type === 'lastAppointments' ||
-              type === 'rejected') && (
+            (type === 'pending' || type === 'scheduled' || type === 'past' || type === 'rejected') && (
               <>
                 <ChipContainer>
                   <ProfileChip type="field" content={profileCardData.field} />
                   <ProfileChip type="field" content={profileCardData.department} />
                 </ChipContainer>
-                {type === 'waitingAppointments' && <Description>{profileCardData.topic}</Description>}
+                {type === 'pending' && <Description>{profileCardData.topic}</Description>}
               </>
             )}
           {userRole === 'SENIOR' && type === 'default' && (
@@ -86,12 +61,11 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
               <Description>`주니어 (${profileCardData.level}년 차)`</Description>
             </>
           )}
-          {(type === 'plannedAppointments' || type === 'lastAppointments') && (
+          {(type === 'scheduled' || type === 'past') && (
             <TimeContainer>
               <ClockIc />
-              {/* date에서 월,일만 빼서 써야함 */}
               <TimeSpan>
-                `7월 6일 ${profileCardData.startTime} - ${profileCardData.endTime}`
+                {month}월 {day}일 {profileCardData.startTime} - {profileCardData.endTime}
               </TimeSpan>
             </TimeContainer>
           )}
@@ -99,8 +73,8 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         </InfoContainer>
         <CardArrowRightGrayIcon />
       </Wrapper>
-      {userRole === 'JUNIOR' && type === 'lastAppointments' && <ReviewBtn>리뷰 작성하기</ReviewBtn>}
-      {userRole === 'SENIOR' && type === 'lastAppointments' && <ReviewBtn>작성된 리뷰 없음</ReviewBtn>}
+      {userRole === 'JUNIOR' && type === 'past' && <ReviewBtn>리뷰 작성하기</ReviewBtn>}
+      {userRole === 'SENIOR' && type === 'past' && <ReviewBtn>작성된 리뷰 없음</ReviewBtn>}
     </ReviewWrapper>
   );
 };
@@ -130,7 +104,7 @@ const Wrapper = styled.div<{ $type: string }>`
   width: 100%;
   padding: ${({ $type }) => ($type === 'default' ? '0' : '2rem 0')};
   border-bottom: ${({ $type, theme }) =>
-    $type === 'default' || $type === 'lastAppointments' ? 'none' : `1px solid ${theme.colors.grayScaleLG2}`};
+    $type === 'default' || $type === 'past' ? 'none' : `1px solid ${theme.colors.grayScaleLG2}`};
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 

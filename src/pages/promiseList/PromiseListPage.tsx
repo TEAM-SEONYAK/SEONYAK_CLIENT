@@ -9,17 +9,16 @@ import { SENIOR_DATA, JUNIOR_DATA } from './constants/constants';
 
 const PromiseListPage = () => {
   const userRole = 'SENIOR';
-
   return (
     <>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
       <Wrapper>
         <RecentLayout>
-          <Title nickname="예솔" userRole={userRole} count={SENIOR_DATA.scheduledAppointments.length} />
+          <Title nickname={SENIOR_DATA.myNickname} userRole={userRole} count={SENIOR_DATA.scheduled.length} />
           <RecentCard
             userRole={userRole}
-            recentAppointment={SENIOR_DATA.scheduledAppointments[0]}
-            appointmentNum={SENIOR_DATA.scheduledAppointments.length}
+            recentAppointment={SENIOR_DATA.scheduled[0]}
+            appointmentNum={SENIOR_DATA.scheduled.length}
           />
         </RecentLayout>
         <PromiseTap
