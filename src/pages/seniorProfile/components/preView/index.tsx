@@ -2,6 +2,8 @@ import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
 import ImgTextBox from '@pages/seniorProfile/components/preView/ImgTextBox';
 import ProfileSummary from '@pages/seniorProfile/components/preView/ProfileSummary';
+import TimeTable from '@pages/seniorProfile/components/preView/TimeTable';
+import { funnelComponentProps } from '@pages/seniorProfile/types';
 
 const dummy = {
   data: {
@@ -19,7 +21,7 @@ const dummy = {
   },
 };
 
-const PreView = () => {
+const PreView = ({ profile }: funnelComponentProps) => {
   return (
     <Wrapper>
       <SeniorCard
@@ -38,6 +40,7 @@ const PreView = () => {
       <Meta2>{dummy.data.catchphrase}</Meta2>
       <Description>{dummy.data.story}</Description>
       <Meta2>선배의 타임 테이블</Meta2>
+      <TimeTable />
     </Wrapper>
   );
 };
@@ -45,7 +48,7 @@ const PreView = () => {
 export default PreView;
 
 const Wrapper = styled.div`
-  padding: 3rem 2rem;
+  padding: 3rem 2rem 12.13rem;
 
   overflow-y: scroll;
 `;
