@@ -1,4 +1,4 @@
-import { TechCharacter } from '@assets/svgs';
+import { TechCharacterIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -15,7 +15,7 @@ const Banner: React.FC<SeniorProps> = ({ senior = '도리 선배' }) => {
         <br />
         약속 신청을 시작할게요
       </Text>
-      <CustomTechCharacter />
+      <TechCharacterIcon />
     </BannerWrapper>
   );
 };
@@ -42,7 +42,7 @@ const SeniorText = styled.span`
   color: ${({ theme }) => theme.colors.Blue};
 `;
 
-const CustomTechCharacter = styled(TechCharacter)`
+const TechCharacterIcon = styled(TechCharacterIc)`
   width: 13.9rem;
   height: 11.8rem;
 `;
