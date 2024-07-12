@@ -33,7 +33,6 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 19.4rem;
 
   border-radius: 8px;
 `;
