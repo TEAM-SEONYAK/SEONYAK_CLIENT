@@ -1,5 +1,6 @@
 import { ArrowLeftIc, ButtonCheckIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
+import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { SENIOR_RESPONSE, JUNIOR_RESPONSE } from './constants/constant';
@@ -10,9 +11,14 @@ const PromiseDetail = () => {
   const myNickname = '아가라고요';
   const userRole = 'SENIOR';
   const [selectTime, setSelectTime] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleClickTimeBox = (idx: number) => {
     setSelectTime(idx);
+  };
+
+  const handleModalOpen = (type: boolean) => {
+    setIsModalOpen(type);
   };
 
   return (
@@ -57,15 +63,21 @@ const PromiseDetail = () => {
             </ContentContainer>
           </TimeContainer>
         </Layout>
-
         <BtnWrapper>
           <DeclineBtn type="button">거절하기</DeclineBtn>
-          <AcceptBtn type="button" $isActive={selectTime !== null}>
+          <AcceptBtn
+            type="button"
+            disabled={selectTime === null}
+            $isActive={selectTime !== null}
+            onClick={() => setIsModalOpen(true)}>
             수락하기
           </AcceptBtn>
         </BtnWrapper>
         <BtnBackground />
       </Wrapper>
+      <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+        <DeclineImg />
+      </AutoCloseModal>
     </>
   );
 };
@@ -198,4 +210,10 @@ const BtnBackground = styled.div`
   z-index: 2;
   position: fixed;
   bottom: 0;
+`;
+
+const DeclineImg = styled.div`
+  width: 27rem;
+  height: 17.1rem;
+  background-color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
