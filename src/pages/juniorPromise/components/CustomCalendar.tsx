@@ -46,7 +46,6 @@ export default CustomCalendar;
 
 const CalendarContainer = styled.div`
   max-width: 100%;
-  padding: 2rem;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 `;

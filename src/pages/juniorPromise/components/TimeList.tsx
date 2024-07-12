@@ -80,7 +80,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding-bottom: 15rem;
+  padding-left: 1.3rem;
 `;
 
 const Layout = styled.div`
@@ -97,6 +97,4 @@ const Label = styled.div`
 const EachTimeButtonContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-
-  padding: 0 0 0 1.9rem;
 `;

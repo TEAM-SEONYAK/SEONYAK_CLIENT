@@ -32,10 +32,10 @@ const ButtonLayout = styled.footer`
   justify-content: center;
   position: fixed;
   bottom: 0;
+  left: 0;
 
   width: 100%;
   height: 9.4rem;
-  margin-bottom: 2.6rem;
   padding: 1.5rem 0 3rem;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
