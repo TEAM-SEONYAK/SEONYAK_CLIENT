@@ -6,14 +6,18 @@ import SearchBox from '../SearchBox';
 
 const Step학교선택 = () => {
   const [isOpenSheet, setIsOpenSheet] = useState(false);
+  const [selectedUniv, setSelectedUniv] = useState('');
   const handleInputClick = () => setIsOpenSheet(true);
   const handleCloseSheet = () => setIsOpenSheet(false);
+  const handleSelectUniv = (selectValue: string) => {
+    setSelectedUniv(selectValue);
+  };
   return (
     <>
       <SearchBox placeholder="학교명을 입력해 주세요" handleInputClick={handleInputClick} />;
       {isOpenSheet && (
         <BottomSheet handeClose={handleCloseSheet}>
-          <Sheet학교선택 />
+          <Sheet학교선택 handleSelectUniv={handleSelectUniv} />
         </BottomSheet>
       )}
     </>
@@ -22,7 +26,12 @@ const Step학교선택 = () => {
 
 export default Step학교선택;
 
-const Sheet학교선택 = () => {
+interface Sheet학교선택Props {
+  // eslint-disable-next-line no-unused-vars
+  handleSelectUniv: (selectValue: string) => void;
+}
+
+const Sheet학교선택 = ({ handleSelectUniv }: Sheet학교선택Props) => {
   const dummy = ['서울여자대학교', '서울여자대학교 특수치료전문대학원', '서울여성대학교'];
   const search = '서울여';
   return (
@@ -30,7 +39,7 @@ const Sheet학교선택 = () => {
       <SearchBox placeholder="학교명을 입력해 주세요" />
       <Content>
         {dummy.map((d) => (
-          <ListWrapper key={d}>
+          <ListWrapper key={d} onClick={() => handleSelectUniv(d)}>
             <ListBold key={d + 'idx'}>{search}</ListBold>
             <List key={d}>{excludeCommonPart({ common: search, str: d })}</List>
           </ListWrapper>
