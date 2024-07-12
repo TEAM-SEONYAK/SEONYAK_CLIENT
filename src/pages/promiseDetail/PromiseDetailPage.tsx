@@ -133,7 +133,7 @@ const BtnWrapper = styled.div`
 const DeclineBtn = styled.button`
   border-radius: 5px;
   width: 10.6rem;
-  padding: 1.55rem 0;
+  height: 5.6rem;
   background-color: ${({ theme }) => theme.colors.grayScaleBG};
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Head2_SB_18}
@@ -143,7 +143,7 @@ const DeclineBtn = styled.button`
 const AcceptBtn = styled.button`
   border-radius: 5px;
   width: 21.9rem;
-  padding: 1.55rem 0;
+  height: 5.6rem;
   background-color: ${({ theme }) => theme.colors.grayScaleMG2};
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   cursor: pointer;
