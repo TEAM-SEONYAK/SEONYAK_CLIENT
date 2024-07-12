@@ -95,7 +95,7 @@ export const SENIOR_DATA = {
       endTime: '18:30',
     },
     {
-      appointmentId: 3,
+      appointmentId: 5,
       appointmentStatus: 'SCHEDULED',
       nickname: '오훈',
       image: 'https://example.com/junior1.jpg',
@@ -107,7 +107,7 @@ export const SENIOR_DATA = {
       endTime: '17:30',
     },
     {
-      appointmentId: 4,
+      appointmentId: 6,
       appointmentStatus: 'SCHEDULED',
       nickname: '김도현',
       image: 'https://example.com/junior2.jpg',
@@ -121,7 +121,7 @@ export const SENIOR_DATA = {
   ],
   past: [
     {
-      appointmentId: 5,
+      appointmentId: 7,
       appointmentStatus: 'PAST',
       nickname: '오훈',
       image: 'https://example.com/junior1.jpg',
@@ -132,7 +132,7 @@ export const SENIOR_DATA = {
       endTime: '18:30',
     },
     {
-      appointmentId: 6,
+      appointmentId: 8,
       appointmentStatus: 'REJECTED',
       nickname: '김도현',
       image: 'https://example.com/junior2.jpg',
@@ -173,7 +173,7 @@ export const JUNIOR_DATA = {
       endTime: '15:00',
     },
     {
-      appointmentId: 2,
+      appointmentId: 3,
       appointmentStatus: 'SCHEDULED',
       nickname: '홍석범',
       image: 'https://example.com/senior2.jpg',
@@ -187,7 +187,7 @@ export const JUNIOR_DATA = {
       endTime: '15:00',
     },
     {
-      appointmentId: 2,
+      appointmentId: 4,
       appointmentStatus: 'SCHEDULED',
       nickname: '홍석범',
       image: 'https://example.com/senior2.jpg',
@@ -201,7 +201,7 @@ export const JUNIOR_DATA = {
       endTime: '15:00',
     },
     {
-      appointmentId: 2,
+      appointmentId: 5,
       appointmentStatus: 'SCHEDULED',
       nickname: '홍석범',
       image: 'https://example.com/senior2.jpg',
@@ -215,7 +215,7 @@ export const JUNIOR_DATA = {
       endTime: '15:00',
     },
     {
-      appointmentId: 2,
+      appointmentId: 6,
       appointmentStatus: 'SCHEDULED',
       nickname: '홍석범',
       image: 'https://example.com/senior2.jpg',
@@ -231,7 +231,7 @@ export const JUNIOR_DATA = {
   ],
   past: [
     {
-      appointmentId: 3,
+      appointmentId: 7,
       appointmentStatus: 'PAST',
       nickname: '오훈',
       image: 'https://example.com/senior3.jpg',
@@ -245,7 +245,7 @@ export const JUNIOR_DATA = {
       endTime: '14:30',
     },
     {
-      appointmentId: 4,
+      appointmentId: 8,
       appointmentStatus: 'REJECTED',
       nickname: '백예린',
       image: 'https://example.com/senior4.jpg',
