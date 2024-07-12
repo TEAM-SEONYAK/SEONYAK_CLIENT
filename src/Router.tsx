@@ -1,3 +1,4 @@
+import PromiseDetailPage from '@pages/promiseDetail/PromiseDetailPage';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
 // import HomePage from './pages/home/HomePage';
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <PromiseListPage />,
+      },
+      {
+        path: 'promiseDetail',
+        element: <PromiseDetailPage />,
       },
       {
         path: 'login',
