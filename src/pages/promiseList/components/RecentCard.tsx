@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import ProfileChip from './ProfileChip';
 import ProfileContainer from './ProfileContainer';
 import PromiseTimerBtn from './PromiseTimerBtn';
-import { profileCardDataType } from '../constants/constants';
+import { profileCardDataType } from '../types/type';
 import { calculateTimeLeft } from '../utils/calculateTimeLeft';
 interface RecentCardPropType {
   userRole: string;

@@ -1,52 +1,3 @@
-// userrole = senior 경우
-export interface profileCardDataType {
-  appointmentId: number;
-  appointmentStatus: string;
-  nickname: string;
-  image: string;
-  field: string;
-  department?: string;
-  topic?: string;
-  date?: string;
-  startTime?: string;
-  endTime?: string;
-  company?: string;
-  position?: string;
-  detailPosition?: string;
-  level?: string;
-}
-
-export interface SENIOR_DATA_PENDING {
-  appointmentId: number;
-  appointmentStatus: string;
-  nickname: string;
-  image: string;
-  field: string;
-  department: string;
-  topic: string;
-}
-
-export interface SENIOR_DATA_SCHEDULED {
-  appointmentId: number;
-  appointmentStatus: string;
-  nickname: string;
-  image: string;
-  field: string;
-  department: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-}
-
-export interface SENIOR_DATA_PAST {
-  appointmentId: number;
-  appointmentStatus: string;
-  nickname: string;
-  image: string;
-  field: string;
-  department: string;
-}
-
 export const SENIOR_DATA = {
   myNickname: '윤서진',
   pending: [
@@ -57,7 +8,7 @@ export const SENIOR_DATA = {
       image: 'https://example.com/junior1.jpg',
       field: '공학계열',
       department: '산업공학과',
-      topic: '면접에 관해 얘기하고 싶어요',
+      topic: ['포트폴리오', '면접 준비', '커리어 로드맵', '자소서 컨설팅'],
     },
     {
       appointmentId: 2,
@@ -66,7 +17,8 @@ export const SENIOR_DATA = {
       image: 'https://example.com/junior2.jpg',
       field: '공학계열',
       department: '산업공학과',
-      topic: '면접에 관해 얘기하고 싶어요',
+      topic: ['포트폴리오', '자소서 컨설팅'],
+      personalTopic: '그냥 모든게 다 고민이에요오오오오오',
     },
   ],
   scheduled: [
@@ -77,7 +29,7 @@ export const SENIOR_DATA = {
       image: 'https://example.com/junior1.jpg',
       field: '공학계열',
       department: '산업공학과',
-      topic: '면접에 관해 얘기하고 싶어요',
+      topic: ['포트폴리오', '면접 준비', '커리어 로드맵', '자소서 컨설팅'],
       date: '2024.07.10',
       startTime: '17:00',
       endTime: '17:30',
@@ -89,7 +41,7 @@ export const SENIOR_DATA = {
       image: 'https://example.com/junior2.jpg',
       field: '공학계열',
       department: '산업공학과',
-      topic: '면접에 관해 얘기하고 싶어요',
+      topic: ['포트폴리오', '면접 준비', '커리어 로드맵', '자소서 컨설팅'],
       date: '2024.07.11',
       startTime: '18:00',
       endTime: '18:30',
@@ -101,7 +53,7 @@ export const SENIOR_DATA = {
       image: 'https://example.com/junior1.jpg',
       field: '공학계열',
       department: '산업공학과',
-      topic: '면접에 관해 얘기하고 싶어요',
+      topic: ['포트폴리오', '면접 준비', '커리어 로드맵', '자소서 컨설팅'],
       date: '2024.07.17',
       startTime: '17:00',
       endTime: '17:30',
@@ -113,7 +65,7 @@ export const SENIOR_DATA = {
       image: 'https://example.com/junior2.jpg',
       field: '공학계열',
       department: '산업공학과',
-      topic: '면접에 관해 얘기하고 싶어요',
+      topic: ['포트폴리오', '면접 준비', '커리어 로드맵', '자소서 컨설팅'],
       date: '2024.07.11',
       startTime: '18:00',
       endTime: '18:30',

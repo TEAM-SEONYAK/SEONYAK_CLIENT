@@ -9,7 +9,7 @@ import { SENIOR_DATA, JUNIOR_DATA } from './constants/constants';
 
 const PromiseListPage = () => {
   // 유저가 선배일 경우
-  const userRole = 'JUNIOR';
+  const userRole = 'SENIOR';
   const promiseData = userRole === 'SENIOR' ? SENIOR_DATA : JUNIOR_DATA;
 
   return (

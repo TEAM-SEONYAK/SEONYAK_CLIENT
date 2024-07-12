@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import ProfileContainer from './ProfileContainer';
-import { profileCardDataType, PROMISE_TAP } from '../constants/constants';
+import { PROMISE_TAP } from '../constants/constants';
+import { profileCardDataType } from '../types/type';
 import { getEmptyMessage } from '../utils/getEmptyMessage';
 
 interface PromiseTapPropType {

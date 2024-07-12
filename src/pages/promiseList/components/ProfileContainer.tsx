@@ -2,7 +2,7 @@ import { CardArrowRightGrayIc, ClockIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { getLevelName } from '@utils/getLevelName';
 import ProfileChip from './ProfileChip';
-import { profileCardDataType } from '../constants/constants';
+import { profileCardDataType } from '../types/type';
 import { extractMonthAndDay } from '../utils/extractMonthAndDay';
 
 interface ProfileContainerPropType {
@@ -14,6 +14,12 @@ interface ProfileContainerPropType {
 const ProfileContainer = (props: ProfileContainerPropType) => {
   const { userRole, profileCardData, type } = props;
   const { month, day } = extractMonthAndDay(profileCardData?.date + '');
+
+  const getTopicDescription = (chosenTopic: string[] | undefined) => {
+    const topicLength = chosenTopic?.length;
+
+    return topicLength ? `${chosenTopic[0]} 외 ${topicLength - 1}건` : '직접 작성했어요';
+  };
   return (
     <ReviewWrapper $type={type}>
       <Wrapper $type={type}>
@@ -38,7 +44,9 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
                   <ProfileChip type="field" content={profileCardData?.field} />
                   <ProfileChip type="field" content={profileCardData?.department} />
                 </ChipContainer>
-                {type === 'pending' && <Description $colorType="grayScaleDG">{profileCardData?.topic}</Description>}
+                {type === 'pending' && (
+                  <Description $colorType="grayScaleDG">{getTopicDescription(profileCardData?.topic)}</Description>
+                )}
               </>
             )}
           {userRole === 'SENIOR' && type === 'default' && (
@@ -48,7 +56,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
                 <Divider />
                 <Major>{profileCardData?.department}</Major>
               </MajorDiv>
-              <Description $colorType="grayScaleDG">{profileCardData?.topic}</Description>
+              <Description $colorType="grayScaleDG">{getTopicDescription(profileCardData?.topic)}</Description>
             </>
           )}
           {userRole === 'JUNIOR' && (
