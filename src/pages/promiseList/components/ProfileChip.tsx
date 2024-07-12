@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import { generateRandomBgColor, generateRandomColor } from '../utils/generateChipColor';
 
 interface RecentChipPropType {
@@ -8,7 +9,7 @@ interface RecentChipPropType {
 
 const ProfileChip = (props: RecentChipPropType) => {
   const { type, content } = props;
-  const randomNum = Math.floor(Math.random() * 3);
+  const [randomNum] = useState(Math.floor(Math.random() * 3));
 
   const randomBgColor = generateRandomBgColor(randomNum);
   const randomColor = generateRandomColor(randomNum);
