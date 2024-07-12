@@ -14,7 +14,6 @@ const Step재직인증 = () => {
       prev?.includes(selectedValue) ? prev.filter((detail) => detail !== selectedValue) : [...prev, selectedValue],
     );
   };
-  console.log({ selectedDetails });
   return (
     <>
       <div style={{ marginTop: '10rem' }}>
