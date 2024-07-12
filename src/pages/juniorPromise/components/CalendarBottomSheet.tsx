@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import React from 'react';
 import BottomBar from './BottomBar';
 import CustomCalendar from './CustomCalendar';
 import GrayLine from './GrayLine';
@@ -6,11 +7,10 @@ import TimeList from './TimeList';
 
 interface BottomSheetPropType {
   isSheetOpen: boolean;
-  handleSheetOpen: () => void;
   handleSheetClose: () => void;
 }
 
-const CalendarBottomSheet = ({ isSheetOpen, handleSheetClose }: BottomSheetPropType) => {
+const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({ isSheetOpen, handleSheetClose }) => {
   return (
     <>
       <Background isSheetOpen={isSheetOpen} onClick={handleSheetClose} />
@@ -18,14 +18,7 @@ const CalendarBottomSheet = ({ isSheetOpen, handleSheetClose }: BottomSheetPropT
         <CustomCalendar />
         <GrayLine />
         <TimeList />
-        <BottomBar
-          handleSheetOpen={function (): void {
-            throw new Error('Function not implemented.');
-          }}
-          handleSheetClose={function (): void {
-            throw new Error('Function not implemented.');
-          }}
-        />
+        <BottomBar handleSheetClose={handleSheetClose} />
       </BottomSheetWrapper>
     </>
   );

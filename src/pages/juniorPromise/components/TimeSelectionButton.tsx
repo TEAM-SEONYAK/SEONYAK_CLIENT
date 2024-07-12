@@ -1,22 +1,27 @@
 import styled from '@emotion/styled';
+import React from 'react';
 import { ButtonCheckIc } from '../../../assets/svgs';
 import { TIME_SELECTION_BUTTON } from '../constants/constants';
 
-function TimeSelectionButton() {
-  // const buttonValue = null;
-  const buttonValue = 'string';
+interface TimeSelectionButtonProps {
+  onSelect: () => void;
+}
+
+const TimeSelectionButton: React.FC<TimeSelectionButtonProps> = ({ onSelect }) => {
+  const buttonValue = null;
+  // const buttonValue = 'string';
 
   return (
     <Wrapper>
       {TIME_SELECTION_BUTTON.map((item) => (
-        <Layout key={item.id} $isActive={buttonValue !== null}>
+        <Layout key={item.id} $isActive={buttonValue !== null} onClick={onSelect}>
           <Title2>{buttonValue || item.title}</Title2>
           {buttonValue && <StyledButtonCheckIc />}
         </Layout>
       ))}
     </Wrapper>
   );
-}
+};
 
 export default TimeSelectionButton;
 
