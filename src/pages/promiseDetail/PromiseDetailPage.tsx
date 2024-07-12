@@ -9,7 +9,11 @@ const PromiseDetail = () => {
   // location으로 닉네임 잡아오기
   const myNickname = '아가라고요';
   const userRole = 'SENIOR';
-  const [selectTime, setSelectTime] = useState('');
+  const [selectTime, setSelectTime] = useState(null);
+
+  const handleClickTimeBox = (idx: number) => {
+    setSelectTime(idx);
+  };
 
   return (
     <>
@@ -42,8 +46,12 @@ const PromiseDetail = () => {
             <Description>세 가지 시간 중 하나를 필수로 선택해주세요</Description>
             <ContentContainer>
               {SENIOR_RESPONSE.timeList.map((el, idx) => (
-                <Time key={el.date + idx + el.startTime}>
+                <Time
+                  key={el.date + idx + el.startTime}
+                  onClick={() => handleClickTimeBox(idx)}
+                  $isActive={selectTime === idx}>
                   {formatDate(el.date)} {el.startTime} - {el.endTime}
+                  <ButtonCheckIcon isactive={(selectTime === idx).toString()} />
                 </Time>
               ))}
             </ContentContainer>
@@ -52,7 +60,9 @@ const PromiseDetail = () => {
 
         <BtnWrapper>
           <DeclineBtn type="button">거절하기</DeclineBtn>
-          <AcceptBtn type="button">수락하기</AcceptBtn>
+          <AcceptBtn type="button" $isActive={selectTime !== null}>
+            수락하기
+          </AcceptBtn>
         </BtnWrapper>
         <BtnBackground />
       </Wrapper>
@@ -92,8 +102,8 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.h2`
-  ${({ theme }) => theme.fonts.Title1_SB_16}
-  color: ${({ theme }) => theme.colors.grayScaleBG}
+  ${({ theme }) => theme.fonts.Title1_SB_16};
+  color: ${({ theme }) => theme.colors.grayScaleBG};
 `;
 
 const ContentContainer = styled.div`
@@ -111,13 +121,24 @@ const Content = styled.div`
   ${({ theme }) => theme.fonts.Body1_M_14}
 `;
 
-const Time = styled.div`
+const Time = styled.div<{ $isActive: boolean }>`
   width: 100%;
-  padding: 1.1rem 0 1.1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.1rem 1.5rem;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
-  color: ${({ theme }) => theme.colors.grayScaleBG};
-  ${({ theme }) => theme.fonts.Body1_M_14}
+  background-color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.transparentBlue_5 : theme.colors.grayScaleLG1};
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleBG)};
+  ${({ theme }) => theme.fonts.Body1_M_14};
+  cursor: pointer;
+
+  border: ${({ $isActive, theme }) =>
+    $isActive ? `1px solid ${theme.colors.transparentBlue_50}` : '1px solid transparent'};
+`;
+
+const ButtonCheckIcon = styled(ButtonCheckIc)<{ isactive: string }>`
+  display: ${({ isactive }) => (isactive === 'true' ? 'flex' : 'none')};
 `;
 
 const WrittenContent = styled.div`
@@ -160,14 +181,14 @@ const DeclineBtn = styled.button`
   cursor: pointer;
 `;
 
-const AcceptBtn = styled.button`
+const AcceptBtn = styled.button<{ $isActive: boolean }>`
   border-radius: 5px;
   width: 21.9rem;
   height: 5.6rem;
-  background-color: ${({ theme }) => theme.colors.grayScaleMG2};
+  background-color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleMG2)};
   color: ${({ theme }) => theme.colors.grayScaleWhite};
-  cursor: pointer;
-  ${({ theme }) => theme.fonts.Head2_SB_18}
+  cursor: ${({ $isActive }) => ($isActive ? 'pointer' : 'default')};
+  ${({ theme }) => theme.fonts.Head2_SB_18};
 `;
 
 const BtnBackground = styled.div`
