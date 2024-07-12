@@ -8,28 +8,18 @@ import { POSITION_LIST } from '../constants/positionList';
 
 interface BottomSheetPropType {
   filterActiveBtn: string;
-  handleSheetClose: () => void;
-  field: string[];
-  position: string[];
   // eslint-disable-next-line no-unused-vars
   handleFilterActiveBtn: (btnText: string) => void;
-  onField: () => void;
-  onPosition: () => void;
   isBottomSheetOpen: boolean;
   handleCloseBottomSheet: () => void;
 }
 
 export const BottomSheet = ({
   filterActiveBtn,
-  handleSheetClose,
-  // field,
-  // position,
   handleFilterActiveBtn,
   isBottomSheetOpen,
   handleCloseBottomSheet,
 }: BottomSheetPropType) => {
-  // const [activeButton, setActiveButton] = useState(filterActiveBtn);
-
   return (
     <>
       <Background $isBottomSheetOpen={isBottomSheetOpen} onClick={handleCloseBottomSheet} />

@@ -2,13 +2,11 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { ArrowDownIc } from '../../../assets/svgs/index';
 interface FilterButtonProps {
-  onField: () => void;
-  onPosition: () => void;
   // eslint-disable-next-line no-unused-vars
   handleFilterActiveBtn: (btnText: string) => void;
 }
 
-export const FilterButton: React.FC<FilterButtonProps> = ({ onField, onPosition, handleFilterActiveBtn }) => {
+export const FilterButton: React.FC<FilterButtonProps> = ({ handleFilterActiveBtn }) => {
   return (
     <FilterBtnContainer>
       <FilterBtn type="button" onClick={() => handleFilterActiveBtn('계열')}>
@@ -38,4 +36,6 @@ const FilterBtn = styled.button`
 
   ${({ theme }) => theme.fonts.Caption2_SB_12};
   background: ${({ theme }) => theme.colors.grayScaleLG2};
+
+  color: ${({ theme }) => theme.colors.grayScaleDG};
 `;

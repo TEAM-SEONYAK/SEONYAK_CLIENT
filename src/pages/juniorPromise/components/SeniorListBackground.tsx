@@ -5,24 +5,17 @@ import { FilterButton } from './FilterButton';
 
 interface SeniorListBackgroundProps {
   children: ReactNode;
-  onField: () => void;
-  onPosition: () => void;
   // eslint-disable-next-line no-unused-vars
   handleFilterActiveBtn: (btnText: string) => void;
 }
 
-export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
-  children,
-  onField,
-  onPosition,
-  handleFilterActiveBtn,
-}) => {
+export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({ children, handleFilterActiveBtn }) => {
   return (
     <ListBackground>
       <SeniorSearchWrapper>
         <SearchTitle>선배를 찾아볼까요?</SearchTitle>
         <BtnLayout>
-          <FilterButton handleFilterActiveBtn={handleFilterActiveBtn} onField={onField} onPosition={onPosition} />
+          <FilterButton handleFilterActiveBtn={handleFilterActiveBtn} />
           <LineWrapper>
             <Line292Ic />
           </LineWrapper>
