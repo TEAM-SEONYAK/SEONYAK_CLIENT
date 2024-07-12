@@ -1,8 +1,13 @@
 import styled from '@emotion/styled';
 import { HOUR_TIME, TIME_LIST, WEEKENDS } from '@pages/seniorProfile/constants';
-import { dayType } from '@pages/seniorProfile/types';
+import { dayOfWeekTimeList, dayType } from '@pages/seniorProfile/types';
+import { isTimeActive } from '@pages/seniorProfile/utils/isTimeActive';
 
-const TimeTable = () => {
+interface timeTablePropType {
+  preferredTime: dayOfWeekTimeList;
+}
+
+const TimeTable = ({ preferredTime }: timeTablePropType) => {
   return (
     <>
       <DayOfWeekContainer>
@@ -16,7 +21,7 @@ const TimeTable = () => {
             <Time key={t}>{t}</Time>
           ))}
         </TimeContainer>
-        <Table />
+        <Table preferredTime={preferredTime} />
       </Wrapper>
     </>
   );
@@ -45,7 +50,6 @@ const TimeContainer = styled.section`
   flex-direction: column;
   padding: 0.1rem 0 0.2rem 0;
   justify-content: space-between;
-  /* gap: 2rem; */
 `;
 
 const Time = styled.p`
@@ -53,22 +57,23 @@ const Time = styled.p`
   color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
 
-const Table = () => {
+const Table = ({ preferredTime }: timeTablePropType) => {
   return (
     <TableWrapper>
       <TableContainer>
         {TIME_LIST.map((t) => (
           <TableRow key={t}>
-            {WEEKENDS.map((w) => (
-              <TableCell key={w} />
-            ))}
+            {WEEKENDS.map((w: dayType) => {
+              const cur = preferredTime[w][0];
+              return (
+                <TableCell
+                  key={w}
+                  $isActive={isTimeActive({ startTime: cur.startTime, endTime: cur.endTime, curTime: t })}
+                />
+              );
+            })}
           </TableRow>
         ))}
-        <TableRow key="24:00">
-          {WEEKENDS.map((w) => (
-            <TableCell key={w} />
-          ))}
-        </TableRow>
       </TableContainer>
     </TableWrapper>
   );
@@ -93,8 +98,10 @@ const TableRow = styled.tr`
   height: 1.7rem;
 `;
 
-const TableCell = styled.td`
+const TableCell = styled.td<{ $isActive: boolean }>`
   border-left: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
   border-right: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
   border-bottom: 1px dashed ${({ theme }) => theme.colors.grayScaleLG1};
+
+  background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primaryBlue200 : '')};
 `;

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { seniorProfileAPIType, seniorProfileInitial } from '@pages/seniorProfile/types';
 import { useState } from 'react';
 import Career from './components/Career';
 import Example from './components/Example';
@@ -10,12 +11,12 @@ import { SENIOR_PROFILE_STEPS } from './constants';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
 
-const getComponent = (step: number) => {
+const getComponent = (step: number, profile: seniorProfileAPIType) => {
   switch (step) {
     case 0:
       return <Example />;
     case 1:
-      return <PreView />;
+      return <PreView profile={profile} />;
     case 2:
       return <Sentence />;
     case 3:
@@ -25,7 +26,7 @@ const getComponent = (step: number) => {
     case 5:
       return <TimeSelect />;
     case 6:
-      return <PreView />;
+      return <PreView profile={profile} />;
     default:
       return null;
   }
@@ -33,8 +34,9 @@ const getComponent = (step: number) => {
 
 const SeniorProfilePage = () => {
   const [step, setStep] = useState(6);
+  const [profile, setProfile] = useState<seniorProfileAPIType>(seniorProfileInitial);
   const btnText = step === 8 ? '프로필 등록하기' : '다음으로';
-  const component = getComponent(step);
+  const component = getComponent(step, profile);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
   return (
     <div>
