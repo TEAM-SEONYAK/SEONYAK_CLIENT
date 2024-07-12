@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { generateRandomBgColor, generateRandomColor } from '../utils/generateChipColor';
 
 interface RecentChipPropType {
   type: string;
@@ -7,12 +8,20 @@ interface RecentChipPropType {
 
 const ProfileChip = (props: RecentChipPropType) => {
   const { type, content } = props;
-  return <Wrapper $type={type}>{content}</Wrapper>;
+  const randomNum = Math.floor(Math.random() * 3);
+
+  const randomBgColor = generateRandomBgColor(randomNum);
+  const randomColor = generateRandomColor(randomNum);
+  return (
+    <Wrapper $type={type} $randomBgColor={randomBgColor} $randomColor={randomColor}>
+      {content}
+    </Wrapper>
+  );
 };
 
 export default ProfileChip;
 
-const Wrapper = styled.div<{ $type: string }>`
+const Wrapper = styled.div<{ $type: string; $randomColor: string; $randomBgColor: string }>`
   padding: 0.3rem 0.5rem;
   border: ${({ theme, $type }) => {
     switch ($type) {
@@ -27,7 +36,7 @@ const Wrapper = styled.div<{ $type: string }>`
   border-radius: 6px;
 
   ${({ theme }) => theme.fonts.Caption2_SB_12};
-  background-color: ${({ theme, $type }) => {
+  background-color: ${({ theme, $type, $randomBgColor }) => {
     switch ($type) {
       case 'promiseNum':
         return theme.colors.grayScaleBG;
@@ -36,7 +45,7 @@ const Wrapper = styled.div<{ $type: string }>`
       case 'field':
         return theme.colors.grayScaleLG1;
       case 'company':
-        return theme.colors.chipBlueBg;
+        return theme.colors[$randomBgColor as keyof typeof theme.colors];
       case 'userGuide':
         return theme.colors.grayScaleWhite;
       default:
@@ -44,7 +53,7 @@ const Wrapper = styled.div<{ $type: string }>`
     }
   }};
 
-  color: ${({ theme, $type }) => {
+  color: ${({ theme, $type, $randomColor }) => {
     switch ($type) {
       case 'promiseNum':
         return theme.colors.grayScaleWhite;
@@ -53,7 +62,7 @@ const Wrapper = styled.div<{ $type: string }>`
       case 'field':
         return theme.colors.grayScaleDG;
       case 'company':
-        return theme.colors.chipBlueText;
+        return theme.colors[$randomColor as keyof typeof theme.colors];
       case 'userGuide':
         return theme.colors.grayScaleMG1;
       default:
