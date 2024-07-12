@@ -1,14 +1,16 @@
 import styled from '@emotion/styled';
-import { CancelIc, SearchIc } from '../../../assets/svgs';
+import { SearchIc } from '../../../assets/svgs';
 
-const SearchBox = ({ placeholder }: { placeholder: string }) => {
+interface searchBoxPropType {
+  placeholder: string;
+  handleInputClick?: () => void;
+}
+
+const SearchBox = ({ placeholder, handleInputClick }: searchBoxPropType) => {
   return (
     <InputWrapper>
-      <Input type="text" placeholder={placeholder} />
-      <IconWrapper>
-        <CancelIc />
-        <SearchIc />
-      </IconWrapper>
+      <Input type="text" placeholder={placeholder} onClick={handleInputClick} />
+      <SearchIcon />
     </InputWrapper>
   );
 };
@@ -17,29 +19,27 @@ export default SearchBox;
 
 const InputWrapper = styled.div`
   display: flex;
-  position: relative;
+  padding: 0.9rem 0.5rem 0.9rem 1.5rem;
+  width: 33.5rem;
+  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+  border-radius: 8px;
 `;
-const Input = styled.input`
-  position: absolute;
 
+const Input = styled.input`
   width: 100%;
-  height: 5.1rem;
-  padding: 1rem 3.8rem 1rem 1.5rem;
+  padding: 0.4rem 0 0.4rem;
   ${({ theme }) => theme.fonts.Title2_M_16};
   border: none;
-  border-radius: 8px;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
 
   color: ${({ theme }) => theme.colors.grayScaleBG};
+  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.grayScaleMG2};
   }
 `;
 
-const IconWrapper = styled.i`
-  position: absolute;
-  top: 0.9rem;
-  right: 0.5rem;
+const SearchIcon = styled(SearchIc)`
+  width: 3.3rem;
+  height: 3.3rem;
 `;
