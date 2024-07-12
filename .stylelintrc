@@ -39,22 +39,17 @@
           "flex-grow",
           "flex-shrink",
           "align-self",
-
           "visibility",
-
           "overflow",
           "overflow-x",
           "overflow-y",
-
           "float",
           "clear",
-
           "position",
           "top",
           "right",
           "bottom",
           "left",
-
           "z-index"
         ]
       },
@@ -66,23 +61,19 @@
           "width",
           "min-width",
           "max-width",
-
           "height",
           "min-height",
           "max-height",
-
           "margin",
           "margin-top",
           "margin-right",
           "margin-bottom",
           "margin-left",
-
           "padding",
           "padding-top",
           "padding-right",
           "padding-bottom",
           "padding-left",
-
           "border",
           "border-top",
           "border-right",
@@ -116,14 +107,11 @@
           "font-style",
           "font-size",
           "font-weight",
-
           "text-align",
           "vertical-align",
           "line-height",
-
           "text-transform",
           "text-decoration",
-
           "letter-spacing",
           "text-indent",
           "white-space"
@@ -135,6 +123,7 @@
         "noEmptyLineBetween": true,
         "properties": ["cursor", "opacity", "animation", "transition"]
       }
-    ]
+    ],
+    "selector-class-pattern": null
   }
 }

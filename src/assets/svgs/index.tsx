@@ -1,6 +1,8 @@
 // 명명규칙은 xxxxIc으로 통일
 // export { default as DefaultProfileIc } from './defaultProfileIc.svg?react';
-
+export { default as ArrowDownIc } from './ArrowDownIc.svg?react';
+export { default as ResetIc } from './ResetIc.svg?react';
+export { default as Line292Ic } from './Line292Ic.svg?react';
 export { default as SearchIc } from './ic_search.svg?react';
 export { default as CancelIc } from './ic_cancel.svg?react';
 export { default as ButtonCheckIc } from './ic_check.svg?react';
@@ -9,6 +11,10 @@ export { default as ArrowLeftIc } from './icn_arrow_left.svg?react';
 export { default as AlarmIc } from './logo-alarm.svg?react';
 export { default as TempLogoIc } from './TempLogo.svg?react';
 export { default as CloseIc } from './ic_close.svg?react';
+export { default as TechCharacterIc } from './tech_character.svg?react';
+export { default as ErrorSmallIc } from './ic_error_small.svg?react';
+export { default as CameraIc } from './ic_camera.svg?react';
+export { default as CheckItemIc } from './ic_check_item.svg?react';
 export { default as NaviMyBlackIc } from './ic_navi_my_black.svg?react';
 export { default as NaviLookBlackIc } from './ic_navi_look_black.svg?react';
 export { default as NaviPromiseBlackIc } from './ic_navi_promise_black.svg?react';
@@ -17,3 +23,5 @@ export { default as NaviLookGrayIc } from './ic_navi_look_gray.svg?react';
 export { default as NaviPromiseGrayIc } from './ic_navi_promise_gray.svg?react';
 export { default as CardArrowRightGrayIc } from './ic_cardarrow_right_gray.svg?react';
 export { default as ClockIc } from './ic_clock.svg?react';
+export { default as ReloadIc } from './ReloadIc.svg?react';
+
