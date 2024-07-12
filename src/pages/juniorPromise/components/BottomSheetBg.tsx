@@ -1,26 +1,39 @@
 import { ReloadIc } from '@assets/svgs';
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import { FieldList } from './FieldList';
 import { PositionList } from './PositionList';
+import { FIELD_LIST } from '../constants/fieldList';
+import { POSITION_LIST } from '../constants/positionList';
 
 interface BottomSheetPropType {
   filterActiveBtn: string;
   handleSheetClose: () => void;
   field: string[];
   position: string[];
+  // eslint-disable-next-line no-unused-vars
+  handleFilterActiveBtn: (btnText: string) => void;
   onField: () => void;
   onPosition: () => void;
+  isBottomSheetOpen: boolean;
+  handleCloseBottomSheet: () => void;
 }
 
-export const BottomSheet = ({ filterActiveBtn, handleSheetClose, field, position }: BottomSheetPropType) => {
-  const [, setActiveButton] = useState('계열');
+export const BottomSheet = ({
+  filterActiveBtn,
+  handleSheetClose,
+  // field,
+  // position,
+  handleFilterActiveBtn,
+  isBottomSheetOpen,
+  handleCloseBottomSheet,
+}: BottomSheetPropType) => {
+  // const [activeButton, setActiveButton] = useState(filterActiveBtn);
 
   return (
     <>
-      <Background $filterActiveBtn={filterActiveBtn} onClick={handleSheetClose} />
-      <BottomSheetWrapper $filterActiveBtn={filterActiveBtn}>
+      <Background $isBottomSheetOpen={isBottomSheetOpen} onClick={handleCloseBottomSheet} />
+      <BottomSheetWrapper $isBottomSheetOpen={isBottomSheetOpen}>
         <TitleLayout>
           <Line />
           <Title>원하는 선배를 찾아볼까요?</Title>
@@ -30,20 +43,24 @@ export const BottomSheet = ({ filterActiveBtn, handleSheetClose, field, position
           left="계열"
           right="직무"
           activeButton={filterActiveBtn}
-          onSetActiveButtonHandler={setActiveButton}
+          onSetActiveButtonHandler={handleFilterActiveBtn}
         />
         <Content>
           {filterActiveBtn === '계열' ? (
             <FieldLayout>
-              {field.map((list) => (
-                <FieldList key={list} field={list} />
-              ))}
+              {FIELD_LIST.fieldList
+                .map((item) => item.field)
+                .map((list) => (
+                  <FieldList key={list} field={list} />
+                ))}
             </FieldLayout>
           ) : (
             <PositionLayout>
-              {position.map((list) => (
-                <PositionList key={list} position={list} />
-              ))}
+              {POSITION_LIST.positionList
+                .map((item) => item.position)
+                .map((list) => (
+                  <PositionList key={list} position={list} />
+                ))}
             </PositionLayout>
           )}
         </Content>
@@ -51,7 +68,7 @@ export const BottomSheet = ({ filterActiveBtn, handleSheetClose, field, position
           <ReloadIcon type="reset">
             <ReloadIc />
           </ReloadIcon>
-          <ExitBottomSheet type="button" onClick={handleSheetClose}>
+          <ExitBottomSheet type="button" onClick={handleCloseBottomSheet}>
             적용할래요
           </ExitBottomSheet>
         </ButtonLayout>
@@ -60,8 +77,8 @@ export const BottomSheet = ({ filterActiveBtn, handleSheetClose, field, position
   );
 };
 
-const Background = styled.div<{ $filterActiveBtn: string }>`
-  display: ${({ $filterActiveBtn }) => ($filterActiveBtn ? 'flex' : 'none')};
+const Background = styled.div<{ $isBottomSheetOpen: boolean }>`
+  display: ${({ $isBottomSheetOpen }) => ($isBottomSheetOpen ? 'flex' : 'none')};
   position: fixed;
   top: 0;
   z-index: 2;
@@ -72,7 +89,7 @@ const Background = styled.div<{ $filterActiveBtn: string }>`
   background: ${({ theme }) => theme.colors.transparentBlack_65};
 `;
 
-const BottomSheetWrapper = styled.form<{ $filterActiveBtn: string }>`
+const BottomSheetWrapper = styled.form<{ $isBottomSheetOpen: boolean }>`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -85,8 +102,8 @@ const BottomSheetWrapper = styled.form<{ $filterActiveBtn: string }>`
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 
-  opacity: ${({ $filterActiveBtn }) => ($filterActiveBtn ? 1 : 0)};
-  transform: translateY(${({ $filterActiveBtn }) => ($filterActiveBtn ? '0' : '100%')});
+  opacity: ${({ $isBottomSheetOpen }) => ($isBottomSheetOpen ? 1 : 0)};
+  transform: translateY(${({ $isBottomSheetOpen }) => ($isBottomSheetOpen ? '0' : '100%')});
 
   transition:
     transform 250ms ease-in-out,

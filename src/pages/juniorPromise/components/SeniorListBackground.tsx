@@ -7,15 +7,22 @@ interface SeniorListBackgroundProps {
   children: ReactNode;
   onField: () => void;
   onPosition: () => void;
+  // eslint-disable-next-line no-unused-vars
+  handleFilterActiveBtn: (btnText: string) => void;
 }
 
-export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({ children, onField, onPosition }) => {
+export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
+  children,
+  onField,
+  onPosition,
+  handleFilterActiveBtn,
+}) => {
   return (
     <ListBackground>
       <SeniorSearchWrapper>
         <SearchTitle>선배를 찾아볼까요?</SearchTitle>
         <BtnLayout>
-          <FilterButton onField={onField} onPosition={onPosition} />
+          <FilterButton handleFilterActiveBtn={handleFilterActiveBtn} onField={onField} onPosition={onPosition} />
           <LineWrapper>
             <Line292Ic />
           </LineWrapper>

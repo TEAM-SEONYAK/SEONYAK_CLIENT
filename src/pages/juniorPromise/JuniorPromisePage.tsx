@@ -12,7 +12,10 @@ import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConst
 
 const JuniorPromisePage = () => {
   const { seniorList } = SENIOR_LIST;
-  const [filterActiveBtn, setFilterActiveBtn] = useState('');
+  // 필터 버튼
+  const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
+  // 바텀 시트 여는 동작
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [listedField, setListedField] = useState<string[]>([]); // 계열 목록 저장
   const [listedPosition, setListedPosition] = useState<string[]>([]); // 직무 목록 저장
 
@@ -30,11 +33,18 @@ const JuniorPromisePage = () => {
 
     setListedPosition(POSITION_LIST.positionList.map((item) => item.position)); //모든 직무 렌더링
   };
+  const handleFilterActiveBtn = (btnText: string) => {
+    setFilterActiveBtn(btnText);
+    setIsBottomSheetOpen(true);
+  };
+  const handleCloseBottomSheet = () => {
+    setIsBottomSheetOpen(false);
+  };
 
   return (
     <>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
-      <SeniorListBackground onField={onField} onPosition={onPosition}>
+      <SeniorListBackground handleFilterActiveBtn={handleFilterActiveBtn} onField={onField} onPosition={onPosition}>
         <SeniorListWrapper>
           {seniorList.map((list) => (
             <SeniorCard
@@ -53,6 +63,9 @@ const JuniorPromisePage = () => {
       <BottomSheet
         filterActiveBtn={filterActiveBtn}
         handleSheetClose={handleSheetClose}
+        handleFilterActiveBtn={handleFilterActiveBtn}
+        handleCloseBottomSheet={handleCloseBottomSheet}
+        isBottomSheetOpen={isBottomSheetOpen}
         field={listedField} // BottomSheet에 계열 목록 전달
         position={listedPosition} //BottomSheet에 직무 목록 전달
         onField={onField}

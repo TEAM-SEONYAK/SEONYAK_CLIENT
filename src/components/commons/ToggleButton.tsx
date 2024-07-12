@@ -46,7 +46,7 @@ const ToggleBtn = styled.div<{ isActive: boolean }>`
   width: 50%;
   height: 4.4rem;
   padding: 0.9rem 2.7rem;
-  padding-left: 1.8rem; /* 고정된 padding-left 값 */
+  padding-left: 1.8rem;
   border-radius: 8px;
 
   background-color: ${({ theme, isActive }) => (isActive ? theme.colors.grayScaleBG : theme.colors.grayScaleLG1)};

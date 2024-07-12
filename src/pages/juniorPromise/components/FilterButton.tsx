@@ -4,16 +4,18 @@ import { ArrowDownIc } from '../../../assets/svgs/index';
 interface FilterButtonProps {
   onField: () => void;
   onPosition: () => void;
+  // eslint-disable-next-line no-unused-vars
+  handleFilterActiveBtn: (btnText: string) => void;
 }
 
-export const FilterButton: React.FC<FilterButtonProps> = ({ onField, onPosition }) => {
+export const FilterButton: React.FC<FilterButtonProps> = ({ onField, onPosition, handleFilterActiveBtn }) => {
   return (
     <FilterBtnContainer>
-      <FilterBtn type="button" onClick={onField}>
+      <FilterBtn type="button" onClick={() => handleFilterActiveBtn('계열')}>
         계열
         <ArrowDownIc />
       </FilterBtn>
-      <FilterBtn type="button" onClick={onPosition}>
+      <FilterBtn type="button" onClick={() => handleFilterActiveBtn('직무')}>
         직무
         <ArrowDownIc />
       </FilterBtn>
