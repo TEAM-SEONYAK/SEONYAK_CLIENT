@@ -10,7 +10,7 @@ const PromiseDetail = () => {
   // location으로 닉네임 잡아오기
   const myNickname = '아가라고요';
   const userRole = 'SENIOR';
-  const [selectTime, setSelectTime] = useState(null);
+  const [selectTime, setSelectTime] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleClickTimeBox = (idx: number) => {
