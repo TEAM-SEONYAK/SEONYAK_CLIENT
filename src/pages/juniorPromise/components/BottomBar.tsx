@@ -1,12 +1,12 @@
 import { ReloadIc } from '@assets/svgs';
 import styled from '@emotion/styled';
+import React from 'react';
 
-interface BottomSheetPropType {
-  handleSheetOpen: () => void;
+interface BottomBarPropType {
   handleSheetClose: () => void;
 }
 
-const BottomBar = ({ handleSheetClose }: BottomSheetPropType) => {
+const BottomBar: React.FC<BottomBarPropType> = ({ handleSheetClose }) => {
   return (
     <ButtonLayout>
       <ReloadBtn type="reset">
