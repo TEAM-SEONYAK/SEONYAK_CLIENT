@@ -3,12 +3,11 @@ import { useState, useEffect } from 'react';
 import ProfileChip from './ProfileChip';
 import ProfileContainer from './ProfileContainer';
 import PromiseTimerBtn from './PromiseTimerBtn';
-import { SENIOR_DATA_SCHEDULED } from '../constants/constants';
+import { profileCardDataType } from '../constants/constants';
 import { calculateTimeLeft } from '../utils/calculateTimeLeft';
-
 interface RecentCardPropType {
   userRole: string;
-  recentAppointment: SENIOR_DATA_SCHEDULED;
+  recentAppointment?: profileCardDataType;
   appointmentNum: number;
 }
 
@@ -16,16 +15,16 @@ const RecentCard = (props: RecentCardPropType) => {
   const { userRole, recentAppointment, appointmentNum } = props;
 
   const [timeLeft, setTimeLeft] = useState(() =>
-    calculateTimeLeft(recentAppointment.date, recentAppointment.startTime),
+    calculateTimeLeft(recentAppointment?.date + '', recentAppointment?.startTime + ''),
   );
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft(recentAppointment.date, recentAppointment.startTime));
+      setTimeLeft(calculateTimeLeft(recentAppointment?.date + '', recentAppointment?.startTime + ''));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [recentAppointment.date, recentAppointment.startTime]);
+  }, [recentAppointment?.date, recentAppointment?.startTime]);
 
   const { diffText, diff, dDayDiff } = timeLeft;
 
@@ -39,8 +38,14 @@ const RecentCard = (props: RecentCardPropType) => {
         <ProfileChip type="userGuide" content="선약 이용방법 보기" />
       </RecentNav>
       <DashedDivider />
-      <ProfileContainer userRole={userRole} type="default" profileCardData={recentAppointment} />
-      <PromiseTimerBtn isActive={diff <= 0} diff={diffText} />
+      {appointmentNum ? (
+        <>
+          <ProfileContainer userRole={userRole} type="default" profileCardData={recentAppointment} />
+          <PromiseTimerBtn isActive={diff <= 0} diff={diffText} />
+        </>
+      ) : (
+        <EmptyImg />
+      )}
     </Wrapper>
   );
 };
@@ -78,4 +83,10 @@ const DashedDivider = styled.div`
   height: 0.1rem;
   margin-bottom: 1.39rem;
   border-bottom: 1px dashed ${({ theme }) => theme.colors.grayScaleLG1};
+`;
+
+const EmptyImg = styled.div`
+  width: 31.2rem;
+  height: 13.4rem;
+  background-color: ${({ theme }) => theme.colors.grayScaleLG2};
 `;

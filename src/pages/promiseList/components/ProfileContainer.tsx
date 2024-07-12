@@ -1,18 +1,19 @@
 import { CardArrowRightGrayIc, ClockIc } from '@assets/svgs';
 import styled from '@emotion/styled';
+import { getLevelName } from '@utils/getLevelName';
 import ProfileChip from './ProfileChip';
 import { profileCardDataType } from '../constants/constants';
 import { extractMonthAndDay } from '../utils/extractMonthAndDay';
 
 interface ProfileContainerPropType {
   userRole: string;
-  type: 'pending' | 'scheduled' | 'past' | 'rejected' | 'default';
-  profileCardData: profileCardDataType;
+  type: string;
+  profileCardData?: profileCardDataType;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
   const { userRole, profileCardData, type } = props;
-  const { month, day } = extractMonthAndDay(profileCardData.date + '');
+  const { month, day } = extractMonthAndDay(profileCardData?.date + '');
   return (
     <ReviewWrapper $type={type}>
       <Wrapper $type={type}>
@@ -20,56 +21,62 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         <InfoContainer>
           <NameContainer>
             <Name>
-              {profileCardData.nickname} {userRole === 'SENIOR' ? '후배' : '선배'}
+              {profileCardData?.nickname} {userRole === 'SENIOR' ? '후배' : '선배'}
             </Name>
             {type === 'rejected' && <RejectedChip>거절</RejectedChip>}
           </NameContainer>
           {userRole === 'JUNIOR' && (
             <ChipContainer>
-              <ProfileChip type="company" content={profileCardData.company} />
-              <ProfileChip type="field" content={profileCardData.field} />
+              <ProfileChip type="company" content={profileCardData?.company} />
+              <ProfileChip type="field" content={profileCardData?.field} />
             </ChipContainer>
           )}
           {userRole === 'SENIOR' &&
             (type === 'pending' || type === 'scheduled' || type === 'past' || type === 'rejected') && (
               <>
                 <ChipContainer>
-                  <ProfileChip type="field" content={profileCardData.field} />
-                  <ProfileChip type="field" content={profileCardData.department} />
+                  <ProfileChip type="field" content={profileCardData?.field} />
+                  <ProfileChip type="field" content={profileCardData?.department} />
                 </ChipContainer>
-                {type === 'pending' && <Description>{profileCardData.topic}</Description>}
+                {type === 'pending' && <Description $colorType="grayScaleDG">{profileCardData?.topic}</Description>}
               </>
             )}
           {userRole === 'SENIOR' && type === 'default' && (
             <>
               <MajorDiv>
-                <Major>{profileCardData.field}</Major>
+                <Major>{profileCardData?.field}</Major>
                 <Divider />
-                <Major>{profileCardData.department}</Major>
+                <Major>{profileCardData?.department}</Major>
               </MajorDiv>
-              <Description>{profileCardData.topic}</Description>
+              <Description $colorType="grayScaleDG">{profileCardData?.topic}</Description>
             </>
           )}
           {userRole === 'JUNIOR' && (
             <>
               <MajorDiv>
-                <Major>{profileCardData.department}</Major>
+                <Major>{profileCardData?.position}</Major>
                 <Divider />
-                <Major>{profileCardData.detailPosition}</Major>
+                <Major>{profileCardData?.detailPosition}</Major>
               </MajorDiv>
-              {/* level로 직무 텍스트로 변경 필요 */}
-              <Description>`주니어 (${profileCardData.level}년 차)`</Description>
+              <Description $colorType="grayScaleDG">
+                {getLevelName(profileCardData?.level + '')} {profileCardData?.level}
+              </Description>
             </>
           )}
           {(type === 'scheduled' || type === 'past') && (
             <TimeContainer>
               <ClockIc />
               <TimeSpan>
-                {month}월 {day}일 {profileCardData.startTime} - {profileCardData.endTime}
+                {month}월 {day}일 {profileCardData?.startTime} - {profileCardData?.endTime}
               </TimeSpan>
             </TimeContainer>
           )}
-          {type === 'rejected' && <Description>거절 라이팅 들어갈 예정입니다 하하하하</Description>}
+          {userRole === 'SENIOR' && type === 'rejected' && (
+            <Description $colorType="grayScaleMG2">거절한 선약이에요</Description>
+          )}
+          {userRole === 'JUNIOR' && type === 'rejected' && (
+            <Description $colorType="grayScaleMG2">선배님이 거절한 선약이에요</Description>
+          )}
         </InfoContainer>
         <CardArrowRightGrayIcon />
       </Wrapper>
@@ -158,17 +165,12 @@ const Divider = styled.div`
   background-color: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
-const Description = styled.div`
-  overflow: hidden;
-
+const Description = styled.div<{ $colorType: string }>`
   width: 19rem;
   height: 2.2rem;
-
-  color: ${({ theme }) => theme.colors.grayScaleDG};
+  color: ${({ theme, $colorType }) =>
+    $colorType === 'grayScaleDG' ? theme.colors.grayScaleDG : theme.colors.grayScaleMG2};
   ${({ theme }) => theme.fonts.Body1_M_14};
-  white-space: nowrap;
-
-  text-overflow: ellipsis;
 `;
 
 const CardArrowRightGrayIcon = styled(CardArrowRightGrayIc)`

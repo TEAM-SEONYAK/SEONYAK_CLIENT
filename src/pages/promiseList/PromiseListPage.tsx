@@ -8,24 +8,27 @@ import Title from './components/Title';
 import { SENIOR_DATA, JUNIOR_DATA } from './constants/constants';
 
 const PromiseListPage = () => {
-  const userRole = 'SENIOR';
+  // 유저가 선배일 경우
+  const userRole = 'JUNIOR';
+  const promiseData = userRole === 'SENIOR' ? SENIOR_DATA : JUNIOR_DATA;
+
   return (
     <>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
       <Wrapper>
         <RecentLayout>
-          <Title nickname={SENIOR_DATA.myNickname} userRole={userRole} count={SENIOR_DATA.scheduled.length} />
+          <Title nickname={promiseData.myNickname} userRole={userRole} count={promiseData.scheduled.length} />
           <RecentCard
             userRole={userRole}
-            recentAppointment={SENIOR_DATA.scheduled[0]}
-            appointmentNum={SENIOR_DATA.scheduled.length}
+            recentAppointment={promiseData.scheduled && promiseData.scheduled[0]}
+            appointmentNum={promiseData.scheduled.length}
           />
         </RecentLayout>
         <PromiseTap
-          userRole="SENIOR"
-          pending={SENIOR_DATA.pending}
-          scheduled={SENIOR_DATA.scheduled}
-          past={SENIOR_DATA.past}
+          userRole={userRole}
+          pending={promiseData.pending}
+          scheduled={promiseData.scheduled}
+          past={promiseData.past}
         />
         <Nav />
       </Wrapper>

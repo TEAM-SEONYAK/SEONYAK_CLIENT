@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import ProfileContainer from './ProfileContainer';
-import { profileCardDataType } from '../constants/constants';
+import { profileCardDataType, PROMISE_TAP } from '../constants/constants';
+import { getEmptyMessage } from '../utils/getEmptyMessage';
 
 interface PromiseTapPropType {
   userRole: string;
@@ -10,26 +12,57 @@ interface PromiseTapPropType {
 }
 
 const PromiseTap = (props: PromiseTapPropType) => {
-  const length = 1;
+  const [tap, setTap] = useState('pending');
   const { userRole, pending, scheduled, past } = props;
+
+  const getTapContent = (tap: string) => {
+    switch (tap) {
+      case 'pending':
+        return pending;
+      case 'scheduled':
+        return scheduled;
+      case 'past':
+        return past;
+      default:
+        return pending;
+    }
+  };
+
+  const content = getTapContent(tap);
   return (
     <Wrapper>
       <TapContainer>
-        <TapText $isActive={true}>확정 대기</TapText>
-        <TapText $isActive={false}>예정 약속</TapText>
-        <TapText $isActive={false}>지난 약속</TapText>
+        {PROMISE_TAP.map((el, idx) => (
+          <TapText
+            key={el.tap + idx}
+            onClick={() => {
+              setTap(el.tap);
+            }}
+            $isActive={tap === el.tap}>
+            {el.text}
+          </TapText>
+        ))}
       </TapContainer>
-      {length ? (
+      {content.length ? (
         <ProfileWrapper>
-          {}
-          <ProfileContainer userRole={userRole} type="past" profileCardData={past[0]} />
-          <ProfileContainer userRole={userRole} type="rejected" profileCardData={past[1]} />
-          {/* <ProfileContainer userRole={userRole} type="lastAppointments" />
-          <ProfileContainer userRole={userRole} type="lastAppointments" />
-          <ProfileContainer userRole={userRole} type="rejected" /> */}
+          {tap === 'past' && (
+            <>
+              <ProfileContainer userRole={userRole} type="past" profileCardData={content[0]} />
+              <ProfileContainer userRole={userRole} type="rejected" profileCardData={content[1]} />
+            </>
+          )}
+          {tap !== 'past' &&
+            content.map((profileCardData) => (
+              <ProfileContainer
+                key={profileCardData.appointmentId}
+                userRole={userRole}
+                type={tap}
+                profileCardData={profileCardData}
+              />
+            ))}
         </ProfileWrapper>
       ) : (
-        <EmptyView>예정된 약속이 없어요</EmptyView>
+        <EmptyView>{getEmptyMessage(tap)}</EmptyView>
       )}
     </Wrapper>
   );
