@@ -4,26 +4,25 @@ import React from 'react';
 interface Props {
   left: string;
   right: string;
-  activeButton: 'left' | 'right';
+  activeButton: string;
   // eslint-disable-next-line no-unused-vars
-  onToggle: (button: 'left' | 'right') => void;
+  onSetActiveButtonHandler: (button: string) => void;
 }
 
-const ToggleButton: React.FC<Props> = ({ left, right, activeButton, onToggle }) => {
+const ToggleButton: React.FC<Props> = ({ left, right, activeButton, onSetActiveButtonHandler }) => {
   return (
     <Wrapper>
       <Layout>
-        <ToggleBtn isActive={activeButton === 'left'} onClick={() => onToggle('left')}>
+        <ToggleBtn isActive={activeButton === left} onClick={() => onSetActiveButtonHandler(left)}>
           {left}
         </ToggleBtn>
-        <ToggleBtn isActive={activeButton === 'right'} onClick={() => onToggle('right')}>
+        <ToggleBtn isActive={activeButton === right} onClick={() => onSetActiveButtonHandler(right)}>
           {right}
         </ToggleBtn>
       </Layout>
     </Wrapper>
   );
 };
-
 export default ToggleButton;
 
 const Wrapper = styled.div`

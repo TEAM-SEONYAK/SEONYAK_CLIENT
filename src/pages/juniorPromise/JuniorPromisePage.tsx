@@ -12,21 +12,21 @@ import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConst
 
 const JuniorPromisePage = () => {
   const { seniorList } = SENIOR_LIST;
-  const [filter, setFilter] = useState('');
+  const [filterActiveBtn, setFilterActiveBtn] = useState('');
   const [listedField, setListedField] = useState<string[]>([]); // 계열 목록 저장
   const [listedPosition, setListedPosition] = useState<string[]>([]); // 직무 목록 저장
 
   const handleSheetClose = () => {
-    setFilter('');
+    setFilterActiveBtn('');
   };
   const onField = () => {
-    setFilter('계열');
+    setFilterActiveBtn('계열');
 
     setListedField(FIELD_LIST.fieldList.map((item) => item.field)); // 모든 계열 렌더링
   };
 
   const onPosition = () => {
-    setFilter('직무');
+    setFilterActiveBtn('직무');
 
     setListedPosition(POSITION_LIST.positionList.map((item) => item.position)); //모든 직무 렌더링
   };
@@ -51,7 +51,7 @@ const JuniorPromisePage = () => {
         <Nav />
       </SeniorListBackground>
       <BottomSheet
-        filter={filter}
+        filterActiveBtn={filterActiveBtn}
         handleSheetClose={handleSheetClose}
         field={listedField} // BottomSheet에 계열 목록 전달
         position={listedPosition} //BottomSheet에 직무 목록 전달

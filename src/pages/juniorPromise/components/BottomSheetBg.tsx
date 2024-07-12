@@ -6,7 +6,7 @@ import { FieldList } from './FieldList';
 import { PositionList } from './PositionList';
 
 interface BottomSheetPropType {
-  filter: string;
+  filterActiveBtn: string;
   handleSheetClose: () => void;
   field: string[];
   position: string[];
@@ -14,21 +14,26 @@ interface BottomSheetPropType {
   onPosition: () => void;
 }
 
-export const BottomSheet = ({ filter, handleSheetClose, field, position }: BottomSheetPropType) => {
-  const [activeButton, setActiveButton] = useState('계열');
+export const BottomSheet = ({ filterActiveBtn, handleSheetClose, field, position }: BottomSheetPropType) => {
+  const [, setActiveButton] = useState('계열');
 
   return (
     <>
-      <Background $filter={filter} onClick={handleSheetClose} />
-      <BottomSheetWrapper $filter={filter}>
+      <Background $filterActiveBtn={filterActiveBtn} onClick={handleSheetClose} />
+      <BottomSheetWrapper $filterActiveBtn={filterActiveBtn}>
         <TitleLayout>
           <Line />
           <Title>원하는 선배를 찾아볼까요?</Title>
           <Desc>계열, 직무로 원하는 선배를 찾을 수 있어요.</Desc>
         </TitleLayout>
-        <ToggleButton left="계열" right="직무" activeButton={activeButton} onToggle={setActiveButton} />
+        <ToggleButton
+          left="계열"
+          right="직무"
+          activeButton={filterActiveBtn}
+          onSetActiveButtonHandler={setActiveButton}
+        />
         <Content>
-          {filter === '계열' ? (
+          {filterActiveBtn === '계열' ? (
             <FieldLayout>
               {field.map((list) => (
                 <FieldList key={list} field={list} />
@@ -55,8 +60,8 @@ export const BottomSheet = ({ filter, handleSheetClose, field, position }: Botto
   );
 };
 
-const Background = styled.div<{ $filter: string }>`
-  display: ${({ $filter }) => ($filter ? 'flex' : 'none')};
+const Background = styled.div<{ $filterActiveBtn: string }>`
+  display: ${({ $filterActiveBtn }) => ($filterActiveBtn ? 'flex' : 'none')};
   position: fixed;
   top: 0;
   z-index: 2;
@@ -67,7 +72,7 @@ const Background = styled.div<{ $filter: string }>`
   background: ${({ theme }) => theme.colors.transparentBlack_65};
 `;
 
-const BottomSheetWrapper = styled.form<{ $filter: string }>`
+const BottomSheetWrapper = styled.form<{ $filterActiveBtn: string }>`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -80,8 +85,8 @@ const BottomSheetWrapper = styled.form<{ $filter: string }>`
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 
-  opacity: ${({ $filter }) => ($filter ? 1 : 0)};
-  transform: translateY(${({ $filter }) => ($filter ? '0' : '100%')});
+  opacity: ${({ $filterActiveBtn }) => ($filterActiveBtn ? 1 : 0)};
+  transform: translateY(${({ $filterActiveBtn }) => ($filterActiveBtn ? '0' : '100%')});
 
   transition:
     transform 250ms ease-in-out,
