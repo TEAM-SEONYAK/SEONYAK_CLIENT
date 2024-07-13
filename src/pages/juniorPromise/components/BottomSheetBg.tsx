@@ -13,19 +13,27 @@ interface BottomSheetPropType {
   handleFilterActiveBtn: (btnText: string) => void;
   isBottomSheetOpen: boolean;
   handleCloseBottomSheet: () => void;
-  // selectedPosition: number;
-  // eslint-disable-next-line no-unused-vars
-  // handleChipPosition: (positionId: number) => void;
 }
 
 export const BottomSheet = (props: BottomSheetPropType) => {
   const { filterActiveBtn, handleFilterActiveBtn, isBottomSheetOpen, handleCloseBottomSheet } = props;
 
   // 바텀시트 내 직무 칩
-  const [selectedPosition, setSelectedPosition] = useState<number>(-1);
-  // 바텀시트 내 직무 선택 시
+  const [selectedPosition, setSelectedPosition] = useState(Array(21).fill(false));
+
   const handleChipPosition = (positionId: number) => {
-    setSelectedPosition(positionId);
+    const arr = [...selectedPosition];
+    // eslint-disable-next-line no-constant-condition
+    arr[positionId] = !arr[positionId];
+
+    if (arr[positionId] === true) {
+      arr[positionId] = false;
+    } else {
+      arr[positionId] = true;
+    }
+    console.log(selectedPosition[positionId]);
+
+    setSelectedPosition(arr);
   };
 
   return (

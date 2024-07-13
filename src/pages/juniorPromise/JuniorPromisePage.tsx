@@ -7,7 +7,6 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { BottomSheet } from './components/BottomSheetBg';
 import { SeniorListBackground } from './components/SeniorListBackground';
-// import { POSITION_LIST } from './constants/positionList';
 
 const JuniorPromisePage = () => {
   const { seniorList } = SENIOR_LIST;
