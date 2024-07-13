@@ -5,11 +5,15 @@ import { FilterButton } from './FilterButton';
 
 interface SeniorListBackgroundProps {
   children: ReactNode;
-  // eslint-disable-next-line no-unused-vars
   handleFilterActiveBtn: (btnText: string) => void;
+  handleReset: () => void;
 }
 
-export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({ children, handleFilterActiveBtn }) => {
+export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
+  children,
+  handleFilterActiveBtn,
+  handleReset,
+}) => {
   return (
     <ListBackground>
       <SeniorSearchWrapper>
@@ -19,7 +23,7 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({ chil
           <LineWrapper>
             <Line292Ic />
           </LineWrapper>
-          <ResetIc />
+          <ResetIc onClick={handleReset} />
         </BtnLayout>
       </SeniorSearchWrapper>
       {children}

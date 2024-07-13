@@ -25,10 +25,34 @@ const JuniorPromisePage = () => {
     setIsBottomSheetOpen(false);
   };
 
+  // 바텀시트 내 직무 칩
+  const [selectedPosition, setSelectedPosition] = useState(Array(21).fill(false));
+
+  const handleChipPosition = (positionId: number) => {
+    const arrPosition = [...selectedPosition];
+    arrPosition[positionId] = !arrPosition[positionId];
+
+    setSelectedPosition(arrPosition);
+  };
+  // 바텀시트 내 계열 칩
+  const [selectedField, setSelectedField] = useState(Array(7).fill(false));
+
+  const handleChipField = (fieldId: number) => {
+    const arrField = [...selectedField];
+    arrField[fieldId] = !arrField[fieldId];
+
+    setSelectedField(arrField);
+  };
+
+  // 초기화 함수
+  const handleReset = () => {
+    setSelectedPosition(Array(21).fill(false));
+    setSelectedField(Array(7).fill(false));
+  };
   return (
     <>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
-      <SeniorListBackground handleFilterActiveBtn={handleFilterActiveBtn}>
+      <SeniorListBackground handleFilterActiveBtn={handleFilterActiveBtn} handleReset={handleReset}>
         <SeniorListWrapper>
           {seniorList.map((list) => (
             <SeniorCard
@@ -49,6 +73,11 @@ const JuniorPromisePage = () => {
         handleFilterActiveBtn={handleFilterActiveBtn}
         handleCloseBottomSheet={handleCloseBottomSheet}
         isBottomSheetOpen={isBottomSheetOpen}
+        handleChipField={handleChipField}
+        handleChipPosition={handleChipPosition}
+        selectedPosition={selectedPosition}
+        selectedField={selectedField}
+        handleReset={handleReset}
       />
     </>
   );

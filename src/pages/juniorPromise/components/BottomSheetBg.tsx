@@ -1,7 +1,6 @@
 import { ReloadIc } from '@assets/svgs';
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import { FieldList } from './FieldList';
 import { PositionList } from './PositionList';
 import { FIELD_LIST } from '../constants/fieldList';
@@ -9,33 +8,28 @@ import { POSITION_LIST } from '../constants/positionList';
 
 interface BottomSheetPropType {
   filterActiveBtn: string;
-  // eslint-disable-next-line no-unused-vars
   handleFilterActiveBtn: (btnText: string) => void;
   isBottomSheetOpen: boolean;
   handleCloseBottomSheet: () => void;
+  handleChipPosition: (positionId: number) => void;
+  handleChipField: (fieldId: number) => void;
+  selectedPosition: boolean[];
+  selectedField: boolean[];
+  handleReset: () => void;
 }
 
 export const BottomSheet = (props: BottomSheetPropType) => {
-  const { filterActiveBtn, handleFilterActiveBtn, isBottomSheetOpen, handleCloseBottomSheet } = props;
-
-  // 바텀시트 내 직무 칩
-  const [selectedPosition, setSelectedPosition] = useState(Array(21).fill(false));
-
-  const handleChipPosition = (positionId: number) => {
-    const arrPosition = [...selectedPosition];
-    arrPosition[positionId] = !arrPosition[positionId];
-
-    setSelectedPosition(arrPosition);
-  };
-  // 바텀시트 내 계열 칩
-  const [selectedField, setSelectedField] = useState(Array(7).fill(false));
-
-  const handleChipField = (fieldId: number) => {
-    const arrField = [...selectedField];
-    arrField[fieldId] = !arrField[fieldId];
-
-    setSelectedField(arrField);
-  };
+  const {
+    filterActiveBtn,
+    handleFilterActiveBtn,
+    isBottomSheetOpen,
+    handleCloseBottomSheet,
+    handleChipPosition,
+    handleChipField,
+    selectedPosition,
+    selectedField,
+    handleReset,
+  } = props;
 
   return (
     <>
@@ -80,7 +74,7 @@ export const BottomSheet = (props: BottomSheetPropType) => {
           )}
         </Content>
         <ButtonLayout>
-          <ReloadIcon type="reset">
+          <ReloadIcon type="reset" onClick={handleReset}>
             <ReloadIc />
           </ReloadIcon>
           <ExitBottomSheet
