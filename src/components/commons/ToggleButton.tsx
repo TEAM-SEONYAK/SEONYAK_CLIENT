@@ -5,7 +5,6 @@ interface Props {
   left: string;
   right: string;
   activeButton: string;
-  // eslint-disable-next-line no-unused-vars
   onSetActiveButtonHandler: (button: string) => void;
 }
 
