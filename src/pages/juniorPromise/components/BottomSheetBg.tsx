@@ -35,7 +35,6 @@ export const BottomSheet = (props: BottomSheetPropType) => {
     arrField[fieldId] = !arrField[fieldId];
 
     setSelectedField(arrField);
-    console.log(arrField[fieldId]);
   };
 
   return (
@@ -86,8 +85,8 @@ export const BottomSheet = (props: BottomSheetPropType) => {
           </ReloadIcon>
           <ExitBottomSheet
             type="button"
-            $isSelected={false} //일단 박아둠 나중에 생각할 문제
-            // $isSelected={selectedPosition === POSITION_LIST.positionList.id}
+            $selectedPositionIndex={selectedPosition.some((position) => position)}
+            $selectedFieldIndex={selectedField.some((field) => field)}
             onClick={handleCloseBottomSheet}>
             적용할래요
           </ExitBottomSheet>
@@ -195,15 +194,16 @@ const ReloadIcon = styled.button`
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
-
-const ExitBottomSheet = styled.button<{ $isSelected: boolean }>`
+const ExitBottomSheet = styled.button<{ $selectedPositionIndex: boolean; $selectedFieldIndex: boolean }>`
   width: 27.4rem;
   height: 5rem;
   border-radius: 8px;
 
-  background: ${({ theme, $isSelected }) => ($isSelected ? theme.colors.Blue : theme.colors.grayScaleMG1)};
+  background: ${({ theme, $selectedPositionIndex, $selectedFieldIndex }) =>
+    $selectedPositionIndex || $selectedFieldIndex ? theme.colors.Blue : theme.colors.grayScaleMG1};
 
-  color: ${({ theme, $isSelected }) => ($isSelected ? theme.colors.grayScaleWhite : theme.colors.grayScaleWhite)};
+  color: ${({ theme, $selectedPositionIndex, $selectedFieldIndex }) =>
+    $selectedPositionIndex || $selectedFieldIndex ? theme.colors.grayScaleWhite : theme.colors.grayScaleWhite};
 
   ${({ theme }) => theme.fonts.Head2_SB_18};
 `;

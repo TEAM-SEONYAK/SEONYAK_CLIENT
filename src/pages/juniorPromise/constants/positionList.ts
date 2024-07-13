@@ -34,7 +34,7 @@ export const POSITION_LIST = {
     },
     {
       id: 9,
-      position: '금융 ・ 컨성팅 ・ VC',
+      position: '금융 ・ 컨설팅 ・ VC',
     },
     {
       id: 10,
