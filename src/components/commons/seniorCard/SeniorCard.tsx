@@ -20,26 +20,24 @@ export const SeniorCard = (props: ISeniorList) => {
   const randomColor = Math.floor(Math.random() * 3);
 
   return (
-    <>
-      <SeniorCardWrapper>
-        <SeniorImg />
-        <SeniorCardLayout>
-          <Nickname>{nickname}</Nickname>
-          <SeniorInfo>
-            <Company $randomColor={randomColor}>{company}</Company>
-            <Field>{field}</Field>
-          </SeniorInfo>
-          <SeniorJob>
-            <Position>{position}</Position>
-            <Divider />
-            <DetailPosition>{detailPosition}</DetailPosition>
-          </SeniorJob>
-          <Level>
-            {levelName} ({level}년 차)
-          </Level>
-        </SeniorCardLayout>
-      </SeniorCardWrapper>
-    </>
+    <SeniorCardWrapper>
+      <SeniorImg />
+      <SeniorCardLayout>
+        <Nickname>{nickname}</Nickname>
+        <SeniorInfo>
+          <Company $randomColor={randomColor}>{company}</Company>
+          <Field>{field}</Field>
+        </SeniorInfo>
+        <SeniorJob>
+          <Position>{position}</Position>
+          <Divider />
+          <DetailPosition>{detailPosition}</DetailPosition>
+        </SeniorJob>
+        <Level>
+          {levelName} ({level}년 차)
+        </Level>
+      </SeniorCardLayout>
+    </SeniorCardWrapper>
   );
 };
 
