@@ -3,16 +3,20 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 interface BottomBarPropType {
-  handleSheetClose: () => void;
+  setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BottomBar: React.FC<BottomBarPropType> = ({ handleSheetClose }) => {
+const BottomBar: React.FC<BottomBarPropType> = ({ setIsCalendarOpen }) => {
   return (
     <ButtonLayout>
       <ReloadBtn type="reset">
         <ReloadIcon />
       </ReloadBtn>
-      <ExitBottomSheet type="button" onClick={handleSheetClose}>
+      <ExitBottomSheet
+        type="button"
+        onClick={() => {
+          setIsCalendarOpen(false);
+        }}>
         적용하기
       </ExitBottomSheet>
     </ButtonLayout>

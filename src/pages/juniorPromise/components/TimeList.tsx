@@ -1,12 +1,16 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import React from 'react';
 import EachTimeButton from './EachTimeButton';
 
-const TimeList = () => {
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+interface TimeListPropType {
+  selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
+  setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
+  btnId: number;
+}
 
+const TimeList = ({ selectedTime, setSelectedTime, btnId }: TimeListPropType) => {
   const handleButtonClick = (time: string) => {
-    setSelectedTime(time);
+    setSelectedTime((prev) => prev.map((item) => (item.id === btnId ? { ...item, selectedTime: time } : item)));
   };
 
   return (
@@ -17,25 +21,25 @@ const TimeList = () => {
           <EachTimeButton
             startTime="6:00"
             endTime="6:30"
-            isActive={selectedTime === '6:00-6:30'}
+            isActive={selectedTime[btnId].selectedTime === '6:00-6:30'}
             onClick={() => handleButtonClick('6:00-6:30')}
           />
           <EachTimeButton
             startTime="7:00"
             endTime="7:30"
-            isActive={selectedTime === '7:00-7:30'}
+            isActive={selectedTime[btnId].selectedTime === '7:00-7:30'}
             onClick={() => handleButtonClick('7:00-7:30')}
           />
           <EachTimeButton
             startTime="7:30"
             endTime="8:00"
-            isActive={selectedTime === '7:30-8:00'}
+            isActive={selectedTime[btnId].selectedTime === '7:30-8:00'}
             onClick={() => handleButtonClick('7:30-8:00')}
           />
           <EachTimeButton
             startTime="8:00"
             endTime="8:30"
-            isActive={selectedTime === '8:00-8:30'}
+            isActive={selectedTime[btnId].selectedTime === '8:00-8:30'}
             onClick={() => handleButtonClick('8:00-8:30')}
           />
         </EachTimeButtonContainer>
@@ -47,25 +51,25 @@ const TimeList = () => {
           <EachTimeButton
             startTime="12:00"
             endTime="12:30"
-            isActive={selectedTime === '12:00-12:30'}
+            isActive={selectedTime[btnId].selectedTime === '12:00-12:30'}
             onClick={() => handleButtonClick('12:00-12:30')}
           />
           <EachTimeButton
             startTime="1:00"
             endTime="1:30"
-            isActive={selectedTime === '1:00-1:30'}
+            isActive={selectedTime[btnId].selectedTime === '1:00-1:30'}
             onClick={() => handleButtonClick('1:00-1:30')}
           />
           <EachTimeButton
             startTime="1:30"
             endTime="2:00"
-            isActive={selectedTime === '1:30-2:00'}
+            isActive={selectedTime[btnId].selectedTime === '1:30-2:00'}
             onClick={() => handleButtonClick('1:30-2:00')}
           />
           <EachTimeButton
             startTime="2:00"
             endTime="2:30"
-            isActive={selectedTime === '2:00-2:30'}
+            isActive={selectedTime[btnId].selectedTime === '2:00-2:30'}
             onClick={() => handleButtonClick('2:00-2:30')}
           />
         </EachTimeButtonContainer>

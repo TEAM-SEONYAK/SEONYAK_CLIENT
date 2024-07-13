@@ -6,19 +6,33 @@ import GrayLine from './GrayLine';
 import TimeList from './TimeList';
 
 interface BottomSheetPropType {
-  isSheetOpen: boolean;
-  handleSheetClose: () => void;
+  selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
+  setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
+  isCalendarOpen: boolean;
+  setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  btnId: number;
 }
 
-const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({ isSheetOpen, handleSheetClose }) => {
+const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
+  isCalendarOpen,
+  setIsCalendarOpen,
+  selectedTime,
+  setSelectedTime,
+  btnId,
+}) => {
   return (
     <>
-      <Background isSheetOpen={isSheetOpen} onClick={handleSheetClose} />
-      <BottomSheetWrapper isSheetOpen={isSheetOpen}>
-        <CustomCalendar />
+      <Background
+        $isCalendarOpen={isCalendarOpen}
+        onClick={() => {
+          setIsCalendarOpen(false);
+        }}
+      />
+      <BottomSheetWrapper $isCalendarOpen={isCalendarOpen}>
+        <CustomCalendar btnId={btnId} setSelectedTime={setSelectedTime} />
         <GrayLine />
-        <TimeList />
-        <BottomBar handleSheetClose={handleSheetClose} />
+        <TimeList selectedTime={selectedTime} setSelectedTime={setSelectedTime} btnId={btnId} />
+        <BottomBar setIsCalendarOpen={setIsCalendarOpen} id={0} />
       </BottomSheetWrapper>
     </>
   );
@@ -26,8 +40,8 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({ isSheetOpen, handl
 
 export default CalendarBottomSheet;
 
-const Background = styled.div<{ isSheetOpen: boolean }>`
-  display: ${({ isSheetOpen }) => (isSheetOpen ? 'flex' : 'none')};
+const Background = styled.div<{ $isCalendarOpen: boolean }>`
+  display: ${({ $isCalendarOpen }) => ($isCalendarOpen ? 'flex' : 'none')};
   position: fixed;
   top: 0;
   left: 0;
@@ -39,7 +53,7 @@ const Background = styled.div<{ isSheetOpen: boolean }>`
   background: ${({ theme }) => theme.colors.transparentBlack_65};
 `;
 
-const BottomSheetWrapper = styled.div<{ isSheetOpen: boolean }>`
+const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -51,9 +65,9 @@ const BottomSheetWrapper = styled.div<{ isSheetOpen: boolean }>`
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 
-  opacity: ${({ isSheetOpen }) => (isSheetOpen ? 1 : 0)};
+  opacity: ${({ $isCalendarOpen }) => ($isCalendarOpen ? 1 : 0)};
   transition:
     transform 250ms ease-out,
     opacity 250ms ease-out;
-  transform: translateY(${({ isSheetOpen }) => (isSheetOpen ? '0' : '100%')});
+  transform: translateY(${({ $isCalendarOpen }) => ($isCalendarOpen ? '0' : '100%')});
 `;
