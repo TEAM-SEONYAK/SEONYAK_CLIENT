@@ -4,13 +4,13 @@ import { ReactNode } from 'react';
 import { ArrowLeftIc } from '../../../assets/svgs';
 
 interface bottomSheetPropType {
-  handeClose: () => void;
+  handleClose: () => void;
   children: ReactNode;
 }
-const BottomSheet = ({ handeClose, children }: bottomSheetPropType) => {
+const BottomSheet = ({ handleClose, children }: bottomSheetPropType) => {
   return (
     <Wrapper>
-      <Header LeftSvg={ArrowLeftIc} onClickLeft={handeClose} />
+      <Header LeftSvg={ArrowLeftIc} onClickLeft={handleClose} />
       <Divider />
       {children}
     </Wrapper>
