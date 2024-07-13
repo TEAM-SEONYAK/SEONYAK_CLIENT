@@ -9,10 +9,11 @@ interface ProfileContainerPropType {
   userRole: string;
   type: string;
   profileCardData?: profileCardDataType;
+  isarrow: string;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  const { userRole, profileCardData, type } = props;
+  const { userRole, profileCardData, type, isarrow } = props;
   const { month, day } = extractMonthAndDay(profileCardData?.date + '');
 
   const getTopicDescription = (chosenTopic: string[] | undefined) => {
@@ -86,7 +87,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
             <Description $colorType="grayScaleMG2">선배님이 거절한 선약이에요</Description>
           )}
         </InfoContainer>
-        <CardArrowRightGrayIcon />
+        <CardArrowRightGrayIcon isarrow={isarrow} />
       </Wrapper>
       {userRole === 'JUNIOR' && type === 'past' && <ReviewBtn>리뷰 작성하기</ReviewBtn>}
       {userRole === 'SENIOR' && type === 'past' && <ReviewBtn>작성된 리뷰 없음</ReviewBtn>}
@@ -181,7 +182,8 @@ const Description = styled.div<{ $colorType: string }>`
   ${({ theme }) => theme.fonts.Body1_M_14};
 `;
 
-const CardArrowRightGrayIcon = styled(CardArrowRightGrayIc)`
+const CardArrowRightGrayIcon = styled(CardArrowRightGrayIc)<{ isarrow: string }>`
+  display: ${({ isarrow }) => (isarrow === 'true' ? 'block' : 'none')};
   position: absolute;
   top: 50%;
   right: 0;

@@ -1,3 +1,4 @@
+// 유저가 선배일 때
 export const SENIOR_DATA = {
   myNickname: '윤서진',
   pending: [
@@ -94,6 +95,7 @@ export const SENIOR_DATA = {
   ],
 };
 
+// 유저가 후배일 때
 export const JUNIOR_DATA = {
   myNickname: '김창균',
   pending: [

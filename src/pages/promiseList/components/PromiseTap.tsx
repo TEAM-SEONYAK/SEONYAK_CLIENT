@@ -48,8 +48,8 @@ const PromiseTap = (props: PromiseTapPropType) => {
         <ProfileWrapper>
           {tap === 'past' && (
             <>
-              <ProfileContainer userRole={userRole} type="past" profileCardData={content[0]} />
-              <ProfileContainer userRole={userRole} type="rejected" profileCardData={content[1]} />
+              <ProfileContainer userRole={userRole} type="past" profileCardData={content[0]} isarrow="true" />
+              <ProfileContainer userRole={userRole} type="rejected" profileCardData={content[1]} isarrow="ture" />
             </>
           )}
           {tap !== 'past' &&
@@ -59,6 +59,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
                 userRole={userRole}
                 type={tap}
                 profileCardData={profileCardData}
+                isarrow="true"
               />
             ))}
         </ProfileWrapper>

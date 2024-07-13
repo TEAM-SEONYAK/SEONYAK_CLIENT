@@ -75,7 +75,7 @@ const PromiseDetail = () => {
         </BtnWrapper>
         <BtnBackground />
       </Wrapper>
-      <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+      <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
         <DeclineImg />
       </AutoCloseModal>
     </>

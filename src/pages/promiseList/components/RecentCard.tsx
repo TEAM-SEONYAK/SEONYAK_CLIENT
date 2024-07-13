@@ -40,7 +40,7 @@ const RecentCard = (props: RecentCardPropType) => {
       <DashedDivider />
       {appointmentNum ? (
         <>
-          <ProfileContainer userRole={userRole} type="default" profileCardData={recentAppointment} />
+          <ProfileContainer userRole={userRole} type="default" profileCardData={recentAppointment} isarrow="true" />
           <PromiseTimerBtn isActive={diff <= 0} diff={diffText} />
         </>
       ) : (
