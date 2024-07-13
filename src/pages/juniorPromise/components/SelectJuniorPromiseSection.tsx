@@ -1,7 +1,6 @@
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import BottomBar from './BottomBar';
 import CalendarBottomSheet from './CalendarBottomSheet';
 import GrayLine from './GrayLine';
 import SelectJuniorWorryButton from '../components/SelectJuniorWorryButton';
