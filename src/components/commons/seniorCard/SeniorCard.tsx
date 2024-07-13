@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { getLevelName } from './utils/getLevelName';
 
-interface ISeniorList {
+interface seniorListPropType {
   nickname: string;
   company: string;
   field: string;
@@ -15,7 +15,7 @@ interface CompanyProps {
   $randomColor: number;
 }
 
-export const SeniorCard = (props: ISeniorList) => {
+export const SeniorCard = (props: seniorListPropType) => {
   const { nickname, company, field, position, detailPosition, level, variant = 'default' } = props;
   const levelName = getLevelName(level);
   const randomColor = Math.floor(Math.random() * 3);

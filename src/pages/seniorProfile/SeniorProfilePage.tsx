@@ -19,7 +19,6 @@ const SeniorProfilePage = () => {
   const [step, setStep] = useState(0);
   const [profile, setProfile] = useState<seniorProfileAPIType>(seniorProfileInitial);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
-  console.log({ profile });
   const getComponent = () => {
     switch (step) {
       case 0:
