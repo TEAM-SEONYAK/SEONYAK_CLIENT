@@ -1,6 +1,7 @@
 import { ReloadIc } from '@assets/svgs';
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import { FieldList } from './FieldList';
 import { PositionList } from './PositionList';
 import { FIELD_LIST } from '../constants/fieldList';
@@ -12,14 +13,21 @@ interface BottomSheetPropType {
   handleFilterActiveBtn: (btnText: string) => void;
   isBottomSheetOpen: boolean;
   handleCloseBottomSheet: () => void;
+  // selectedPosition: number;
+  // eslint-disable-next-line no-unused-vars
+  // handleChipPosition: (positionId: number) => void;
 }
 
-export const BottomSheet = ({
-  filterActiveBtn,
-  handleFilterActiveBtn,
-  isBottomSheetOpen,
-  handleCloseBottomSheet,
-}: BottomSheetPropType) => {
+export const BottomSheet = (props: BottomSheetPropType) => {
+  const { filterActiveBtn, handleFilterActiveBtn, isBottomSheetOpen, handleCloseBottomSheet } = props;
+
+  // 바텀시트 내 직무 칩
+  const [selectedPosition, setSelectedPosition] = useState<number>(-1);
+  // 바텀시트 내 직무 선택 시
+  const handleChipPosition = (positionId: number) => {
+    setSelectedPosition(positionId);
+  };
+
   return (
     <>
       <Background $isBottomSheetOpen={isBottomSheetOpen} onClick={handleCloseBottomSheet} />
@@ -38,19 +46,21 @@ export const BottomSheet = ({
         <Content>
           {filterActiveBtn === '계열' ? (
             <FieldLayout>
-              {FIELD_LIST.fieldList
-                .map((item) => item.field)
-                .map((list) => (
-                  <FieldList key={list} field={list} />
-                ))}
+              {FIELD_LIST.fieldList.map((list) => (
+                <FieldList key={list.id} field={list.field} />
+              ))}
             </FieldLayout>
           ) : (
             <PositionLayout>
-              {POSITION_LIST.positionList
-                .map((item) => item.position)
-                .map((list) => (
-                  <PositionList key={list} position={list} />
-                ))}
+              {POSITION_LIST.positionList.map((list) => (
+                <PositionList
+                  key={list.id}
+                  position={list.position}
+                  selectedPosition={selectedPosition}
+                  handleChipPosition={handleChipPosition}
+                  positionId={list.id}
+                />
+              ))}
             </PositionLayout>
           )}
         </Content>
@@ -58,7 +68,11 @@ export const BottomSheet = ({
           <ReloadIcon type="reset">
             <ReloadIc />
           </ReloadIcon>
-          <ExitBottomSheet type="button" onClick={handleCloseBottomSheet}>
+          <ExitBottomSheet
+            type="button"
+            $isSelected={false} //일단 박아둠 나중에 생각할 문제
+            // $isSelected={selectedPosition === POSITION_LIST.positionList.id}
+            onClick={handleCloseBottomSheet}>
             적용할래요
           </ExitBottomSheet>
         </ButtonLayout>
@@ -166,14 +180,14 @@ const ReloadIcon = styled.button`
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
-const ExitBottomSheet = styled.button`
+const ExitBottomSheet = styled.button<{ $isSelected: boolean }>`
   width: 27.4rem;
   height: 5rem;
   border-radius: 8px;
 
-  background: ${({ theme }) => theme.colors.grayScaleMG1};
+  background: ${({ theme, $isSelected }) => ($isSelected ? theme.colors.Blue : theme.colors.grayScaleMG1)};
 
-  color: ${({ theme }) => theme.colors.grayScaleWhite};
+  color: ${({ theme, $isSelected }) => ($isSelected ? theme.colors.grayScaleWhite : theme.colors.grayScaleWhite)};
 
   ${({ theme }) => theme.fonts.Head2_SB_18};
 `;
