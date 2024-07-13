@@ -7,6 +7,7 @@ import ProfileContainer from '@pages/promiseList/components/ProfileContainer';
 // import { profileCardDataType } from '@pages/promiseList/types/type';
 
 const PromiseDetailPageJunior = () => {
+  // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
   const profileCardData = {
     appointmentId: 1,
     appointmentStatus: 'PENDING',

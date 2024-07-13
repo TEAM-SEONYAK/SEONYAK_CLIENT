@@ -8,8 +8,10 @@ import { formatDate } from './utils/formatDate';
 
 const PromiseDetail = () => {
   // location으로 닉네임 잡아오기
+  // location으로 눌린 탭 상태값 잡아오기
   const myNickname = '아가라고요';
   const userRole = 'SENIOR';
+  const tap = 'pending';
   const [selectTime, setSelectTime] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
