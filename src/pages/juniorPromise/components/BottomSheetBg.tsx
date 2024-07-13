@@ -22,18 +22,20 @@ export const BottomSheet = (props: BottomSheetPropType) => {
   const [selectedPosition, setSelectedPosition] = useState(Array(21).fill(false));
 
   const handleChipPosition = (positionId: number) => {
-    const arr = [...selectedPosition];
-    // eslint-disable-next-line no-constant-condition
-    arr[positionId] = !arr[positionId];
+    const arrPosition = [...selectedPosition];
+    arrPosition[positionId] = !arrPosition[positionId];
 
-    if (arr[positionId] === true) {
-      arr[positionId] = false;
-    } else {
-      arr[positionId] = true;
-    }
-    console.log(selectedPosition[positionId]);
+    setSelectedPosition(arrPosition);
+  };
+  // 바텀시트 내 계열 칩
+  const [selectedField, setSelectedField] = useState(Array(7).fill(false));
 
-    setSelectedPosition(arr);
+  const handleChipField = (fieldId: number) => {
+    const arrField = [...selectedField];
+    arrField[fieldId] = !arrField[fieldId];
+
+    setSelectedField(arrField);
+    console.log(arrField[fieldId]);
   };
 
   return (
@@ -55,7 +57,13 @@ export const BottomSheet = (props: BottomSheetPropType) => {
           {filterActiveBtn === '계열' ? (
             <FieldLayout>
               {FIELD_LIST.fieldList.map((list) => (
-                <FieldList key={list.id} field={list.field} />
+                <FieldList
+                  key={list.id}
+                  field={list.field}
+                  handleChipField={handleChipField}
+                  selectedField={selectedField}
+                  fieldId={list.id}
+                />
               ))}
             </FieldLayout>
           ) : (

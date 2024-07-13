@@ -2,17 +2,22 @@ import { CheckItemIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 interface IFieldList {
   field: string;
+  selectedField: boolean[];
+  handleChipField: (fieldId: number) => void;
+  fieldId: number;
 }
-export const FieldList = ({ field }: IFieldList) => {
+export const FieldList = (props: IFieldList) => {
+  const { field, selectedField, handleChipField, fieldId } = props;
+  const isSelected = selectedField[fieldId];
   return (
-    <FieldWrpper>
-      <FieldTitle>{field}</FieldTitle>
-      <CheckBox type="checkbox" />
-    </FieldWrpper>
+    <FieldWrapper onClick={() => handleChipField(fieldId)}>
+      <FieldTitle isselected={isSelected + ''}>{field}</FieldTitle>
+      <CheckBox isselected={isSelected + ''} />
+    </FieldWrapper>
   );
 };
 
-const FieldWrpper = styled.div`
+const FieldWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1.2rem 1rem;
@@ -20,12 +25,11 @@ const FieldWrpper = styled.div`
 
   padding: 1rem 0;
 `;
-const FieldTitle = styled.p`
+const FieldTitle = styled.p<{ isselected: string }>`
   ${({ theme }) => theme.fonts.Title1_SB_16};
-  color: ${({ theme }) => theme.colors.grayScaleDG};
+  color: ${({ theme, isselected }) => (isselected === 'true' ? theme.colors.Blue : theme.colors.grayScaleDG)};
 `;
 
-const CheckBox = styled(CheckItemIc)`
-  /* 추후 스타일링 변경을 위해 임의로 지정해둔 코드입니다! */
-  display: flex;
+const CheckBox = styled(CheckItemIc)<{ isselected: string }>`
+  fill: ${({ theme, isselected }) => (isselected === 'true' ? theme.colors.Blue : theme.colors.grayScaleDG)};
 `;

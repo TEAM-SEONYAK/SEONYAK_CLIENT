@@ -3,11 +3,11 @@ import styled from '@emotion/styled';
 interface IPositionList {
   position: string;
   selectedPosition: boolean[];
-
   handleChipPosition: (positionId: number) => void;
   positionId: number;
 }
-export const PositionList = ({ position, selectedPosition, handleChipPosition, positionId }: IPositionList) => {
+export const PositionList = (props: IPositionList) => {
+  const { position, selectedPosition, handleChipPosition, positionId } = props;
   return (
     <>
       <PositionTitle
