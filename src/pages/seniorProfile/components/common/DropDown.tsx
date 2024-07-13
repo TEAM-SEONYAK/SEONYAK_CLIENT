@@ -1,7 +1,7 @@
+import { ArrowDownIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { TIME_LIST } from '@pages/seniorProfile/constants';
-import { useEffect, useRef, useState } from 'react';
-import ArrowDownIc from '../../../../assets/svgs/ic_arrow_down_mg.svg?react';
+import { useEffect, useState } from 'react';
 
 interface DropDownPropType {
   variant?: 'default' | 'secondary';
@@ -21,10 +21,9 @@ const DropDown = ({
 }: DropDownPropType) => {
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
   const [isSelectDown, setIsSelectDown] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleClickDropdown = () => {
-    if (isActive) setIsSelectDown((prev) => !prev);
+    isActive && setIsSelectDown((prev) => !prev);
   };
 
   // eslint-disable-next-line no-undef
@@ -33,18 +32,9 @@ const DropDown = ({
     setIsSelectDown(false);
   };
 
-  const handleClickOutside = (e: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-      setIsSelectDown(false);
-    }
+  const handleClickOutside = () => {
+    setIsSelectDown(false);
   };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   useEffect(() => {
     setProfile(selectedValue);
@@ -55,25 +45,36 @@ const DropDown = ({
   }, [isActive]);
 
   return (
-    <div ref={dropdownRef}>
-      <DropdownContainer $isDefault={variant === 'default'} onClick={handleClickDropdown} $isActive={isActive}>
-        <SelectedText $isActive={isActive}>{selectedValue}</SelectedText>
-        <ArrowDownIcon isactive={isActive.toString()} />
-      </DropdownContainer>
-      {isSelectDown && (
-        <SelectContainer $isStartTime={isStartTime}>
-          {TIME_LIST.map((option) => (
-            <SelectOption key={option} onClick={() => handleSelect(option)}>
-              {option}
-            </SelectOption>
-          ))}
-        </SelectContainer>
-      )}
-    </div>
+    <>
+      {isSelectDown && <BackdropContainer onClick={handleClickOutside} />}
+      <div>
+        <DropdownContainer $isDefault={variant === 'default'} onClick={handleClickDropdown} $isActive={isActive}>
+          <SelectedText $isActive={isActive}>{selectedValue}</SelectedText>
+          <ArrowDownIcon isactive={isActive.toString()} />
+        </DropdownContainer>
+        {isSelectDown && (
+          <SelectContainer $isStartTime={isStartTime}>
+            {TIME_LIST.map((option) => (
+              <SelectOption key={option} onClick={() => handleSelect(option)}>
+                {option}
+              </SelectOption>
+            ))}
+          </SelectContainer>
+        )}
+      </div>
+    </>
   );
 };
 
 export default DropDown;
+
+const BackdropContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100dvh;
+  margin: -4rem 0 0 -2rem;
+  z-index: 2;
+`;
 
 const DropdownContainer = styled.section<{ $isDefault: boolean; $isActive: boolean }>`
   display: flex;

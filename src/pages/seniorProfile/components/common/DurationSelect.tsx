@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import DeleteIc from '@assets/svgs/ic_delete_btn.svg?react';
-import PlusIc from '@assets/svgs/ic_plus_btn.svg?react';
+import { DeleteIc, PlusIc } from '@assets/svgs';
+
 import styled from '@emotion/styled';
 import DropDown from '@pages/seniorProfile/components/common/DropDown';
 import { TimeCategoryType, preferredTimeType } from '@pages/seniorProfile/types';
@@ -60,8 +60,7 @@ const Wrapper = styled.div`
 
 const WaveText = styled.p<{ $isDefault: boolean; $isActive: boolean }>`
   ${({ theme }) => theme.fonts.Title2_M_16};
-  padding-right: ${({ $isDefault }) => ($isDefault ? '0.9rem' : '0.7rem')};
-  padding-left: ${({ $isDefault }) => ($isDefault ? '0.9rem' : '0.7rem')};
+  padding: 0 ${({ $isDefault }) => ($isDefault ? '0.9rem' : '0.7rem')} 0 0;
 
   color: ${({ $isActive, theme }) => !$isActive && theme.colors.grayScaleMG1};
 `;
