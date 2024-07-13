@@ -56,11 +56,15 @@ export default CustomCalendar;
 
 const CalendarContainer = styled.div`
   max-width: 100%;
+  padding: 2rem;
+  border-radius: 16px 16px 0 0;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const StyledCalendar = styled(Calendar)`
+  flex-shrink: 0;
+
   width: 100%;
   padding-bottom: 3rem;
   border: none;

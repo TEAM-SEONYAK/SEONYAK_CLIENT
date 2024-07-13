@@ -32,7 +32,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
         <CustomCalendar btnId={btnId} setSelectedTime={setSelectedTime} />
         <GrayLine />
         <TimeList selectedTime={selectedTime} setSelectedTime={setSelectedTime} btnId={btnId} />
-        <BottomBar setIsCalendarOpen={setIsCalendarOpen} id={0} />
+        <BottomBar setIsCalendarOpen={setIsCalendarOpen} />
       </BottomSheetWrapper>
     </>
   );
@@ -61,6 +61,7 @@ const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
   left: 0;
   z-index: 4;
 
+  height: 100vh;
   border-radius: 16px 16px 0 0;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
