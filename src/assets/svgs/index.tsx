@@ -22,4 +22,4 @@ export { default as NaviMyGrayIc } from './ic_navi_my_gray.svg?react';
 export { default as NaviLookGrayIc } from './ic_navi_look_gray.svg?react';
 export { default as NaviPromiseGrayIc } from './ic_navi_promise_gray.svg?react';
 export { default as ReloadIc } from './ReloadIc.svg?react';
-
+export { default as BottomSheetRectangleIc } from './bottom-sheet-Rectangle.svg?react';

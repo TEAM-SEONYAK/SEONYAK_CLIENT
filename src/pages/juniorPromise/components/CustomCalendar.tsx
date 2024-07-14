@@ -1,3 +1,4 @@
+import { BottomSheetRectangleIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
@@ -35,6 +36,7 @@ const CustomCalendar = ({ btnId, setSelectedTime }: CustomCalendarPropType) => {
     view === 'month' && date <= new Date() ? 'disabled-date' : '';
   return (
     <CalendarContainer>
+      <BottomSheetRectangleIcon />
       <StyledCalendar
         onChange={onChange}
         onClickDay={(value) => handleDateClick(formatCalDateToString(value))}
@@ -54,17 +56,21 @@ const CustomCalendar = ({ btnId, setSelectedTime }: CustomCalendarPropType) => {
 
 export default CustomCalendar;
 
+const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`
+  margin-bottom: 0.5rem;
+  margin-left: 13rem;
+`;
+
 const CalendarContainer = styled.div`
-  max-width: 100%;
-  padding: 2rem;
+  width: 100vw;
+  height: 36.5rem;
+  padding: 1.5rem 3.3rem 2rem;
   border-radius: 16px 16px 0 0;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const StyledCalendar = styled(Calendar)`
-  flex-shrink: 0;
-
   width: 100%;
   border: none;
   border-radius: 8px;
@@ -73,16 +79,19 @@ const StyledCalendar = styled(Calendar)`
 
   .react-calendar__navigation {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    ${({ theme }) => theme.fonts.Head1_SB_20};
+  }
 
-    padding: 0 7rem;
+  .react-calendar__navigation__arrow {
+    width: 2.1rem;
+    height: 1.8rem;
   }
 
   .react-calendar__tile {
     max-width: 100%;
     ${({ theme }) => theme.fonts.Title2_M_16};
-    padding: 1.1rem 0;
     border-radius: 100px;
 
     background: none;
