@@ -86,7 +86,7 @@ const Wrapper = styled.div`
   flex-grow: 1;
   overflow-y: auto;
 
-  padding-bottom: 9.4rem;
+  padding-bottom: 14.4rem;
   padding-left: 1.3rem;
 `;
 

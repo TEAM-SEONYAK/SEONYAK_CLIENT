@@ -66,7 +66,6 @@ const StyledCalendar = styled(Calendar)`
   flex-shrink: 0;
 
   width: 100%;
-  padding-bottom: 3rem;
   border: none;
   border-radius: 8px;
 

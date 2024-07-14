@@ -57,6 +57,7 @@ const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
   display: flex;
   flex-direction: column;
   position: fixed;
+  top: 5rem;
   bottom: 0;
   left: 0;
   z-index: 4;

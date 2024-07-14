@@ -51,6 +51,13 @@ const SelectJuniorPromiseSection = () => {
         setIsCalendarOpen={setIsCalendarOpen}
         btnId={btnId}
       />
+      <PageBottomBar>
+        <CostWrapper>
+          <Label>총 결제금액</Label>
+          <Cost>0원</Cost>
+        </CostWrapper>
+        <SubmitBtn type="button">약속 신청하기</SubmitBtn>
+      </PageBottomBar>
     </TimeSelectionContainer>
   );
 };
@@ -64,4 +71,53 @@ const TimeSelectionContainer = styled.div`
 
   width: 100%;
   padding: 0 2rem;
+  padding-bottom: 12.4rem;
+`;
+
+const PageBottomBar = styled.div`
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 9.4rem;
+  padding: 1.5rem 0 3rem;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
+  box-shadow: 0 -8px 30px rgb(0 0 0 / 10%);
+`;
+
+const CostWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  width: 30%;
+
+  text-align: end;
+`;
+const SubmitBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 70%;
+  height: 5rem;
+  margin: 0 2rem 0 0;
+  border-radius: 8px;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleMG1};
+
+  ${({ theme }) => theme.fonts.Head2_SB_18};
+  color: ${({ theme }) => theme.colors.grayScaleWhite};
+`;
+const Label = styled.span`
+  color: ${({ theme }) => theme.colors.grayScaleMG2};
+  ${({ theme }) => theme.fonts.Title2_M_16};
+`;
+const Cost = styled.span`
+  color: ${({ theme }) => theme.colors.grayScaleBG};
+  ${({ theme }) => theme.fonts.Head2_SB_18};
 `;
