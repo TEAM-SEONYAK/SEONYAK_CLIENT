@@ -5,7 +5,7 @@ import { 연차_LIST } from '../constants';
 
 const SelectBox = () => {
   const PLACEHOLDER = '연차를 선택해 주세요';
-  const [select, setSelect] = useState('연차를 선택해 주세요');
+  const [select, setSelect] = useState(PLACEHOLDER);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickItem = (item: string) => {
