@@ -27,18 +27,20 @@ const JuniorPromisePage = () => {
 
   // 바텀시트 내 직무 칩
   const [selectedPosition, setSelectedPosition] = useState(Array(21).fill(false));
+  // 선택직무 리스트
+  const arrPosition = [...selectedPosition];
 
   const handleChipPosition = (positionId: number) => {
-    const arrPosition = [...selectedPosition];
     arrPosition[positionId] = !arrPosition[positionId];
 
     setSelectedPosition(arrPosition);
   };
   // 바텀시트 내 계열 칩
   const [selectedField, setSelectedField] = useState(Array(7).fill(false));
+  // 선택계열 리스트
+  const arrField = [...selectedField];
 
   const handleChipField = (fieldId: number) => {
-    const arrField = [...selectedField];
     arrField[fieldId] = !arrField[fieldId];
 
     setSelectedField(arrField);
@@ -49,10 +51,27 @@ const JuniorPromisePage = () => {
     setSelectedPosition(Array(21).fill(false));
     setSelectedField(Array(7).fill(false));
   };
+
+  // 선택된 직무 칩 수
+  const getPositionTrueNum = (arrPosition: boolean[]) => {
+    return arrPosition.filter((n) => n === true).length;
+  };
+  const positionChipNum = getPositionTrueNum(arrPosition);
+
+  // 선택된 계열 칩 수
+  const fieldChipTrueNum = (arrField: boolean[]) => {
+    return arrField.filter((n) => n === true).length;
+  };
+
+  const fieldChipNum = fieldChipTrueNum(arrField);
   return (
     <>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
-      <SeniorListBackground handleFilterActiveBtn={handleFilterActiveBtn} handleReset={handleReset}>
+      <SeniorListBackground
+        handleFilterActiveBtn={handleFilterActiveBtn}
+        handleReset={handleReset}
+        positionChipNum={positionChipNum}
+        fieldChipNum={fieldChipNum}>
         <SeniorListWrapper>
           {seniorList.map((list) => (
             <SeniorCard

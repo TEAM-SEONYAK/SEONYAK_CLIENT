@@ -1,25 +1,34 @@
 import { ResetIc, Line292Ic } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React, { ReactNode } from 'react';
+// eslint-disable-next-line import/namespace
 import { FilterButton } from './FilterButton';
 
 interface SeniorListBackgroundProps {
   children: ReactNode;
   handleFilterActiveBtn: (btnText: string) => void;
   handleReset: () => void;
+  positionChipNum: number;
+  fieldChipNum: number;
 }
 
 export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
   children,
   handleFilterActiveBtn,
   handleReset,
+  positionChipNum,
+  fieldChipNum,
 }) => {
   return (
     <ListBackground>
       <SeniorSearchWrapper>
         <SearchTitle>선배를 찾아볼까요?</SearchTitle>
         <BtnLayout>
-          <FilterButton handleFilterActiveBtn={handleFilterActiveBtn} />
+          <FilterButton
+            handleFilterActiveBtn={handleFilterActiveBtn}
+            positionChipNum={positionChipNum}
+            fieldChipNum={fieldChipNum}
+          />
           <LineWrapper>
             <Line292Ic />
           </LineWrapper>
