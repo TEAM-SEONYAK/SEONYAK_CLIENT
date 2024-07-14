@@ -1,6 +1,8 @@
 import { CardArrowRightGrayIc, ClockIc } from '@assets/svgs';
+import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import styled from '@emotion/styled';
 import { getLevelName } from '@utils/getLevelName';
+import { useState } from 'react';
 import ProfileChip from './ProfileChip';
 import { profileCardDataType } from '../types/type';
 import { extractMonthAndDay } from '../utils/extractMonthAndDay';
@@ -13,6 +15,7 @@ interface ProfileContainerPropType {
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
+  const [isReviewClicked, setIsReviewClicked] = useState(false);
   const { userRole, profileCardData, type, isarrow } = props;
   const { month, day } = extractMonthAndDay(profileCardData?.date + '');
 
@@ -20,6 +23,10 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
     const topicLength = chosenTopic?.length;
 
     return topicLength ? `${chosenTopic[0]} 외 ${topicLength - 1}건` : '직접 작성했어요';
+  };
+
+  const ShowReviewClickedModal = (type: boolean) => {
+    setIsReviewClicked(type);
   };
   return (
     <ReviewWrapper $type={type}>
@@ -89,8 +96,16 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         </InfoContainer>
         <CardArrowRightGrayIcon isarrow={isarrow} />
       </Wrapper>
-      {userRole === 'JUNIOR' && type === 'past' && <ReviewBtn>리뷰 작성하기</ReviewBtn>}
+      {userRole === 'JUNIOR' && type === 'past' && (
+        <ReviewBtn onClick={() => setIsReviewClicked(true)}>리뷰 작성하기</ReviewBtn>
+      )}
       {userRole === 'SENIOR' && type === 'past' && <ReviewBtn>작성된 리뷰 없음</ReviewBtn>}
+      <AutoCloseModal
+        text="아직 준비중인 기능이에요"
+        showModal={isReviewClicked}
+        handleShowModal={ShowReviewClickedModal}>
+        <TestImg />
+      </AutoCloseModal>
     </ReviewWrapper>
   );
 };
@@ -238,4 +253,10 @@ const RejectedChip = styled.div`
 
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Caption2_SB_12};
+`;
+
+const TestImg = styled.div`
+  width: 27rem;
+  height: 17.2rem;
+  background-color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
