@@ -6,6 +6,7 @@ import Step약관동의 from './components/commonOnboarding/Step약관동의';
 import Step학과선택 from './components/commonOnboarding/Step학과선택';
 import Step학교선택 from './components/commonOnboarding/Step학교선택';
 import Layout from './components/Layout';
+import Step재직기간 from './components/seniorOnboarding/Step재직기간';
 import Step졸업인증 from './components/seniorOnboarding/Step졸업인증';
 
 const OnboardingPage = () => {
@@ -38,7 +39,7 @@ const OnboardingPage = () => {
 
   return (
     <Layout role={role} step={step} handleSetStep={handleSetStep}>
-      <Step />
+      <Step재직기간 />
     </Layout>
   );
 };
