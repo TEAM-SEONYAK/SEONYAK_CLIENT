@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import BottomBar from './BottomBar';
+import CalendarBottomBar from './CalendarBottomBar';
 import CustomCalendar from './CustomCalendar';
 import GrayLine from './GrayLine';
 import TimeList from './TimeList';
@@ -29,16 +29,22 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
         }}
       />
       <BottomSheetWrapper $isCalendarOpen={isCalendarOpen}>
-        <CustomCalendar btnId={btnId} setSelectedTime={setSelectedTime} />
-        <GrayLine />
-        <TimeList selectedTime={selectedTime} setSelectedTime={setSelectedTime} btnId={btnId} />
-        <BottomBar setIsCalendarOpen={setIsCalendarOpen} />
+        <Scroll>
+          <CustomCalendar btnId={btnId} setSelectedTime={setSelectedTime} />
+          <GrayLine />
+          <TimeList selectedTime={selectedTime} setSelectedTime={setSelectedTime} btnId={btnId} />
+        </Scroll>
+        <CalendarBottomBar setIsCalendarOpen={setIsCalendarOpen} />
       </BottomSheetWrapper>
     </>
   );
 };
 
 export default CalendarBottomSheet;
+
+const Scroll = styled.div`
+  overflow-y: scroll;
+`;
 
 const Background = styled.div<{ $isCalendarOpen: boolean }>`
   display: ${({ $isCalendarOpen }) => ($isCalendarOpen ? 'flex' : 'none')};

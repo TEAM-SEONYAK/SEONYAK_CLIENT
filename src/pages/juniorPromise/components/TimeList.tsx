@@ -84,7 +84,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  overflow-y: auto;
 
   padding-bottom: 14.4rem;
   padding-left: 1.3rem;
@@ -92,6 +91,7 @@ const Wrapper = styled.div`
 
 const Layout = styled.div`
   display: grid;
+  overflow-y: auto;
 `;
 
 const Label = styled.div`
