@@ -8,7 +8,7 @@ const LoginPage = () => {
 
   return (
     <Wrapper onClick={() => login()}>
-      <GoogleLogoIcon />
+      <GoogleIcon />
       <Text>구글로 시작하기</Text>
     </Wrapper>
   );
@@ -31,6 +31,12 @@ const Wrapper = styled.div`
   cursor: pointer;
 `;
 
+const GoogleIcon = styled(GoogleIc)`
+  width: 3.3rem;
+  height: 3.3rem;
+  margin: 1rem;
+`;
+
 const Text = styled.span`
   display: flex;
 
@@ -38,10 +44,4 @@ const Text = styled.span`
 
   ${theme.fonts.Head2_SB_18};
   text-align: center;
-`;
-
-const GoogleLogoIcon = styled(GoogleIc)`
-  width: 33px;
-  height: 33px;
-  margin: 10px;
 `;
