@@ -2,11 +2,11 @@ import { ReloadIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React from 'react';
 
-interface BottomBarPropType {
+interface CalendarBottomBarPropType {
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BottomBar: React.FC<BottomBarPropType> = ({ setIsCalendarOpen }) => {
+const CalendarBottomBar = ({ setIsCalendarOpen }: CalendarBottomBarPropType) => {
   return (
     <ButtonLayout>
       <ReloadBtn type="reset">
@@ -23,7 +23,7 @@ const BottomBar: React.FC<BottomBarPropType> = ({ setIsCalendarOpen }) => {
   );
 };
 
-export default BottomBar;
+export default CalendarBottomBar;
 
 const ReloadIcon = styled(ReloadIc)`
   width: 2rem;
@@ -35,7 +35,7 @@ const ButtonLayout = styled.footer`
   gap: 1.1rem;
   justify-content: center;
   position: fixed;
-  bottom: 0;
+  bottom: 5rem;
   left: 0;
 
   width: 100%;
