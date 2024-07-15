@@ -23,6 +23,8 @@ const CheckModalContent = () => {
 export default CheckModalContent;
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
 
   width: 90%;
