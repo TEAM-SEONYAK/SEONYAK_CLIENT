@@ -7,7 +7,6 @@ import { seniorProfileAPIType, seniorProfileInitial } from '@pages/seniorProfile
 import { useState } from 'react';
 import Career from './components/Career';
 import Example from './components/Example';
-import PreView from './components/preView';
 import Sentence from './components/Sentence';
 import Story from './components/Story';
 import TimeSelect from './components/TimeSelect';
