@@ -1,10 +1,12 @@
 import { StartProfile1Img, StartProfile2Img } from '@assets/images';
 import { CameraIc } from '@assets/svgs';
+import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import { ChangeEvent, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 
 const Step개인정보입력 = () => {
+  const [isNicknameError, setNicknameError] = useState(true);
   const [imageFile, setImageFile] = useState('');
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = startImgArr[Math.floor(Math.random() * 2)];
@@ -33,10 +35,14 @@ const Step개인정보입력 = () => {
         </ImageInputWrapper>
       </Wrapper>
       <TextBox label="닉네임">
-        <InputBox label="닉네임" placeholder="닉네임을 입력해주세요">
+        <InputBox label="닉네임" placeholder="닉네임을 입력해주세요" isError={isNicknameError}>
           <InnerButton text="중복확인" />
         </InputBox>
-        <Caption>8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가</Caption>
+        {isNicknameError ? (
+          <WarnDescription isShown={isNicknameError} warnText="닉네임 조건을 확인해주세요 !" />
+        ) : (
+          <Caption>8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가</Caption>
+        )}
       </TextBox>
     </>
   );
