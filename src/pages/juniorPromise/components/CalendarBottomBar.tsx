@@ -1,6 +1,8 @@
 import { ReloadIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
+import { formatCalDateToString } from '../utils/formatCalDateToString';
+import { getTomorrow } from '../utils/getTomorrow';
 
 interface CalendarBottomBarPropType {
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,7 +13,7 @@ interface CalendarBottomBarPropType {
 
 // 만약 selectedTime의 selectedTime과 clickedDay가 문자열인지 확인
 // 조건에 따라 버튼의 스타일을 변경
-const CalendarBottomBar = ({ setIsCalendarOpen, selectedTime, btnId }: CalendarBottomBarPropType) => {
+const CalendarBottomBar = ({ setIsCalendarOpen, selectedTime, setSelectedTime, btnId }: CalendarBottomBarPropType) => {
   const selectedTimeMent = ['첫 번째 일정 선택하기', '두 번째 일정 선택하기', '세 번째 일정 선택하기'];
   const [isSelected, setIsSelected] = useState(false);
 
@@ -26,9 +28,21 @@ const CalendarBottomBar = ({ setIsCalendarOpen, selectedTime, btnId }: CalendarB
     setIsSelected(false);
   };
 
+  const handleReload = () => {
+    const tomorrow = formatCalDateToString(getTomorrow());
+
+    setSelectedTime((prevTimes) =>
+      prevTimes.map((time, index) => ({
+        ...time,
+        selectedTime: selectedTimeMent[index],
+        clickedDay: tomorrow,
+      })),
+    );
+  };
+
   return (
     <ButtonLayout>
-      <ReloadBtn type="reset">
+      <ReloadBtn type="button" onClick={handleReload}>
         <ReloadIcon />
       </ReloadBtn>
       <ExitBottomSheet type="button" disabled={!isSelected} onClick={handleOpenSelect} $isEnabled={isSelected}>

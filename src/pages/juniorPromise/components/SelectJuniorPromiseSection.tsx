@@ -1,6 +1,6 @@
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CalendarBottomSheet from './CalendarBottomSheet';
 import GrayLine from './GrayLine';
 import SelectJuniorWorryButton from '../components/SelectJuniorWorryButton';
@@ -12,6 +12,8 @@ import TimeSelectionTitleWrapper from '../components/TimeSelectionTitleWrapper';
 const SelectJuniorPromiseSection = () => {
   const [activeButton, setActiveButton] = useState<'left' | 'right'>('left');
   const [isAllSelected, setIsAllSelected] = useState(false);
+  const [isAnyWorrySelected, setIsAnyWorrySelected] = useState(false);
+  const [isTextareaFilled, setIsTextareaFilled] = useState(false);
 
   // 캘린더 여닫기
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -21,6 +23,7 @@ const SelectJuniorPromiseSection = () => {
     { id: 1, selectedTime: '두 번째 일정 선택하기', clickedDay: '' },
     { id: 2, selectedTime: '세 번째 일정 선택하기', clickedDay: '' },
   ]);
+
   // 몇 번째 버튼이 눌렸니~
   const [btnId, setBtnId] = useState(0);
 
@@ -29,11 +32,26 @@ const SelectJuniorPromiseSection = () => {
     setActiveButton(button);
   };
 
-  const handleCheckAllSelected = (isAllSelected: boolean) => {
-    setIsAllSelected(isAllSelected);
+  // 모든 일정 선택했는지 확인
+  const handleCheckAllSelected = () => {
+    const allSelected = selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '');
+    setIsAllSelected(allSelected);
+    console.log(allSelected);
   };
 
-  console.log(selectedTime);
+  // 걱정 버튼 중 하나라도 선택했는지 확인
+  const handleCheckWorrySelected = (isSelected: boolean) => {
+    setIsAnyWorrySelected(isSelected);
+    console.log(isSelected);
+  };
+
+  // isAllSelected 업데이트
+  useEffect(() => {
+    setIsAllSelected(
+      selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
+        (isAnyWorrySelected || isTextareaFilled),
+    );
+  }, [selectedTime, isAnyWorrySelected, isTextareaFilled]);
 
   return (
     <TimeSelectionContainer>
@@ -49,7 +67,11 @@ const SelectJuniorPromiseSection = () => {
       <GrayLine />
       <SelectJuniorWorryTitleWrapper />
       <ToggleButton left="선택할래요" right="작성할래요" activeButton={activeButton} onToggle={handleToggle} />
-      {activeButton === 'left' ? <SelectJuniorWorryButton /> : <SelectJuniorWorryTextBoxWrapper />}
+      {activeButton === 'left' ? (
+        <SelectJuniorWorryButton handleCheckWorrySelected={handleCheckWorrySelected} />
+      ) : (
+        <SelectJuniorWorryTextBoxWrapper setIsTextareaFilled={setIsTextareaFilled} />
+      )}
       <CalendarBottomSheet
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
