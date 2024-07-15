@@ -10,10 +10,6 @@ export const SENIOR_PROFILE_STEPS = [
     description: ``,
   },
   {
-    meta: ``,
-    description: ``,
-  },
-  {
     meta: ` 님을 표현할 수 있는 문장을\n작성해주세요`,
     description: ``,
   },
