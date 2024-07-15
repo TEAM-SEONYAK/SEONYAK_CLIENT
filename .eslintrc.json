@@ -41,7 +41,9 @@
     "react/react-in-jsx-scope": "off", // import React from "react"가 필수였던 시기에 필요한 규칙이므로 off
     "arrow-parens": ["error", "always"], // arrow-function 인자가 2개 이상이면 괄호 필수
     "no-duplicate-imports": "error", // 중복 Import 금지
-    "no-unused-vars": "error", // 사용하지 않는 변수 error처리
+    // "no-unused-vars": "error", // 사용하지 않는 변수 error처리
+    "@typescript-eslint/no-unused-vars": "error",
+    // 타입스크립트 전용 eslint-사용하지 않는 변수 error처리 
     "no-undef": "error", // 정의 안 한 변수 사용 x
     "indent": "off", // 프리티어 충돌로 인한 OFF
     "import/no-unresolved": "off", // 타입스크립트에서 경로를 제대로 잡지 못할 때 사용 or  eslint-import-resolver-typescript 설치
