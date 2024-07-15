@@ -3,13 +3,18 @@ import styled from '@emotion/styled';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 
 const Step개인정보입력 = () => {
+  const handleChangeImage = () => {};
+
   return (
     <>
       <Wrapper>
         <SubTitle>프로필 사진</SubTitle>
         <ImageInputWrapper>
           <ImageInputLabel>
-            <input type="file" accept="image/*" />
+            <ImgCircle>
+              <img src="src/assets/images/dummy.png" alt="테스트용 이미지" />
+              <input type="file" accept="image/*" onChange={handleChangeImage} />
+            </ImgCircle>
             <CameraIc />
           </ImageInputLabel>
         </ImageInputWrapper>
@@ -44,18 +49,28 @@ const ImageInputWrapper = styled.div`
 const ImageInputLabel = styled.label`
   position: relative;
 
+  & > svg {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+`;
+
+const ImgCircle = styled.div`
+  overflow: hidden;
+
   width: 11.7rem;
   height: 11.7rem;
   border: 1px solid ${({ theme }) => theme.colors.grayScaleMG2};
   border-radius: 117px;
 
-  & > input {
-    display: none;
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  & > svg {
-    position: absolute;
-    right: 0;
-    bottom: 0;
+  & > input {
+    display: none;
   }
 `;
