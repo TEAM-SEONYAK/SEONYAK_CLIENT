@@ -1,11 +1,10 @@
 import { EmptyImg } from '@assets/svgs';
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
+import useCountdown from '@hooks/useCountDown';
 import ProfileChip from './ProfileChip';
 import ProfileContainer from './ProfileContainer';
 import PromiseTimerBtn from './PromiseTimerBtn';
 import { profileCardDataType } from '../types/type';
-import { calculateTimeLeft } from '../utils/calculateTimeLeft';
 
 interface RecentCardPropType {
   userRole: string;
@@ -15,20 +14,7 @@ interface RecentCardPropType {
 
 const RecentCard = (props: RecentCardPropType) => {
   const { userRole, recentAppointment, appointmentNum } = props;
-
-  const [timeLeft, setTimeLeft] = useState(() =>
-    calculateTimeLeft(recentAppointment?.date + '', recentAppointment?.startTime + ''),
-  );
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft(recentAppointment?.date + '', recentAppointment?.startTime + ''));
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [recentAppointment?.date, recentAppointment?.startTime]);
-
-  const { diffText, diff, dDayDiff } = timeLeft;
+  const { diffText, diff, dDayDiff } = useCountdown(recentAppointment?.date, recentAppointment?.startTime);
 
   return (
     <Wrapper $userRole={userRole}>

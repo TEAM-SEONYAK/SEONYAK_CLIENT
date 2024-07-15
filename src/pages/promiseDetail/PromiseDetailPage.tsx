@@ -6,20 +6,20 @@ import { Header } from '@components/commons/Header';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import Textarea from '@components/commons/Textarea';
 import styled from '@emotion/styled';
-import { calculateTimeLeft } from '@pages/promiseList/utils/calculateTimeLeft';
-import { useState, useEffect } from 'react';
+import useCountdown from '@hooks/useCountDown';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SENIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
 import { formatDate } from './utils/formatDate';
 
 const PromiseDetail = () => {
-  // location으로 닉네임 잡아오기
-  // location으로 눌린 탭 상태값 잡아오기
   const location = useLocation();
   const navigate = useNavigate();
+
   const tap = location.state.tap;
-  const myNickname = '아가라고요';
+  const myNickname = location.state.myNickname;
   const userRole = 'SENIOR';
+
   // 기본뷰 / 거절뷰
   const [viewType, setViewType] = useState('DEFAULT');
   // 수락시 선택한 시간 저장
@@ -62,23 +62,8 @@ const PromiseDetail = () => {
     setRejectDetail(detailReason);
   };
 
-  // 커스텀훅으로 분리하기 ~
   // 실 데이터로연결 필요
-  const [timeLeft, setTimeLeft] = useState(() =>
-    calculateTimeLeft(SENIOR_RESPONSE.timeList[0]?.date + '', SENIOR_RESPONSE.timeList[0]?.startTime + ''),
-  );
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(
-        calculateTimeLeft(SENIOR_RESPONSE.timeList[0]?.date + '', SENIOR_RESPONSE.timeList[0]?.startTime + ''),
-      );
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [SENIOR_RESPONSE.timeList[0]?.date, SENIOR_RESPONSE.timeList[0]?.startTime]);
-
-  const { diffText, diff } = timeLeft;
+  const { diffText, diff } = useCountdown(SENIOR_RESPONSE.timeList[0]?.date, SENIOR_RESPONSE.timeList[0]?.startTime);
 
   return (
     <>

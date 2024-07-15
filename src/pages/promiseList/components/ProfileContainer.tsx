@@ -13,47 +13,54 @@ interface ProfileContainerPropType {
   tap: string;
   profileCardData?: profileCardDataType;
   isarrow: string;
+  myNickname: string;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  const { userRole, profileCardData, tap, isarrow } = props;
+  const { userRole, profileCardData, tap, isarrow, myNickname } = props;
   const navigate = useNavigate();
 
+  // 리뷰 모달 띄우기 용
   const [isReviewClicked, setIsReviewClicked] = useState(false);
+
+  const ShowReviewClickedModal = (type: boolean) => {
+    setIsReviewClicked(type);
+  };
+
+  // 서버에서 온 date값에서 달, 일 추출
   const { month, day } = extractMonthAndDay(profileCardData?.date + '');
 
+  // 선배가 보는 후배 상담 내용
   const getTopicDescription = (chosenTopic: string[] | undefined) => {
     const topicLength = chosenTopic?.length;
 
     return topicLength ? `${chosenTopic[0]} 외 ${topicLength - 1}건` : '직접 작성했어요';
   };
 
-  const ShowReviewClickedModal = (type: boolean) => {
-    setIsReviewClicked(type);
-  };
-
+  // 상세 페이지 라우팅
   const handleClickProfileContainer = (tap: string, userRole: string) => {
     if (userRole === 'SENIOR' && tap === 'pending') {
       navigate('/promiseDetail', {
-        state: { tap: 'pending' },
+        state: { tap: 'pending', myNickname: myNickname },
       });
     }
     if (userRole === 'JUNIOR' && tap === 'pending') {
       navigate('./promiseDetailJunior', {
-        state: { tap: 'pending' },
+        state: { tap: 'pending', myNickname: myNickname },
       });
     }
     if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default')) {
       navigate('./promiseDetail', {
-        state: { tap: 'scheduled' },
+        state: { tap: 'scheduled', myNickname: myNickname },
       });
     }
     if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default')) {
       navigate('./promiseDetailJunior', {
-        state: { tap: 'scheduled' },
+        state: { tap: 'scheduled', myNickname: myNickname },
       });
     }
   };
+
   return (
     <ReviewWrapper $tap={tap}>
       <Wrapper $tap={tap} onClick={() => handleClickProfileContainer(tap, userRole)}>
