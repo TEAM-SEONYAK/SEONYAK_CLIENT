@@ -20,13 +20,15 @@ const BottomSheet = ({ handleClose, children }: bottomSheetPropType) => {
 export default BottomSheet;
 
 const Wrapper = styled.div`
-  z-index: 2;
   position: fixed;
+  z-index: 2;
+
   width: 100vw;
   height: 100vh;
   margin: -9rem 2rem 9rem -2rem;
-  background-color: white;
   padding-top: 4rem;
+
+  background-color: white;
 `;
 
 const Divider = styled.hr`

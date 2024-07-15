@@ -64,25 +64,28 @@ const Wrapper = styled.div`
 
 const ChipWrapper = styled.section`
   display: flex;
-  width: 100%;
-  gap: 0.5rem;
-  padding-bottom: 2rem;
   flex-wrap: wrap;
+  gap: 0.5rem;
+
+  width: 100%;
+  padding-bottom: 2rem;
 `;
 
 const WarnWrapper = styled.section`
-  margin: -0.6rem 0 1.5rem 0;
+  margin: -0.6rem 0 1.5rem;
 `;
 
 const SearchListWrapper = styled.article`
-  padding: 0.5rem 1rem;
-  height: 22.1rem;
   overflow-y: scroll;
+
+  height: 22.1rem;
+  padding: 0.5rem 1rem;
 `;
 
 export default Step학과선택;
 
 interface searchListPropType {
+  // eslint-disable-next-line no-unused-vars
   handleSelectMajors: (selectedValue: string) => void;
   majorName: string;
   selectedMajors: string[];
@@ -106,13 +109,16 @@ const SearchListContainer = styled.section`
   justify-content: space-between;
 
   width: 100%;
+
   cursor: pointer;
 `;
 
 const MajorText = styled.p<{ $isActive: boolean }>`
-  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : '')};
-  ${({ theme }) => theme.fonts.Body3_SB_14};
   padding: 0.65rem 0;
+
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : '')};
+
+  ${({ theme }) => theme.fonts.Body3_SB_14};
 `;
 
 const CheckItemIcon = styled(CheckItemIc)<{ $isActive: boolean }>`

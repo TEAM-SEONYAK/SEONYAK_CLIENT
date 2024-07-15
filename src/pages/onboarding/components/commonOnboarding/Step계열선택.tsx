@@ -24,6 +24,7 @@ const Wrapper = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
   padding-top: 2rem;
 `;
 

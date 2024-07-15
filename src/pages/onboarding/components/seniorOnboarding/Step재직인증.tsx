@@ -20,7 +20,7 @@ const Step재직인증 = () => {
         <button onClick={handleOpenSheet}>BottomSheet 올라간다간다간다뿅!</button>
       </div>
       {isOpenSheet && (
-        <BottomSheet handeClose={handleCloseSheet}>
+        <BottomSheet handleClose={handleCloseSheet}>
           <Sheet재직인증 handleSelectDetails={handleSelectDetails} />
         </BottomSheet>
       )}
@@ -55,11 +55,13 @@ const Sheet재직인증 = ({ handleSelectDetails }: Sheet재직인증PropType) =
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  gap: 1.2rem 1rem;
+
   width: 33.5rem;
   height: 46.4rem;
-  margin: 4.2rem 2rem 0 2rem;
+  margin: 4.2rem 2rem 0;
+
   background-color: red;
-  gap: 1.2rem 1rem;
 `;
 
 const DescriptionContainer = styled.section`
@@ -67,7 +69,7 @@ const DescriptionContainer = styled.section`
 `;
 
 const Description = styled.p`
+  color: ${({ theme }) => theme.colors.grayScaleMG2};
   white-space: pre-wrap;
   ${({ theme }) => theme.fonts.Caption1_R_12};
-  color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;

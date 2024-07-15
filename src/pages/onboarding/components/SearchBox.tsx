@@ -32,20 +32,23 @@ export default SearchBox;
 
 const InputWrapper = styled.div`
   display: flex;
-  padding: 0.9rem 0.5rem 0.9rem 1.5rem;
+
   width: 33.5rem;
-  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+  padding: 0.9rem 0.5rem 0.9rem 1.5rem;
   border-radius: 8px;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 0.4rem 0 0.4rem;
+  padding: 0.4rem 0;
   ${({ theme }) => theme.fonts.Title2_M_16};
   border: none;
 
-  color: ${({ theme }) => theme.colors.grayScaleBG};
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
+  color: ${({ theme }) => theme.colors.grayScaleBG};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.grayScaleMG2};

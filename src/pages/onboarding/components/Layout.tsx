@@ -16,6 +16,7 @@ const Layout = ({
 }: {
   userRole: 'SENIOR' | 'JUNIOR';
   step: number;
+  // eslint-disable-next-line no-unused-vars
   handleSetStep: (dir: 'NEXT' | 'PREV') => void;
   children: ReactNode;
 }) => {
@@ -30,7 +31,7 @@ const Layout = ({
         onClickLeft={() => handleSetStep('PREV')}
       />
       <ProgressBar max={userRole === 'SENIOR' ? 4 : 3} current={GROUP_STEP} />
-      <Content>
+      <MetaContainer>
         <TitleBox title={title} description={description} />
       </MetaContainer>
       <Content>{children}</Content>
