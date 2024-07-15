@@ -1,25 +1,30 @@
 import { ArrowRightIc, CheckItemIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { 약관_LIST } from '@pages/onboarding/constants';
+import { Link } from 'react-router-dom';
 
 const Step약관동의 = () => {
   return (
     <Wrapper>
-      <ItemWrapper>
+      <ItemWrapper type="button">
         <ItemLeftWrapper>
           <CheckItemIcon />
           <Item>전체 동의</Item>
         </ItemLeftWrapper>
       </ItemWrapper>
       <Line />
-      {약관_LIST.map((el, idx) => (
-        <ItemWrapper key={el}>
-          <ItemLeftWrapper>
-            <CheckItemIcon />
-            <Item>{el}</Item>
-          </ItemLeftWrapper>
-          {idx < 2 && <ArrowRightIc />}
-        </ItemWrapper>
+      {약관_LIST.map(({ text, link }, idx) => (
+        <li key={text}>
+          <ItemWrapper type="button" onClick={() => console.log('클릭')}>
+            <ItemLeftWrapper>
+              <CheckItemIcon />
+              <Item>{text}</Item>
+            </ItemLeftWrapper>
+            <Link to={link ? link : ''} target="_blank" onClick={(e) => link || e.preventDefault()}>
+              {idx < 2 && <ArrowRightIc />}
+            </Link>
+          </ItemWrapper>
+        </li>
       ))}
     </Wrapper>
   );
@@ -32,11 +37,12 @@ const Wrapper = styled.ul`
   flex-direction: column;
 `;
 
-const ItemWrapper = styled.li`
+const ItemWrapper = styled.button`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
+  width: 100%;
   height: 3.8rem;
 `;
 
