@@ -106,12 +106,11 @@ const PreView = ({ career, award, catchphrase, story, preferredTimeList, setStep
           position={dummy.position}
           detailPosition={dummy.detailPosition}
           level={+dummy.level}
-          variant="secondary"
         />
         <ProfileSummary description1="미제공" description2={1} description3="미제공" />
         <Meta>선배의 이력 · 수상</Meta>
-        <ImgTextBox text={career} />
-        <ImgTextBox text={award} />
+        <ImgTextBox variant="career" text={career} />
+        <ImgTextBox variant="award" text={award} />
         <Meta2>{catchphrase}</Meta2>
         <Description>{story}</Description>
         <Meta2>선배의 타임 테이블</Meta2>
