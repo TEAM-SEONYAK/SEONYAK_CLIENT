@@ -7,13 +7,25 @@ interface HeaderPropType {
   onClickLeft?: () => void;
   onClickRight?: () => void;
   title?: string;
-  bgColor: string;
+  bgColor?: 'white' | 'gray' | 'transparent';
 }
 
+const getBgColor = (bgColor: 'white' | 'gray' | 'transparent') => {
+  switch (bgColor) {
+    case 'white':
+      return `${({ theme }) => theme.colors.grayScaleWhite}`;
+    case 'gray':
+      return `${({ theme }) => theme.colors.grayScaleLG1}`;
+    case 'transparent':
+      return 'transparent';
+  }
+};
+
 export const Header = (props: HeaderPropType) => {
-  const { LeftSvg, onClickLeft, onClickRight, RightSvg, title, bgColor } = props;
+  const { LeftSvg, onClickLeft, onClickRight, RightSvg, title, bgColor = 'white' } = props;
+  const $bgColor = getBgColor(bgColor);
   return (
-    <Wrapper $hasTitle={!!title} $bgColor={bgColor}>
+    <Wrapper $hasTitle={!!title} $bgColor={$bgColor}>
       {LeftSvg && (
         <LeftSvgWrapper>
           <LeftSvg onClick={onClickLeft} />
@@ -47,6 +59,7 @@ const Wrapper = styled.header<{ $hasTitle: boolean; $bgColor: string }>`
 const Title = styled.span`
   ${({ theme }) => theme.fonts.Title1_SB_16}
   color: ${({ theme }) => theme.colors.grayScaleBG};
+  color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const LeftSvgWrapper = styled.div`
