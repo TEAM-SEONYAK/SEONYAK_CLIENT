@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
-
 // 화면 하단 풀사이즈 버튼
 interface FullBtnPropType {
   isActive?: boolean;
