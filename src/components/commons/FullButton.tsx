@@ -5,22 +5,25 @@ interface FullBtnPropType {
   isActive?: boolean;
   text: string;
   onClick: () => void;
+  bottom: number;
 }
 
 export const FullBtn = (props: FullBtnPropType) => {
-  const { isActive, text, onClick } = props;
+  const { isActive, text, onClick, bottom } = props;
   return (
-    <FullBtnWrapper type="button" disabled={!isActive} onClick={onClick}>
+    <FullBtnWrapper type="button" $bottom={bottom} disabled={!isActive} onClick={onClick}>
       {text}
     </FullBtnWrapper>
   );
 };
 
-const FullBtnWrapper = styled.button`
+const FullBtnWrapper = styled.button<{ $bottom: number }>`
+  position: fixed;
+  bottom: ${({ $bottom }) => `${$bottom}rem`};
   z-index: 1;
 
   width: 33.5rem;
-  padding: 1.55rem 13.65rem;
+  padding: 1.55rem 0;
   border-radius: 5px;
 
   background-color: ${({ theme }) => theme.colors.Blue};

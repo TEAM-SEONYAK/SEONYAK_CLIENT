@@ -32,7 +32,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
         <CustomCalendar btnId={btnId} setSelectedTime={setSelectedTime} />
         <GrayLine />
         <TimeList selectedTime={selectedTime} setSelectedTime={setSelectedTime} btnId={btnId} />
-        <BottomBar setIsCalendarOpen={setIsCalendarOpen} id={0} />
+        <BottomBar setIsCalendarOpen={setIsCalendarOpen} />
       </BottomSheetWrapper>
     </>
   );
