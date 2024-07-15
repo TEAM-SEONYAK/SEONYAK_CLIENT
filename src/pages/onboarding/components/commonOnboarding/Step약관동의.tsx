@@ -1,10 +1,13 @@
 import { ArrowRightIc, CheckItemIc } from '@assets/svgs';
+import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
+import { StepContext } from '@pages/onboarding/OnboardingPage';
 import { 약관_LIST } from '@pages/onboarding/constants';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Step약관동의 = () => {
+  const { onNext } = useContext(StepContext);
   const [agreement, setAgreement] = useState([false, false, false, false, false]);
 
   const handleClickCheck = (id: number | 'all') => {
@@ -42,6 +45,7 @@ const Step약관동의 = () => {
           </ItemWrapper>
         </li>
       ))}
+      <FullBtn text="텍스트" isActive onClick={onNext} />
     </Wrapper>
   );
 };
