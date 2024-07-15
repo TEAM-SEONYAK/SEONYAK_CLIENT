@@ -1,7 +1,6 @@
 import { ResetIc, Line292Ic, CloseIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React, { ReactNode } from 'react';
-// eslint-disable-next-line import/namespace
 import { FilterButton } from './FilterButton';
 
 interface SeniorListBackgroundProps {
@@ -10,6 +9,8 @@ interface SeniorListBackgroundProps {
   handleReset: () => void;
   positionChipNum: number;
   fieldChipNum: number;
+  chipFieldName: string[];
+  deleteFieldList: (chipName: string) => void;
 }
 
 export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
@@ -18,7 +19,13 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
   handleReset,
   positionChipNum,
   fieldChipNum,
+  chipFieldName,
+  deleteFieldList,
 }) => {
+  const handleDeleteChip = (field: string) => {
+    deleteFieldList(field);
+  };
+
   return (
     <ListBackground>
       <SeniorSearchWrapper>
@@ -35,21 +42,14 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
           <ResetIc onClick={handleReset} />
         </BtnLayout>
         <SelectedChipList>
-          <Chip>
-            공학계열 <Close />
-          </Chip>
-          <Chip>
-            공학계열 <Close />
-          </Chip>
-          <Chip>
-            공학계열 <Close />
-          </Chip>
-          <Chip>
-            공학계열 <Close />
-          </Chip>
-          <Chip>
-            공학계열 <Close />
-          </Chip>
+          {chipFieldName.map((field, fieldId) => (
+            <Chip key={fieldId}>
+              {field}
+              <CloseButton onClick={() => handleDeleteChip(field)}>
+                <CloseIc />
+              </CloseButton>
+            </Chip>
+          ))}
         </SelectedChipList>
       </SeniorSearchWrapper>
       {children}
@@ -119,7 +119,7 @@ const Chip = styled.div`
   color: ${({ theme }) => theme.colors.grayScaleDG};
 `;
 
-const Close = styled(CloseIc)`
+const CloseButton = styled(CloseIc)`
   padding: 0.4962rem 0.4839rem 0.4962rem 0.5084rem;
 `;
 

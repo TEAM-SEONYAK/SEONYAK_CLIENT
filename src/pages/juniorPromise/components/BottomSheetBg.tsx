@@ -16,6 +16,8 @@ interface BottomSheetPropType {
   selectedPosition: boolean[];
   selectedField: boolean[];
   handleReset: () => void;
+  chipFieldName: string[];
+  pushFieldList: (chipName: string) => void;
 }
 
 export const BottomSheet = (props: BottomSheetPropType) => {
@@ -29,6 +31,7 @@ export const BottomSheet = (props: BottomSheetPropType) => {
     selectedPosition,
     selectedField,
     handleReset,
+    pushFieldList,
   } = props;
 
   return (
@@ -56,6 +59,8 @@ export const BottomSheet = (props: BottomSheetPropType) => {
                   handleChipField={handleChipField}
                   selectedField={selectedField}
                   fieldId={list.id}
+                  chipFieldName={list.field}
+                  pushFieldList={pushFieldList}
                 />
               ))}
             </FieldLayout>
@@ -126,6 +131,7 @@ const BottomSheetWrapper = styled.form<{ $isBottomSheetOpen: boolean }>`
 const TitleLayout = styled.header`
   padding: 1.4rem 16.1rem 1.6rem 2rem;
 `;
+
 const Content = styled.div`
   overflow: scroll;
 
@@ -140,6 +146,7 @@ const FieldLayout = styled.div`
   margin: 0 2rem;
   padding: 1rem 0;
 `;
+
 const PositionLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -188,6 +195,7 @@ const ReloadIcon = styled.button`
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
+
 const ExitBottomSheet = styled.button<{ $selectedPositionIndex: boolean; $selectedFieldIndex: boolean }>`
   width: 27.4rem;
   height: 5rem;
@@ -196,8 +204,6 @@ const ExitBottomSheet = styled.button<{ $selectedPositionIndex: boolean; $select
   background: ${({ theme, $selectedPositionIndex, $selectedFieldIndex }) =>
     $selectedPositionIndex || $selectedFieldIndex ? theme.colors.Blue : theme.colors.grayScaleMG1};
 
-  color: ${({ theme, $selectedPositionIndex, $selectedFieldIndex }) =>
-    $selectedPositionIndex || $selectedFieldIndex ? theme.colors.grayScaleWhite : theme.colors.grayScaleWhite};
-
+  color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Head2_SB_18};
 `;
