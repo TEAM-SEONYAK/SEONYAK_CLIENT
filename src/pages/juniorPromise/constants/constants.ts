@@ -1,11 +1,4 @@
-export const TIME_SELECTION_BUTTON = [
-  {
-    id: 0,
-    title: '첫 번째 일정 선택하기',
-  },
-  { id: 1, title: '두 번째 일정 선택하기' },
-  { id: 2, title: '세 번째 일정 선택하기' },
-];
+export const TIME_SELECTION_BUTTON = ['첫 번째 일정 선택하기', '두 번째 일정 선택하기', '세 번째 일정 선택하기'];
 
 export const SELECT_JUNIOR_TITLE = [
   {

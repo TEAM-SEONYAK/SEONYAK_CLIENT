@@ -9,18 +9,18 @@ import { ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } from '../constants';
 import convertToGroupStep from '../utils/convertToGroupStep';
 
 const Layout = ({
-  role,
+  userRole,
   step,
   handleSetStep,
   children,
 }: {
-  role: 'SENIOR' | 'JUNIOR';
+  userRole: 'SENIOR' | 'JUNIOR';
   step: number;
   handleSetStep: (dir: 'NEXT' | 'PREV') => void;
   children: ReactNode;
 }) => {
   const { title, description } = SENIOR_ONBOARDING_STEPS[step - 1];
-  const GROUP_STEP = convertToGroupStep(role, step);
+  const GROUP_STEP = convertToGroupStep(userRole, step);
 
   return (
     <Wrapper>
@@ -29,8 +29,8 @@ const Layout = ({
         LeftSvg={ArrowLeftIc}
         onClickLeft={() => handleSetStep('PREV')}
       />
-      <ProgressBar max={role === 'SENIOR' ? 4 : 3} current={GROUP_STEP} />
-      <MetaContainer>
+      <ProgressBar max={userRole === 'SENIOR' ? 4 : 3} current={GROUP_STEP} />
+      <Content>
         <TitleBox title={title} description={description} />
       </MetaContainer>
       <Content>{children}</Content>
