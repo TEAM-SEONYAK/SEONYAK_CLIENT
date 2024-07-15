@@ -23,7 +23,7 @@ const FullBtnWrapper = styled.button`
   position: fixed;
   bottom: 3.8rem;
   left: 50%;
-  z-index: 1;
+  z-index: 2;
   transform: translateX(-50%);
 
   height: 4.5rem;

@@ -72,6 +72,7 @@ const PromiseDetail = () => {
         onClickLeft={() => navigate('/')}
         title={viewType === 'DEFAULT' ? '자세히 보기' : '거절하기'}
       />
+      <hr />
       <Wrapper>
         <Layout $viewType={viewType}>
           <TitleContainer>
@@ -343,7 +344,7 @@ const Description = styled.span`
 
 const BtnWrapper = styled.div`
   position: fixed;
-  z-index: 3;
+  z-index: 2;
   bottom: 0;
   width: 100%;
   padding: 0 2.035rem 0 1.965rem;
@@ -353,6 +354,7 @@ const BtnWrapper = styled.div`
 `;
 
 const DeclineBtn = styled.button`
+  z-index: 2;
   border-radius: 5px;
   width: 10.6rem;
   height: 5.6rem;
@@ -363,6 +365,7 @@ const DeclineBtn = styled.button`
 `;
 
 const AcceptBtn = styled.button<{ $isActive: boolean }>`
+  z-index: 2;
   border-radius: 5px;
   width: 21.9rem;
   height: 5.6rem;
@@ -376,7 +379,7 @@ const BtnBackground = styled.div`
   width: 100%;
   height: 6.1rem;
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
-  z-index: 2;
+  z-index: 1;
   position: fixed;
   bottom: 0;
 `;

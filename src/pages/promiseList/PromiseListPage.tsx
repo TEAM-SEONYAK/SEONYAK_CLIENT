@@ -14,7 +14,7 @@ const PromiseListPage = () => {
 
   return (
     <>
-      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
+      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} bgColor="gray" />
       <Wrapper>
         <RecentLayout>
           <Title nickname={promiseData.myNickname} userRole={userRole} count={promiseData.scheduled.length} />

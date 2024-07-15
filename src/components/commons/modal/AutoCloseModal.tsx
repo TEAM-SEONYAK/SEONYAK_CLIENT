@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
 
