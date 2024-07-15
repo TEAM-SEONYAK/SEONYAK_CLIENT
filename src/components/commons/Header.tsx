@@ -7,12 +7,25 @@ interface HeaderPropType {
   onClickLeft?: () => void;
   onClickRight?: () => void;
   title?: string;
+  bgColor?: 'white' | 'gray' | 'transparent';
 }
 
+const getBgColor = (bgColor: 'white' | 'gray' | 'transparent') => {
+  switch (bgColor) {
+    case 'white':
+      return `${({ theme }) => theme.colors.grayScaleWhite}`;
+    case 'gray':
+      return `${({ theme }) => theme.colors.grayScaleLG1}`;
+    case 'transparent':
+      return 'transparent';
+  }
+};
+
 export const Header = (props: HeaderPropType) => {
-  const { LeftSvg, onClickLeft, onClickRight, RightSvg, title } = props;
+  const { LeftSvg, onClickLeft, onClickRight, RightSvg, title, bgColor = 'white' } = props;
+  const $bgColor = getBgColor(bgColor);
   return (
-    <Wrapper $hasTitle={!!title}>
+    <Wrapper $hasTitle={!!title} $bgColor={$bgColor}>
       {LeftSvg && (
         <LeftSvgWrapper>
           <LeftSvg onClick={onClickLeft} />
@@ -28,7 +41,7 @@ export const Header = (props: HeaderPropType) => {
   );
 };
 
-const Wrapper = styled.header<{ $hasTitle: boolean }>`
+const Wrapper = styled.header<{ $hasTitle: boolean; $bgColor: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,12 +53,13 @@ const Wrapper = styled.header<{ $hasTitle: boolean }>`
   height: ${({ $hasTitle }) => ($hasTitle ? '5rem' : '4.4rem')};
   padding: 1rem 2rem;
 
-  background-color: transparent;
+  background-color: bgcolor;
 `;
 
 const Title = styled.span`
   ${({ theme }) => theme.fonts.Title1_SB_16}
   color: ${({ theme }) => theme.colors.grayScaleBG};
+  color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const LeftSvgWrapper = styled.div`

@@ -19,11 +19,13 @@ const WarnDescription = (props: LimitWarnPropType) => {
 export default WarnDescription;
 
 const Wrapper = styled.div<{ $isShown: boolean }>`
-  display: ${({ $isShown }) => ($isShown ? 'flex' : 'none')};
+  display: flex;
   gap: 0.5rem;
   align-items: center;
 
   width: 100%;
+
+  opacity: ${({ $isShown }) => $isShown || '0'};
 `;
 
 const WarnText = styled.span`
