@@ -7,6 +7,7 @@ import { getEmptyMessage } from '../utils/getEmptyMessage';
 
 interface PromiseTapPropType {
   userRole: string;
+  myNickname: string;
   pending: profileCardDataType[];
   scheduled: profileCardDataType[];
   past: profileCardDataType[];
@@ -14,7 +15,7 @@ interface PromiseTapPropType {
 
 const PromiseTap = (props: PromiseTapPropType) => {
   const [tap, setTap] = useState('pending');
-  const { userRole, pending, scheduled, past } = props;
+  const { userRole, pending, scheduled, past, myNickname } = props;
 
   const getTapContent = (tap: string) => {
     switch (tap) {
@@ -48,17 +49,31 @@ const PromiseTap = (props: PromiseTapPropType) => {
         <ProfileWrapper>
           {tap === 'past' && (
             <>
-              <ProfileContainer userRole={userRole} type="past" profileCardData={content[0]} />
-              <ProfileContainer userRole={userRole} type="rejected" profileCardData={content[1]} />
+              <ProfileContainer
+                myNickname={myNickname}
+                userRole={userRole}
+                tap="past"
+                profileCardData={content[0]}
+                isarrow="true"
+              />
+              <ProfileContainer
+                myNickname={myNickname}
+                userRole={userRole}
+                tap="rejected"
+                profileCardData={content[1]}
+                isarrow="ture"
+              />
             </>
           )}
           {tap !== 'past' &&
             content.map((profileCardData) => (
               <ProfileContainer
+                myNickname={myNickname}
                 key={profileCardData.appointmentId}
                 userRole={userRole}
-                type={tap}
+                tap={tap}
                 profileCardData={profileCardData}
+                isarrow="true"
               />
             ))}
         </ProfileWrapper>

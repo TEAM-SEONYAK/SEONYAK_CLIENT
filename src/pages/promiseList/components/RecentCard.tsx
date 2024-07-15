@@ -1,10 +1,11 @@
+import { EmptyImg } from '@assets/svgs';
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
+import useCountdown from '@hooks/useCountDown';
 import ProfileChip from './ProfileChip';
 import ProfileContainer from './ProfileContainer';
 import PromiseTimerBtn from './PromiseTimerBtn';
 import { profileCardDataType } from '../types/type';
-import { calculateTimeLeft } from '../utils/calculateTimeLeft';
+
 interface RecentCardPropType {
   userRole: string;
   recentAppointment?: profileCardDataType;
@@ -13,20 +14,7 @@ interface RecentCardPropType {
 
 const RecentCard = (props: RecentCardPropType) => {
   const { userRole, recentAppointment, appointmentNum } = props;
-
-  const [timeLeft, setTimeLeft] = useState(() =>
-    calculateTimeLeft(recentAppointment?.date + '', recentAppointment?.startTime + ''),
-  );
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft(recentAppointment?.date + '', recentAppointment?.startTime + ''));
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [recentAppointment?.date, recentAppointment?.startTime]);
-
-  const { diffText, diff, dDayDiff } = timeLeft;
+  const { diffText, diff, dDayDiff } = useCountdown(recentAppointment?.date, recentAppointment?.startTime);
 
   return (
     <Wrapper $userRole={userRole}>
@@ -40,8 +28,8 @@ const RecentCard = (props: RecentCardPropType) => {
       <DashedDivider />
       {appointmentNum ? (
         <>
-          <ProfileContainer userRole={userRole} type="default" profileCardData={recentAppointment} />
-          <PromiseTimerBtn isActive={diff <= 0} diff={diffText} />
+          <ProfileContainer userRole={userRole} tap="default" profileCardData={recentAppointment} isarrow="true" />
+          <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="recent" />
         </>
       ) : (
         <EmptyImg />
@@ -83,10 +71,4 @@ const DashedDivider = styled.div`
   height: 0.1rem;
   margin-bottom: 1.39rem;
   border-bottom: 1px dashed ${({ theme }) => theme.colors.grayScaleLG1};
-`;
-
-const EmptyImg = styled.div`
-  width: 31.2rem;
-  height: 13.4rem;
-  background-color: ${({ theme }) => theme.colors.grayScaleLG2};
 `;

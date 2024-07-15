@@ -1,35 +1,76 @@
-import { CardArrowRightGrayIc, ClockIc } from '@assets/svgs';
+import { CardArrowRightGrayIc, ClockIc, SbhbHomeProfile1Img, SbhbHomeProfile2Img } from '@assets/svgs';
+import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import styled from '@emotion/styled';
 import { getLevelName } from '@utils/getLevelName';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProfileChip from './ProfileChip';
 import { profileCardDataType } from '../types/type';
 import { extractMonthAndDay } from '../utils/extractMonthAndDay';
 
 interface ProfileContainerPropType {
   userRole: string;
-  type: string;
+  tap: string;
   profileCardData?: profileCardDataType;
+  isarrow: string;
+  myNickname: string;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  const { userRole, profileCardData, type } = props;
+  const { userRole, profileCardData, tap, isarrow, myNickname } = props;
+  const navigate = useNavigate();
+
+  // 리뷰 모달 띄우기 용
+  const [isReviewClicked, setIsReviewClicked] = useState(false);
+
+  const ShowReviewClickedModal = (type: boolean) => {
+    setIsReviewClicked(type);
+  };
+
+  // 서버에서 온 date값에서 달, 일 추출
   const { month, day } = extractMonthAndDay(profileCardData?.date + '');
 
+  // 선배가 보는 후배 상담 내용
   const getTopicDescription = (chosenTopic: string[] | undefined) => {
     const topicLength = chosenTopic?.length;
 
     return topicLength ? `${chosenTopic[0]} 외 ${topicLength - 1}건` : '직접 작성했어요';
   };
+
+  // 상세 페이지 라우팅
+  const handleClickProfileContainer = (tap: string, userRole: string) => {
+    if (userRole === 'SENIOR' && tap === 'pending') {
+      navigate('/promiseDetail', {
+        state: { tap: 'pending', myNickname: myNickname },
+      });
+    }
+    if (userRole === 'JUNIOR' && tap === 'pending') {
+      navigate('./promiseDetailJunior', {
+        state: { tap: 'pending', myNickname: myNickname },
+      });
+    }
+    if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default')) {
+      navigate('./promiseDetail', {
+        state: { tap: 'scheduled', myNickname: myNickname },
+      });
+    }
+    if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default')) {
+      navigate('./promiseDetailJunior', {
+        state: { tap: 'scheduled', myNickname: myNickname },
+      });
+    }
+  };
+
   return (
-    <ReviewWrapper $type={type}>
-      <Wrapper $type={type}>
-        <TempImg />
+    <ReviewWrapper $tap={tap}>
+      <Wrapper $tap={tap} onClick={() => handleClickProfileContainer(tap, userRole)}>
+        <SbhbHomeProfile1Icon />
         <InfoContainer>
           <NameContainer>
             <Name>
               {profileCardData?.nickname} {userRole === 'SENIOR' ? '후배' : '선배'}
             </Name>
-            {type === 'rejected' && <RejectedChip>거절</RejectedChip>}
+            {tap === 'rejected' && <RejectedChip>거절</RejectedChip>}
           </NameContainer>
           {userRole === 'JUNIOR' && (
             <ChipContainer>
@@ -38,18 +79,18 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
             </ChipContainer>
           )}
           {userRole === 'SENIOR' &&
-            (type === 'pending' || type === 'scheduled' || type === 'past' || type === 'rejected') && (
+            (tap === 'pending' || tap === 'scheduled' || tap === 'past' || tap === 'rejected') && (
               <>
                 <ChipContainer>
                   <ProfileChip type="field" content={profileCardData?.field} />
                   <ProfileChip type="field" content={profileCardData?.department} />
                 </ChipContainer>
-                {type === 'pending' && (
+                {tap === 'pending' && (
                   <Description $colorType="grayScaleDG">{getTopicDescription(profileCardData?.topic)}</Description>
                 )}
               </>
             )}
-          {userRole === 'SENIOR' && type === 'default' && (
+          {userRole === 'SENIOR' && tap === 'default' && (
             <>
               <MajorDiv>
                 <Major>{profileCardData?.field}</Major>
@@ -71,7 +112,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
               </Description>
             </>
           )}
-          {(type === 'scheduled' || type === 'past') && (
+          {(tap === 'scheduled' || tap === 'past') && (
             <TimeContainer>
               <ClockIc />
               <TimeSpan>
@@ -79,47 +120,55 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
               </TimeSpan>
             </TimeContainer>
           )}
-          {userRole === 'SENIOR' && type === 'rejected' && (
+          {userRole === 'SENIOR' && tap === 'rejected' && (
             <Description $colorType="grayScaleMG2">거절한 선약이에요</Description>
           )}
-          {userRole === 'JUNIOR' && type === 'rejected' && (
+          {userRole === 'JUNIOR' && tap === 'rejected' && (
             <Description $colorType="grayScaleMG2">선배님이 거절한 선약이에요</Description>
           )}
         </InfoContainer>
-        <CardArrowRightGrayIcon />
+        <CardArrowRightGrayIcon isarrow={isarrow} />
       </Wrapper>
-      {userRole === 'JUNIOR' && type === 'past' && <ReviewBtn>리뷰 작성하기</ReviewBtn>}
-      {userRole === 'SENIOR' && type === 'past' && <ReviewBtn>작성된 리뷰 없음</ReviewBtn>}
+      {userRole === 'JUNIOR' && tap === 'past' && (
+        <ReviewBtn onClick={() => setIsReviewClicked(true)}>리뷰 작성하기</ReviewBtn>
+      )}
+      {userRole === 'SENIOR' && tap === 'past' && (
+        <ReviewBtn onClick={() => setIsReviewClicked(true)}>작성된 리뷰 없음</ReviewBtn>
+      )}
+      <AutoCloseModal
+        text="아직 준비중인 기능이에요"
+        showModal={isReviewClicked}
+        handleShowModal={ShowReviewClickedModal}>
+        <TestImg />
+      </AutoCloseModal>
     </ReviewWrapper>
   );
 };
 
 export default ProfileContainer;
 
-const ReviewWrapper = styled.div<{ $type: string }>`
+const ReviewWrapper = styled.div<{ $tap: string }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  border-bottom: ${({ $type, theme }) => ($type === 'default' ? 'none' : `1px solid ${theme.colors.grayScaleLG2}`)};
+  border-bottom: ${({ $tap, theme }) => ($tap === 'default' ? 'none' : `1px solid ${theme.colors.grayScaleLG2}`)};
 
   &:last-child {
-    margin-bottom: ${({ $type }) => ($type === 'default' ? 0 : '8.8rem')};
+    margin-bottom: ${({ $tap }) => ($tap === 'default' ? 0 : '8.8rem')};
     border-bottom: none;
   }
 `;
 
 // 이미지카드
-const Wrapper = styled.div<{ $type: string }>`
+const Wrapper = styled.div<{ $tap: string }>`
   display: flex;
   gap: 1.4rem;
   position: relative;
 
   width: 100%;
-  padding: ${({ $type }) => ($type === 'default' ? '0' : '2rem 0')};
-  border-bottom: ${({ $type, theme }) =>
-    $type === 'default' || $type === 'past' ? 'none' : `1px solid ${theme.colors.grayScaleLG2}`};
+  padding: ${({ $tap }) => ($tap === 'default' ? '0' : '2rem 0')};
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 
@@ -128,12 +177,8 @@ const Wrapper = styled.div<{ $type: string }>`
   }
 `;
 
-const TempImg = styled.div`
-  width: 8.6rem;
-  height: 8.6rem;
+const SbhbHomeProfile1Icon = styled(SbhbHomeProfile1Img)`
   border-radius: 100px;
-
-  background-color: ${({ theme }) => theme.colors.primaryBlue50};
 `;
 
 const InfoContainer = styled.div`
@@ -181,7 +226,8 @@ const Description = styled.div<{ $colorType: string }>`
   ${({ theme }) => theme.fonts.Body1_M_14};
 `;
 
-const CardArrowRightGrayIcon = styled(CardArrowRightGrayIc)`
+const CardArrowRightGrayIcon = styled(CardArrowRightGrayIc)<{ isarrow: string }>`
+  display: ${({ isarrow }) => (isarrow === 'true' ? 'block' : 'none')};
   position: absolute;
   top: 50%;
   right: 0;
@@ -236,4 +282,10 @@ const RejectedChip = styled.div`
 
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Caption2_SB_12};
+`;
+
+const TestImg = styled.div`
+  width: 27rem;
+  height: 17.2rem;
+  background-color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;

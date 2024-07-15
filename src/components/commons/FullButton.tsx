@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 interface FullBtnPropType {
   isActive?: boolean;
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const FullBtn = (props: FullBtnPropType) => {
@@ -17,10 +17,10 @@ export const FullBtn = (props: FullBtnPropType) => {
 };
 
 const FullBtnWrapper = styled.button`
-  z-index: 1;
+  z-index: 3;
 
-  width: 33.5rem;
-  padding: 1.55rem 13.65rem;
+  width: 100%;
+  padding: 1.55rem 0;
   border-radius: 5px;
 
   background-color: ${({ theme }) => theme.colors.Blue};
