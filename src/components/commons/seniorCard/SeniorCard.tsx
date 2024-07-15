@@ -22,7 +22,7 @@ export const SeniorCard = (props: seniorListPropType) => {
 
   return (
     <SeniorCardWrapper $isSmall={variant === 'secondary'}>
-      <SeniorImg />
+      <SeniorImg $isSmall={variant === 'secondary'} />
       <SeniorCardLayout>
         <Nickname>{nickname}</Nickname>
         <SeniorInfo>

@@ -34,27 +34,29 @@ const Career = ({ profile, setProfile, setStep }: funnelComponentPropType) => {
   }, [career, award]);
 
   return (
-    <Wrapper>
-      <Text>주요 경력 및 이력</Text>
-      <Textarea
-        placeholder="주요 경력 및 이력을 최대 60자까지 마음껏 작성해주세요"
-        wordLimit={60}
-        height={10}
-        inputVal={career}
-        handleInputVal={handleChangeCareer}
-      />
-      <WarnDescription isShown={isCareerWarning} warnText="글자 수가 초과되었어요" />
-      <Text>수상</Text>
-      <Textarea
-        placeholder="수상 내역을 최대 60자까지 마음껏 작성해주세요"
-        wordLimit={60}
-        height={10}
-        inputVal={award}
-        handleInputVal={handleChangeAwards}
-      />
-      <WarnDescription isShown={isAwardWarning} warnText="글자 수가 초과되었어요" />
+    <>
+      <Wrapper>
+        <Text>주요 경력 및 이력</Text>
+        <Textarea
+          placeholder="주요 경력 및 이력을 최대 60자까지 마음껏 작성해주세요"
+          wordLimit={60}
+          height={10}
+          inputVal={career}
+          handleInputVal={handleChangeCareer}
+        />
+        <WarnDescription isShown={isCareerWarning} warnText="글자 수가 초과되었어요" />
+        <Text>수상</Text>
+        <Textarea
+          placeholder="수상 내역을 최대 60자까지 마음껏 작성해주세요"
+          wordLimit={60}
+          height={10}
+          inputVal={award}
+          handleInputVal={handleChangeAwards}
+        />
+        <WarnDescription isShown={isAwardWarning} warnText="글자 수가 초과되었어요" />
+      </Wrapper>
       <FullBtn isActive={isCareerNext && isAwardNext} text="다음으로" onClick={handleNextButton} />
-    </Wrapper>
+    </>
   );
 };
 

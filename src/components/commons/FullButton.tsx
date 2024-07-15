@@ -5,26 +5,38 @@ interface FullBtnPropType {
   isActive?: boolean;
   text: string;
   onClick: () => void;
+
+  isTransparent?: boolean;
 }
 
 export const FullBtn = (props: FullBtnPropType) => {
-  const { isActive, text, onClick } = props;
+  const { isActive, text, onClick, isTransparent = false } = props;
   return (
-    <FullBtnWrapper type="button" disabled={!isActive} onClick={onClick}>
-      {text}
-    </FullBtnWrapper>
+    <Wrapper $isTransparent={isTransparent}>
+      <FullBtnContainer type="button" disabled={!isActive} onClick={onClick}>
+        {text}
+      </FullBtnContainer>
+    </Wrapper>
   );
 };
 
-const FullBtnWrapper = styled.button`
+const Wrapper = styled.div<{ $isTransparent: boolean }>`
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+
+  width: 100vw;
+  padding-bottom: 3.8rem;
+
+  background-color: ${({ $isTransparent }) => ($isTransparent ? '' : 'white')};
+`;
+
+const FullBtnContainer = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  bottom: 3.8rem;
-  left: 50%;
-  z-index: 1;
-  transform: translateX(-50%);
 
   width: 33.5rem;
   height: 4.5rem;

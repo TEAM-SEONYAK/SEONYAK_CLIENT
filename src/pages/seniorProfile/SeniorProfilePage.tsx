@@ -14,6 +14,7 @@ import { SENIOR_PROFILE_STEPS } from './constants';
 import { Header } from '../../components/commons/Header';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
+import { weekToDay } from '@pages/seniorProfile/utils/weekToDay';
 
 const SeniorProfilePage = () => {
   const [step, setStep] = useState(0);
@@ -36,7 +37,16 @@ const SeniorProfilePage = () => {
       case 5:
         return <TimeSelect profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 6:
-        return <PreView profile={profile} setStep={setStep} />;
+        return (
+          <PreView
+            setStep={setStep}
+            career={profile.career}
+            award={profile.award}
+            catchphrase={profile.catchphrase}
+            story={profile.story}
+            preferredTimeList={weekToDay(profile.isDayOfWeek, profile.preferredTimeList)}
+          />
+        );
       case 7:
         return <Complete />;
       default:
