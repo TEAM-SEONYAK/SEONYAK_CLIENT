@@ -74,7 +74,7 @@ export const BottomSheet = (props: BottomSheetPropType) => {
           )}
         </Content>
         <ButtonLayout>
-          <ReloadIcon type="reset" onClick={handleReset}>
+          <ReloadIcon type="button" onClick={handleReset}>
             <ReloadIc />
           </ReloadIcon>
           <ExitBottomSheet

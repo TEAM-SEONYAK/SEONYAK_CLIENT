@@ -37,7 +37,7 @@ const JuniorPromisePage = () => {
   };
   // 바텀시트 내 계열 칩
   const [selectedField, setSelectedField] = useState(Array(7).fill(false));
-  // 선택계열 리스트
+  // 선택 계열 리스트
   const arrField = [...selectedField];
 
   const handleChipField = (fieldId: number) => {

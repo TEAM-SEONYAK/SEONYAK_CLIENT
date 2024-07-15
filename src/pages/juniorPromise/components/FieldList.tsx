@@ -11,7 +11,7 @@ export const FieldList = (props: IFieldList) => {
   const isSelected = selectedField[fieldId];
   return (
     <FieldWrapper onClick={() => handleChipField(fieldId)}>
-      <FieldTitle isselected={isSelected + ''}>{field}</FieldTitle>
+      <FieldTitle isSelected={isSelected}>{field}</FieldTitle>
       <CheckBox isselected={isSelected + ''} />
     </FieldWrapper>
   );
@@ -25,9 +25,9 @@ const FieldWrapper = styled.div`
 
   padding: 1rem 0;
 `;
-const FieldTitle = styled.p<{ isselected: string }>`
+const FieldTitle = styled.p<{ isSelected: boolean }>`
   ${({ theme }) => theme.fonts.Title1_SB_16};
-  color: ${({ theme, isselected }) => (isselected === 'true' ? theme.colors.Blue : theme.colors.grayScaleDG)};
+  color: ${({ theme, isSelected }) => (isSelected === true ? theme.colors.Blue : theme.colors.grayScaleDG)};
 `;
 
 const CheckBox = styled(CheckItemIc)<{ isselected: string }>`
