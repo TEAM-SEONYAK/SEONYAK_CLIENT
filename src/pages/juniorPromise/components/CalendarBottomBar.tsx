@@ -1,22 +1,37 @@
 import { ReloadIc } from '@assets/svgs';
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface CalendarBottomBarPropType {
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
+  setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
+  btnId: number;
 }
 
-const CalendarBottomBar = ({ setIsCalendarOpen }: CalendarBottomBarPropType) => {
+// 만약 selectedTime의 selectedTime과 clickedDay가 문자열인지 확인
+// 조건에 따라 버튼의 스타일을 변경
+const CalendarBottomBar = ({ setIsCalendarOpen, selectedTime, btnId }: CalendarBottomBarPropType) => {
+  const selectedTimeMent = ['첫 번째 일정 선택하기', '두 번째 일정 선택하기', '세 번째 일정 선택하기'];
+  const [isSelected, setIsSelected] = useState(false);
+
+  useEffect(() => {
+    selectedTime[btnId].selectedTime !== selectedTimeMent[btnId] && selectedTime[btnId].clickedDay !== ''
+      ? setIsSelected(true)
+      : setIsSelected(false);
+  }, [btnId, selectedTime[btnId].selectedTime, selectedTime[btnId].clickedDay]);
+
+  const handleOpenSelect = () => {
+    setIsCalendarOpen(false);
+    setIsSelected(false);
+  };
+
   return (
     <ButtonLayout>
       <ReloadBtn type="reset">
         <ReloadIcon />
       </ReloadBtn>
-      <ExitBottomSheet
-        type="button"
-        onClick={() => {
-          setIsCalendarOpen(false);
-        }}>
+      <ExitBottomSheet type="button" disabled={!isSelected} onClick={handleOpenSelect} $isEnabled={isSelected}>
         적용하기
       </ExitBottomSheet>
     </ButtonLayout>
@@ -58,14 +73,16 @@ const ReloadBtn = styled.button`
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
-const ExitBottomSheet = styled.button`
+const ExitBottomSheet = styled.button<{ $isEnabled: boolean }>`
   width: 27.4rem;
   height: 5rem;
   border-radius: 8px;
 
-  background: ${({ theme }) => theme.colors.grayScaleMG1};
+  background: ${({ theme, $isEnabled }) => ($isEnabled ? theme.colors.Blue : theme.colors.grayScaleMG1)};
 
   color: ${({ theme }) => theme.colors.grayScaleWhite};
 
   ${({ theme }) => theme.fonts.Head2_SB_18};
+  cursor: ${({ $isEnabled }) => ($isEnabled ? 'pointer' : 'not-allowed')};
+  transition: background-color 0.3s ease;
 `;
