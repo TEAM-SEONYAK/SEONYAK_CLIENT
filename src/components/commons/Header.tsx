@@ -13,11 +13,11 @@ interface HeaderPropType {
 const getBgColor = (bgColor: 'white' | 'gray' | 'transparent') => {
   switch (bgColor) {
     case 'white':
-      return `${({ theme }) => theme.colors.grayScaleWhite}`;
+      return 'grayScaleWhite';
     case 'gray':
-      return `${({ theme }) => theme.colors.grayScaleLG1}`;
+      return 'grayScaleLG1';
     case 'transparent':
-      return 'transparent';
+      return undefined;
   }
 };
 
@@ -41,7 +41,7 @@ export const Header = (props: HeaderPropType) => {
   );
 };
 
-const Wrapper = styled.header<{ $hasTitle: boolean; $bgColor: string }>`
+const Wrapper = styled.header<{ $hasTitle: boolean; $bgColor: 'grayScaleWhite' | 'grayScaleLG1' | undefined }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,13 +53,12 @@ const Wrapper = styled.header<{ $hasTitle: boolean; $bgColor: string }>`
   height: ${({ $hasTitle }) => ($hasTitle ? '5rem' : '4.4rem')};
   padding: 1rem 2rem;
 
-  background-color: bgcolor;
+  background-color: ${({ theme, $bgColor }) => ($bgColor ? theme.colors[$bgColor] : 'transparent')};
 `;
 
 const Title = styled.span`
   ${({ theme }) => theme.fonts.Title1_SB_16}
   color: ${({ theme }) => theme.colors.grayScaleBG};
-  color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const LeftSvgWrapper = styled.div`

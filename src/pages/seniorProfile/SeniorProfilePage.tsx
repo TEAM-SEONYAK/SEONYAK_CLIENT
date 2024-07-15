@@ -52,7 +52,6 @@ const SeniorProfilePage = () => {
             title={step == 2 ? '' : '프로필 등록'}
             LeftSvg={ArrowLeftIc}
             onClickLeft={() => setStep((prev) => prev - 1)}
-            bgColor="white"
           />
           {step > 2 && <ProgressBar max={5} current={step - 2} />}
           <Title>

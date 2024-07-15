@@ -26,3 +26,4 @@ export { default as ModalCheckIc } from './ic_modal_check.svg?react';
 export { default as DeleteIc } from './ic_delete_btn.svg?react';
 export { default as PlusIc } from './ic_plus_btn.svg?react';
 export { default as GoogleLogoIc } from './googleLogoIc.svg?react';
+export { default as DropdownIc } from './ic_dropdown.svg?react';

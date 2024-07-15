@@ -1,4 +1,4 @@
-import { ArrowDownIc } from '@assets/svgs';
+import { DropdownIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { TIME_LIST } from '@pages/seniorProfile/constants';
 import { useEffect, useState } from 'react';
@@ -70,10 +70,11 @@ export default DropDown;
 
 const BackdropContainer = styled.div`
   position: fixed;
+  z-index: 2;
+
   width: 100%;
   height: 100dvh;
   margin: -4rem 0 0 -2rem;
-  z-index: 2;
 `;
 
 const DropdownContainer = styled.section<{ $isDefault: boolean; $isActive: boolean }>`
@@ -97,7 +98,7 @@ const SelectedText = styled.p<{ $isActive: boolean }>`
   color: ${({ $isActive, theme }) => ($isActive ? theme.colors.grayScaleBlack : theme.colors.grayScaleMG1)};
 `;
 
-const ArrowDownIcon = styled(ArrowDownIc)<{ isactive: string }>`
+const ArrowDownIcon = styled(DropdownIc)<{ isactive: string }>`
   fill: ${({ isactive }) => (isactive === 'true' ? '#A2A7B0' : '#E7EAF2')};
 `;
 
