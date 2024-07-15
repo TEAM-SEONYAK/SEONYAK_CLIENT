@@ -82,7 +82,7 @@ const Table = ({ preferredTime }: timeTablePropType) => {
 };
 export default TimeTable;
 
-const TableWrapper = styled.div`
+const TableWrapper = styled.table`
   width: 100%;
   height: 100%;
   margin-right: 0.3rem;
@@ -90,7 +90,7 @@ const TableWrapper = styled.div`
   border-radius: 2px;
 `;
 
-const TableContainer = styled.table`
+const TableContainer = styled.tbody`
   width: 100%;
   height: 100%;
 `;
