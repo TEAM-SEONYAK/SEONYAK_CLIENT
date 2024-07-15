@@ -17,10 +17,6 @@ const router = createBrowserRouter([
         element: <PromiseListPage />,
       },
       {
-        path: 'login',
-        element: <LoginPage />,
-      },
-      {
         path: 'onboarding',
         element: <OnboardingPage />,
       },
