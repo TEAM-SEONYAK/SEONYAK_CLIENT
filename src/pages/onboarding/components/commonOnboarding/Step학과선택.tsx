@@ -99,7 +99,9 @@ const SearchList = ({ handleSelectMajors, majorName, selectedMajors }: searchLis
   return (
     <SearchListContainer onClick={handleClick}>
       <MajorText $isActive={isActive}>{majorName}</MajorText>
-      <CheckItemIcon $isActive={isActive} />
+      <IconWrapper $isActive={isActive}>
+        <CheckItemIc />
+      </IconWrapper>
     </SearchListContainer>
   );
 };
@@ -121,6 +123,8 @@ const MajorText = styled.p<{ $isActive: boolean }>`
   ${({ theme }) => theme.fonts.Body3_SB_14};
 `;
 
-const CheckItemIcon = styled(CheckItemIc)<{ $isActive: boolean }>`
-  fill: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : '')};
+const IconWrapper = styled.i<{ $isActive: boolean }>`
+  & svg {
+    fill: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : '')};
+  }
 `;

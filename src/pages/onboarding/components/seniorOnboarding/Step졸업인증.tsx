@@ -1,3 +1,4 @@
+import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import { ChangeEvent, useState } from 'react';
@@ -6,10 +7,14 @@ import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 const Step졸업인증 = () => {
   const DEFAULT_TEXT = '파일 첨부하기';
   const [isError, setError] = useState(false);
+  const [isSuccess, setSuccess] = useState(true);
   const [fileName, setFileName] = useState(DEFAULT_TEXT);
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setFileName(e.target.files[0].name);
+  };
+  const handleSetSuccess = () => {
+    setSuccess(true);
   };
   return (
     <Wrapper>
@@ -29,6 +34,9 @@ const Step졸업인증 = () => {
           <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50MB)</Caption>
         )}
       </TextBox>
+      <AutoCloseModal text="인증에 성공했어요" showModal={isSuccess} handleShowModal={handleSetSuccess}>
+        <Dummy />
+      </AutoCloseModal>
     </Wrapper>
   );
 };
@@ -37,4 +45,11 @@ export default Step졸업인증;
 
 const Wrapper = styled.div`
   padding-top: 2rem;
+`;
+
+const Dummy = styled.div`
+  width: 27rem;
+  height: 17rem;
+
+  background-color: aliceblue;
 `;
