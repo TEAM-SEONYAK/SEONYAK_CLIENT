@@ -1,4 +1,4 @@
-import GoogleIc from '@assets/svgs/googleLogoIc.svg?react';
+import { GoogleLogoIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import useGoogleLoginHook from './hooks/useLoginQuery';
@@ -40,7 +40,7 @@ const Text = styled.span`
   text-align: center;
 `;
 
-const GoogleLogoIcon = styled(GoogleIc)`
+const GoogleLogoIcon = styled(GoogleLogoIc)`
   width: 33px;
   height: 33px;
   margin: 10px;

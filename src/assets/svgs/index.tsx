@@ -24,3 +24,4 @@ export { default as NaviPromiseGrayIc } from './ic_navi_promise_gray.svg?react';
 export { default as ReloadIc } from './ReloadIc.svg?react';
 export { default as DeleteIc } from './ic_delete_btn.svg?react';
 export { default as PlusIc } from './ic_plus_btn.svg?react';
+export { default as GoogleLogoIc } from './googleLogoIc.svg?react';
