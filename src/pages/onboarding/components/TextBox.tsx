@@ -19,12 +19,10 @@ export const InputBox = ({ label, children, type = 'text', text, ...inputElement
       {type === 'text' ? (
         <Input type={type} id={label} {...inputElements} />
       ) : (
-        <>
-          <FileLabel>
-            <FileText $isDefault={text === inputElements.placeholder}>{text}</FileText>
-            <FileInput type="file" accept="image/*, .pdf" {...inputElements} />
-          </FileLabel>
-        </>
+        <FileLabel>
+          <FileText $isDefault={text === inputElements.placeholder}>{text}</FileText>
+          <FileInput type="file" accept="image/*, .pdf" {...inputElements} />
+        </FileLabel>
       )}
       {children}
     </InputWrapper>
@@ -123,6 +121,13 @@ const FileInput = styled.input`
 `;
 
 const FileText = styled.span<{ $isDefault: boolean }>`
+  overflow: hidden;
+
+  width: calc(100% - 7rem);
+
   ${({ theme }) => theme.fonts.Title2_M_16};
   color: ${({ $isDefault, theme }) => ($isDefault ? theme.colors.grayScaleMG2 : theme.colors.grayScaleBG)};
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
 `;
