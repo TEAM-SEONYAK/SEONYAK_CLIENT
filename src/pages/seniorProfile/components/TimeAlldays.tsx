@@ -38,7 +38,9 @@ const TimeAlldays = ({ profile, setProfile }: funnelComponentPropType) => {
 export default TimeAlldays;
 
 const Wrapper = styled.div`
-  padding-left: 2rem;
+  overflow-y: scroll;
+
+  padding: 0 2rem 10rem;
 `;
 
 const Container = styled.section`

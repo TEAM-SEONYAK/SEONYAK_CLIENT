@@ -60,7 +60,7 @@ const Wrapper = styled.div`
 
 const WaveText = styled.p<{ $isDefault: boolean; $isActive: boolean }>`
   ${({ theme }) => theme.fonts.Title2_M_16};
-  padding: 0 ${({ $isDefault }) => ($isDefault ? '0.9rem' : '0.7rem')} 0 0;
+  padding: ${({ $isDefault }) => ($isDefault ? '0 0.4rem 0 0.9rem' : '0 0.3rem 0 0.7rem')};
 
   color: ${({ $isActive, theme }) => !$isActive && theme.colors.grayScaleMG1};
 `;
