@@ -3,12 +3,12 @@ import styled from '@emotion/styled';
 // 화면 하단 풀사이즈 버튼
 interface FullBtnPropType {
   isActive?: boolean;
-  text: string;
+  text?: string;
   onClick?: () => void;
 }
 
 export const FullBtn = (props: FullBtnPropType) => {
-  const { isActive, text, onClick } = props;
+  const { isActive, text = '다음으로', onClick } = props;
   return (
     <Wrapper>
       <FullBtnWrapper type="button" disabled={!isActive} onClick={onClick}>
