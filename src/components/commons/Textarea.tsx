@@ -26,6 +26,7 @@ const Textarea = (props: InputPropType) => {
           $isValid={inputVal.length <= wordLimit}
           $height={height}
           maxLength={wordLimit}
+          value={inputVal}
         />
         <WordLimitContainer>
           <Word $isLimit={inputVal.length <= wordLimit}>{inputVal.length}</Word>
@@ -42,6 +43,7 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
 
+  width: 100%;
   margin-bottom: 0.6rem;
 `;
 
@@ -52,7 +54,7 @@ const TextareaLayout = styled.div`
 const TextareaContainer = styled.textarea<{ $isValid: boolean; $height: number }>`
   overflow: hidden;
 
-  width: 33.5rem;
+  width: 100%;
   height: ${({ $height }) => `${$height}rem`};
   padding: 1.1rem 1.4rem 3rem;
   border: ${({ $isValid, theme }) => ($isValid ? '1px solid transparent' : `1px solid ${theme.colors.Red}`)};

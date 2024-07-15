@@ -1,22 +1,42 @@
 import styled from '@emotion/styled';
+import React from 'react';
 import { ButtonCheckIc } from '../../../assets/svgs';
-import { TIME_SELECTION_TITLE } from '../constants/constants';
+import { TIME_SELECTION_BUTTON } from '../constants/constants';
+import { formatBtnDateToString } from '../utils/formatBtnDateToString';
 
-function TimeSelectionButton() {
-  // const buttonValue = null;
-  const buttonValue = 'string';
+interface TimeSelectionButtonProps {
+  selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
+  isCalendarOpen: boolean;
+  setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
+  setBtnId: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const TimeSelectionButton: React.FC<TimeSelectionButtonProps> = ({
+  selectedTime,
+  setIsCalendarOpen,
+  setBtnId,
+}: TimeSelectionButtonProps) => {
+  const handleTimeSelectBtn = (btnId: number) => {
+    setIsCalendarOpen(true);
+    setBtnId(btnId);
+  };
 
   return (
     <Wrapper>
-      {TIME_SELECTION_TITLE.map((item) => (
-        <Layout key={item.id} $isActive={buttonValue !== null}>
-          <Title2>{buttonValue || item.title}</Title2>
-          {buttonValue && <StyledButtonCheckIc />}
-        </Layout>
+      {selectedTime.map((item, idx) => (
+        <TimeBtn
+          key={item.id}
+          $isActive={item.selectedTime !== TIME_SELECTION_BUTTON[idx]}
+          onClick={() => handleTimeSelectBtn(item.id)}>
+          {item.selectedTime !== TIME_SELECTION_BUTTON[idx] && formatBtnDateToString(item.clickedDay)}{' '}
+          {item.selectedTime}
+          <ButtonCheckIcon isactive={(item.selectedTime !== TIME_SELECTION_BUTTON[idx]).toString()} />
+        </TimeBtn>
       ))}
     </Wrapper>
   );
-}
+};
 
 export default TimeSelectionButton;
 
@@ -26,35 +46,30 @@ const Wrapper = styled.div`
   gap: 1.2rem;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
 `;
 
-const Title2 = styled.span`
-  position: relative;
-  left: 2rem;
-
-  ${({ theme }) => theme.fonts.Title2_M_16}
-  color: ${({ theme }) => theme.colors.grayScaleDG};
-`;
-
-const Layout = styled.div<{ $isActive: boolean }>`
+const TimeBtn = styled.div<{ $isActive: boolean }>`
   display: flex;
-  gap: 1.2rem;
+  justify-content: space-between;
   align-items: center;
 
-  width: 33.5rem;
+  width: 100%;
   height: 4.8rem;
+  padding: 1.2rem 1.359rem 1.1rem 2rem;
   border: 1px solid
     ${({ theme, $isActive }) => ($isActive ? theme.colors.transparentBlue_50 : theme.colors.grayScaleLG2)};
   border-radius: 8px;
 
   background-color: ${({ theme, $isActive }) =>
     $isActive ? theme.colors.transparentBlue_5 : theme.colors.grayScaleWG};
+
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.grayScaleBlack : theme.colors.grayScaleDG)};
+
+  ${({ theme }) => theme.fonts.Title2_M_16}
 `;
 
-const StyledButtonCheckIc = styled(ButtonCheckIc)`
-  position: relative;
-  left: 25rem;
-
-  width: 2rem;
-  height: 2rem;
+const ButtonCheckIcon = styled(ButtonCheckIc)<{ isactive: string }>`
+  display: ${({ isactive }) => (isactive === 'true' ? 'block' : 'none')};
 `;

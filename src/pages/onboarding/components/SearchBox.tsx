@@ -1,14 +1,29 @@
 import styled from '@emotion/styled';
-import { CancelIc, SearchIc } from '../../../assets/svgs';
+import { SearchIc } from '../../../assets/svgs';
 
-const SearchBox = ({ placeholder }: { placeholder: string }) => {
+interface searchBoxPropType {
+  placeholder: string;
+  handleInputClick?: () => void;
+  searchValue?: string;
+  // eslint-disable-next-line no-unused-vars
+  handleSearchValue?: (selectedValue: string) => void;
+}
+
+const SearchBox = ({ placeholder, handleInputClick, searchValue, handleSearchValue }: searchBoxPropType) => {
+  // eslint-disable-next-line no-undef
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleSearchValue && handleSearchValue(e.target.value);
+  };
   return (
     <InputWrapper>
-      <Input type="text" placeholder={placeholder} />
-      <IconWrapper>
-        <CancelIc />
-        <SearchIc />
-      </IconWrapper>
+      <Input
+        type="text"
+        placeholder={placeholder}
+        value={searchValue}
+        onClick={handleInputClick}
+        onChange={handleInputChange}
+      />
+      <SearchIcon />
     </InputWrapper>
   );
 };
@@ -17,17 +32,19 @@ export default SearchBox;
 
 const InputWrapper = styled.div`
   display: flex;
-  position: relative;
-`;
-const Input = styled.input`
-  position: absolute;
 
   width: 100%;
-  height: 5.1rem;
-  padding: 1rem 3.8rem 1rem 1.5rem;
+  padding: 0.9rem 0.5rem 0.9rem 1.5rem;
+  border-radius: 8px;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 0.4rem 0;
   ${({ theme }) => theme.fonts.Title2_M_16};
   border: none;
-  border-radius: 8px;
 
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
 
@@ -38,8 +55,7 @@ const Input = styled.input`
   }
 `;
 
-const IconWrapper = styled.i`
-  position: absolute;
-  top: 0.9rem;
-  right: 0.5rem;
+const SearchIcon = styled(SearchIc)`
+  width: 3.3rem;
+  height: 3.3rem;
 `;

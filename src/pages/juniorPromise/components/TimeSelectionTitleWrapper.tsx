@@ -1,11 +1,14 @@
 import styled from '@emotion/styled';
+import { SELECT_JUNIOR_TITLE } from '../constants/constants';
+
+const titleDescription = SELECT_JUNIOR_TITLE[0];
 
 const TimeSelectionTitleWrapper = () => {
   return (
     <Wrapper>
       <Layout>
-        <TimeSelectionTitle>선약 시간을 선택해주세요</TimeSelectionTitle>
-        <TimeSelectionDescription>제안하신 3가지 일정 중 선배가 하나를 선택해요</TimeSelectionDescription>
+        <TimeSelectionTitle>{titleDescription.title}</TimeSelectionTitle>
+        <TimeSelectionDescription>{titleDescription.description}</TimeSelectionDescription>
       </Layout>
     </Wrapper>
   );
@@ -22,14 +25,13 @@ const TimeSelectionDescription = styled.span`
 `;
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+
+  width: 100%;
 `;
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 
-  width: 33.5rem;
   height: 4.9rem;
 `;
