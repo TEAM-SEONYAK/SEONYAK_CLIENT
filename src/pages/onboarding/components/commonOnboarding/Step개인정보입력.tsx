@@ -74,7 +74,6 @@ const ImgCircle = styled.div`
 
   width: 11.7rem;
   height: 11.7rem;
-  border: 1px solid ${({ theme }) => theme.colors.grayScaleMG2};
   border-radius: 117px;
 
   & > img {
