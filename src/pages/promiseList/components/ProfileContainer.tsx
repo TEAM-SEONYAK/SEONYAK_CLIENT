@@ -34,7 +34,24 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
 
   const handleClickProfileContainer = (tap: string, userRole: string) => {
     if (userRole === 'SENIOR' && tap === 'pending') {
-      navigate('/PromiseDetail');
+      navigate('/promiseDetail', {
+        state: { tap: 'pending' },
+      });
+    }
+    if (userRole === 'JUNIOR' && tap === 'pending') {
+      navigate('./promiseDetailJunior', {
+        state: { tap: 'pending' },
+      });
+    }
+    if (userRole === 'SENIOR' && tap === 'scheduled') {
+      navigate('./promiseDetail', {
+        state: { tap: 'scheduled' },
+      });
+    }
+    if (userRole === 'JUNIOR' && tap === 'scheduled') {
+      navigate('./promiseDetailJunior', {
+        state: { tap: 'scheduled' },
+      });
     }
   };
   return (

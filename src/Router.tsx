@@ -1,4 +1,3 @@
-import PromiseDetailPage from '@pages/promiseDetail/PromiseDetailPage';
 import PromiseDetail from '@pages/promiseDetail/PromiseDetailPage';
 import PromiseDetailPageJunior from '@pages/promiseDetail/PromiseDetailPageJunior';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -22,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: 'promiseDetail',
         element: <PromiseDetail />,
+      },
+      {
+        path: 'promiseDetailJunior',
+        element: <PromiseDetailPageJunior />,
       },
       {
         path: 'login',

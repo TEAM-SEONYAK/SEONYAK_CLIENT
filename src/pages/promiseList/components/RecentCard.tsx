@@ -41,7 +41,7 @@ const RecentCard = (props: RecentCardPropType) => {
       {appointmentNum ? (
         <>
           <ProfileContainer userRole={userRole} tap="default" profileCardData={recentAppointment} isarrow="true" />
-          <PromiseTimerBtn isActive={diff <= 0} diff={diffText} />
+          <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="recent" />
         </>
       ) : (
         <EmptyImg />

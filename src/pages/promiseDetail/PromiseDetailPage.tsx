@@ -1,3 +1,4 @@
+// 유저가 선배일경우
 import { ArrowLeftIc, ButtonCheckIc, ArrowDownMgIc } from '@assets/svgs';
 import { BottomSheet } from '@components/commons/BottomSheet';
 import { FullBtn } from '@components/commons/FullButton';
@@ -5,16 +6,21 @@ import { Header } from '@components/commons/Header';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import Textarea from '@components/commons/Textarea';
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import { SENIOR_RESPONSE, JUNIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
+import PromiseTimerBtn from '@pages/promiseList/components/PromiseTimerBtn';
+import { calculateTimeLeft } from '@pages/promiseList/utils/calculateTimeLeft';
+import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { SENIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
 import { formatDate } from './utils/formatDate';
 
 const PromiseDetail = () => {
   // location으로 닉네임 잡아오기
   // location으로 눌린 탭 상태값 잡아오기
+  const location = useLocation();
+  const navigate = useNavigate();
+  const tap = location.state.tap;
   const myNickname = '아가라고요';
   const userRole = 'SENIOR';
-  const tap = 'pending';
   // 기본뷰 / 거절뷰
   const [viewType, setViewType] = useState('DEFAULT');
   // 수락시 선택한 시간 저장
@@ -57,9 +63,31 @@ const PromiseDetail = () => {
     setRejectDetail(detailReason);
   };
 
+  // 커스텀훅으로 분리하기 ~
+  // 실 데이터로연결 필요
+  const [timeLeft, setTimeLeft] = useState(() =>
+    calculateTimeLeft(SENIOR_RESPONSE.timeList[0]?.date + '', SENIOR_RESPONSE.timeList[0]?.startTime + ''),
+  );
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(
+        calculateTimeLeft(SENIOR_RESPONSE.timeList[0]?.date + '', SENIOR_RESPONSE.timeList[0]?.startTime + ''),
+      );
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [SENIOR_RESPONSE.timeList[0]?.date, SENIOR_RESPONSE.timeList[0]?.startTime]);
+
+  const { diffText, diff } = timeLeft;
+
   return (
     <>
-      <Header LeftSvg={ArrowLeftIc} title={viewType === 'DEFAULT' ? '자세히 보기' : '거절하기'} />
+      <Header
+        LeftSvg={ArrowLeftIc}
+        onClickLeft={() => navigate('/')}
+        title={viewType === 'DEFAULT' ? '자세히 보기' : '거절하기'}
+      />
       <Wrapper>
         <Layout $viewType={viewType}>
           <TitleContainer>
@@ -112,7 +140,7 @@ const PromiseDetail = () => {
             )}
           </TitleContainer>
 
-          {viewType === 'DEFAULT' ? (
+          {viewType === 'DEFAULT' && tap === 'pending' && (
             <TimeContainer>
               <Title>희망하는 약속 시간</Title>
               <Description>세 가지 시간 중 하나를 필수로 선택해주세요</Description>
@@ -128,26 +156,47 @@ const PromiseDetail = () => {
                 ))}
               </ContentContainer>
             </TimeContainer>
-          ) : (
-            <></>
+          )}
+          {viewType === 'DEFAULT' && tap === 'scheduled' && (
+            <ContentContainer>
+              <Title>약속 시간</Title>
+              {/* 여기 응답값으로 바꾸기 */}
+              <Content>2024년 7월 7일 20:30 - 21:00</Content>
+            </ContentContainer>
           )}
         </Layout>
         {viewType === 'DEFAULT' ? (
-          <>
-            <BtnWrapper>
-              <DeclineBtn type="button" onClick={handleClickDeclineBtn}>
-                거절하기
-              </DeclineBtn>
-              <AcceptBtn
-                type="button"
-                disabled={selectTime === null}
-                $isActive={selectTime !== null}
-                onClick={() => setIsModalOpen(true)}>
-                수락하기
-              </AcceptBtn>
-            </BtnWrapper>
-            <BtnBackground />
-          </>
+          tap === 'pending' ? (
+            <>
+              <BtnWrapper>
+                <DeclineBtn type="button" onClick={handleClickDeclineBtn}>
+                  거절하기
+                </DeclineBtn>
+                <AcceptBtn
+                  type="button"
+                  disabled={selectTime === null}
+                  $isActive={selectTime !== null}
+                  onClick={() => setIsModalOpen(true)}>
+                  수락하기
+                </AcceptBtn>
+              </BtnWrapper>
+              <BtnBackground />
+            </>
+          ) : (
+            <>
+              <BtnWrapper>
+                {/* 구글밋 입장 연결 필요 */}
+                <FullBtn
+                  onClick={() => {
+                    console.log('hi');
+                  }}
+                  text={diff <= 0 ? '지금 입장하기' : `약속 시간까지 ${diffText} 남았어요`}
+                  isActive={diff <= 0}
+                />
+              </BtnWrapper>
+              <BtnBackground />
+            </>
+          )
         ) : (
           <>
             <FullBtn

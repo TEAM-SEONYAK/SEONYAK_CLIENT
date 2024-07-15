@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 interface FullBtnPropType {
   isActive?: boolean;
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const FullBtn = (props: FullBtnPropType) => {

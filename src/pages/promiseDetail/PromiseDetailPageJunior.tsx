@@ -4,30 +4,55 @@ import { FullBtn } from '@components/commons/FullButton';
 import { Header } from '@components/commons/Header';
 import styled from '@emotion/styled';
 import ProfileContainer from '@pages/promiseList/components/ProfileContainer';
-// import { profileCardDataType } from '@pages/promiseList/types/type';
+import PromiseTimerBtn from '@pages/promiseList/components/PromiseTimerBtn';
+import { calculateTimeLeft } from '@pages/promiseList/utils/calculateTimeLeft';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const PromiseDetailPageJunior = () => {
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
+  const location = useLocation();
+  const tap = location.state.tap;
   const profileCardData = {
-    appointmentId: 1,
-    appointmentStatus: 'PENDING',
-    nickname: '조승희',
-    image: 'https://example.com/senior1.jpg',
-    company: 'SOPT Makers',
+    appointmentId: 2,
+    appointmentStatus: 'SCHEDULED',
+    nickname: '홍석범',
+    image: 'https://example.com/senior2.jpg',
+    company: '다이닝코드',
     field: '공학계열',
     position: '개발',
-    detailPosition: 'FE챕터장',
-    level: '2년차',
+    detailPosition: 'BE Developer',
+    level: '5년차',
+    date: '2024.08.05',
+    startTime: '14:30',
+    endTime: '15:00',
   };
+
+  // 커스텀훅으로 분리하기 ~
+  const [timeLeft, setTimeLeft] = useState(() =>
+    calculateTimeLeft(profileCardData?.date + '', profileCardData?.startTime + ''),
+  );
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft(profileCardData?.date + '', profileCardData?.startTime + ''));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [profileCardData?.date, profileCardData?.startTime]);
+
+  const { diffText, diff } = timeLeft;
+
   return (
     <>
       <Header LeftSvg={ArrowLeftIc} title="자세히 보기" />
       <Wrapper>
         <Layout>
+          {/* 여기 진이 뷰랑 연결 필요 */}
           <TitleContainer>
             <Title>예솔 선배님의 프로필</Title>
             <PromiseDiv>
-              <ProfileContainer userRole="JUNIOR" type="default" profileCardData={profileCardData} isarrow="false" />
+              <ProfileContainer userRole="JUNIOR" tap="default" profileCardData={profileCardData} isarrow="false" />
             </PromiseDiv>
           </TitleContainer>
 
@@ -47,12 +72,12 @@ const PromiseDetailPageJunior = () => {
           </TitleContainer>
         </Layout>
         <BtnWrapper>
-          <FullBtn
-            text="이미 신청한 선약은 취소할 수 없어요"
-            onClick={() => {
-              console.log('hi');
-            }}
-          />
+          {tap === 'pending' ? (
+            <FullBtn text="이미 신청한 선약은 취소할 수 없어요" />
+          ) : (
+            <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="detail" />
+          )}
+
           <BtnBackground />
         </BtnWrapper>
       </Wrapper>
