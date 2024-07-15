@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 import BottomSheet from '@pages/onboarding/components/BottomSheet';
 import { excludeCommonPart } from '@pages/onboarding/utils/excludeCommonPart';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import SearchBox from '../SearchBox';
+import { StepContext } from '@pages/onboarding/OnboardingPage';
+import { FullBtn } from '@components/commons/FullButton';
 
 const Step학교선택 = () => {
+  const { onNext } = useContext(StepContext);
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const [selectedUniv, setSelectedUniv] = useState('');
   const handleOpenSheet = () => setIsOpenSheet(true);
@@ -20,6 +23,7 @@ const Step학교선택 = () => {
           <Sheet학교선택 handleSelectUniv={handleSelectUniv} />
         </BottomSheet>
       )}
+      <FullBtn text="텍스트" isActive onClick={onNext} />
     </Wrapper>
   );
 };

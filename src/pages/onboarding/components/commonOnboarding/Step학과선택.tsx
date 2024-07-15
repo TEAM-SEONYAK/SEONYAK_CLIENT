@@ -2,10 +2,13 @@ import { CheckItemIc } from '@assets/svgs';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import MajorChip from '@pages/onboarding/components/MajorChip';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SearchBox from '../SearchBox';
+import { FullBtn } from '@components/commons/FullButton';
+import { StepContext } from '@pages/onboarding/OnboardingPage';
 
 const Step학과선택 = () => {
+  const { onNext } = useContext(StepContext);
   const [searchValue, setSearchValue] = useState('');
   const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
   const [isExceed, setIsExceed] = useState(false);
@@ -54,6 +57,7 @@ const Step학과선택 = () => {
           <SearchList key={m} handleSelectMajors={handleSelectMajors} majorName={m} selectedMajors={selectedMajors} />
         ))}
       </SearchListWrapper>
+      <FullBtn text="텍스트" isActive onClick={onNext} />
     </Wrapper>
   );
 };

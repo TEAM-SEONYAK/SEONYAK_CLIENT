@@ -76,7 +76,7 @@ const OnboardingPage = () => {
   return (
     <StepContext.Provider value={{ onNext: () => handleSetStep('NEXT') }}>
       <Layout userRole={role} step={step} handleSetStep={handleSetStep}>
-        <Step onNext={() => handleSetStep('NEXT')} />
+        <Step />
       </Layout>
     </StepContext.Provider>
   );

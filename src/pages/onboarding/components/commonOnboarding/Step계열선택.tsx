@@ -1,8 +1,12 @@
 import { CheckItemIc } from '@assets/svgs';
+import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
+import { StepContext } from '@pages/onboarding/OnboardingPage';
 import { 계열_LIST } from '@pages/onboarding/constants';
+import { useContext } from 'react';
 
 const Step계열선택 = () => {
+  const { onNext } = useContext(StepContext);
   return (
     <Wrapper>
       {계열_LIST.map((el) => (
@@ -14,6 +18,7 @@ const Step계열선택 = () => {
           <CheckItemIc />
         </ItemWrapper>
       ))}
+      <FullBtn text="텍스트" isActive onClick={onNext} />
     </Wrapper>
   );
 };

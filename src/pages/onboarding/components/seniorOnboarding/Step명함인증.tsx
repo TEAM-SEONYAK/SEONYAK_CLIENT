@@ -1,10 +1,15 @@
+import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
+import { StepContext } from '@pages/onboarding/OnboardingPage';
+import { useContext } from 'react';
 
 const Step명함인증 = () => {
+  const { onNext } = useContext(StepContext);
   return (
     <Wrapper>
       <Image />
       <Caption>재직 사실 확인을 위해 명함 촬영이 필요해요</Caption>
+      <FullBtn text="텍스트" isActive onClick={onNext} />
     </Wrapper>
   );
 };
