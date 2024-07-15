@@ -98,3 +98,5 @@ export const TIME_LIST = [
   '23:30',
   '24:00',
 ];
+
+export const TOASTER_TEXT = '채워지지 않은 칸이 있어요! 등록하시겠어요?';
