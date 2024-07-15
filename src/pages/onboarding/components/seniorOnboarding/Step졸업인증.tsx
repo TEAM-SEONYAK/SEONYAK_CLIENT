@@ -15,7 +15,7 @@ const Step졸업인증 = () => {
         <InputBox label="졸업증명서" type="file" onChange={handleChangeFile} text={fileName} placeholder={DEFAULT_TEXT}>
           <InnerButton text="첨부파일" />
         </InputBox>
-        <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50BM)</Caption>
+        <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50MB)</Caption>
       </TextBox>
     </Wrapper>
   );
