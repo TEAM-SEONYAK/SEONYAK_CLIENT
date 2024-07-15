@@ -9,15 +9,23 @@ interface InputBoxPropType
   extends Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value' | 'onChange' | 'maxLength'> {
   label: string;
   type?: 'text' | 'file';
+  isError?: boolean;
   text?: string;
   children?: ReactNode;
 }
 
-export const InputBox = ({ label, children, type = 'text', text, ...inputElements }: InputBoxPropType) => {
+export const InputBox = ({
+  label,
+  children,
+  isError = false,
+  type = 'text',
+  text,
+  ...inputElements
+}: InputBoxPropType) => {
   return (
     <InputWrapper>
       {type === 'text' ? (
-        <Input type={type} id={label} {...inputElements} />
+        <Input type={type} id={label} {...inputElements} $isError={isError} />
       ) : (
         <FileLabel>
           <FileText $isDefault={text === inputElements.placeholder}>{text}</FileText>
@@ -61,16 +69,16 @@ const LabelText = styled.label`
 const InputWrapper = styled.div`
   position: relative;
 `;
-const Input = styled.input`
+const Input = styled.input<{ $isError: boolean }>`
   width: 100%;
   height: 5.1rem;
   margin-top: 0.4rem;
   padding: 1rem 1.5rem;
   ${({ theme }) => theme.fonts.Title2_M_16};
-  border: none;
+  border: ${({ $isError, theme }) => ($isError ? `1px solid ${theme.colors.Red}` : 'none')};
   border-radius: 8px;
 
-  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+  background-color: ${({ $isError, theme }) => ($isError ? theme.colors.transparentRed_3 : theme.colors.grayScaleLG1)};
 
   color: ${({ theme }) => theme.colors.grayScaleBG};
 
