@@ -8,7 +8,7 @@ const Step재직기간 = () => {
   return (
     <>
       <SelectBox />
-      <FullBtn text="텍스트" isActive onClick={onNext} />
+      <FullBtn isActive onClick={onNext} />
     </>
   );
 };

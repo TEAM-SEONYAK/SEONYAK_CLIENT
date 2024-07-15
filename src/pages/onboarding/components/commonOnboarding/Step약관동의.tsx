@@ -45,7 +45,7 @@ const Step약관동의 = () => {
           </ItemWrapper>
         </li>
       ))}
-      <FullBtn text="텍스트" isActive onClick={onNext} />
+      <FullBtn text="동의하기" isActive onClick={onNext} />
     </Wrapper>
   );
 };

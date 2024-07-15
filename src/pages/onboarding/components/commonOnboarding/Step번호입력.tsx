@@ -13,7 +13,7 @@ const Step번호입력 = () => {
         </InputBox>
         <InputBox label="인증번호" placeholder="전송된 4자리 코드를 입력해 주세요" />
       </TextBox>
-      <FullBtn text="텍스트" isActive onClick={onNext} />
+      <FullBtn text="인증 확인" isActive onClick={onNext} />
     </>
   );
 };

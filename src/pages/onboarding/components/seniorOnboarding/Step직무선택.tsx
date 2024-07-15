@@ -20,7 +20,7 @@ const Step직무선택 = () => {
         <InputBox label="세부 직무" placeholder="Product Designer & Prdouct Manager"></InputBox>
         <Caption>재직 중인 회사에서의 구체적인 직무를 작성해 주세요</Caption>
       </TextBox>
-      <FullBtn text="텍스트" isActive onClick={onNext} />
+      <FullBtn isActive onClick={onNext} />
     </>
   );
 };

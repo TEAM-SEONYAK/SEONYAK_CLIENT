@@ -49,7 +49,7 @@ const Step개인정보입력 = () => {
           <Caption>8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가</Caption>
         )}
       </TextBox>
-      <FullBtn text="텍스트" isActive onClick={onNext} />
+      <FullBtn isActive onClick={onNext} />
     </>
   );
 };

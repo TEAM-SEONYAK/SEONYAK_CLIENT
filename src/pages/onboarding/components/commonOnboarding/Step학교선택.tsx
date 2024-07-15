@@ -23,7 +23,7 @@ const Step학교선택 = () => {
           <Sheet학교선택 handleSelectUniv={handleSelectUniv} />
         </BottomSheet>
       )}
-      <FullBtn text="텍스트" isActive onClick={onNext} />
+      <FullBtn isActive onClick={onNext} />
     </Wrapper>
   );
 };

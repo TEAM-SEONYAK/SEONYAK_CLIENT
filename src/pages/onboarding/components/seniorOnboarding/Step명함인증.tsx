@@ -9,7 +9,7 @@ const Step명함인증 = () => {
     <Wrapper>
       <Image />
       <Caption>재직 사실 확인을 위해 명함 촬영이 필요해요</Caption>
-      <FullBtn text="텍스트" isActive onClick={onNext} />
+      <FullBtn text="명함 촬영하기" isActive onClick={onNext} />
     </Wrapper>
   );
 };

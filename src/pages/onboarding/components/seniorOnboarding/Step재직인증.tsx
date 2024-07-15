@@ -6,7 +6,7 @@ import { 세부직무_DESCRIPTION, 세부직무_LIST } from '@pages/onboarding/c
 import { useContext, useState } from 'react';
 
 // 임시코드임니다 승희언니가 갈아끼울 예정이에오
-const Step재직인증 = () => {
+const Step직무선택 = () => {
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const [selectedDetails, setSelectedDetails] = useState<string[]>([]);
   const handleOpenSheet = () => setIsOpenSheet(true);
@@ -27,12 +27,11 @@ const Step재직인증 = () => {
           <Sheet재직인증 handleSelectDetails={handleSelectDetails} />
         </BottomSheet>
       )}
-      <FullBtn text="텍스트" isActive onClick={onNext} />
     </>
   );
 };
 
-export default Step재직인증;
+export default Step직무선택;
 
 interface Sheet재직인증PropType {
   // eslint-disable-next-line no-unused-vars

@@ -57,7 +57,7 @@ const Step학과선택 = () => {
           <SearchList key={m} handleSelectMajors={handleSelectMajors} majorName={m} selectedMajors={selectedMajors} />
         ))}
       </SearchListWrapper>
-      <FullBtn text="텍스트" isActive onClick={onNext} />
+      <FullBtn isActive onClick={onNext} />
     </Wrapper>
   );
 };

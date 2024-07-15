@@ -18,7 +18,7 @@ const Step계열선택 = () => {
           <CheckItemIc />
         </ItemWrapper>
       ))}
-      <FullBtn text="텍스트" isActive onClick={onNext} />
+      <FullBtn isActive onClick={onNext} />
     </Wrapper>
   );
 };
