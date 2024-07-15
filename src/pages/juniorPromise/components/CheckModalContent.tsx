@@ -4,13 +4,18 @@ import styled from '@emotion/styled';
 const CheckModalContent = () => {
   return (
     <Wrapper>
-      <ModalCheckIcon />
-      일정 변경은 어려워요 <br />
-      <ModalCheckIcon />
-      약속 신청 후엔 취소가 불가능해요
-      <br />
-      <ModalCheckIcon />
-      신중하게 신청해 주세요
+      <Layout>
+        <ModalCheckIc />
+        일정 변경은 어려워요
+      </Layout>
+      <Layout>
+        <ModalCheckIc />
+        약속 신청 후엔 취소가 불가능해요
+      </Layout>
+      <Layout>
+        <ModalCheckIc />
+        신중하게 신청해 주세요
+      </Layout>
     </Wrapper>
   );
 };
@@ -31,6 +36,8 @@ const Wrapper = styled.div`
   color: ${({ theme }) => theme.colors.grayScaleDG};
 `;
 
-const ModalCheckIcon = styled(ModalCheckIc)`
-  margin-right: 0.5rem;
+const Layout = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 `;
