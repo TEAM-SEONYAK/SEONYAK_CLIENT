@@ -48,7 +48,7 @@ const SelectJuniorPromiseSection = () => {
       />
       <GrayLine />
       <SelectJuniorWorryTitleWrapper />
-      <ToggleButton left="선택할게요" right="작성할게요" activeButton={activeButton} onToggle={handleToggle} />
+      <ToggleButton left="선택할래요" right="작성할래요" activeButton={activeButton} onToggle={handleToggle} />
       {activeButton === 'left' ? <SelectJuniorWorryButton /> : <SelectJuniorWorryTextBoxWrapper />}
       <CalendarBottomSheet
         selectedTime={selectedTime}

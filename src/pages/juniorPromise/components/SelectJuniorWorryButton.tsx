@@ -26,7 +26,7 @@ const SelectJuniorWorryButton: React.FC = () => {
           {selectedButtons.includes(item.title) && <StyledButtonCheckIc />}
         </Layout>
       ))}
-      <WarnDescription isShown={selectedButtons.length === 0} warnText={'최소 1개 이상 선택해주세요'} />
+      <WarnDescription isShown={selectedButtons.length === 0} warnText={'최소 1개 이상 선택해주세요.'} />
     </Wrapper>
   );
 };
