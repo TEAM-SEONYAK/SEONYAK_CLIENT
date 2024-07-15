@@ -17,10 +17,17 @@ export const FullBtn = (props: FullBtnPropType) => {
 };
 
 const FullBtnWrapper = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 3.8rem;
+  left: 50%;
   z-index: 1;
+  transform: translateX(-50%);
 
   width: 33.5rem;
-  padding: 1.55rem 13.65rem;
+  height: 4.5rem;
   border-radius: 5px;
 
   background-color: ${({ theme }) => theme.colors.Blue};

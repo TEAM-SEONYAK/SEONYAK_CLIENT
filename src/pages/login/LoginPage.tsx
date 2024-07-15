@@ -1,4 +1,4 @@
-import GoogleIc from '@assets/svgs/googleLogoIc.svg?react';
+import { GoogleLogoIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import useGoogleLoginHook from './hooks/useLoginQuery';
@@ -8,7 +8,7 @@ const LoginPage = () => {
 
   return (
     <Wrapper onClick={() => login()}>
-      <GoogleIcon />
+      <GoogleLogoIcon />
       <Text>구글로 시작하기</Text>
     </Wrapper>
   );
@@ -31,12 +31,6 @@ const Wrapper = styled.div`
   cursor: pointer;
 `;
 
-const GoogleIcon = styled(GoogleIc)`
-  width: 3.3rem;
-  height: 3.3rem;
-  margin: 1rem;
-`;
-
 const Text = styled.span`
   display: flex;
 
@@ -44,4 +38,10 @@ const Text = styled.span`
 
   ${theme.fonts.Head2_SB_18};
   text-align: center;
+`;
+
+const GoogleLogoIcon = styled(GoogleLogoIc)`
+  width: 33px;
+  height: 33px;
+  margin: 10px;
 `;

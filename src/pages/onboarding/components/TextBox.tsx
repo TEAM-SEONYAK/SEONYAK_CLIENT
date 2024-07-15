@@ -8,18 +8,20 @@ export const InnerButton = ({ text }: { text: string }) => {
 export const InputBox = ({
   label,
   placeholder,
+  value,
   children,
   type = 'text',
 }: {
   label: string;
   placeholder: string;
+  value?: string;
   type?: 'text' | 'file';
   children?: ReactNode;
 }) => {
   return (
     <InputWrapper>
       {type === 'text' ? (
-        <Input type={type} id={label} placeholder={placeholder} />
+        <Input type={type} id={label} placeholder={placeholder} value={value} />
       ) : (
         <>
           <FileLabel>
