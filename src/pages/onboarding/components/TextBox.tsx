@@ -27,7 +27,7 @@ export const InputBox = ({
       {type === 'text' ? (
         <Input type={type} id={label} {...inputElements} $isError={isError} />
       ) : (
-        <FileLabel>
+        <FileLabel $isError={isError}>
           <FileText $isDefault={text === inputElements.placeholder}>{text}</FileText>
           <FileInput type="file" accept="image/*, .pdf" {...inputElements} />
         </FileLabel>
@@ -110,7 +110,7 @@ const Button = styled.button`
   color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
-const FileLabel = styled.label`
+const FileLabel = styled.label<{ $isError: boolean }>`
   display: flex;
   align-items: center;
 
@@ -118,10 +118,10 @@ const FileLabel = styled.label`
   height: 5.1rem;
   margin-top: 0.4rem;
   padding: 1rem 1.5rem;
-  border: none;
+  border: ${({ $isError, theme }) => ($isError ? `1px solid ${theme.colors.Red}` : 'none')};
   border-radius: 8px;
 
-  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+  ${({ $isError, theme }) => ($isError ? theme.colors.transparentRed_3 : theme.colors.grayScaleLG1)};
 `;
 
 const FileInput = styled.input`

@@ -1,9 +1,11 @@
+import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import { ChangeEvent, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 
 const Step졸업인증 = () => {
   const DEFAULT_TEXT = '파일 첨부하기';
+  const [isError, setError] = useState(false);
   const [fileName, setFileName] = useState(DEFAULT_TEXT);
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -12,10 +14,20 @@ const Step졸업인증 = () => {
   return (
     <Wrapper>
       <TextBox label="졸업증명서">
-        <InputBox label="졸업증명서" type="file" onChange={handleChangeFile} text={fileName} placeholder={DEFAULT_TEXT}>
+        <InputBox
+          label="졸업증명서"
+          type="file"
+          onChange={handleChangeFile}
+          text={fileName}
+          placeholder={DEFAULT_TEXT}
+          isError={isError}>
           <InnerButton text="첨부파일" />
         </InputBox>
-        <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50MB)</Caption>
+        {isError ? (
+          <WarnDescription isShown={isError} warnText="인증에 실패했어요. 학교명이 잘 보이는 지 확인해 주세요." />
+        ) : (
+          <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50MB)</Caption>
+        )}
       </TextBox>
     </Wrapper>
   );
