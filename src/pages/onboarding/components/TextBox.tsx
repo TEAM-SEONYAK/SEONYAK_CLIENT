@@ -9,6 +9,7 @@ export const InputBox = ({
   label,
   placeholder,
   value,
+  isError = false,
   children,
   type = 'text',
 }: {
@@ -16,12 +17,13 @@ export const InputBox = ({
   placeholder: string;
   value?: string;
   type?: 'text' | 'file';
+  isError?: boolean;
   children?: ReactNode;
 }) => {
   return (
     <InputWrapper>
       {type === 'text' ? (
-        <Input type={type} id={label} placeholder={placeholder} value={value} />
+        <Input type={type} id={label} placeholder={placeholder} value={value} $isError={isError} />
       ) : (
         <>
           <FileLabel>
@@ -67,16 +69,16 @@ const LabelText = styled.label`
 const InputWrapper = styled.div`
   position: relative;
 `;
-const Input = styled.input`
+const Input = styled.input<{ $isError: boolean }>`
   width: 100%;
   height: 5.1rem;
   margin-top: 0.4rem;
   padding: 1rem 1.5rem;
   ${({ theme }) => theme.fonts.Title2_M_16};
-  border: none;
+  border: ${({ $isError, theme }) => ($isError ? `1px solid ${theme.colors.Red}` : 'none')};
   border-radius: 8px;
 
-  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+  background-color: ${({ $isError, theme }) => ($isError ? theme.colors.transparentRed_3 : theme.colors.grayScaleLG1)};
 
   color: ${({ theme }) => theme.colors.grayScaleBG};
 
