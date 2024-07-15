@@ -121,7 +121,7 @@ const FileLabel = styled.label<{ $isError: boolean }>`
   border: ${({ $isError, theme }) => ($isError ? `1px solid ${theme.colors.Red}` : 'none')};
   border-radius: 8px;
 
-  ${({ $isError, theme }) => ($isError ? theme.colors.transparentRed_3 : theme.colors.grayScaleLG1)};
+  background-color: ${({ $isError, theme }) => ($isError ? theme.colors.transparentRed_3 : theme.colors.grayScaleLG1)};
 `;
 
 const FileInput = styled.input`
