@@ -3,13 +3,9 @@ import { useState, useEffect } from 'react';
 import { formatTime } from '../../utils/formatTime';
 import { InnerButton, InputBox, TextBox } from '../TextBox';
 
-// 타이머 3분
-const MINUTES_IN_MS = 3 * 60 * 1000;
-// 1초씩 줄어듦
-const INTERVAL = 1000;
-
 const Step번호입력 = () => {
-  const [timeLeft, setTimeLeft] = useState<number>(MINUTES_IN_MS);
+  // 3분 타이머
+  const [timeLeft, setTimeLeft] = useState(180 * 1000);
   const [isActive, setIsActive] = useState<boolean>(false);
   const { minutes, seconds } = formatTime(timeLeft);
 
@@ -18,18 +14,17 @@ const Step번호입력 = () => {
       return;
     }
 
-    const timer = window.setInterval(() => {
+    const id = setInterval(() => {
       setTimeLeft((prevTime) => {
-        if (prevTime <= INTERVAL) {
-          setIsActive(false);
-          clearInterval(timer);
+        if (prevTime <= 1000) {
+          clearInterval(id);
           return 0;
         }
-        return prevTime - INTERVAL;
+        return prevTime - 1000;
       });
-    }, INTERVAL);
+    }, 1000);
 
-    return () => clearInterval(timer);
+    return () => clearInterval(id);
   }, [isActive, timeLeft]);
 
   // 버튼 클릭시 타이머 시작

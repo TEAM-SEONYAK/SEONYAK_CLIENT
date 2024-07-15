@@ -1,8 +1,17 @@
 import styled from '@emotion/styled';
 import { ReactNode } from 'react';
 
-export const InnerButton = ({ text }: { text: string }) => {
-  return <Button type="button">{text}</Button>;
+interface InnerButtonProps {
+  text: string;
+  onClick?: () => void;
+}
+
+export const InnerButton = ({ text, onClick }: InnerButtonProps) => {
+  return (
+    <Button type="button" onClick={onClick}>
+      {text}
+    </Button>
+  );
 };
 
 export const InputBox = ({
