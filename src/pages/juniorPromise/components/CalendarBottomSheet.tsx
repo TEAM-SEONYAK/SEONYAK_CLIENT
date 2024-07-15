@@ -30,7 +30,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
       />
       <BottomSheetWrapper $isCalendarOpen={isCalendarOpen}>
         <Scroll>
-          <CustomCalendar btnId={btnId} setSelectedTime={setSelectedTime} />
+          <CustomCalendar btnId={btnId} selectedTime={selectedTime} setSelectedTime={setSelectedTime} />
           <GrayLine />
           <TimeList selectedTime={selectedTime} setSelectedTime={setSelectedTime} btnId={btnId} />
         </Scroll>

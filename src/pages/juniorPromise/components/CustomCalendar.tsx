@@ -18,9 +18,10 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 interface CustomCalendarPropType {
   btnId: number;
   setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
+  selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
 }
 
-const CustomCalendar = ({ btnId, setSelectedTime }: CustomCalendarPropType) => {
+const CustomCalendar = ({ btnId, setSelectedTime, selectedTime }: CustomCalendarPropType) => {
   // 초기값을 내일 날짜로 설정
   const [value, onChange] = useState<Value>(getTomorrow());
 
@@ -29,11 +30,22 @@ const CustomCalendar = ({ btnId, setSelectedTime }: CustomCalendarPropType) => {
   };
 
   const tileDisabled = ({ date, view }: CalendarTileProperties) => {
-    return view === 'month' && date <= new Date();
+    if (view === 'month') {
+      // 현재 날짜 이전의 날짜를 비활성화
+      if (date <= new Date()) {
+        return true;
+      }
+
+      // 이미 선택된 날짜를 비활성화
+      const formattedDate = formatCalDateToString(date);
+      return selectedTime.some((item) => item.clickedDay === formattedDate);
+    }
+    return false;
   };
 
   const tileClassName = ({ date, view }: CalendarTileProperties) =>
     view === 'month' && date <= new Date() ? 'disabled-date' : '';
+
   return (
     <CalendarContainer>
       <BottomSheetRectangleIcon />
