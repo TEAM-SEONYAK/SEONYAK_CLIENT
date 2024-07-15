@@ -23,7 +23,6 @@ const Step번호입력 = () => {
         if (prevTime <= INTERVAL) {
           setIsActive(false);
           clearInterval(timer);
-          console.log('타이머가 종료되었습니다.');
           return 0;
         }
         return prevTime - INTERVAL;
@@ -58,6 +57,7 @@ export default Step번호입력;
 
 const Timer = styled.div`
   position: absolute;
+
   right: 1.5rem;
   bottom: 1.45rem;
 
