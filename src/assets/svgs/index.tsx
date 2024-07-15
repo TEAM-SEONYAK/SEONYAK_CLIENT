@@ -24,3 +24,4 @@ export { default as NaviPromiseGrayIc } from './ic_navi_promise_gray.svg?react';
 export { default as DropdownIc } from './ic_dropdown.svg?react';
 export { default as ReloadIc } from './ReloadIc.svg?react';
 export { default as ModalCheckIc } from './ic_modal_check.svg?react';
+export { default as ArrowRightIc } from './ic_arrow_right.svg?react';
