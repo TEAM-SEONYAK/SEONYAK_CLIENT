@@ -28,6 +28,7 @@ const TimeWeekdays = ({ profile, setProfile }: funnelComponentPropType) => {
         <DurationSelect
           selectValue={profile.preferredTimeList.weekend.주중[0]}
           setProfile={weekendsSetProfile('주중')}
+          defaultActive={!!profile.preferredTimeList.weekend.주중[0].isActive}
         />
       </TimeContainer>
       <CategoryText>주말</CategoryText>
@@ -35,6 +36,7 @@ const TimeWeekdays = ({ profile, setProfile }: funnelComponentPropType) => {
         <DurationSelect
           selectValue={profile.preferredTimeList.weekend.주말[0]}
           setProfile={weekendsSetProfile('주말')}
+          defaultActive={!!profile.preferredTimeList.weekend.주말[0].isActive}
         />
       </TimeContainer>
     </Wrapper>

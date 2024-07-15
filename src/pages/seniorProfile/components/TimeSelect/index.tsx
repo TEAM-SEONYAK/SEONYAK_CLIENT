@@ -21,18 +21,14 @@ const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) =
   };
 
   const handleActiveBtnClick = () => {
-    !isToaster &&
-      setIsToaster(
-        isDropdownActive({
-          timeList: profile.preferredTimeList,
-          type: selectToggle === 'left' ? 'weekend' : 'dayOfWeek',
-        }),
-      );
-    setStep && setStep((prev) => prev + 1);
+    isToaster && setStep && setStep((prev) => prev + 1);
+    isDropdownActive(profile.preferredTimeList[selectToggle === 'left' ? 'weekend' : 'dayOfWeek'])
+      ? setStep && setStep((prev) => prev + 1)
+      : setIsToaster(true);
   };
   const handleInactiveBtnClick = () => {};
 
-  console.log({ isToaster });
+  console.log({ profile });
   return (
     <>
       <Wrapper>

@@ -64,7 +64,7 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
     dayOfWeek: {
       월: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
           isStartValid: true,
@@ -73,7 +73,7 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
       ],
       화: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
           isStartValid: true,
@@ -82,7 +82,7 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
       ],
       수: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
           isStartValid: true,
@@ -91,7 +91,7 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
       ],
       목: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
           isStartValid: true,
@@ -100,7 +100,7 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
       ],
       금: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
           isStartValid: true,
@@ -109,7 +109,7 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
       ],
       토: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
           isStartValid: true,
@@ -118,7 +118,7 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
       ],
       일: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
           isStartValid: true,
@@ -129,7 +129,7 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
     weekend: {
       주말: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
           isStartValid: true,
@@ -138,7 +138,7 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
       ],
       주중: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
           isStartValid: true,

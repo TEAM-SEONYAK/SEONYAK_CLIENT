@@ -1,13 +1,5 @@
-import { preferredTimeListType } from '@pages/seniorProfile/types';
+import { preferredTimeListType, preferredTimeType } from '@pages/seniorProfile/types';
 
-interface isDropdownActivePropType {
-  timeList: preferredTimeListType;
-  type: 'weekend' | 'dayOfWeek';
-}
-
-export const isDropdownActive = ({ timeList, type }: isDropdownActivePropType) => {
-  if (type === 'weekend') {
-    return Object.values(timeList.weekend).every((dayArray) => dayArray.isActive === true);
-  }
-  return Object.values(timeList.dayOfWeek).every((dayArray) => dayArray.isActive === true);
+export const isDropdownActive = (data: preferredTimeListType['dayOfWeek' | 'weekend']) => {
+  return Object.values(data).every((dayArr: preferredTimeType[]) => dayArr.every((item) => item.isActive));
 };

@@ -10,10 +10,11 @@ interface DurationPropType {
   variant?: 'default' | 'secondary';
   selectValue: preferredTimeType;
   setProfile: (timeCategory: TimeCategoryType) => (selectedValue: string | boolean) => void;
+  defaultActive: boolean;
 }
 
-const DurationSelect = ({ variant = 'default', selectValue, setProfile }: DurationPropType) => {
-  const [isActive, setIsActive] = useState(true);
+const DurationSelect = ({ variant = 'default', selectValue, setProfile, defaultActive }: DurationPropType) => {
+  const [isActive, setIsActive] = useState(defaultActive);
 
   const handleDelete = () => {
     setIsActive((prev) => !prev);
