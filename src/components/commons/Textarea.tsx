@@ -26,6 +26,7 @@ const Textarea = (props: InputPropType) => {
           $isValid={inputVal.length <= wordLimit}
           $height={height}
           maxLength={wordLimit}
+          value={inputVal}
         />
         <WordLimitContainer>
           <Word $isLimit={inputVal.length <= wordLimit}>{inputVal.length}</Word>
@@ -42,6 +43,7 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
 
+  width: 100%;
   margin-bottom: 0.6rem;
 `;
 
