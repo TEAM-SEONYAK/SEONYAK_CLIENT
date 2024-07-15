@@ -21,11 +21,12 @@ export default BottomSheet;
 
 const Wrapper = styled.div`
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 2;
 
   width: 100vw;
   height: 100vh;
-  margin: -9rem 2rem 9rem -2rem;
   padding-top: 4rem;
 
   background-color: white;

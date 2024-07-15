@@ -4,15 +4,15 @@ import { SearchIc } from '../../../assets/svgs';
 interface searchBoxPropType {
   placeholder: string;
   handleInputClick?: () => void;
-  searchValue: string;
+  searchValue?: string;
   // eslint-disable-next-line no-unused-vars
-  handleSearchValue: (selectedValue: string) => void;
+  handleSearchValue?: (selectedValue: string) => void;
 }
 
 const SearchBox = ({ placeholder, handleInputClick, searchValue, handleSearchValue }: searchBoxPropType) => {
   // eslint-disable-next-line no-undef
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleSearchValue(e.target.value);
+    handleSearchValue && handleSearchValue(e.target.value);
   };
   return (
     <InputWrapper>
@@ -33,7 +33,7 @@ export default SearchBox;
 const InputWrapper = styled.div`
   display: flex;
 
-  width: 33.5rem;
+  width: 100%;
   padding: 0.9rem 0.5rem 0.9rem 1.5rem;
   border-radius: 8px;
 

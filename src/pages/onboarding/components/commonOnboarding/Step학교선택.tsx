@@ -13,18 +13,23 @@ const Step학교선택 = () => {
     setSelectedUniv(selectValue);
   };
   return (
-    <>
-      <SearchBox placeholder="학교명을 입력해 주세요" handleInputClick={handleOpenSheet} />;
+    <Wrapper>
+      <SearchBox placeholder="학교명을 입력해 주세요" handleInputClick={handleOpenSheet} searchValue={selectedUniv} />
       {isOpenSheet && (
-        <BottomSheet handeClose={handleCloseSheet}>
+        <BottomSheet handleClose={handleCloseSheet}>
           <Sheet학교선택 handleSelectUniv={handleSelectUniv} />
         </BottomSheet>
       )}
-    </>
+    </Wrapper>
   );
 };
 
 export default Step학교선택;
+
+const Wrapper = styled.div`
+  width: 100%;
+  margin: 2rem 2rem 0 0;
+`;
 
 interface Sheet학교선택PropType {
   // eslint-disable-next-line no-unused-vars
@@ -51,7 +56,7 @@ const Sheet학교선택 = ({ handleSelectUniv }: Sheet학교선택PropType) => {
 
 const SheetWrapper = styled.div`
   width: 100%;
-  margin: 2.3rem 2rem 0;
+  padding: 2.3rem 2rem 0;
 `;
 
 const Content = styled.section`
