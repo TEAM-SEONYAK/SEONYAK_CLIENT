@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import ImgTextBox from '@pages/seniorProfile/components/preView/ImgTextBox';
 import ProfileSummary from '@pages/seniorProfile/components/preView/ProfileSummary';
 import TimeTable from '@pages/seniorProfile/components/preView/TimeTable';
-import { dayOfWeekTimeList, profilePropType } from '@pages/seniorProfile/types';
+import { funnelComponentPropType } from '@pages/seniorProfile/types';
+import { weekToDay } from '@pages/seniorProfile/utils/weekToDay';
 
 const dummy = {
   nickname: '도리야끼다요',
@@ -75,7 +76,11 @@ const dummy = {
   },
 };
 
-const PreView = ({ profile }: profilePropType) => {
+const PreView = ({ profile }: funnelComponentPropType) => {
+  // 에러페이지 보내줄거임
+  if (!profile) return;
+
+  const convertDayOfWeek = weekToDay(profile.isDayOfWeek, profile.preferredTimeList);
   return (
     <Wrapper>
       <SeniorCard
@@ -84,17 +89,17 @@ const PreView = ({ profile }: profilePropType) => {
         field={dummy.field}
         position={dummy.position}
         detailPosition={dummy.detailPosition}
-        level={dummy.level}
-        variant="medium"
+        level={+dummy.level}
+        variant="secondary"
       />
       <ProfileSummary description1="미제공" description2={1} description3="미제공" />
       <Meta>선배의 이력 · 수상</Meta>
-      <ImgTextBox text={dummy.career} />
-      <ImgTextBox text={dummy.award} />
-      <Meta2>{dummy.catchphrase}</Meta2>
-      <Description>{dummy.story}</Description>
+      <ImgTextBox text={profile.career} />
+      <ImgTextBox text={profile.award} />
+      <Meta2>{profile.catchphrase}</Meta2>
+      <Description>{profile.story}</Description>
       <Meta2>선배의 타임 테이블</Meta2>
-      <TimeTable preferredTime={dummy.dayOfWeek as dayOfWeekTimeList} />
+      <TimeTable preferredTime={convertDayOfWeek} />
     </Wrapper>
   );
 };
@@ -102,9 +107,9 @@ const PreView = ({ profile }: profilePropType) => {
 export default PreView;
 
 const Wrapper = styled.div`
-  padding: 0rem 2rem 12.6rem;
-
   overflow-y: scroll;
+
+  padding: 0 2rem 12.6rem;
 `;
 
 const Meta = styled.p`

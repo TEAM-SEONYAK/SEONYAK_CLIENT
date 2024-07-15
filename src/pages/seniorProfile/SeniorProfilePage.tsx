@@ -2,12 +2,11 @@ import { ArrowLeftIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import Complete from '@pages/seniorProfile/components/Complete';
 import Init from '@pages/seniorProfile/components/Init';
-import PreView from '@pages/seniorProfile/components/PreView';
-import { seniorProfileAPIType, seniorProfileInitial } from '@pages/seniorProfile/types';
+import PreView from '@pages/seniorProfile/components/preView/index';
+import { seniorProfileRegisterType, seniorProfileInitial } from '@pages/seniorProfile/types';
 import { useState } from 'react';
 import Career from './components/Career';
 import Example from './components/Example';
-import PreView from './components/preView';
 import Sentence from './components/Sentence';
 import Story from './components/Story';
 import TimeSelect from './components/TimeSelect';
@@ -16,33 +15,12 @@ import { Header } from '../../components/commons/Header';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
 
-const getComponent = (step: number, profile: seniorProfileAPIType) => {
-  switch (step) {
-    case 0:
-      return <Example />;
-    case 1:
-      return <PreView profile={profile} />;
-    case 2:
-      return <Sentence />;
-    case 3:
-      return <Career />;
-    case 4:
-      return <Story />;
-    case 5:
-      return <TimeSelect />;
-    case 6:
-      return <PreView profile={profile} />;
-    default:
-      return null;
-  }
-};
-
 const SeniorProfilePage = () => {
-  const [step, setStep] = useState(6);
-  const [profile, setProfile] = useState<seniorProfileAPIType>(seniorProfileInitial);
+  const [step, setStep] = useState(0);
+  const [profile, setProfile] = useState<seniorProfileRegisterType>(seniorProfileInitial);
   const btnText = step === 8 ? '프로필 등록하기' : '다음으로';
-  const component = getComponent(step, profile);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
+
   const getComponent = () => {
     switch (step) {
       case 0:
@@ -50,18 +28,16 @@ const SeniorProfilePage = () => {
       case 1:
         return <Example setStep={setStep} />;
       case 2:
-        return <PreView profile={profile} variant="secondary" setStep={setStep} />;
-      case 3:
         return <Sentence profile={profile} setProfile={setProfile} setStep={setStep} />;
-      case 4:
+      case 3:
         return <Career profile={profile} setProfile={setProfile} setStep={setStep} />;
-      case 5:
+      case 4:
         return <Story profile={profile} setProfile={setProfile} setStep={setStep} />;
-      case 6:
+      case 5:
         return <TimeSelect profile={profile} setProfile={setProfile} setStep={setStep} />;
-      case 7:
+      case 6:
         return <PreView profile={profile} setStep={setStep} />;
-      case 8:
+      case 7:
         return <Complete />;
       default:
         return null;
@@ -77,7 +53,7 @@ const SeniorProfilePage = () => {
             LeftSvg={ArrowLeftIc}
             onClickLeft={() => setStep((prev) => prev - 1)}
           />
-          {step > 2 && <ProgressBar max={5} current={step - 2} />}
+          {step > 1 && <ProgressBar max={5} current={step - 1} />}
           <Title>
             <Meta>{userName + SENIOR_PROFILE_STEPS[step].meta}</Meta>
             <Description>{SENIOR_PROFILE_STEPS[step].description}</Description>
