@@ -1,32 +1,27 @@
 import styled from '@emotion/styled';
-import { ReactNode } from 'react';
+import { InputHTMLAttributes, ReactNode } from 'react';
 
 export const InnerButton = ({ text }: { text: string }) => {
   return <Button type="button">{text}</Button>;
 };
 
-export const InputBox = ({
-  label,
-  placeholder,
-  value,
-  children,
-  type = 'text',
-}: {
+interface InputBoxPropType
+  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value' | 'onChange' | 'maxLength'> {
   label: string;
-  placeholder: string;
-  value?: string;
   type?: 'text' | 'file';
   children?: ReactNode;
-}) => {
+}
+
+export const InputBox = ({ label, children, type = 'text', ...inputElements }: InputBoxPropType) => {
   return (
     <InputWrapper>
       {type === 'text' ? (
-        <Input type={type} id={label} placeholder={placeholder} value={value} />
+        <Input type={type} id={label} {...inputElements} />
       ) : (
         <>
           <FileLabel>
             파일 첨부하기
-            <FileInput type="file" accept="image/*, .pdf" />
+            <FileInput type="file" accept="image/*, .pdf" {...inputElements} />
           </FileLabel>
         </>
       )}
