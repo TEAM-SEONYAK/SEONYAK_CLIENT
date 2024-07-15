@@ -9,7 +9,8 @@ const Step약관동의 = () => {
 
   const handleClickCheck = (id: number | 'all') => {
     if (id === 'all') {
-      setAgreement([true, true, true, true, true]);
+      if (!agreement.some((v) => !v)) setAgreement([false, false, false, false, false]);
+      else setAgreement([true, true, true, true, true]);
     } else {
       setAgreement((prev) => agreement.with(id, !prev[id]));
     }
