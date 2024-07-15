@@ -17,8 +17,16 @@ export const FullBtn = (props: FullBtnPropType) => {
 };
 
 const FullBtnWrapper = styled.button`
-  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 3.8rem;
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%);
 
+  height: 4.5rem;
   width: 100%;
   padding: 1.55rem 0;
   border-radius: 5px;
