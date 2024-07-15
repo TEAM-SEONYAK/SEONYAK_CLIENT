@@ -9,7 +9,7 @@ export const InputBox = ({
   label,
   placeholder,
   value,
-  isError,
+  isError = false,
   children,
   type = 'text',
 }: {
