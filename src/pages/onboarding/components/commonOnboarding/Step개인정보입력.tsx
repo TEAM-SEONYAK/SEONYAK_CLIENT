@@ -1,9 +1,22 @@
+import { StartProfile1Img, StartProfile2Img } from '@assets/images';
 import { CameraIc } from '@assets/svgs';
 import styled from '@emotion/styled';
+import { ChangeEvent, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 
 const Step개인정보입력 = () => {
-  const handleChangeImage = () => {};
+  const [imageFile, setImageFile] = useState('');
+  const startImgArr = [StartProfile1Img, StartProfile2Img];
+  const startImg = startImgArr[Math.floor(Math.random() * 2)];
+  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImageFile(reader.result as string);
+    };
+  };
 
   return (
     <>
@@ -12,8 +25,8 @@ const Step개인정보입력 = () => {
         <ImageInputWrapper>
           <ImageInputLabel>
             <ImgCircle>
-              <img src="src/assets/images/dummy.png" alt="테스트용 이미지" />
-              <input type="file" accept="image/*" onChange={handleChangeImage} />
+              <img src={imageFile ? imageFile : startImg} alt="프로필 이미지" />
+              <input type="file" accept="image/*" onChange={(e) => handleChangeImage(e)} />
             </ImgCircle>
             <CameraIc />
           </ImageInputLabel>
