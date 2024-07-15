@@ -43,7 +43,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         state: { tap: 'pending' },
       });
     }
-    if (userRole === 'SENIOR' && tap === 'scheduled') {
+    if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default')) {
       navigate('./promiseDetail', {
         state: { tap: 'scheduled' },
       });
