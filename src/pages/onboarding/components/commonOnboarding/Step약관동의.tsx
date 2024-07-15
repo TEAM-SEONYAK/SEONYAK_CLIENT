@@ -1,23 +1,38 @@
 import { ArrowRightIc, CheckItemIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { 약관_LIST } from '@pages/onboarding/constants';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Step약관동의 = () => {
+  const [agreement, setAgreement] = useState([false, false, false, false, false]);
+
+  const handleClickCheck = (id: number | 'all') => {
+    if (id === 'all') {
+      setAgreement([true, true, true, true, true]);
+    } else {
+      setAgreement((prev) => agreement.with(id, !prev[id]));
+    }
+  };
+
   return (
     <Wrapper>
-      <ItemWrapper type="button">
+      <ItemWrapper type="button" onClick={() => handleClickCheck('all')}>
         <ItemLeftWrapper>
-          <CheckItemIcon />
+          <IconWrapper $isChecked={!agreement.some((v) => !v)}>
+            <CheckItemIc />
+          </IconWrapper>
           <Item>전체 동의</Item>
         </ItemLeftWrapper>
       </ItemWrapper>
       <Line />
       {약관_LIST.map(({ text, link }, idx) => (
         <li key={text}>
-          <ItemWrapper type="button" onClick={() => console.log('클릭')}>
+          <ItemWrapper type="button" onClick={() => handleClickCheck(idx)}>
             <ItemLeftWrapper>
-              <CheckItemIcon />
+              <IconWrapper $isChecked={agreement[idx]}>
+                <CheckItemIc />
+              </IconWrapper>
               <Item>{text}</Item>
             </ItemLeftWrapper>
             <Link to={link ? link : ''} target="_blank" onClick={(e) => link || e.preventDefault()}>
@@ -64,8 +79,8 @@ const Line = styled.hr`
   background-color: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
-const CheckItemIcon = styled(CheckItemIc)`
+const IconWrapper = styled.i<{ $isChecked: boolean }>`
   & path {
-    fill: ${({ theme }) => theme.colors.grayScaleLG2};
+    fill: ${({ $isChecked, theme }) => ($isChecked ? theme.colors.Blue : theme.colors.grayScaleLG2)};
   }
 `;
