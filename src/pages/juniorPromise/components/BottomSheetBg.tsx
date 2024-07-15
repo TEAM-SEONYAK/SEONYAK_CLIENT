@@ -52,7 +52,7 @@ export const BottomSheet = (props: BottomSheetPropType) => {
         <Content>
           {filterActiveBtn === '계열' ? (
             <FieldLayout>
-              {FIELD_LIST.fieldList.map((list) => (
+              {FIELD_LIST.map((list) => (
                 <FieldList
                   key={list.id}
                   field={list.field}
@@ -66,7 +66,7 @@ export const BottomSheet = (props: BottomSheetPropType) => {
             </FieldLayout>
           ) : (
             <PositionLayout>
-              {POSITION_LIST.positionList.map((list) => (
+              {POSITION_LIST.map((list) => (
                 <PositionList
                   key={list.id}
                   position={list.position}
@@ -150,9 +150,7 @@ const FieldLayout = styled.div`
 const PositionLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 10px;
-  align-items: flex-start;
-  align-content: flex-start;
+  gap: 1.2rem 1rem;
   flex-shrink: 0;
 
   margin: 1rem 2rem;

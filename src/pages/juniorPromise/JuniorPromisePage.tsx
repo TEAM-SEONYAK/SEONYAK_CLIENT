@@ -56,13 +56,13 @@ const JuniorPromisePage = () => {
 
   // 선택된 직무 칩 수
   const getPositionTrueNum = (arrPosition: boolean[]) => {
-    return arrPosition.filter((n) => n === true).length;
+    return arrPosition.filter((n) => n).length;
   };
   const positionChipNum = getPositionTrueNum(arrPosition);
 
   // 선택된 계열 칩 수
   const fieldChipTrueNum = (arrField: boolean[]) => {
-    return arrField.filter((n) => n === true).length;
+    return arrField.filter((n) => n).length;
   };
 
   const fieldChipNum = fieldChipTrueNum(arrField);
@@ -80,7 +80,6 @@ const JuniorPromisePage = () => {
     setChipFieldName((prev) => prev.filter((name) => name !== chipName));
   };
 
-  console.log(chipFieldName);
   return (
     <>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />

@@ -8,11 +8,12 @@ const queryClient = new QueryClient();
 const clientId = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID + '';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  // <React.StrictMode>
-  <GoogleOAuthProvider clientId={clientId}>
-    <QueryClientProvider client={queryClient}>
-      <Router />
-    </QueryClientProvider>
-  </GoogleOAuthProvider>,
-  // </React.StrictMode>,
+  <React.StrictMode>
+    <GoogleOAuthProvider clientId={clientId}>
+      <QueryClientProvider client={queryClient}>
+        <Router />
+      </QueryClientProvider>
+    </GoogleOAuthProvider>
+    ,
+  </React.StrictMode>,
 );
