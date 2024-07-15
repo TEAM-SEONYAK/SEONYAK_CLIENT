@@ -125,7 +125,9 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
       {userRole === 'JUNIOR' && tap === 'past' && (
         <ReviewBtn onClick={() => setIsReviewClicked(true)}>리뷰 작성하기</ReviewBtn>
       )}
-      {userRole === 'SENIOR' && tap === 'past' && <ReviewBtn>작성된 리뷰 없음</ReviewBtn>}
+      {userRole === 'SENIOR' && tap === 'past' && (
+        <ReviewBtn onClick={() => setIsReviewClicked(true)}>작성된 리뷰 없음</ReviewBtn>
+      )}
       <AutoCloseModal
         text="아직 준비중인 기능이에요"
         showModal={isReviewClicked}
