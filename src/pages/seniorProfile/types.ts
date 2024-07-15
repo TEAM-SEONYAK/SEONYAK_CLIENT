@@ -1,12 +1,23 @@
+/* eslint-disable no-undef */
+export interface seniorProfileRegisterType {
+  catchphrase: string;
+  career: string;
+  award: string;
+  story: string;
+
+  // 월/화/수/목/금/토/일: true,  주말/주중: false.
+  isDayOfWeek: boolean;
+  isWarning: boolean;
+  preferredTimeList: preferredTimeListType;
+}
+
 export interface seniorProfileAPIType {
   catchphrase: string;
   career: string;
   award: string;
   story: string;
-  level: number;
-  isDayOfWeek: boolean;
-  isWarning: boolean;
-  preferredTimeList: preferredTimeListType;
+  level: string;
+  nickname: string;
 }
 
 export interface preferredTimeListType {
@@ -15,11 +26,11 @@ export interface preferredTimeListType {
 }
 
 export interface preferredTimeType {
-  isActive: boolean;
+  isActive?: boolean;
   startTime: string;
   endTime: string;
-  isStartValid: boolean;
-  isEndValid: boolean;
+  isStartValid?: boolean;
+  isEndValid?: boolean;
 }
 
 export type TimeCategoryType = 'isActive' | 'startTime' | 'endTime' | 'isStartValid' | 'isEndValid';
@@ -42,12 +53,11 @@ export interface weekendTimeList {
 export type dayType = '월' | '화' | '수' | '목' | '금' | '토' | '일';
 export type weekendType = '주말' | '주중';
 
-export const seniorProfileInitial: seniorProfileAPIType = {
+export const seniorProfileInitial: seniorProfileRegisterType = {
   catchphrase: '',
   career: '',
   award: '',
   story: '',
-  level: 0,
   isDayOfWeek: false,
   isWarning: false,
   preferredTimeList: {
@@ -140,8 +150,8 @@ export const seniorProfileInitial: seniorProfileAPIType = {
 };
 
 export interface funnelComponentPropType {
-  profile?: seniorProfileAPIType;
-  setProfile?: React.Dispatch<React.SetStateAction<seniorProfileAPIType>>;
+  profile?: seniorProfileRegisterType;
+  setProfile?: React.Dispatch<React.SetStateAction<seniorProfileRegisterType>>;
   setIsNextActive?: React.Dispatch<React.SetStateAction<boolean>>;
   setStep?: React.Dispatch<React.SetStateAction<number>>;
 }
