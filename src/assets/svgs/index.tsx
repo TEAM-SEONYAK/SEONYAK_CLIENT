@@ -25,6 +25,7 @@ export { default as CardArrowRightGrayIc } from './ic_cardarrow_right_gray.svg?r
 export { default as ClockIc } from './ic_clock.svg?react';
 export { default as ReloadIc } from './ReloadIc.svg?react';
 export { default as ModalCheckIc } from './ic_modal_check.svg?react';
+export { default as ArrowRightIc } from './ic_arrow_right.svg?react';
 export { default as DeleteIc } from './ic_delete_btn.svg?react';
 export { default as PlusIc } from './ic_plus_btn.svg?react';
 export { default as GoogleLogoIc } from './googleLogoIc.svg?react';
