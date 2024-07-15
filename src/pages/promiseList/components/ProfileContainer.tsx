@@ -48,7 +48,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         state: { tap: 'scheduled' },
       });
     }
-    if (userRole === 'JUNIOR' && tap === 'scheduled') {
+    if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default')) {
       navigate('./promiseDetailJunior', {
         state: { tap: 'scheduled' },
       });

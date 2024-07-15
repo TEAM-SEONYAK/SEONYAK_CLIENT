@@ -7,10 +7,11 @@ import ProfileContainer from '@pages/promiseList/components/ProfileContainer';
 import PromiseTimerBtn from '@pages/promiseList/components/PromiseTimerBtn';
 import { calculateTimeLeft } from '@pages/promiseList/utils/calculateTimeLeft';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const PromiseDetailPageJunior = () => {
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
+  const navigate = useNavigate();
   const location = useLocation();
   const tap = location.state.tap;
   const profileCardData = {
@@ -45,7 +46,7 @@ const PromiseDetailPageJunior = () => {
 
   return (
     <>
-      <Header LeftSvg={ArrowLeftIc} title="자세히 보기" />
+      <Header LeftSvg={ArrowLeftIc} title="자세히 보기" onClickLeft={() => navigate('/')} />
       <Wrapper>
         <Layout>
           {/* 여기 진이 뷰랑 연결 필요 */}
