@@ -1,9 +1,12 @@
-import { ArrowLeftIc, ButtonCheckIc } from '@assets/svgs';
+import { ArrowLeftIc, ButtonCheckIc, ArrowDownMgIc } from '@assets/svgs';
+import { BottomSheet } from '@components/commons/BottomSheet';
+import { FullBtn } from '@components/commons/FullButton';
 import { Header } from '@components/commons/Header';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
+import Textarea from '@components/commons/Textarea';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { SENIOR_RESPONSE, JUNIOR_RESPONSE } from './constants/constant';
+import { SENIOR_RESPONSE, JUNIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
 import { formatDate } from './utils/formatDate';
 
 const PromiseDetail = () => {
@@ -12,9 +15,20 @@ const PromiseDetail = () => {
   const myNickname = '아가라고요';
   const userRole = 'SENIOR';
   const tap = 'pending';
+  // 기본뷰 / 거절뷰
+  const [viewType, setViewType] = useState('DEFAULT');
+  // 수락시 선택한 시간 저장
   const [selectTime, setSelectTime] = useState<number | null>(null);
+  // 수락하기 모달
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // 거절하기 모달
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  // 거절 사유 토글에서 저장
+  const [rejectReason, setRejectReason] = useState(DEFAULT_REJECT_TEXT);
+  // 작성한 거절사유 저장
+  const [rejectDetail, setRejectDetail] = useState('');
 
+  // 선택값 저장 함수
   const handleClickTimeBox = (idx: number) => {
     setSelectTime(idx);
   };
@@ -23,63 +37,157 @@ const PromiseDetail = () => {
     setIsModalOpen(type);
   };
 
+  const handleBottomSheetOpen = () => {
+    setIsBottomSheetOpen(true);
+  };
+
+  const handleBottomSheetClose = () => {
+    setIsBottomSheetOpen(false);
+  };
+
+  const handleClickDeclineBtn = () => {
+    setViewType('DECLINE');
+  };
+
+  const handleRejectReason = (reason: string) => {
+    setRejectReason(reason);
+  };
+
+  const handleRejectDetailReason = (detailReason: string) => {
+    setRejectDetail(detailReason);
+  };
+
   return (
     <>
-      <Header LeftSvg={ArrowLeftIc} title="자세히 보기" />
+      <Header LeftSvg={ArrowLeftIc} title={viewType === 'DEFAULT' ? '자세히 보기' : '거절하기'} />
       <Wrapper>
-        <Layout>
+        <Layout $viewType={viewType}>
           <TitleContainer>
             <Title>
-              {SENIOR_RESPONSE.juniorInfo.nickname} {userRole === 'SENIOR' ? '후배' : '선배'}님의 정보
+              {viewType === 'DEFAULT'
+                ? userRole === 'SENIOR'
+                  ? `${SENIOR_RESPONSE.juniorInfo.nickname} 후배님의 정보`
+                  : `${SENIOR_RESPONSE.juniorInfo.nickname} 선배님의 정보`
+                : DEFAULT_REJECT_TEXT}
             </Title>
-            <Content>
-              {SENIOR_RESPONSE.juniorInfo.univName} {SENIOR_RESPONSE.juniorInfo.field}{' '}
-              {SENIOR_RESPONSE.juniorInfo.department}
-            </Content>
+            {viewType === 'DEFAULT' ? (
+              <Content>
+                {SENIOR_RESPONSE.juniorInfo.univName} {SENIOR_RESPONSE.juniorInfo.field}
+                {SENIOR_RESPONSE.juniorInfo.department}
+              </Content>
+            ) : (
+              <DeclineContent onClick={() => setIsBottomSheetOpen(true)}>
+                {!isBottomSheetOpen && rejectReason}
+                <ArrowDownMgIcon />
+              </DeclineContent>
+            )}
           </TitleContainer>
 
           <TitleContainer>
-            <Title>{myNickname} 선배님과 상담하고 싶은 내용</Title>
-            <ContentContainer>
-              {SENIOR_RESPONSE.topic.length ? (
-                SENIOR_RESPONSE.topic.map((el, idx) => <Content key={idx + el}>{el}</Content>)
-              ) : (
-                <WrittenContent>{SENIOR_RESPONSE.personalTopic}</WrittenContent>
-              )}
-            </ContentContainer>
+            <Title>
+              {viewType === 'DEFAULT' ? `${myNickname} 선배님과 상담하고 싶은 내용` : '더 자세한 이유가 있나요?'}
+            </Title>
+            {viewType === 'DEFAULT' ? (
+              <ContentContainer>
+                {SENIOR_RESPONSE.topic.length ? (
+                  SENIOR_RESPONSE.topic.map((el, idx) => <Content key={idx + el}>{el}</Content>)
+                ) : (
+                  <WrittenContent>{SENIOR_RESPONSE.personalTopic}</WrittenContent>
+                )}
+              </ContentContainer>
+            ) : (
+              <>
+                <Textarea
+                  placeholder="선약을 거절하는 자세한 이유에 대해 작성해주세요 (선택)"
+                  wordLimit={200}
+                  height={27.4}
+                  inputVal={rejectDetail}
+                  handleInputVal={handleRejectDetailReason}
+                />
+                <DeclineText>
+                  이 단계 이후로 거절을 취소할 수 없어요 <br />
+                  신중하게 선택해주세요!
+                </DeclineText>
+              </>
+            )}
           </TitleContainer>
 
-          <TimeContainer>
-            <Title>희망하는 약속 시간</Title>
-            <Description>세 가지 시간 중 하나를 필수로 선택해주세요</Description>
-            <ContentContainer>
-              {SENIOR_RESPONSE.timeList.map((el, idx) => (
-                <Time
-                  key={el.date + idx + el.startTime}
-                  onClick={() => handleClickTimeBox(idx)}
-                  $isActive={selectTime === idx}>
-                  {formatDate(el.date)} {el.startTime} - {el.endTime}
-                  <ButtonCheckIcon isactive={(selectTime === idx).toString()} />
-                </Time>
-              ))}
-            </ContentContainer>
-          </TimeContainer>
+          {viewType === 'DEFAULT' ? (
+            <TimeContainer>
+              <Title>희망하는 약속 시간</Title>
+              <Description>세 가지 시간 중 하나를 필수로 선택해주세요</Description>
+              <ContentContainer>
+                {SENIOR_RESPONSE.timeList.map((el, idx) => (
+                  <Time
+                    key={el.date + idx + el.startTime}
+                    onClick={() => handleClickTimeBox(idx)}
+                    $isActive={selectTime === idx}>
+                    {formatDate(el.date)} {el.startTime} - {el.endTime}
+                    <ButtonCheckIcon isactive={(selectTime === idx).toString()} />
+                  </Time>
+                ))}
+              </ContentContainer>
+            </TimeContainer>
+          ) : (
+            <></>
+          )}
         </Layout>
-        <BtnWrapper>
-          <DeclineBtn type="button">거절하기</DeclineBtn>
-          <AcceptBtn
-            type="button"
-            disabled={selectTime === null}
-            $isActive={selectTime !== null}
-            onClick={() => setIsModalOpen(true)}>
-            수락하기
-          </AcceptBtn>
-        </BtnWrapper>
-        <BtnBackground />
+        {viewType === 'DEFAULT' ? (
+          <>
+            <BtnWrapper>
+              <DeclineBtn type="button" onClick={handleClickDeclineBtn}>
+                거절하기
+              </DeclineBtn>
+              <AcceptBtn
+                type="button"
+                disabled={selectTime === null}
+                $isActive={selectTime !== null}
+                onClick={() => setIsModalOpen(true)}>
+                수락하기
+              </AcceptBtn>
+            </BtnWrapper>
+            <BtnBackground />
+          </>
+        ) : (
+          <>
+            <FullBtn
+              text="거절하기"
+              isActive={rejectReason !== DEFAULT_REJECT_TEXT}
+              onClick={() => setIsModalOpen(true)}
+            />
+            <BtnBackground />
+          </>
+        )}
       </Wrapper>
-      <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
-        <DeclineImg />
-      </AutoCloseModal>
+      {viewType === 'DECLINE' ? (
+        <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+          <DeclineImg />
+        </AutoCloseModal>
+      ) : (
+        <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+          <DeclineImg />
+        </AutoCloseModal>
+      )}
+
+      <BottomSheet
+        btnActive={rejectReason}
+        isSheetOpen={isBottomSheetOpen}
+        handleSheetOpen={handleBottomSheetOpen}
+        handleSheetClose={handleBottomSheetClose}>
+        <BottomSheetLayout>
+          <BottomSheetTitle>거절 사유 선택</BottomSheetTitle>
+          <DeclineReasonWrapper>
+            {REJECT_REASON.map((el) => (
+              <DeclineReason
+                key={el.id}
+                onClick={() => handleRejectReason(el.content)}
+                $isActive={rejectReason === el.content}>
+                {el.content}
+              </DeclineReason>
+            ))}
+          </DeclineReasonWrapper>
+        </BottomSheetLayout>
+      </BottomSheet>
     </>
   );
 };
@@ -101,18 +209,18 @@ const Wrapper = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
-const Layout = styled.div`
+const Layout = styled.div<{ $viewType: string }>`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 3rem;
-  margin-bottom: 11.6rem;
+  margin-bottom: ${({ $viewType }) => ($viewType === 'DEFAULT' ? '11.6rem' : '0')};
 `;
 
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 3rem;
 `;
 
 const Title = styled.h2`
@@ -133,6 +241,24 @@ const Content = styled.div`
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
   color: ${({ theme }) => theme.colors.grayScaleBG};
   ${({ theme }) => theme.fonts.Body1_M_14}
+`;
+
+const DeclineContent = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 1.1rem 0 1.1rem 1.5rem;
+  height: 4.4rem;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+  color: ${({ theme }) => theme.colors.grayScaleMG2};
+  ${({ theme }) => theme.fonts.Body1_M_14}
+  cursor: pointer;
+`;
+
+const ArrowDownMgIcon = styled(ArrowDownMgIc)`
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
 `;
 
 const Time = styled.div<{ $isActive: boolean }>`
@@ -166,6 +292,14 @@ const WrittenContent = styled.div`
 const TimeContainer = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const DeclineText = styled.p`
+  width: 100%;
+  height: 4.4rem;
+  white-space: pre-wrap;
+  color: ${({ theme }) => theme.colors.grayScaleDG};
+  ${({ theme }) => theme.fonts.Body1_M_14}
 `;
 
 const Description = styled.span`
@@ -218,4 +352,28 @@ const DeclineImg = styled.div`
   width: 27rem;
   height: 17.1rem;
   background-color: ${({ theme }) => theme.colors.grayScaleMG2};
+`;
+
+const BottomSheetLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+`;
+
+const BottomSheetTitle = styled.h1`
+  ${({ theme }) => theme.fonts.Head2_SB_18};
+  color: ${({ theme }) => theme.colors.grayScaleBG};
+`;
+
+const DeclineReasonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const DeclineReason = styled.div<{ $isActive: boolean }>`
+  padding: 1rem 0 1rem 0;
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
+  color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleDG)};
+  ${({ theme }) => theme.fonts.Title2_M_16};
 `;

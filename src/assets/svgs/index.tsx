@@ -25,3 +25,5 @@ export { default as CardArrowRightGrayIc } from './ic_cardarrow_right_gray.svg?r
 export { default as ClockIc } from './ic_clock.svg?react';
 export { default as ReloadIc } from './ReloadIc.svg?react';
 
+export { default as BottomSheetRectangleIc } from './bottom-sheet-Rectangle.svg?react';
+export { default as ArrowDownMgIc } from './ic_arrow_down_mg.svg?react';

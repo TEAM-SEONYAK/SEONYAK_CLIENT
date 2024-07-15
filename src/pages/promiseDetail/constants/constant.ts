@@ -63,3 +63,11 @@ export const JUNIOR_RESPONSE = {
     },
   ],
 };
+
+export const REJECT_REASON = [
+  { id: 0, content: '후배와 시간이 맞지 않아요' },
+  { id: 2, content: '후배의 고민을 해결해줄 수 없을 것 같아요' },
+  { id: 3, content: '그 외' },
+];
+
+export const DEFAULT_REJECT_TEXT = '선약을 거절하는 이유를 선택해주세요';

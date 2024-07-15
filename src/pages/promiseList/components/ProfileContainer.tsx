@@ -3,20 +3,23 @@ import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import styled from '@emotion/styled';
 import { getLevelName } from '@utils/getLevelName';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProfileChip from './ProfileChip';
 import { profileCardDataType } from '../types/type';
 import { extractMonthAndDay } from '../utils/extractMonthAndDay';
 
 interface ProfileContainerPropType {
   userRole: string;
-  type: string;
+  tap: string;
   profileCardData?: profileCardDataType;
   isarrow: string;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
+  const { userRole, profileCardData, tap, isarrow } = props;
+  const navigate = useNavigate();
+
   const [isReviewClicked, setIsReviewClicked] = useState(false);
-  const { userRole, profileCardData, type, isarrow } = props;
   const { month, day } = extractMonthAndDay(profileCardData?.date + '');
 
   const getTopicDescription = (chosenTopic: string[] | undefined) => {
@@ -28,16 +31,22 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
   const ShowReviewClickedModal = (type: boolean) => {
     setIsReviewClicked(type);
   };
+
+  const handleClickProfileContainer = (tap: string, userRole: string) => {
+    if (userRole === 'SENIOR' && tap === 'pending') {
+      navigate('/PromiseDetail');
+    }
+  };
   return (
-    <ReviewWrapper $type={type}>
-      <Wrapper $type={type}>
+    <ReviewWrapper $tap={tap}>
+      <Wrapper $tap={tap} onClick={() => handleClickProfileContainer(tap, userRole)}>
         <TempImg />
         <InfoContainer>
           <NameContainer>
             <Name>
               {profileCardData?.nickname} {userRole === 'SENIOR' ? '후배' : '선배'}
             </Name>
-            {type === 'rejected' && <RejectedChip>거절</RejectedChip>}
+            {tap === 'rejected' && <RejectedChip>거절</RejectedChip>}
           </NameContainer>
           {userRole === 'JUNIOR' && (
             <ChipContainer>
@@ -46,18 +55,18 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
             </ChipContainer>
           )}
           {userRole === 'SENIOR' &&
-            (type === 'pending' || type === 'scheduled' || type === 'past' || type === 'rejected') && (
+            (tap === 'pending' || tap === 'scheduled' || tap === 'past' || tap === 'rejected') && (
               <>
                 <ChipContainer>
                   <ProfileChip type="field" content={profileCardData?.field} />
                   <ProfileChip type="field" content={profileCardData?.department} />
                 </ChipContainer>
-                {type === 'pending' && (
+                {tap === 'pending' && (
                   <Description $colorType="grayScaleDG">{getTopicDescription(profileCardData?.topic)}</Description>
                 )}
               </>
             )}
-          {userRole === 'SENIOR' && type === 'default' && (
+          {userRole === 'SENIOR' && tap === 'default' && (
             <>
               <MajorDiv>
                 <Major>{profileCardData?.field}</Major>
@@ -79,7 +88,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
               </Description>
             </>
           )}
-          {(type === 'scheduled' || type === 'past') && (
+          {(tap === 'scheduled' || tap === 'past') && (
             <TimeContainer>
               <ClockIc />
               <TimeSpan>
@@ -87,19 +96,19 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
               </TimeSpan>
             </TimeContainer>
           )}
-          {userRole === 'SENIOR' && type === 'rejected' && (
+          {userRole === 'SENIOR' && tap === 'rejected' && (
             <Description $colorType="grayScaleMG2">거절한 선약이에요</Description>
           )}
-          {userRole === 'JUNIOR' && type === 'rejected' && (
+          {userRole === 'JUNIOR' && tap === 'rejected' && (
             <Description $colorType="grayScaleMG2">선배님이 거절한 선약이에요</Description>
           )}
         </InfoContainer>
         <CardArrowRightGrayIcon isarrow={isarrow} />
       </Wrapper>
-      {userRole === 'JUNIOR' && type === 'past' && (
+      {userRole === 'JUNIOR' && tap === 'past' && (
         <ReviewBtn onClick={() => setIsReviewClicked(true)}>리뷰 작성하기</ReviewBtn>
       )}
-      {userRole === 'SENIOR' && type === 'past' && <ReviewBtn>작성된 리뷰 없음</ReviewBtn>}
+      {userRole === 'SENIOR' && tap === 'past' && <ReviewBtn>작성된 리뷰 없음</ReviewBtn>}
       <AutoCloseModal
         text="아직 준비중인 기능이에요"
         showModal={isReviewClicked}
@@ -112,30 +121,30 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
 
 export default ProfileContainer;
 
-const ReviewWrapper = styled.div<{ $type: string }>`
+const ReviewWrapper = styled.div<{ $tap: string }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  border-bottom: ${({ $type, theme }) => ($type === 'default' ? 'none' : `1px solid ${theme.colors.grayScaleLG2}`)};
+  border-bottom: ${({ $tap, theme }) => ($tap === 'default' ? 'none' : `1px solid ${theme.colors.grayScaleLG2}`)};
 
   &:last-child {
-    margin-bottom: ${({ $type }) => ($type === 'default' ? 0 : '8.8rem')};
+    margin-bottom: ${({ $tap }) => ($tap === 'default' ? 0 : '8.8rem')};
     border-bottom: none;
   }
 `;
 
 // 이미지카드
-const Wrapper = styled.div<{ $type: string }>`
+const Wrapper = styled.div<{ $tap: string }>`
   display: flex;
   gap: 1.4rem;
   position: relative;
 
   width: 100%;
-  padding: ${({ $type }) => ($type === 'default' ? '0' : '2rem 0')};
-  border-bottom: ${({ $type, theme }) =>
-    $type === 'default' || $type === 'past' ? 'none' : `1px solid ${theme.colors.grayScaleLG2}`};
+  padding: ${({ $tap }) => ($tap === 'default' ? '0' : '2rem 0')};
+  border-bottom: ${({ $tap, theme }) =>
+    $tap === 'default' || $tap === 'past' ? 'none' : `1px solid ${theme.colors.grayScaleLG2}`};
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 
