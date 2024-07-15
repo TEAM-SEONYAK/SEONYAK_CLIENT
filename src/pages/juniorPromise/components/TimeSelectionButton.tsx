@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ButtonCheckIc } from '../../../assets/svgs';
 import { TIME_SELECTION_BUTTON } from '../constants/constants';
 import { formatBtnDateToString } from '../utils/formatBtnDateToString';
@@ -10,17 +10,27 @@ interface TimeSelectionButtonProps {
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
   setBtnId: React.Dispatch<React.SetStateAction<number>>;
+  // eslint-disable-next-line no-unused-vars
+  handleCheckAllSelected: (isAllSelected: boolean) => void;
 }
 
 const TimeSelectionButton: React.FC<TimeSelectionButtonProps> = ({
   selectedTime,
   setIsCalendarOpen,
   setBtnId,
+  handleCheckAllSelected,
 }: TimeSelectionButtonProps) => {
   const handleTimeSelectBtn = (btnId: number) => {
     setIsCalendarOpen(true);
     setBtnId(btnId);
   };
+
+  useEffect(() => {
+    const allSelected = selectedTime.every(
+      (item) => item.selectedTime !== '첫 번째 일정 선택하기' && item.clickedDay !== '',
+    );
+    handleCheckAllSelected(allSelected);
+  }, [selectedTime, handleCheckAllSelected]);
 
   return (
     <Wrapper>

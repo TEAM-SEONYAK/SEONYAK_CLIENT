@@ -11,6 +11,7 @@ import TimeSelectionTitleWrapper from '../components/TimeSelectionTitleWrapper';
 
 const SelectJuniorPromiseSection = () => {
   const [activeButton, setActiveButton] = useState<'left' | 'right'>('left');
+  const [isAllSelected, setIsAllSelected] = useState(false);
 
   // 캘린더 여닫기
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -28,6 +29,10 @@ const SelectJuniorPromiseSection = () => {
     setActiveButton(button);
   };
 
+  const handleCheckAllSelected = (isAllSelected: boolean) => {
+    setIsAllSelected(isAllSelected);
+  };
+
   console.log(selectedTime);
 
   return (
@@ -39,6 +44,7 @@ const SelectJuniorPromiseSection = () => {
         setIsCalendarOpen={setIsCalendarOpen}
         setSelectedTime={setSelectedTime}
         setBtnId={setBtnId}
+        handleCheckAllSelected={handleCheckAllSelected}
       />
       <GrayLine />
       <SelectJuniorWorryTitleWrapper />
@@ -56,7 +62,9 @@ const SelectJuniorPromiseSection = () => {
           <Label>총 결제금액</Label>
           <Cost>0원</Cost>
         </CostWrapper>
-        <SubmitBtn type="button">약속 신청하기</SubmitBtn>
+        <SubmitBtn type="button" $isAllSelected={isAllSelected}>
+          약속 신청하기
+        </SubmitBtn>
       </PageBottomBar>
     </TimeSelectionContainer>
   );
@@ -98,7 +106,7 @@ const CostWrapper = styled.div`
 
   text-align: end;
 `;
-const SubmitBtn = styled.button`
+const SubmitBtn = styled.button<{ $isAllSelected: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,7 +116,7 @@ const SubmitBtn = styled.button`
   margin: 0 2rem 0 0;
   border-radius: 8px;
 
-  background-color: ${({ theme }) => theme.colors.grayScaleMG1};
+  background-color: ${({ theme, $isAllSelected }) => ($isAllSelected ? theme.colors.Blue : theme.colors.grayScaleMG1)};
 
   ${({ theme }) => theme.fonts.Head2_SB_18};
   color: ${({ theme }) => theme.colors.grayScaleWhite};
