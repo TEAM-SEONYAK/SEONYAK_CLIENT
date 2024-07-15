@@ -45,8 +45,6 @@ const OnboardingPage = () => {
         return <Step졸업인증 />;
       case 7:
         return <Step명함인증 />;
-      case 8:
-        return <Step인증완료 />;
       case 9:
         return <Step직무선택 />;
       case 10:
@@ -86,7 +84,7 @@ const Wrapper = styled.section`
   justify-content: space-between;
 
   height: 100dvh;
-  padding: 5.8rem 2rem 3.6rem;
+  padding: 5.8rem 0 3.6rem;
 `;
 
 const Content = styled.article`
@@ -95,5 +93,5 @@ const Content = styled.article`
   gap: 2rem;
 
   height: 100%;
-  padding-top: 3rem;
+  padding: 3rem 2rem 0;
 `;

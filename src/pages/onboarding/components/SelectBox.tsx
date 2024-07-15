@@ -41,6 +41,8 @@ const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  padding-top: 2rem;
 `;
 
 const SubTitle = styled.h2`

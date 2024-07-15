@@ -20,6 +20,8 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  padding-top: 2rem;
 `;
 const Image = styled.div`
   width: 100%;
