@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { HOUR_TIME, TIME_LIST, WEEKENDS } from '@pages/seniorProfile/constants';
+import { HOUR_TIME, TIME_LIST, DAYOFWEEK_LIST } from '@pages/seniorProfile/constants';
 import { dayOfWeekTimeList, dayType } from '@pages/seniorProfile/types';
-import { isTimeActive } from '@pages/seniorProfile/utils/isTimeActive';
+import { isTimeTableFill } from '@pages/seniorProfile/utils/isTimeTableFill';
 
 interface timeTablePropType {
   preferredTime: dayOfWeekTimeList;
@@ -11,7 +11,7 @@ const TimeTable = ({ preferredTime }: timeTablePropType) => {
   return (
     <>
       <DayOfWeekContainer>
-        {WEEKENDS.map((w: dayType) => (
+        {DAYOFWEEK_LIST.map((w: dayType) => (
           <DayOfWeek key={w}>{w}</DayOfWeek>
         ))}
       </DayOfWeekContainer>
@@ -65,12 +65,12 @@ const Table = ({ preferredTime }: timeTablePropType) => {
       <TableContainer>
         {TIME_LIST.map((t) => (
           <TableRow key={t}>
-            {WEEKENDS.map((w: dayType) => {
+            {DAYOFWEEK_LIST.map((w: dayType) => {
               const cur = preferredTime[w][0];
               return (
                 <TableCell
                   key={w}
-                  $isActive={isTimeActive({ startTime: cur.startTime, endTime: cur.endTime, curTime: t })}
+                  $isActive={isTimeTableFill({ startTime: cur.startTime, endTime: cur.endTime, curTime: t })}
                 />
               );
             })}

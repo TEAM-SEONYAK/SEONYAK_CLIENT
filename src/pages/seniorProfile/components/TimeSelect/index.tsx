@@ -5,21 +5,34 @@ import styled from '@emotion/styled';
 import TimeWeekdays from '@pages/seniorProfile/components/TimeSelect/TimeWeekdays';
 import { TOASTER_TEXT } from '@pages/seniorProfile/constants';
 import { funnelComponentPropType } from '@pages/seniorProfile/types';
+import { isDropdownActive } from '@pages/seniorProfile/utils/isDropdownActive';
 import { useState } from 'react';
 import TimeAlldays from './TimeAlldays';
 import ToggleButton from '../../../../components/commons/ToggleButton';
 
 const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) => {
   const [selectToggle, setSelectToggle] = useState<'left' | 'right'>('left');
-  const [isBtnActive, setIsBtnActive] = useState(false);
-  const [isToaster, setIsToaster] = useState(true);
+  const [isBtnActive, setIsBtnActive] = useState(true);
+  const [isToaster, setIsToaster] = useState(false);
   // const [isWarning, setIsWarning] = useState(false);
   const isWarning = false;
   const handleActiveButton = () => {
     setSelectToggle((prev) => (prev === 'left' ? 'right' : 'left'));
   };
 
+  const handleActiveBtnClick = () => {
+    !isToaster &&
+      setIsToaster(
+        isDropdownActive({
+          timeList: profile.preferredTimeList,
+          type: selectToggle === 'left' ? 'weekend' : 'dayOfWeek',
+        }),
+      );
+    setStep && setStep((prev) => prev + 1);
+  };
   const handleInactiveBtnClick = () => {};
+
+  console.log({ isToaster });
   return (
     <>
       <Wrapper>
@@ -41,7 +54,7 @@ const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) =
       {isToaster && <Toaster text={TOASTER_TEXT} />}
       <FullBtn
         text="다음으로"
-        onClick={() => setStep && setStep((prev) => prev + 1)}
+        onClick={handleActiveBtnClick}
         isActive={isBtnActive}
         onInactiveClick={handleInactiveBtnClick}
       />

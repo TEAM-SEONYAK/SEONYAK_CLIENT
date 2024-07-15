@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { WEEKENDS } from '@pages/seniorProfile/constants';
+import { DAYOFWEEK_LIST } from '@pages/seniorProfile/constants';
 import { TimeCategoryType, dayType, preferredTimeType, funnelComponentPropType } from '@pages/seniorProfile/types';
 import DurationSelect from '../common/DurationSelect';
 
@@ -22,7 +22,7 @@ const TimeAlldays = ({ profile, setProfile }: funnelComponentPropType) => {
 
   return (
     <Wrapper>
-      {WEEKENDS.map((w, idx) => (
+      {DAYOFWEEK_LIST.map((w, idx) => (
         <Container key={idx}>
           <CategoryText>{w}</CategoryText>
           <DurationSelect

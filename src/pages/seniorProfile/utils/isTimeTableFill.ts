@@ -4,7 +4,7 @@ interface isTimeActivePropType {
   curTime: string;
 }
 
-export const isTimeActive = ({ startTime, endTime, curTime }: isTimeActivePropType) => {
+export const isTimeTableFill = ({ startTime, endTime, curTime }: isTimeActivePropType) => {
   const convertToMinutes = (time: string): number => {
     const [hours, minutes] = time.split(':').map(Number);
     return hours * 60 + minutes;
