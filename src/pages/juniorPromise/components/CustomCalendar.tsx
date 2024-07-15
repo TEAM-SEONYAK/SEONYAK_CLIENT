@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { formatCalDateToString } from '../utils/formatCalDateToString';
 import { getTomorrow } from '../utils/getTomorrow';
 
 interface CalendarTileProperties {
@@ -13,9 +14,18 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-const CustomCalendar = () => {
+interface CustomCalendarPropType {
+  btnId: number;
+  setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
+}
+
+const CustomCalendar = ({ btnId, setSelectedTime }: CustomCalendarPropType) => {
   // 초기값을 내일 날짜로 설정
   const [value, onChange] = useState<Value>(getTomorrow());
+
+  const handleDateClick = (date: string) => {
+    setSelectedTime((prev) => prev.map((item) => (item.id === btnId ? { ...item, clickedDay: date } : item)));
+  };
 
   const tileDisabled = ({ date, view }: CalendarTileProperties) => {
     return view === 'month' && date <= new Date();
@@ -23,11 +33,11 @@ const CustomCalendar = () => {
 
   const tileClassName = ({ date, view }: CalendarTileProperties) =>
     view === 'month' && date <= new Date() ? 'disabled-date' : '';
-
   return (
     <CalendarContainer>
       <StyledCalendar
         onChange={onChange}
+        onClickDay={(value) => handleDateClick(formatCalDateToString(value))}
         value={value}
         minDate={new Date()}
         next2Label={null}
@@ -46,7 +56,6 @@ export default CustomCalendar;
 
 const CalendarContainer = styled.div`
   max-width: 100%;
-  padding: 2rem;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 `;

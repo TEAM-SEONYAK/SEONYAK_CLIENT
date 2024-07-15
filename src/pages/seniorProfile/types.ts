@@ -139,10 +139,9 @@ export const seniorProfileInitial: seniorProfileAPIType = {
   },
 };
 
-export interface profilePropType {
+export interface funnelComponentPropType {
   profile?: seniorProfileAPIType;
-  // eslint-disable-next-line no-undef
   setProfile?: React.Dispatch<React.SetStateAction<seniorProfileAPIType>>;
-  // eslint-disable-next-line no-undef
   setIsNextActive?: React.Dispatch<React.SetStateAction<boolean>>;
+  setStep?: React.Dispatch<React.SetStateAction<number>>;
 }

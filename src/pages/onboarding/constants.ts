@@ -28,6 +28,10 @@ export const SENIOR_ONBOARDING_STEPS = [
     description: '개인정보는 안전하게 보관되어 누구에게도 공개되지 않아요.',
   },
   {
+    title: '인증이 완료되었어요',
+    description: '명함 정보를 확인해 주세요',
+  },
+  {
     title: '회사 재직 기간을 알려 주세요',
     description: '선배님의 직무와 연차를 선택해주세요',
   },
@@ -81,3 +85,19 @@ export const 약관_LIST = [
 ];
 
 export const ONBOARDING_HEADER = ['약관 동의', '개인정보 입력', '학교 인증', '재직 인증'];
+
+export const 연차_LIST = [
+  '1년 차 이하',
+  '2년 차',
+  '3년 차',
+  '4년 차',
+  '5년 차',
+  '6년 차',
+  '7년 차',
+  '8년 차',
+  '9년 차',
+  '10년 차',
+  '11년 차',
+  '12년 차',
+  '13년 차 이상',
+];
