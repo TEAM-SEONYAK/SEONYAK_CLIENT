@@ -9,10 +9,11 @@ interface InputBoxPropType
   extends Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value' | 'onChange' | 'maxLength'> {
   label: string;
   type?: 'text' | 'file';
+  text?: string;
   children?: ReactNode;
 }
 
-export const InputBox = ({ label, children, type = 'text', ...inputElements }: InputBoxPropType) => {
+export const InputBox = ({ label, children, type = 'text', text, ...inputElements }: InputBoxPropType) => {
   return (
     <InputWrapper>
       {type === 'text' ? (
@@ -20,7 +21,7 @@ export const InputBox = ({ label, children, type = 'text', ...inputElements }: I
       ) : (
         <>
           <FileLabel>
-            파일 첨부하기
+            <FileText $isDefault={text === inputElements.placeholder}>{text}</FileText>
             <FileInput type="file" accept="image/*, .pdf" {...inputElements} />
           </FileLabel>
         </>
@@ -111,15 +112,17 @@ const FileLabel = styled.label`
   height: 5.1rem;
   margin-top: 0.4rem;
   padding: 1rem 1.5rem;
-  ${({ theme }) => theme.fonts.Title2_M_16};
   border: none;
   border-radius: 8px;
 
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
-
-  color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
 
 const FileInput = styled.input`
   display: none;
+`;
+
+const FileText = styled.span<{ $isDefault: boolean }>`
+  ${({ theme }) => theme.fonts.Title2_M_16};
+  color: ${({ $isDefault, theme }) => ($isDefault ? theme.colors.grayScaleMG2 : theme.colors.grayScaleBG)};
 `;
