@@ -24,3 +24,8 @@ export { default as NaviPromiseGrayIc } from './ic_navi_promise_gray.svg?react';
 export { default as DropdownIc } from './ic_dropdown.svg?react';
 export { default as ReloadIc } from './ReloadIc.svg?react';
 export { default as ModalCheckIc } from './ic_modal_check.svg?react';
+export { default as ImgFlagIc } from './img_flag.svg?react';
+export { default as ImgHbpromiseIc } from './img_hbpromise.svg?react';
+export { default as ImgMedalIc } from './img_medal.svg?react';
+export { default as ImgSbdetail1Ic } from './img_sbdetail_1.svg?react';
+export { default as ImgSbdetail2Ic } from './img_sbdetail_2.svg?react';
