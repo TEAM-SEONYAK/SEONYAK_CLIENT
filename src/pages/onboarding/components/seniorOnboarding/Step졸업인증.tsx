@@ -13,8 +13,8 @@ const Step졸업인증 = () => {
     if (!e.target.files) return;
     setFileName(e.target.files[0].name);
   };
-  const handleSetSuccess = () => {
-    setSuccess(true);
+  const handleSetSuccess = (type: boolean) => {
+    setSuccess(type);
   };
   return (
     <Wrapper>
