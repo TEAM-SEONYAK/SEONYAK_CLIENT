@@ -6,7 +6,6 @@ import { TimeCategoryType, preferredTimeType, funnelComponentPropType, weekendTy
 const TimeWeekdays = ({ profile, setProfile }: funnelComponentPropType) => {
   const weekendsSetProfile =
     (key: weekendType) => (timeCategory: TimeCategoryType) => (selectedValue: string | boolean) =>
-      setProfile &&
       setProfile((prev) => ({
         ...prev,
         preferredTimeList: {

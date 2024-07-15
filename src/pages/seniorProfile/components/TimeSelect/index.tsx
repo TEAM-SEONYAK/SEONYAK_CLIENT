@@ -6,15 +6,24 @@ import TimeWeekdays from '@pages/seniorProfile/components/TimeSelect/TimeWeekday
 import { TOASTER_TEXT } from '@pages/seniorProfile/constants';
 import { funnelComponentPropType } from '@pages/seniorProfile/types';
 import { isDropdownActive } from '@pages/seniorProfile/utils/isDropdownActive';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TimeAlldays from './TimeAlldays';
 import ToggleButton from '../../../../components/commons/ToggleButton';
 
 const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) => {
-  const [selectToggle, setSelectToggle] = useState<'left' | 'right'>('left');
+  const timeType = profile.isDayOfWeek ? 'right' : 'left';
+  const [selectToggle, setSelectToggle] = useState<'left' | 'right'>(timeType);
   const [isBtnActive, setIsBtnActive] = useState(true);
   const [isToaster, setIsToaster] = useState(false);
   // const [isWarning, setIsWarning] = useState(false);
+
+  useEffect(() => {
+    setProfile((prev) => ({
+      ...prev,
+      isDayOfWeek: selectToggle === 'right',
+    }));
+  }, [selectToggle]);
+
   const isWarning = false;
   const handleActiveButton = () => {
     setSelectToggle((prev) => (prev === 'left' ? 'right' : 'left'));

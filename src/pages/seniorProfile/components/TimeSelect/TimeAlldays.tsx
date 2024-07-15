@@ -5,7 +5,6 @@ import DurationSelect from '../common/DurationSelect';
 
 const TimeAlldays = ({ profile, setProfile }: funnelComponentPropType) => {
   const dayOfWeekSetProfile = (key: dayType) => (timeCategory: TimeCategoryType) => (selectedValue: string | boolean) =>
-    setProfile &&
     setProfile((prev) => ({
       ...prev,
       preferredTimeList: {
@@ -29,6 +28,7 @@ const TimeAlldays = ({ profile, setProfile }: funnelComponentPropType) => {
             variant="secondary"
             selectValue={profile.preferredTimeList.dayOfWeek[w][0]}
             setProfile={dayOfWeekSetProfile(w)}
+            defaultActive={!!profile.preferredTimeList.weekend.주중[0].isActive}
           />
         </Container>
       ))}
