@@ -21,9 +21,9 @@ const ProgressBarWrapper = styled.div`
   overflow: hidden;
   position: fixed;
   top: 5rem;
-  left: 0;
 
   width: 100vw;
+  max-width: 43rem;
   height: 0.8rem;
 
   background-color: ${({ theme }) => theme.colors.grayScaleLG2};
