@@ -160,8 +160,6 @@ const Wrapper = styled.div<{ $tap: string }>`
 
   width: 100%;
   padding: ${({ $tap }) => ($tap === 'default' ? '0' : '2rem 0')};
-  border-bottom: ${({ $tap, theme }) =>
-    $tap === 'default' || $tap === 'past' ? 'none' : `1px solid ${theme.colors.grayScaleLG2}`};
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 
