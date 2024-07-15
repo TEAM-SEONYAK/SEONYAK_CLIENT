@@ -1,19 +1,20 @@
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 
 // 화면 하단 풀사이즈 버튼
 interface FullBtnPropType {
   isActive?: boolean;
   text: string;
   onClick: () => void;
-
+  onInactiveClick?: () => void;
   isTransparent?: boolean;
 }
 
 export const FullBtn = (props: FullBtnPropType) => {
-  const { isActive, text, onClick, isTransparent = false } = props;
+  const { isActive, text, onClick, onInactiveClick, isTransparent = false } = props;
   return (
     <Wrapper $isTransparent={isTransparent}>
-      <FullBtnContainer type="button" disabled={!isActive} onClick={onClick}>
+      <FullBtnContainer type="button" disabled={!isActive} onClick={isActive ? onClick : onInactiveClick}>
         {text}
       </FullBtnContainer>
     </Wrapper>
