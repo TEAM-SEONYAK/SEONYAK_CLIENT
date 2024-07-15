@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { TimeCategoryType, dayType, preferredTimeType, profilePropType } from '@pages/seniorProfile/types';
+import { TimeCategoryType, dayType, preferredTimeType, funnelComponentPropType } from '@pages/seniorProfile/types';
 import DurationSelect from './common/DurationSelect';
 import { WEEKENDS } from '../constants';
 
-const TimeAlldays = ({ profile, setProfile }: profilePropType) => {
+const TimeAlldays = ({ profile, setProfile }: funnelComponentPropType) => {
   const dayOfWeekSetProfile = (key: dayType) => (timeCategory: TimeCategoryType) => (selectedValue: string | boolean) =>
     setProfile((prev) => ({
       ...prev,

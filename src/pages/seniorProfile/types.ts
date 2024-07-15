@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export interface seniorProfileAPIType {
   catchphrase: string;
   career: string;
@@ -139,10 +140,9 @@ export const seniorProfileInitial: seniorProfileAPIType = {
   },
 };
 
-export interface profilePropType {
-  profile: seniorProfileAPIType;
-  // eslint-disable-next-line no-undef
-  setProfile: React.Dispatch<React.SetStateAction<seniorProfileAPIType>>;
-  // eslint-disable-next-line no-undef
+export interface funnelComponentPropType {
+  profile?: seniorProfileAPIType;
+  setProfile?: React.Dispatch<React.SetStateAction<seniorProfileAPIType>>;
   setIsNextActive?: React.Dispatch<React.SetStateAction<boolean>>;
+  setStep?: React.Dispatch<React.SetStateAction<number>>;
 }

@@ -1,26 +1,27 @@
 import styled from '@emotion/styled';
 import { getLevelName } from './utils/getLevelName';
 
-interface ISeniorList {
+interface seniorListPropType {
   nickname: string;
   company: string;
   field: string;
   position: string;
   detailPosition: string;
   level: number;
+  variant?: 'default' | 'secondary';
 }
 
 interface CompanyProps {
   $randomColor: number;
 }
 
-export const SeniorCard = (props: ISeniorList) => {
-  const { nickname, company, field, position, detailPosition, level } = props;
+export const SeniorCard = (props: seniorListPropType) => {
+  const { nickname, company, field, position, detailPosition, level, variant = 'default' } = props;
   const levelName = getLevelName(level);
   const randomColor = Math.floor(Math.random() * 3);
 
   return (
-    <SeniorCardWrapper>
+    <SeniorCardWrapper $isSmall={variant === 'secondary'}>
       <SeniorImg />
       <SeniorCardLayout>
         <Nickname>{nickname}</Nickname>
@@ -43,14 +44,14 @@ export const SeniorCard = (props: ISeniorList) => {
 
 export default SeniorCard;
 
-const SeniorCardWrapper = styled.div`
+const SeniorCardWrapper = styled.div<{ $isSmall: boolean }>`
   display: flex;
   gap: 1.5rem;
   justify-content: center;
   align-items: center;
 
   width: 100%;
-  height: 14.2rem;
+  height: ${({ $isSmall }) => ($isSmall ? '12.6rem' : '14.2rem')};
   border-radius: 8px;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};

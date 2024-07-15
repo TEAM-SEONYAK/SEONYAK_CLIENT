@@ -94,7 +94,7 @@ const DropdownContainer = styled.section<{ $isDefault: boolean; $isActive: boole
 
 const SelectedText = styled.p<{ $isActive: boolean }>`
   ${({ theme }) => theme.fonts.Title2_M_16};
-  color: ${({ $isActive, theme }) => ($isActive ? 'black' : theme.colors.grayScaleMG1)};
+  color: ${({ $isActive, theme }) => ($isActive ? theme.colors.grayScaleBlack : theme.colors.grayScaleMG1)};
 `;
 
 const ArrowDownIcon = styled(ArrowDownIc)<{ isactive: string }>`

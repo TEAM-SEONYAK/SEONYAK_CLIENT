@@ -25,7 +25,7 @@ const Wrapper = styled.div<{ $isShown: boolean }>`
 
   width: 100%;
 
-  opacity: ${({ $isShown }) => !$isShown && '0'};
+  opacity: ${({ $isShown }) => $isShown || '0'};
 `;
 
 const WarnText = styled.span`
