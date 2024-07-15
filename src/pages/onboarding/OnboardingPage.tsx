@@ -1,8 +1,9 @@
 import { ArrowLeftIc } from '@assets/svgs';
-import { FullBtn } from '@components/commons/FullButton';
 import { Header } from '@components/commons/Header';
 import ProgressBar from '@components/commons/ProgressBar';
 import styled from '@emotion/styled';
+import Layout from '@pages/onboarding/components/Layout';
+import Step재직인증 from '@pages/onboarding/components/seniorOnboarding/Step재직인증';
 import { useState } from 'react';
 import Step개인정보입력 from './components/commonOnboarding/Step개인정보입력';
 import Step계열선택 from './components/commonOnboarding/Step계열선택';
@@ -10,8 +11,6 @@ import Step번호입력 from './components/commonOnboarding/Step번호입력';
 import Step약관동의 from './components/commonOnboarding/Step약관동의';
 import Step학과선택 from './components/commonOnboarding/Step학과선택';
 import Step학교선택 from './components/commonOnboarding/Step학교선택';
-import Layout from './components/Layout';
-import Step명함인증 from './components/seniorOnboarding/Step명함인증';
 import Step인증완료 from './components/seniorOnboarding/Step인증완료';
 import Step재직기간 from './components/seniorOnboarding/Step재직기간';
 import Step졸업인증 from './components/seniorOnboarding/Step졸업인증';
@@ -22,7 +21,6 @@ const OnboardingPage = () => {
   // 테스트
   const role = 'SENIOR';
   const [step, setStep] = useState(1);
-
   const handleSetStep = (dir: 'NEXT' | 'PREV') => {
     dir === 'NEXT' ? setStep((prev) => prev + 1) : setStep((prev) => prev - 1);
   };
@@ -42,7 +40,7 @@ const OnboardingPage = () => {
       case 6:
         return <Step졸업인증 />;
       case 7:
-        return <Step명함인증 />;
+        return <Step재직인증 />;
       case 9:
         return <Step재직기간 />;
       case 10:
@@ -103,8 +101,8 @@ const Caption = styled.p`
   width: 100%;
   margin-bottom: 2rem;
 
-  text-align: center;
   color: ${({ theme }) => theme.colors.grayScaleMG2};
+  text-align: center;
   white-space: pre-line;
   ${({ theme }) => theme.fonts.Caption1_R_12};
 `;

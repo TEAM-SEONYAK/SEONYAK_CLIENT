@@ -16,6 +16,7 @@ const Layout = ({
 }: {
   userRole: 'SENIOR' | 'JUNIOR';
   step: number;
+  // eslint-disable-next-line no-unused-vars
   handleSetStep: (dir: 'NEXT' | 'PREV') => void;
   children: ReactNode;
 }) => {
@@ -30,10 +31,10 @@ const Layout = ({
         onClickLeft={() => handleSetStep('PREV')}
       />
       <ProgressBar max={userRole === 'SENIOR' ? 4 : 3} current={GROUP_STEP} />
-      <Content>
+      <MetaContainer>
         <TitleBox title={title} description={description} />
-        {children}
-      </Content>
+      </MetaContainer>
+      <Content>{children}</Content>
       <FullBtn text="텍스트" isActive onClick={() => handleSetStep('NEXT')} />
       <ButtonBg />
     </Wrapper>
@@ -45,19 +46,21 @@ export default Layout;
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: space-between;
 
   height: 100dvh;
-  padding: 5.8rem 2rem 3.6rem;
+  padding: 5.8rem 0 3.6rem;
 `;
 
-const Content = styled.article`
+const MetaContainer = styled.header`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 
-  height: 100%;
-  padding-top: 3rem;
+  padding: 3rem 2rem 0;
+`;
+
+const Content = styled.section`
+  padding: 0 2rem;
 `;
 
 const ButtonBg = styled.footer`

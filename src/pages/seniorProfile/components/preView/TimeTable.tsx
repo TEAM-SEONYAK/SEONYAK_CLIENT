@@ -30,6 +30,7 @@ const TimeTable = ({ preferredTime }: timeTablePropType) => {
 const DayOfWeekContainer = styled.section`
   display: flex;
   justify-content: space-between;
+
   margin: 0 1.4rem 0.7rem 5.9rem;
 `;
 
@@ -48,8 +49,9 @@ const Wrapper = styled.div`
 const TimeContainer = styled.section`
   display: flex;
   flex-direction: column;
-  padding: 0.1rem 0 0.2rem 0;
   justify-content: space-between;
+
+  padding: 0.1rem 0 0.2rem;
 `;
 
 const Time = styled.p`
@@ -80,16 +82,15 @@ const Table = ({ preferredTime }: timeTablePropType) => {
 };
 export default TimeTable;
 
-const TableWrapper = styled.div`
+const TableWrapper = styled.table`
   width: 100%;
   height: 100%;
-
-  border-radius: 2px;
-  border: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
   margin-right: 0.3rem;
+  border: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
+  border-radius: 2px;
 `;
 
-const TableContainer = styled.table`
+const TableContainer = styled.tbody`
   width: 100%;
   height: 100%;
 `;
@@ -99,9 +100,9 @@ const TableRow = styled.tr`
 `;
 
 const TableCell = styled.td<{ $isActive: boolean }>`
-  border-left: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
   border-right: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
   border-bottom: 1px dashed ${({ theme }) => theme.colors.grayScaleLG1};
+  border-left: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 
   background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primaryBlue200 : '')};
 `;
