@@ -1,3 +1,4 @@
+import { EmptyImg } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
 import ProfileChip from './ProfileChip';
@@ -5,6 +6,7 @@ import ProfileContainer from './ProfileContainer';
 import PromiseTimerBtn from './PromiseTimerBtn';
 import { profileCardDataType } from '../types/type';
 import { calculateTimeLeft } from '../utils/calculateTimeLeft';
+
 interface RecentCardPropType {
   userRole: string;
   recentAppointment?: profileCardDataType;
@@ -83,10 +85,4 @@ const DashedDivider = styled.div`
   height: 0.1rem;
   margin-bottom: 1.39rem;
   border-bottom: 1px dashed ${({ theme }) => theme.colors.grayScaleLG1};
-`;
-
-const EmptyImg = styled.div`
-  width: 31.2rem;
-  height: 13.4rem;
-  background-color: ${({ theme }) => theme.colors.grayScaleLG2};
 `;

@@ -6,7 +6,6 @@ import { Header } from '@components/commons/Header';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import Textarea from '@components/commons/Textarea';
 import styled from '@emotion/styled';
-import PromiseTimerBtn from '@pages/promiseList/components/PromiseTimerBtn';
 import { calculateTimeLeft } from '@pages/promiseList/utils/calculateTimeLeft';
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';

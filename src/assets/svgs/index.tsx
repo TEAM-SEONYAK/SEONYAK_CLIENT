@@ -27,3 +27,6 @@ export { default as ReloadIc } from './ReloadIc.svg?react';
 
 export { default as BottomSheetRectangleIc } from './bottom-sheet-Rectangle.svg?react';
 export { default as ArrowDownMgIc } from './ic_arrow_down_mg.svg?react';
+export { default as EmptyImg } from './img_empty.svg?react';
+export { default as SbhbHomeProfile1Img } from './img_sbhbhome_profile1.svg?react';
+export { default as SbhbHomeProfile2Img } from './img_sbhbhome_profile2.svg?react';
