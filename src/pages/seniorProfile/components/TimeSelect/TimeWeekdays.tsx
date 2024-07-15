@@ -1,11 +1,12 @@
+import { DeleteIc } from '@assets/svgs';
 import styled from '@emotion/styled';
+import DurationSelect from '@pages/seniorProfile/components/common/DurationSelect';
 import { TimeCategoryType, preferredTimeType, funnelComponentPropType, weekendType } from '@pages/seniorProfile/types';
-import DurationSelect from './common/DurationSelect';
-import DeleteIc from '../../../assets/svgs/ic_delete_btn.svg?react';
 
 const TimeWeekdays = ({ profile, setProfile }: funnelComponentPropType) => {
   const weekendsSetProfile =
     (key: weekendType) => (timeCategory: TimeCategoryType) => (selectedValue: string | boolean) =>
+      setProfile &&
       setProfile((prev) => ({
         ...prev,
         preferredTimeList: {

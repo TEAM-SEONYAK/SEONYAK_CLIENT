@@ -4,9 +4,9 @@ import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
 import { SENIOR_PROFILE_STEPS } from '@pages/seniorProfile/constants';
 import { Meta } from '@pages/seniorProfile/SeniorProfilePage';
-import { funnelComponentPropType } from '@pages/seniorProfile/types';
 
-const Example = ({ setStep }: funnelComponentPropType) => {
+// eslint-disable-next-line no-undef
+const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
   return (
     <>
       <Wrapper>

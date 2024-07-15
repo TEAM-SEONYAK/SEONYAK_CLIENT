@@ -18,11 +18,10 @@ const Sentence = ({ profile, setProfile, setStep }: funnelComponentPropType) => 
   };
 
   useEffect(() => {
-    setProfile &&
-      setProfile((prev) => ({
-        ...prev,
-        catchphrase,
-      }));
+    setProfile((prev) => ({
+      ...prev,
+      catchphrase,
+    }));
 
     console.log({ catchphrase });
     console.log({ isWarning });

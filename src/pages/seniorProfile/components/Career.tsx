@@ -7,10 +7,10 @@ import { funnelComponentPropType } from '@pages/seniorProfile/types';
 import { useEffect, useState } from 'react';
 
 const Career = ({ profile, setProfile, setStep }: funnelComponentPropType) => {
-  const [career, setCareer] = useState(profile?.career + '');
+  const [career, setCareer] = useState(profile.career + '');
   const { isNextActive: isCareerNext, isWarning: isCareerWarning } = useValidation(career, 60);
 
-  const [award, setAward] = useState(profile?.award + '');
+  const [award, setAward] = useState(profile.award + '');
   const { isNextActive: isAwardNext, isWarning: isAwardWarning } = useValidation(award, 60);
 
   const handleChangeCareer = (inputVal: string) => {

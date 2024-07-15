@@ -4,6 +4,7 @@ import Complete from '@pages/seniorProfile/components/Complete';
 import Init from '@pages/seniorProfile/components/Init';
 import PreView from '@pages/seniorProfile/components/preView/index';
 import { seniorProfileRegisterType, seniorProfileInitial } from '@pages/seniorProfile/types';
+import { weekToDay } from '@pages/seniorProfile/utils/weekToDay';
 import { useState } from 'react';
 import Career from './components/Career';
 import Example from './components/Example';
@@ -14,12 +15,10 @@ import { SENIOR_PROFILE_STEPS } from './constants';
 import { Header } from '../../components/commons/Header';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
-import { weekToDay } from '@pages/seniorProfile/utils/weekToDay';
 
 const SeniorProfilePage = () => {
   const [step, setStep] = useState(0);
   const [profile, setProfile] = useState<seniorProfileRegisterType>(seniorProfileInitial);
-  const btnText = step === 8 ? '프로필 등록하기' : '다음으로';
   const userName = step >= 2 && step <= 4 ? '도현' : '';
 
   const getComponent = () => {

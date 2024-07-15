@@ -150,8 +150,7 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
 };
 
 export interface funnelComponentPropType {
-  profile?: seniorProfileRegisterType;
-  setProfile?: React.Dispatch<React.SetStateAction<seniorProfileRegisterType>>;
-  setIsNextActive?: React.Dispatch<React.SetStateAction<boolean>>;
+  profile: seniorProfileRegisterType;
+  setProfile: React.Dispatch<React.SetStateAction<seniorProfileRegisterType>>;
   setStep?: React.Dispatch<React.SetStateAction<number>>;
 }
