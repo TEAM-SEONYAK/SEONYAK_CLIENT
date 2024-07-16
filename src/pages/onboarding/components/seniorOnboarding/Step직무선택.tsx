@@ -17,8 +17,8 @@ const Step직무선택 = () => {
         </SelectWrapper>
       </Wrapper>
       <TextBox label="세부 직무">
-        <InputBox label="세부 직무" placeholder="Product Designer & Prdouct Manager"></InputBox>
-        <Caption>재직 중인 회사에서의 구체적인 직무를 작성해 주세요</Caption>
+        <InputBox label="세부 직무" placeholder="구체적인 직무를 작성해 주세요" maxLength={25}></InputBox>
+        <Caption>최대 25자까지 작성할 수 있어요</Caption>
       </TextBox>
       <FullBtn isActive onClick={onNext} />
     </Container>
@@ -74,4 +74,5 @@ const DropdownIcon = styled(DropdownIc)`
   right: 0;
 
   margin-right: 1rem;
+  fill: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
