@@ -28,12 +28,15 @@ const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) =
     }
   }, [profile.preferredTimeList]);
 
-  const handleActiveButton = () => {
-    setSelectToggle((prev) => (prev === 'left' ? 'right' : 'left'));
-    setProfile((prev) => ({
-      ...prev,
-      isDayOfWeek: selectToggle === 'right',
-    }));
+  const handleToggleBtn = () => {
+    setSelectToggle((prev) => {
+      const ret = prev === 'left' ? 'right' : 'left';
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        isDayOfWeek: ret === 'right',
+      }));
+      return ret;
+    });
   };
 
   const handleActiveBtnClick = () => {
@@ -56,7 +59,7 @@ const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) =
           left="주중/주말 선택"
           right="모든 요일 선택"
           activeButton={selectToggle}
-          onToggle={handleActiveButton}
+          onToggle={handleToggleBtn}
         />
         <WarnWrapper>
           <WarnDescription isShown={isWarning} warnText="시간을 입력해주세요" />
