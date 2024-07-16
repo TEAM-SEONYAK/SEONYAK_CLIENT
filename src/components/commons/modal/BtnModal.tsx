@@ -19,15 +19,17 @@ export const BtnCloseModal = (props: BtnCloseModalPropType) => {
   };
 
   return (
-    <Wrapper>
-      <ModalBackground $isModalOpen={isModalOpen} onClick={handleModalClose} />
-      <BtnModalWrapper $isModalOpen={isModalOpen}>
-        <CloseIcon onClick={handleModalClose} />
-        <BtnModalTitle>{title}</BtnModalTitle>
-        {children}
-        <BtnModalBtn onClick={handleModalClose}>{btnText}</BtnModalBtn>
-      </BtnModalWrapper>
-    </Wrapper>
+    isModalOpen && (
+      <Wrapper>
+        <ModalBackground $isModalOpen={isModalOpen} onClick={handleModalClose} />
+        <BtnModalWrapper $isModalOpen={isModalOpen}>
+          <CloseIcon onClick={handleModalClose} />
+          <BtnModalTitle>{title}</BtnModalTitle>
+          {children}
+          <BtnModalBtn onClick={handleModalClose}>{btnText}</BtnModalBtn>
+        </BtnModalWrapper>
+      </Wrapper>
+    )
   );
 };
 
