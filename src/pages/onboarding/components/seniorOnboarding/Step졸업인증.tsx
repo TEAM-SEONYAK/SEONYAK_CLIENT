@@ -39,6 +39,7 @@ const Step졸업인증 = () => {
             <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50MB)</Caption>
           )}
         </TextBox>
+        <FullBtn text="텍스트" isActive={fileName !== DEFAULT_TEXT} onClick={onNext} />
       </Wrapper>
 
       <ModalWrapper>
