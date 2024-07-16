@@ -12,13 +12,13 @@ export const FilterButton: React.FC<FilterButtonProps> = ({ handleFilterActiveBt
       <FilterFieldBtn type="button" onClick={() => handleFilterActiveBtn('계열')} $fieldChipNum={fieldChipNum}>
         <FiledName $fieldChipNum={fieldChipNum}>계열</FiledName>
         {fieldChipNum > 0 && <ChipNum>{fieldChipNum}</ChipNum>}
-        <FieldArrowDownIc $fieldchipnum={fieldChipNum + ''} />
+        <FieldArrowDownIc fieldchipnum={fieldChipNum + ''} />
       </FilterFieldBtn>
 
       <FilterPositionBtn type="button" onClick={() => handleFilterActiveBtn('직무')} $positionChipNum={positionChipNum}>
         <PositionName $positionChipNum={positionChipNum}>직무</PositionName>
         {positionChipNum > 0 && <ChipNum>{positionChipNum}</ChipNum>}
-        <PositionArrowDown $positionchipnum={positionChipNum + ''} />
+        <PositionArrowDown positionchipnum={positionChipNum + ''} />
       </FilterPositionBtn>
     </FilterBtnContainer>
   );
@@ -71,14 +71,14 @@ const PositionName = styled.p<{ $positionChipNum: number }>`
   color: ${({ theme, $positionChipNum }) => ($positionChipNum > 0 ? theme.colors.Blue : theme.colors.grayScaleDG)};
 `;
 
-const FieldArrowDownIc = styled(ArrowDownIc)<{ $fieldchipnum: string }>`
+const FieldArrowDownIc = styled(ArrowDownIc)<{ fieldchipnum: string }>`
   path {
-    stroke: ${({ theme, $fieldchipnum }) => ($fieldchipnum > '0' ? theme.colors.Blue : theme.colors.grayScaleDG)};
+    stroke: ${({ theme, fieldchipnum }) => (fieldchipnum > '0' ? theme.colors.Blue : theme.colors.grayScaleDG)};
   }
 `;
 
-const PositionArrowDown = styled(ArrowDownIc)<{ $positionchipnum: string }>`
+const PositionArrowDown = styled(ArrowDownIc)<{ positionchipnum: string }>`
   path {
-    stroke: ${({ theme, $positionchipnum }) => ($positionchipnum > '0' ? theme.colors.Blue : theme.colors.grayScaleDG)};
+    stroke: ${({ theme, positionchipnum }) => (positionchipnum > '0' ? theme.colors.Blue : theme.colors.grayScaleDG)};
   }
 `;
