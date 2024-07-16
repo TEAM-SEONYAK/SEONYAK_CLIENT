@@ -8,12 +8,11 @@ interface BtnCloseModalPropType {
   isModalOpen: boolean;
   handleModalOpen: (type: boolean) => void;
   children?: React.ReactNode;
-  btnText: string;
-  btnOnClick?: () => void;
+  btnText?: string;
 }
 
 export const BtnCloseModal = (props: BtnCloseModalPropType) => {
-  const { title, isModalOpen, handleModalOpen, children, btnText, btnOnClick } = props;
+  const { title, isModalOpen, handleModalOpen, children, btnText } = props;
 
   const handleModalClose = () => {
     handleModalOpen(false);
@@ -27,7 +26,7 @@ export const BtnCloseModal = (props: BtnCloseModalPropType) => {
           <CloseIcon onClick={handleModalClose} />
           <BtnModalTitle>{title}</BtnModalTitle>
           {children}
-          <BtnModalBtn onClick={btnOnClick || handleModalClose}>{btnText}</BtnModalBtn>
+          {btnText && <BtnModalBtn onClick={handleModalClose}>{btnText}</BtnModalBtn>}
         </BtnModalWrapper>
       </Wrapper>
     )
@@ -70,7 +69,7 @@ const BtnModalWrapper = styled.section<{ $isModalOpen: boolean }>`
   z-index: 5;
 
   width: 30rem;
-  padding: 3.6rem 1.3rem 1.5rem;
+  padding: 3.6rem 2rem 3rem;
   border: none;
   border-radius: 8px;
 

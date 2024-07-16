@@ -14,6 +14,7 @@ const Step명함인증 = () => {
   const handleClickPhoto = () => {
     handleSetOpen(true);
   };
+
   return (
     <>
       <Wrapper>
@@ -21,11 +22,7 @@ const Step명함인증 = () => {
         <Caption>재직 사실 확인을 위해 명함 촬영이 필요해요</Caption>
         <FullBtn text="명함 촬영하기" isActive onClick={handleClickPhoto} />
       </Wrapper>
-      <BtnCloseModal
-        title="명함 촬영 전 주의해 주세요"
-        btnText="확인했어요"
-        isModalOpen={isOpen}
-        handleModalOpen={handleSetOpen}>
+      <BtnCloseModal title="명함 촬영 전 주의해 주세요" isModalOpen={isOpen} handleModalOpen={handleSetOpen}>
         <GrayBox>
           <GrayText>
             <ModalCheckIc />
@@ -48,6 +45,10 @@ const Step명함인증 = () => {
             </span>
           </GrayText>
         </GrayBox>
+        <BtnModalBtn>
+          <input type="file" accept="image/*" capture="environment" />
+          확인했어요
+        </BtnModalBtn>
       </BtnCloseModal>
     </>
   );
@@ -92,5 +93,23 @@ const GrayText = styled.li`
 
   & svg {
     margin-top: 0.35rem;
+  }
+`;
+
+const BtnModalBtn = styled.label`
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 8px;
+
+  background-color: ${({ theme }) => theme.colors.Blue};
+
+  ${({ theme }) => theme.fonts.Head2_SB_18};
+  color: ${({ theme }) => theme.colors.grayScaleWhite};
+  text-align: center;
+
+  cursor: pointer;
+
+  & > input {
+    display: none;
   }
 `;
