@@ -16,7 +16,7 @@ const Step명함인증 = () => {
     handleSetOpen(true);
   };
 
-  const handleChangeFilie = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
     // file을 multipart/form-data 로 통신
@@ -54,7 +54,7 @@ const Step명함인증 = () => {
           </GrayText>
         </GrayBox>
         <BtnModalBtn>
-          <input type="file" accept="image/*" capture="environment" onChange={handleChangeFilie} />
+          <input type="file" accept="image/*" capture="environment" onChange={handleChangeFile} />
           확인했어요
         </BtnModalBtn>
       </BtnCloseModal>
