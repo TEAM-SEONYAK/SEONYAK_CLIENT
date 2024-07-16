@@ -20,8 +20,6 @@ const SeniorProfilePage = () => {
   const [step, setStep] = useState(0);
   const [profile, setProfile] = useState<seniorProfileRegisterType>(seniorProfileInitial);
   const userName = step >= 2 && step <= 4 ? '도현' : '';
-  console.log('isDayOfWeek:', profile.isDayOfWeek);
-  console.log('preferredTimeList:', profile.preferredTimeList);
   const getComponent = () => {
     switch (step) {
       case 0:

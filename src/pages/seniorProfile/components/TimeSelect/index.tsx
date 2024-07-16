@@ -12,8 +12,9 @@ import TimeAlldays from './TimeAlldays';
 import ToggleButton from '../../../../components/commons/ToggleButton';
 
 const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) => {
-  const [selectToggle, setSelectToggle] = useState<'left' | 'right'>(profile.isDayOfWeek ? 'right' : 'left');
-  const timeType = selectToggle === 'left' ? 'weekend' : 'dayOfWeek';
+  const [leftToggleText, rightToggleText] = ['주중/주말 선택', '모든 요일 선택'];
+  const [selectToggle, setSelectToggle] = useState<string>(profile.isDayOfWeek ? rightToggleText : leftToggleText);
+  const timeType = selectToggle === '주중/주말 선택' ? 'weekend' : 'dayOfWeek';
   const [isBtnActive, setIsBtnActive] = useState(true);
   const [isToaster, setIsToaster] = useState(false);
   const [isWarning, setIsWarning] = useState(false);
@@ -28,17 +29,16 @@ const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) =
     }
   }, [profile.preferredTimeList]);
 
-  const handleToggleBtn = () => {
-    setSelectToggle((prev) => {
-      const ret = prev === 'left' ? 'right' : 'left';
-      setProfile((prevProfile) => ({
-        ...prevProfile,
-        isDayOfWeek: ret === 'right',
-      }));
-      setIsWarning(false);
-      setIsToaster(false);
-      return ret;
-    });
+  const handleToggleBtn = (selectedToggle: string) => {
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      isDayOfWeek: selectedToggle === rightToggleText,
+    }));
+    setIsWarning(false);
+    setIsToaster(false);
+    setSelectToggle(selectedToggle);
+    console.log({ selectedToggle, selectToggle });
+    console.log(profile.isDayOfWeek);
   };
 
   const handleActiveBtnClick = () => {
@@ -58,15 +58,15 @@ const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) =
     <>
       <Wrapper>
         <ToggleButton
-          left="주중/주말 선택"
-          right="모든 요일 선택"
+          left={leftToggleText}
+          right={rightToggleText}
           activeButton={selectToggle}
-          onToggle={handleToggleBtn}
+          onSetActiveButtonHandler={handleToggleBtn}
         />
         <WarnWrapper>
           <WarnDescription isShown={isWarning} warnText="시간을 입력해주세요" />
         </WarnWrapper>
-        {selectToggle === 'left' ? (
+        {selectToggle === leftToggleText ? (
           <TimeWeekdays profile={profile} setProfile={setProfile} isWarning={isWarning} />
         ) : (
           <TimeAlldays profile={profile} setProfile={setProfile} isWarning={isWarning} />
