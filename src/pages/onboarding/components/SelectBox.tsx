@@ -3,13 +3,19 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { 연차_LIST } from '../constants';
 
-const SelectBox = () => {
-  const PLACEHOLDER = '연차를 선택해 주세요';
-  const [select, setSelect] = useState(PLACEHOLDER);
+const SelectBox = ({
+  select,
+  onSetSelect,
+  placeholder,
+}: {
+  select: string;
+  onSetSelect: (value: string) => void;
+  placeholder: string;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickItem = (item: string) => {
-    setSelect(item);
+    onSetSelect(item);
     setIsOpen(false);
   };
 
@@ -17,7 +23,7 @@ const SelectBox = () => {
     <Wrapper>
       <SubTitle>연차</SubTitle>
       <SelectWrapper onClick={() => setIsOpen(true)}>
-        <SelectBtn $isSelected={select !== PLACEHOLDER}>{select || PLACEHOLDER}</SelectBtn>
+        <SelectBtn $isSelected={select !== placeholder}>{select || placeholder}</SelectBtn>
         <DropdownIcon />
       </SelectWrapper>
       {isOpen && (
@@ -41,6 +47,8 @@ const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  padding-top: 2rem;
 `;
 
 const SubTitle = styled.h2`

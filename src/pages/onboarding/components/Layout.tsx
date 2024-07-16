@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { ReactNode } from 'react';
 import TitleBox from './TitleBox';
 import { ArrowLeftIc } from '../../../assets/svgs';
-import { FullBtn } from '../../../components/commons/FullButton';
 import { Header } from '../../../components/commons/Header';
 import ProgressBar from '../../../components/commons/ProgressBar';
 import { ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } from '../constants';
@@ -35,7 +34,6 @@ const Layout = ({
         <TitleBox title={title} description={description} />
       </MetaContainer>
       <Content>{children}</Content>
-      <FullBtn text="텍스트" isActive onClick={() => handleSetStep('NEXT')} />
       <ButtonBg />
     </Wrapper>
   );
