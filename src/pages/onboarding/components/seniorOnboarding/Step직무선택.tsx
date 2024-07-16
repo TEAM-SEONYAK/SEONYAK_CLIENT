@@ -6,17 +6,14 @@ import { useContext, useState } from 'react';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
 import { 세부직무_DESCRIPTION, 세부직무_LIST } from '@pages/onboarding/constants';
 import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
-import { POSITION_LIST } from '@pages/juniorPromise/constants/positionList';
 
 const Step직무선택 = () => {
   const { onNext } = useContext(StepContext);
-  const [selectedDetails, setSelectedDetails] = useState<string[]>([]);
+  const [selectedDetail, setSelectedDetail] = useState<string>('');
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const handleSheetClose = () => setIsOpenSheet(false);
   const handleSelectDetails = (selectedValue: string) => {
-    setSelectedDetails((prev) =>
-      prev?.includes(selectedValue) ? prev.filter((detail) => detail !== selectedValue) : [...prev, selectedValue],
-    );
+    setSelectedDetail(selectedValue);
   };
 
   return (
@@ -25,7 +22,7 @@ const Step직무선택 = () => {
         <Wrapper>
           <SubTitle>직무</SubTitle>
           <SelectWrapper onClick={() => setIsOpenSheet(true)}>
-            <SelectBtn>직무를 선택해주세요</SelectBtn>
+            <SelectBtn placeholder="직무를 선택해주세요" value={selectedDetail} />
             <DropdownIcon />
           </SelectWrapper>
         </Wrapper>
@@ -36,7 +33,11 @@ const Step직무선택 = () => {
         <FullBtn isActive onClick={onNext} />
       </Container>
       <FullBottomSheet isSheetOpen={isOpenSheet} handleClose={handleSheetClose}>
-        <Sheet직무선택 selectedDetails={selectedDetails} handleSelectDetails={handleSelectDetails} />
+        <Sheet직무선택
+          selectedDetail={selectedDetail}
+          handleSelectDetails={handleSelectDetails}
+          handleSheetClose={handleSheetClose}
+        />
       </FullBottomSheet>
     </>
   );
@@ -68,7 +69,7 @@ const SelectWrapper = styled.div`
   cursor: pointer;
 `;
 
-const SelectBtn = styled.button`
+const SelectBtn = styled.input`
   display: flex;
   align-items: center;
 
@@ -81,7 +82,7 @@ const SelectBtn = styled.button`
 
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
 
-  color: ${({ theme }) => theme.colors.grayScaleMG2};
+  color: ${({ theme }) => theme.colors.grayScaleBG};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.grayScaleMG2};
@@ -99,19 +100,21 @@ const DropdownIcon = styled(DropdownIc)`
 interface Sheet직무선택PropType {
   // eslint-disable-next-line no-unused-vars
   handleSelectDetails: (selectValue: string) => void;
-  selectedDetails: string[];
+  selectedDetail: string;
+  handleSheetClose: () => void;
 }
 
-const Sheet직무선택 = ({ handleSelectDetails, selectedDetails }: Sheet직무선택PropType) => {
+const Sheet직무선택 = ({ handleSelectDetails, selectedDetail, handleSheetClose }: Sheet직무선택PropType) => {
   const handleClick = (list: string) => {
     handleSelectDetails(list);
+    handleSheetClose();
   };
   return (
     <>
       <SheetWrapper>
         {세부직무_LIST.map((list) => (
-          <PositionList key={list} $isActive={selectedDetails.includes(list)} onClick={() => handleClick(list)}>
-            <PositionText key={list} $isActive={selectedDetails.includes(list)}>
+          <PositionList key={list} $isActive={selectedDetail === list} onClick={() => handleClick(list)}>
+            <PositionText key={list} $isActive={selectedDetail === list}>
               {list}
             </PositionText>
           </PositionList>
