@@ -35,10 +35,13 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100dvh;
 `;
 
 const ModalBackground = styled.div<{ $isModalOpen: boolean }>`
@@ -49,8 +52,8 @@ const ModalBackground = styled.div<{ $isModalOpen: boolean }>`
   top: 0;
   z-index: 2;
 
-  width: 100vw;
-  height: 100%;
+  width: 100%;
+  height: 100dvh;
 
   background-color: ${({ theme }) => theme.colors.transparentBlack_65};
 `;
