@@ -17,7 +17,7 @@ export const SENIOR_ONBOARDING_STEPS = [
   },
   {
     title: '학과를 선택해주세요',
-    description: '주전공과 부전공을 선택해주세요 ! ( 최대 3개 )',
+    description: '주 전공을 검색 후 선택해 주세요',
   },
   {
     title: '졸업 사실을 인증해주세요',
