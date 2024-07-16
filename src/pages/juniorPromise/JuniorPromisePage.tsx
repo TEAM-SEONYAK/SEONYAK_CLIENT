@@ -1,24 +1,95 @@
+import { TempLogoIc, AlarmIc } from '@assets/svgs';
+import { Header } from '@components/commons/Header';
+import Nav from '@components/commons/Nav';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
+import { SENIOR_LIST } from '@components/commons/seniorCard/seniorCardConstants';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { BottomSheet } from './components/BottomSheetBg';
 import { SeniorListBackground } from './components/SeniorListBackground';
-import { SENIOR_LIST } from '../../components/commons/seniorCard/seniorCardConstants';
 
 const JuniorPromisePage = () => {
   const { seniorList } = SENIOR_LIST;
-  const [isSheetOpen, setSheetOpen] = useState(false);
-  const handleSheetOpen = () => {
-    setSheetOpen(true);
+  // 필터 버튼
+  const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
+  // 바텀 시트 여는 동작
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+  // 필터 버튼에 정보 넣기, 바텀시트 열기
+  const handleFilterActiveBtn = (btnText: string) => {
+    setFilterActiveBtn(btnText);
+    setIsBottomSheetOpen(true);
+  };
+  // 바텀시트 닫기
+  const handleCloseBottomSheet = () => {
+    setIsBottomSheetOpen(false);
   };
 
-  const handleSheetClose = () => {
-    setSheetOpen(false);
+  // 바텀시트 내 직무 칩
+  const [selectedPosition, setSelectedPosition] = useState(Array(21).fill(false));
+
+  // 선택직무 리스트
+  const arrPosition = [...selectedPosition];
+
+  const handleChipPosition = (positionId: number) => {
+    arrPosition[positionId] = !arrPosition[positionId];
+
+    setSelectedPosition(arrPosition);
+  };
+  // 바텀시트 내 계열 칩
+  const [selectedField, setSelectedField] = useState(Array(7).fill(false));
+
+  // 선택 계열 리스트 T/F
+  const arrField = [...selectedField];
+
+  const handleChipField = (fieldId: number) => {
+    arrField[fieldId] = !arrField[fieldId];
+
+    setSelectedField(arrField);
+  };
+
+  // 초기화 함수
+  const handleReset = () => {
+    setSelectedPosition(Array(21).fill(false));
+    setSelectedField(Array(7).fill(false));
+  };
+
+  // 선택된 직무 칩 수
+  const getPositionTrueNum = (arrPosition: boolean[]) => {
+    return arrPosition.filter((n) => n).length;
+  };
+  const positionChipNum = getPositionTrueNum(arrPosition);
+
+  // 선택된 계열 칩 수
+  const fieldChipTrueNum = (arrField: boolean[]) => {
+    return arrField.filter((n) => n).length;
+  };
+
+  const fieldChipNum = fieldChipTrueNum(arrField);
+
+  // 칩으로 나갈 선택된 계열 이름 리스트
+  const [chipFieldName, setChipFieldName] = useState<string[]>([]);
+
+  // 계열리스트에 이름넣는 함수
+  const pushFieldList = (chipName: string) => {
+    setChipFieldName((prev) => [...prev, chipName]);
+  };
+
+  // 계열리스트에 이름빼는 함수
+  const deleteFieldList = (chipName: string) => {
+    setChipFieldName((prev) => prev.filter((name) => name !== chipName));
   };
 
   return (
     <>
-      <SeniorListBackground handleSheetOpen={handleSheetOpen}>
+      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
+      <SeniorListBackground
+        handleFilterActiveBtn={handleFilterActiveBtn}
+        handleReset={handleReset}
+        positionChipNum={positionChipNum}
+        fieldChipNum={fieldChipNum}
+        chipFieldName={chipFieldName}
+        deleteFieldList={deleteFieldList}>
         <SeniorListWrapper>
           {seniorList.map((list) => (
             <SeniorCard
@@ -32,8 +103,21 @@ const JuniorPromisePage = () => {
             />
           ))}
         </SeniorListWrapper>
+        <Nav />
       </SeniorListBackground>
-      <BottomSheet isSheetOpen={isSheetOpen} handleSheetOpen={handleSheetOpen} handleSheetClose={handleSheetClose} />
+      <BottomSheet
+        filterActiveBtn={filterActiveBtn}
+        handleFilterActiveBtn={handleFilterActiveBtn}
+        handleCloseBottomSheet={handleCloseBottomSheet}
+        isBottomSheetOpen={isBottomSheetOpen}
+        handleChipField={handleChipField}
+        handleChipPosition={handleChipPosition}
+        selectedPosition={selectedPosition}
+        selectedField={selectedField}
+        handleReset={handleReset}
+        chipFieldName={chipFieldName}
+        pushFieldList={pushFieldList}
+      />
     </>
   );
 };

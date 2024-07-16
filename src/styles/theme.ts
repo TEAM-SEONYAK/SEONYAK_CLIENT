@@ -33,6 +33,8 @@ export const theme = {
     transparentBlack_65: 'rgba(0, 0, 0, 0.65)',
     transparentBlue_5: 'rgba(70, 133, 255, 0.05)',
     transparentBlue_50: 'rgba(70, 133, 255, 0.5)',
+    transparentRed_15: 'rgba(255, 57, 80, 0.15)',
+    transparentRed_40: 'rgba(255, 57, 80, 0.4)',
   },
   fonts: {
     Head1_B_20: css`

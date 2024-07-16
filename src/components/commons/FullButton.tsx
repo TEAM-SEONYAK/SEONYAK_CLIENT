@@ -37,8 +37,9 @@ const FullBtnContainer = styled.button<{ $isActive: boolean }>`
   justify-content: center;
   align-items: center;
 
-  width: 33.5rem;
   height: 4.5rem;
+  width: 100%;
+  padding: 1.55rem 0;
   border-radius: 5px;
 
   background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleMG2)};
