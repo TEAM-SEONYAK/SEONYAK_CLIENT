@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import React, { ReactNode } from 'react';
 import { FilterButton } from './FilterButton';
 import { FIELD_LIST } from '../constants/fieldList';
+import { POSITION_LIST } from '../constants/positionList';
+// import { POSITION_LIST } from '../constants/positionList';
 
 interface SeniorListBackgroundProps {
   children: ReactNode;
@@ -12,6 +14,9 @@ interface SeniorListBackgroundProps {
   chipFieldName: string[];
   deleteFieldList: (chipName: string) => void;
   handleChipField: (fieldId: number) => void;
+  chipPositionName: string[];
+  deletePositionList: (chipName: string) => void;
+  handleChipPosition: (postion: number) => void;
 }
 
 export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
@@ -22,16 +27,22 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
   chipFieldName,
   deleteFieldList,
   handleChipField,
+  chipPositionName,
+  deletePositionList,
+  handleChipPosition,
 }) => {
-  const handleDeleteChip = (field: string) => {
+  const handleDeletFieldeChip = (field: string) => {
     // 삭제되는 fieldName의 최초데이터에서의 index값 찾기
     const findDeleteFieldIndex = FIELD_LIST.findIndex((list) => list.field === field);
-
     deleteFieldList(field);
     handleChipField(findDeleteFieldIndex);
-    console.log(findDeleteFieldIndex, '삭제인덱스');
   };
+  const handleDeletePositionChip = (position: string) => {
+    const findDeletePositionIndex = POSITION_LIST.findIndex((list) => list.position === position);
 
+    deletePositionList(position);
+    handleChipPosition(findDeletePositionIndex);
+  };
   return (
     <ListBackground>
       <SeniorSearchWrapper>
@@ -51,7 +62,15 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
           {chipFieldName.map((field, fieldId) => (
             <Chip key={fieldId}>
               {field}
-              <CloseButton onClick={() => handleDeleteChip(field)}>
+              <CloseButton onClick={() => handleDeletFieldeChip(field)}>
+                <CloseIc />
+              </CloseButton>
+            </Chip>
+          ))}
+          {chipPositionName.map((position, positionId) => (
+            <Chip key={positionId}>
+              {position}
+              <CloseButton onClick={() => handleDeletePositionChip(position)}>
                 <CloseIc />
               </CloseButton>
             </Chip>
