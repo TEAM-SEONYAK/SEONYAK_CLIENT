@@ -34,6 +34,8 @@ const Layout = styled.div`
   width: 33.7rem;
   height: 4.4rem;
   border-radius: 8px;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
 `;
 
 const ToggleBtn = styled.div<{ isActive: boolean }>`
