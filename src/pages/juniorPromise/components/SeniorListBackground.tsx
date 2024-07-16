@@ -89,10 +89,11 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
 };
 
 const ListBackground = styled.div`
+  position: absolute;
+  top: 17.7rem;
+
   width: 100%;
-  height: 100vh;
-  margin-top: 4.4rem;
-  padding: 1rem 0 3rem;
+  margin-bottom: 9.8rem;
   border-radius: 16px 16px 0 0;
 
   background: ${({ theme }) => theme.colors.grayScaleWG};

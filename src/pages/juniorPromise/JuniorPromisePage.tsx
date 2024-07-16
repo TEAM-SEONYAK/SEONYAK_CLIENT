@@ -1,4 +1,4 @@
-import { TempLogoIc, AlarmIc } from '@assets/svgs';
+import { TempLogoIc, AlarmIc, HbHomeMainIC } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
@@ -99,7 +99,9 @@ const JuniorPromisePage = () => {
 
   return (
     <>
-      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
+      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
+      <HbHomeMainIcon />
+      <Title>반가워요 도리님,고민을 해결해볼까요?</Title>
       <SeniorListBackground
         handleFilterActiveBtn={handleFilterActiveBtn}
         handleReset={handleReset}
@@ -147,7 +149,22 @@ const JuniorPromisePage = () => {
 };
 
 export default JuniorPromisePage;
+const HbHomeMainIcon = styled(HbHomeMainIC)`
+  position: relative;
+`;
 
+const Title = styled.p`
+  position: absolute;
+  top: 6rem;
+  left: 2rem;
+
+  width: 16.8rem;
+  height: 5.6rem;
+
+  color: ${({ theme }) => theme.colors.grayScaleBG};
+  ${({ theme }) => theme.fonts.Head1_SB_20}
+  word-break: keep-all;
+`;
 const SeniorListWrapper = styled.div`
   display: flex;
   flex-direction: column;
