@@ -3,9 +3,10 @@ import { FullBtn } from '@components/commons/FullButton';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
 import styled from '@emotion/styled';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
-import { useContext, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 
 const Step명함인증 = () => {
+  const [imageFile, setImageFile] = useState('');
   const { onNext } = useContext(StepContext);
   const [isOpen, setOpen] = useState(false);
   const handleSetOpen = (type: boolean) => {
@@ -13,6 +14,13 @@ const Step명함인증 = () => {
   };
   const handleClickPhoto = () => {
     handleSetOpen(true);
+  };
+
+  const handleChangeFilie = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const file = e.target.files[0];
+    // file을 multipart/form-data 로 통신
+    onNext();
   };
 
   return (
@@ -46,7 +54,7 @@ const Step명함인증 = () => {
           </GrayText>
         </GrayBox>
         <BtnModalBtn>
-          <input type="file" accept="image/*" capture="environment" />
+          <input type="file" accept="image/*" capture="environment" onChange={handleChangeFilie} />
           확인했어요
         </BtnModalBtn>
       </BtnCloseModal>
