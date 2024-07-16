@@ -1,4 +1,4 @@
-import styled from '@emotion/styled/macro';
+import styled from '@emotion/styled';
 import { getLevelName } from './utils/getLevelName';
 interface seniorListPropType {
   nickname: string;

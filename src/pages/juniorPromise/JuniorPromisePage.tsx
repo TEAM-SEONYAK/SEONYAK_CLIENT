@@ -1,4 +1,4 @@
-import { TempLogoIc, AlarmIc, HbHomeMainIC } from '@assets/svgs';
+import { TempLogoIc, AlarmIc, HbHomeMainIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
@@ -149,7 +149,7 @@ const JuniorPromisePage = () => {
 };
 
 export default JuniorPromisePage;
-const HbHomeMainIcon = styled(HbHomeMainIC)`
+const HbHomeMainIcon = styled(HbHomeMainIc)`
   position: relative;
 `;
 
