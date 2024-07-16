@@ -17,6 +17,12 @@ interface SeniorListBackgroundProps {
   chipPositionName: string[];
   deletePositionList: (chipName: string) => void;
   handleChipPosition: (postion: number) => void;
+  $chipFieldName: string[];
+  $chipPositionName: string[];
+}
+interface SelectedChipListProps {
+  $chipFieldName: string[];
+  $chipPositionName: string[];
 }
 
 export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
@@ -31,7 +37,7 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
   deletePositionList,
   handleChipPosition,
 }) => {
-  const handleDeletFieldeChip = (field: string) => {
+  const handleDeleteFieldChip = (field: string) => {
     // 삭제되는 fieldName의 최초데이터에서의 index값 찾기
     const findDeleteFieldIndex = FIELD_LIST.findIndex((list) => list.field === field);
     deleteFieldList(field);
@@ -58,11 +64,11 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
           </LineWrapper>
           <ResetIc onClick={handleReset} />
         </BtnLayout>
-        <SelectedChipList>
+        <SelectedChipList $chipFieldName={chipFieldName} $chipPositionName={chipPositionName}>
           {chipFieldName.map((field, fieldId) => (
             <Chip key={fieldId}>
               {field}
-              <CloseButton onClick={() => handleDeletFieldeChip(field)}>
+              <CloseButton onClick={() => handleDeleteFieldChip(field)}>
                 <CloseIc />
               </CloseButton>
             </Chip>
@@ -114,9 +120,9 @@ const BtnLayout = styled.div`
 
   padding: 0.7rem 2rem;
 `;
-
-const SelectedChipList = styled.div`
-  display: flex;
+const SelectedChipList = styled.div<SelectedChipListProps>`
+  display: ${({ $chipFieldName, $chipPositionName }) =>
+    $chipFieldName.length > 0 || $chipPositionName.length > 0 ? 'flex' : 'none'};
   gap: 0.8rem;
   align-items: center;
 

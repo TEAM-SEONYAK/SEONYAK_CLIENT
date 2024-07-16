@@ -96,8 +96,7 @@ const JuniorPromisePage = () => {
   const deletePositionList = (chipName: string) => {
     setChipPositionName((prev) => prev.filter((name) => name !== chipName));
   };
-  console.log(chipFieldName);
-  console.log(chipPositionName);
+
   return (
     <>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
@@ -110,7 +109,9 @@ const JuniorPromisePage = () => {
         handleChipField={handleChipField}
         chipPositionName={chipPositionName}
         deletePositionList={deletePositionList}
-        handleChipPosition={handleChipPosition}>
+        handleChipPosition={handleChipPosition}
+        $chipFieldName={chipFieldName}
+        $chipPositionName={chipPositionName}>
         <SeniorListWrapper>
           {seniorList.map((list) => (
             <SeniorCard
