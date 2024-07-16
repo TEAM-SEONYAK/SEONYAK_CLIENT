@@ -17,9 +17,10 @@ const Step학과선택 = () => {
   };
 
   const handleSelectMajors = (selectedValue: string) => {
-    setSelectedMajors((prev) =>
-      prev?.includes(selectedValue) ? prev.filter((detail) => detail !== selectedValue) : [...prev, selectedValue],
-    );
+    // setSelectedMajors((prev) =>
+    //   prev?.includes(selectedValue) ? prev.filter((detail) => detail !== selectedValue) : [...prev, selectedValue],
+    // );
+    setSelectedMajors([selectedValue]);
   };
 
   const handleChipClose = (deleteMajor: string) => {
@@ -28,10 +29,9 @@ const Step학과선택 = () => {
 
   useEffect(() => {
     if (selectedMajors.length > 0) {
-      setSelectedMajors((prev) => prev.slice(0, 3));
       setIsExceed(true);
     }
-    if (selectedMajors.length < 2) {
+    if (selectedMajors.length < 1) {
       setIsExceed(false);
     }
   }, [selectedMajors]);
@@ -40,16 +40,16 @@ const Step학과선택 = () => {
   return (
     <Wrapper>
       {selectedMajors.length > 0 && (
-        <ChipWrapper>
-          {selectedMajors.map((sm) => (
-            <MajorChip key={sm} major={sm} handleClose={handleChipClose} />
-          ))}
-        </ChipWrapper>
-      )}
-      {isExceed && (
-        <WarnWrapper>
-          <WarnDescription isShown={isExceed} warnText="학과는 최대 3개 선택할 수 있어요." />
-        </WarnWrapper>
+        <>
+          <ChipWrapper>
+            {selectedMajors.slice(0, 1).map((sm) => (
+              <MajorChip key={sm} major={sm} handleClose={handleChipClose} />
+            ))}
+          </ChipWrapper>
+          <WarnWrapper>
+            <WarnDescription isShown={isExceed} warnText="학과는 최대 1개 선택할 수 있어요." />
+          </WarnWrapper>
+        </>
       )}
       <SearchBox placeholder="학과명을 입력해 주세요" searchValue={searchValue} handleSearchValue={handleSearchValue} />
       <SearchListWrapper>
