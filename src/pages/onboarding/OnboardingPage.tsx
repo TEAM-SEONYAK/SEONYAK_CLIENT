@@ -32,7 +32,7 @@ const OnboardingPage = () => {
   const Step = () => {
     switch (step) {
       case 1:
-        return <Step약관동의 />;
+        return <Step번호입력 />;
       case 2:
         return <Step개인정보입력 />;
       case 3:
