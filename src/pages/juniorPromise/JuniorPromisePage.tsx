@@ -36,6 +36,7 @@ const JuniorPromisePage = () => {
 
     setSelectedPosition(arrPosition);
   };
+
   // 바텀시트 내 계열 칩
   const [selectedField, setSelectedField] = useState(Array(7).fill(false));
 
@@ -61,24 +62,36 @@ const JuniorPromisePage = () => {
   const positionChipNum = getPositionTrueNum(arrPosition);
 
   // 선택된 계열 칩 수
-  const fieldChipTrueNum = (arrField: boolean[]) => {
-    return arrField.filter((n) => n).length;
-  };
+  // const fieldChipTrueNum = (arrField: boolean[]) => {
+  //   return arrField.filter((n) => n).length;
+  // };
 
-  const fieldChipNum = fieldChipTrueNum(arrField);
+  // const fieldChipNum = fieldChipTrueNum(arrField);
 
   // 칩으로 나갈 선택된 계열 이름 리스트
   const [chipFieldName, setChipFieldName] = useState<string[]>([]);
 
   // 계열리스트에 이름넣는 함수
   const pushFieldList = (chipName: string) => {
-    setChipFieldName((prev) => [...prev, chipName]);
+    setChipFieldName((prev) => {
+      if (prev.indexOf(chipName) === -1) {
+        return [...prev, chipName];
+      } else {
+        return prev.filter((name) => name !== chipName);
+      }
+    });
   };
 
   // 계열리스트에 이름빼는 함수
   const deleteFieldList = (chipName: string) => {
     setChipFieldName((prev) => prev.filter((name) => name !== chipName));
   };
+
+  // setSelectedField 함수
+  // const handleSetSelectedField = (type: boolean[]) => {
+  //   setSelectedField(type);
+  // };
+  // console.log(selectedField);
 
   return (
     <>
@@ -87,9 +100,9 @@ const JuniorPromisePage = () => {
         handleFilterActiveBtn={handleFilterActiveBtn}
         handleReset={handleReset}
         positionChipNum={positionChipNum}
-        fieldChipNum={fieldChipNum}
         chipFieldName={chipFieldName}
-        deleteFieldList={deleteFieldList}>
+        deleteFieldList={deleteFieldList}
+        handleChipField={handleChipField}>
         <SeniorListWrapper>
           {seniorList.map((list) => (
             <SeniorCard

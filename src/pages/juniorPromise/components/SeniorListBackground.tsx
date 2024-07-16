@@ -2,15 +2,16 @@ import { ResetIc, Line292Ic, CloseIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React, { ReactNode } from 'react';
 import { FilterButton } from './FilterButton';
+import { FIELD_LIST } from '../constants/fieldList';
 
 interface SeniorListBackgroundProps {
   children: ReactNode;
   handleFilterActiveBtn: (btnText: string) => void;
   handleReset: () => void;
   positionChipNum: number;
-  fieldChipNum: number;
   chipFieldName: string[];
   deleteFieldList: (chipName: string) => void;
+  handleChipField: (fieldId: number) => void;
 }
 
 export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
@@ -18,12 +19,17 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
   handleFilterActiveBtn,
   handleReset,
   positionChipNum,
-  fieldChipNum,
   chipFieldName,
   deleteFieldList,
+  handleChipField,
 }) => {
   const handleDeleteChip = (field: string) => {
+    // 삭제되는 fieldName의 최초데이터에서의 index값 찾기
+    const findDeleteFieldIndex = FIELD_LIST.findIndex((list) => list.field === field);
+
     deleteFieldList(field);
+    handleChipField(findDeleteFieldIndex);
+    console.log(findDeleteFieldIndex, '삭제인덱스');
   };
 
   return (
@@ -34,7 +40,7 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
           <FilterButton
             handleFilterActiveBtn={handleFilterActiveBtn}
             positionChipNum={positionChipNum}
-            fieldChipNum={fieldChipNum}
+            chipFieldName={chipFieldName}
           />
           <LineWrapper>
             <Line292Ic />
