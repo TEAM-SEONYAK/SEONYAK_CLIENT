@@ -13,11 +13,8 @@ const Step계열선택 = () => {
       <Wrapper>
         {계열_LIST.map((el) => (
           <ItemWrapper key={el} onClick={() => setSelectedField(el)}>
-            <Item>
-              <Icon />
-              {el}
-            </Item>
-            <CheckItemIc />
+            <Text>{el}</Text>
+            <CheckItemIcon $isActive={selectedField === el} />
           </ItemWrapper>
         ))}
       </Wrapper>
@@ -42,22 +39,18 @@ const ItemWrapper = styled.li`
   align-items: center;
 
   height: 4.8rem;
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleWG};
+  padding: 1rem 0;
 `;
-const Item = styled.div`
+
+const Text = styled.p`
   display: flex;
   gap: 1rem;
   align-items: center;
 
+  color: ${({ theme }) => theme.colors.grayScaleDG};
   ${({ theme }) => theme.fonts.Title1_SB_16};
 `;
 
-const Icon = styled.i`
-  width: 2.3rem;
-  height: 2.3rem;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleBlack};
+const CheckItemIcon = styled(CheckItemIc)<{ $isActive: boolean }>`
+  fill: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleDG)};
 `;
