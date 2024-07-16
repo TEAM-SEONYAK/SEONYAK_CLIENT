@@ -52,6 +52,8 @@ const JuniorPromisePage = () => {
   const handleReset = () => {
     setSelectedPosition(Array(21).fill(false));
     setSelectedField(Array(7).fill(false));
+    setChipFieldName([]);
+    setChipPositionName([]);
   };
 
   // 선택된 직무 칩 수
@@ -94,6 +96,7 @@ const JuniorPromisePage = () => {
   const deletePositionList = (chipName: string) => {
     setChipPositionName((prev) => prev.filter((name) => name !== chipName));
   };
+  console.log(chipFieldName);
   console.log(chipPositionName);
   return (
     <>
