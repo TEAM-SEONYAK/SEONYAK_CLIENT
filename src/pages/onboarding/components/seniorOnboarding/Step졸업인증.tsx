@@ -9,6 +9,7 @@ import { StepContext } from '@pages/onboarding/OnboardingPage';
 
 const Step졸업인증 = () => {
   const { onNext } = useContext(StepContext);
+  const [isNextActive, setIsNextActive] = useState(true);
   const DEFAULT_TEXT = '파일 첨부하기';
   const [isError, setError] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
@@ -40,7 +41,7 @@ const Step졸업인증 = () => {
           )}
         </TextBox>
       </Wrapper>
-
+      <FullBtn onClick={onNext} isActive={isNextActive} />
       <ModalWrapper>
         <AutoCloseModal text="인증에 성공했어요" showModal={isSuccess} handleShowModal={handleSetSuccess}>
           <Dummy />
