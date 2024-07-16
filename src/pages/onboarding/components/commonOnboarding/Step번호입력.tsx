@@ -14,20 +14,17 @@ const Step번호입력 = () => {
   const VERIFICATION_CODE = '0000';
   const USER_INPUT = '0000';
 
-  // 3분 타이머
-  const [timeLeft, setTimeLeft] = useState(180 * 1000);
+  const TIME = 180 * 1000;
+  const [timeLeft, setTimeLeft] = useState(TIME);
   const [isActive, setIsActive] = useState<boolean>(false);
   const { minutes, seconds } = formatTime(timeLeft);
 
   useEffect(() => {
-    if (!isActive || timeLeft <= 0) {
-      return;
-    }
-
     const id = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1000) {
           clearInterval(id);
+          setIsActive(false);
           return 0;
         }
         return prevTime - 1000;
@@ -37,9 +34,9 @@ const Step번호입력 = () => {
     return () => clearInterval(id);
   }, [isActive, timeLeft]);
 
-  // 버튼 클릭시 타이머 시작
-  const handleStart = () => {
+  const handleClickTimer = () => {
     setIsActive(true);
+    setTimeLeft(TIME);
   };
 
   const handleChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
@@ -55,15 +52,17 @@ const Step번호입력 = () => {
           placeholder="전화번호를 입력해 주세요"
           value={phoneNumber}
           onChange={handleChangePhone}>
-          <InnerButton onClick={handleStart} text="인증번호 전송" />
+          <InnerButton onClick={handleClickTimer} text={isActive ? '재전송' : '인증번호 전송'} />
         </InputBox>
-        <InputBox label="인증번호" placeholder="전송된 4자리 코드를 입력해 주세요">
-          <Timer>
-            {minutes} : {seconds}
-          </Timer>
-        </InputBox>
+        {isActive && (
+          <InputBox label="인증번호" placeholder="전송된 4자리 코드를 입력해 주세요" maxLength={4}>
+            <Timer>
+              {minutes} : {seconds}
+            </Timer>
+          </InputBox>
+        )}
       </TextBox>
-      <FullBtn text="인증 확인" isActive={USER_INPUT === VERIFICATION_CODE} onClick={onNext} />
+      <FullBtn text="인증 확인" isActive={timeLeft > 0 && USER_INPUT === VERIFICATION_CODE} onClick={onNext} />
     </Wrapper>
   );
 };
