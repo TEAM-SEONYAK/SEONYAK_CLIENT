@@ -1,5 +1,4 @@
 import { FullBtn } from '@components/commons/FullButton';
-import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
 import { formatTime } from '../../utils/formatTime';
 import { InnerButton, InputBox, TextBox } from '../TextBox';
