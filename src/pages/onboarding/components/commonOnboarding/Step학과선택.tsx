@@ -127,6 +127,6 @@ const MajorText = styled.p<{ $isActive: boolean }>`
   ${({ theme }) => theme.fonts.Body3_SB_14};
 `;
 
-const IconWrapper = styled(CheckItemIc)<{ $isActive: boolean }>`
+const IconWrapper = styled.i<{ $isActive: boolean }>`
   fill: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : '')};
 `;

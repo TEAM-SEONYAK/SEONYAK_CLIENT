@@ -8,12 +8,12 @@ import { Link } from 'react-router-dom';
 
 const Step약관동의 = () => {
   const { onNext } = useContext(StepContext);
-  const [agreement, setAgreement] = useState([false, false, false, false, false]);
+  const [agreement, setAgreement] = useState(Array(5).fill(false));
 
   const handleClickCheck = (id: number | 'all') => {
     if (id === 'all') {
-      if (!agreement.some((v) => !v)) setAgreement([false, false, false, false, false]);
-      else setAgreement([true, true, true, true, true]);
+      if (!agreement.some((v) => !v)) setAgreement(Array(5).fill(false));
+      else setAgreement(Array(5).fill(true));
     } else {
       setAgreement((prev) => agreement.with(id, !prev[id]));
     }
