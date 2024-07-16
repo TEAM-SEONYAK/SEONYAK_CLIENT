@@ -130,9 +130,14 @@ const SelectedChipList = styled.div<SelectedChipListProps>`
   overflow: scroll hidden;
 
   height: 4.4rem;
-  padding: 0.7rem 2rem;
+  margin: 0 2rem;
+  padding: 0.7rem 0;
 
   white-space: nowrap;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const Chip = styled.div`
   display: flex;
