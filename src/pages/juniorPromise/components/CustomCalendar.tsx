@@ -1,3 +1,4 @@
+import { BottomSheetRectangleIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
@@ -17,34 +18,46 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 interface CustomCalendarPropType {
   btnId: number;
   setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
+  selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
 }
 
-const CustomCalendar = ({ btnId, setSelectedTime }: CustomCalendarPropType) => {
-  // 초기값을 내일 날짜로 설정
-  const [value, onChange] = useState<Value>(getTomorrow());
+const CustomCalendar = ({ btnId, setSelectedTime, selectedTime }: CustomCalendarPropType) => {
+  const [, onChange] = useState<Value>(getTomorrow());
 
   const handleDateClick = (date: string) => {
     setSelectedTime((prev) => prev.map((item) => (item.id === btnId ? { ...item, clickedDay: date } : item)));
   };
 
   const tileDisabled = ({ date, view }: CalendarTileProperties) => {
-    return view === 'month' && date <= new Date();
+    if (view === 'month') {
+      // 현재 날짜 이전의 날짜를 비활성화
+      if (date <= new Date()) {
+        return true;
+      }
+
+      // 이미 선택된 날짜를 비활성화
+      const formattedDate = formatCalDateToString(date);
+      return selectedTime.some((item) => item.clickedDay === formattedDate);
+    }
+    return false;
   };
 
   const tileClassName = ({ date, view }: CalendarTileProperties) =>
     view === 'month' && date <= new Date() ? 'disabled-date' : '';
+
   return (
     <CalendarContainer>
+      <BottomSheetRectangleIcon />
       <StyledCalendar
         onChange={onChange}
         onClickDay={(value) => handleDateClick(formatCalDateToString(value))}
-        value={value}
+        value={selectedTime[btnId].clickedDay}
         minDate={new Date()}
         next2Label={null}
         prev2Label={null}
         showNeighboringMonth={false}
         calendarType={'iso8601'}
-        formatDay={(locale, date) => date.getDate().toString()}
+        formatDay={(_, date) => date.getDate().toString()}
         tileDisabled={tileDisabled}
         tileClassName={tileClassName}
       />
@@ -54,15 +67,22 @@ const CustomCalendar = ({ btnId, setSelectedTime }: CustomCalendarPropType) => {
 
 export default CustomCalendar;
 
+const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`
+  margin-bottom: 0.5rem;
+  margin-left: 13rem;
+`;
+
 const CalendarContainer = styled.div`
-  max-width: 100%;
+  width: 100vw;
+  height: 36.5rem;
+  padding: 1.5rem 3.3rem 2rem;
+  border-radius: 16px 16px 0 0;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const StyledCalendar = styled(Calendar)`
   width: 100%;
-  padding-bottom: 3rem;
   border: none;
   border-radius: 8px;
 
@@ -70,16 +90,19 @@ const StyledCalendar = styled(Calendar)`
 
   .react-calendar__navigation {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    ${({ theme }) => theme.fonts.Head1_SB_20};
+  }
 
-    padding: 0 7rem;
+  .react-calendar__navigation__arrow {
+    width: 2.1rem;
+    height: 1.8rem;
   }
 
   .react-calendar__tile {
     max-width: 100%;
     ${({ theme }) => theme.fonts.Title2_M_16};
-    padding: 1.1rem 0;
     border-radius: 100px;
 
     background: none;
@@ -94,7 +117,7 @@ const StyledCalendar = styled(Calendar)`
 
     background-color: ${({ theme }) => theme.colors.Blue};
 
-    color: ${({ theme }) => theme.colors.grayScaleWhite};
+    color: ${({ theme }) => theme.colors.grayScaleWhite} !important;
   }
 
   .react-calendar__month-view__weekdays {

@@ -1,8 +1,7 @@
 import { FullBtn } from '@components/commons/FullButton';
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, useContext } from 'react';
 import { formatTime } from '../../utils/formatTime';
 import { InnerButton, InputBox, TextBox } from '../TextBox';
-import { useContext } from 'react';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
 import styled from '@emotion/styled';
 import { formatPhone } from '@pages/onboarding/utils/formatPhone';

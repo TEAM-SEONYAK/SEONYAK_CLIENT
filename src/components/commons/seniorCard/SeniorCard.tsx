@@ -17,12 +17,11 @@ interface CompanyProps {
 
 export const SeniorCard = (props: seniorListPropType) => {
   const { nickname, company, field, position, detailPosition, level, variant = 'default' } = props;
-  const levelName = getLevelName(level);
+  const levelName = getLevelName(level + '');
   const randomColor = Math.floor(Math.random() * 3);
-
   return (
     <SeniorCardWrapper $isSmall={variant === 'secondary'}>
-      <SeniorImg />
+      <SeniorImg $isSmall={variant === 'secondary'} />
       <SeniorCardLayout>
         <Nickname>{nickname}</Nickname>
         <SeniorInfo>
@@ -56,7 +55,6 @@ const SeniorCardWrapper = styled.div<{ $isSmall: boolean }>`
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
-
 const SeniorImg = styled.img<{ $isSmall: boolean }>`
   width: ${({ $isSmall }) => ($isSmall ? '8.8rem' : '11.4rem')};
   height: ${({ $isSmall }) => ($isSmall ? '8.8rem' : '11.4rem')};

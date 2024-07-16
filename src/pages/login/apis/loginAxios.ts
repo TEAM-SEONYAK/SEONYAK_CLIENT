@@ -8,9 +8,6 @@ export const loginAxios = (authorizationCode: string | undefined) => {
       socialType: 'GOOGLE',
     },
     {
-      headers: {
-        'Content-Type': 'application/json',
-      },
       params: {
         authorizationCode,
       },

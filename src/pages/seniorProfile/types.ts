@@ -29,11 +29,9 @@ export interface preferredTimeType {
   isActive?: boolean;
   startTime: string;
   endTime: string;
-  isStartValid?: boolean;
-  isEndValid?: boolean;
 }
 
-export type TimeCategoryType = 'isActive' | 'startTime' | 'endTime' | 'isStartValid' | 'isEndValid';
+export type TimeCategoryType = 'isActive' | 'startTime' | 'endTime';
 
 export interface dayOfWeekTimeList {
   월: preferredTimeType[];
@@ -53,6 +51,10 @@ export interface weekendTimeList {
 export type dayType = '월' | '화' | '수' | '목' | '금' | '토' | '일';
 export type weekendType = '주말' | '주중';
 
+export interface TimePropType extends funnelComponentPropType {
+  isWarning: boolean;
+}
+
 export const seniorProfileInitial: seniorProfileRegisterType = {
   catchphrase: '',
   career: '',
@@ -64,85 +66,67 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
     dayOfWeek: {
       월: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
-          isStartValid: true,
-          isEndValid: true,
         },
       ],
       화: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
-          isStartValid: true,
-          isEndValid: true,
         },
       ],
       수: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
-          isStartValid: true,
-          isEndValid: true,
         },
       ],
       목: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
-          isStartValid: true,
-          isEndValid: true,
         },
       ],
       금: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
-          isStartValid: true,
-          isEndValid: true,
         },
       ],
       토: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
-          isStartValid: true,
-          isEndValid: true,
         },
       ],
       일: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
-          isStartValid: true,
-          isEndValid: true,
         },
       ],
     },
     weekend: {
       주말: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
-          isStartValid: true,
-          isEndValid: true,
         },
       ],
       주중: [
         {
-          isActive: false,
+          isActive: true,
           startTime: '시작 시간',
           endTime: '마지막 시간',
-          isStartValid: true,
-          isEndValid: true,
         },
       ],
     },
@@ -150,8 +134,7 @@ export const seniorProfileInitial: seniorProfileRegisterType = {
 };
 
 export interface funnelComponentPropType {
-  profile?: seniorProfileRegisterType;
-  setProfile?: React.Dispatch<React.SetStateAction<seniorProfileRegisterType>>;
-  setIsNextActive?: React.Dispatch<React.SetStateAction<boolean>>;
+  profile: seniorProfileRegisterType;
+  setProfile: React.Dispatch<React.SetStateAction<seniorProfileRegisterType>>;
   setStep?: React.Dispatch<React.SetStateAction<number>>;
 }

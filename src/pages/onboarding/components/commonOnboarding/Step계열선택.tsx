@@ -9,18 +9,17 @@ const Step계열선택 = () => {
   const [selectedField, setSelectedField] = useState('');
   const { onNext } = useContext(StepContext);
   return (
-    <Wrapper>
-      {계열_LIST.map((el) => (
-        <ItemWrapper key={el} onClick={() => setSelectedField(el)}>
-          <Item>
-            <Icon />
-            {el}
-          </Item>
-          <CheckItemIc />
-        </ItemWrapper>
-      ))}
+    <>
+      <Wrapper>
+        {계열_LIST.map((el) => (
+          <ItemWrapper key={el} onClick={() => setSelectedField(el)}>
+            <Text>{el}</Text>
+            <CheckItemIcon isactive={selectedField === el} />
+          </ItemWrapper>
+        ))}
+      </Wrapper>
       <FullBtn isActive={selectedField !== ''} onClick={onNext} />
-    </Wrapper>
+    </>
   );
 };
 
@@ -40,22 +39,18 @@ const ItemWrapper = styled.li`
   align-items: center;
 
   height: 4.8rem;
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleWG};
+  padding: 1rem 0;
 `;
-const Item = styled.div`
+
+const Text = styled.p`
   display: flex;
   gap: 1rem;
   align-items: center;
 
+  color: ${({ theme }) => theme.colors.grayScaleDG};
   ${({ theme }) => theme.fonts.Title1_SB_16};
 `;
 
-const Icon = styled.i`
-  width: 2.3rem;
-  height: 2.3rem;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleBlack};
+const CheckItemIcon = styled(CheckItemIc)<{ isactive: boolean }>`
+  fill: ${({ theme, isactive }) => (isactive ? theme.colors.Blue : theme.colors.grayScaleLG2)};
 `;

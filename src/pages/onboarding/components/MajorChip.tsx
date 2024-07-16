@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 
 interface majorChipPropType {
   major: string;
-  // eslint-disable-next-line no-unused-vars
   handleClose: (deleteMajor: string) => void;
 }
 

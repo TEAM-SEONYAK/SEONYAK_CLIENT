@@ -1,13 +1,12 @@
-import { TempLogoIc, AlarmIc } from '@assets/svgs';
+import { TempLogoIc, AlarmIc, HbHomeMainIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import { SENIOR_LIST } from '@components/commons/seniorCard/seniorCardConstants';
 import styled from '@emotion/styled';
+import { BottomSheet } from '@pages/juniorPromise/components/BottomSheetBg';
 import { useState } from 'react';
-import { BottomSheet } from './components/BottomSheetBg';
 import { SeniorListBackground } from './components/SeniorListBackground';
-
 const JuniorPromisePage = () => {
   const { seniorList } = SENIOR_LIST;
   // 필터 버튼
@@ -36,6 +35,7 @@ const JuniorPromisePage = () => {
 
     setSelectedPosition(arrPosition);
   };
+
   // 바텀시트 내 계열 칩
   const [selectedField, setSelectedField] = useState(Array(7).fill(false));
 
@@ -52,6 +52,8 @@ const JuniorPromisePage = () => {
   const handleReset = () => {
     setSelectedPosition(Array(21).fill(false));
     setSelectedField(Array(7).fill(false));
+    setChipFieldName([]);
+    setChipPositionName([]);
   };
 
   // 선택된 직무 칩 수
@@ -59,37 +61,59 @@ const JuniorPromisePage = () => {
     return arrPosition.filter((n) => n).length;
   };
   const positionChipNum = getPositionTrueNum(arrPosition);
-
-  // 선택된 계열 칩 수
-  const fieldChipTrueNum = (arrField: boolean[]) => {
-    return arrField.filter((n) => n).length;
-  };
-
-  const fieldChipNum = fieldChipTrueNum(arrField);
-
   // 칩으로 나갈 선택된 계열 이름 리스트
   const [chipFieldName, setChipFieldName] = useState<string[]>([]);
 
   // 계열리스트에 이름넣는 함수
   const pushFieldList = (chipName: string) => {
-    setChipFieldName((prev) => [...prev, chipName]);
+    setChipFieldName((prev) => {
+      if (prev.indexOf(chipName) === -1) {
+        return [...prev, chipName];
+      } else {
+        return prev.filter((name) => name !== chipName);
+      }
+    });
   };
 
   // 계열리스트에 이름빼는 함수
   const deleteFieldList = (chipName: string) => {
     setChipFieldName((prev) => prev.filter((name) => name !== chipName));
   };
+  // 칩으로 나갈 선택된 직무 리스트
+  const [chipPositionName, setChipPositionName] = useState<string[]>([]);
+
+  // 직무리스트에 이름 넣는 함수
+  const pushPositionList = (chipName: string) => {
+    setChipPositionName((prev) => {
+      if (prev.indexOf(chipName) === -1) {
+        return [...prev, chipName];
+      } else {
+        return prev.filter((name) => name !== chipName);
+      }
+    });
+  };
+  // 직무리스트에 이름빼는 함수
+  const deletePositionList = (chipName: string) => {
+    setChipPositionName((prev) => prev.filter((name) => name !== chipName));
+  };
 
   return (
-    <>
-      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} />
+    <Wrapper>
+      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
+      <HbHomeMainIcon />
+      <Title>반가워요 도리님,고민을 해결해볼까요?</Title>
       <SeniorListBackground
         handleFilterActiveBtn={handleFilterActiveBtn}
         handleReset={handleReset}
         positionChipNum={positionChipNum}
-        fieldChipNum={fieldChipNum}
         chipFieldName={chipFieldName}
-        deleteFieldList={deleteFieldList}>
+        deleteFieldList={deleteFieldList}
+        handleChipField={handleChipField}
+        chipPositionName={chipPositionName}
+        deletePositionList={deletePositionList}
+        handleChipPosition={handleChipPosition}
+        $chipFieldName={chipFieldName}
+        $chipPositionName={chipPositionName}>
         <SeniorListWrapper>
           {seniorList.map((list) => (
             <SeniorCard
@@ -117,13 +141,35 @@ const JuniorPromisePage = () => {
         handleReset={handleReset}
         chipFieldName={chipFieldName}
         pushFieldList={pushFieldList}
+        chipPositionName={chipPositionName}
+        pushPositionList={pushPositionList}
       />
-    </>
+    </Wrapper>
   );
 };
 
 export default JuniorPromisePage;
+const Wrapper = styled.div`
+  min-height: calc(var(--vh, 1vh) * 100 - 44px);
+  background-color: ${({ theme }) => theme.colors.grayScaleWG};
+`;
 
+const HbHomeMainIcon = styled(HbHomeMainIc)`
+  position: relative;
+`;
+
+const Title = styled.p`
+  position: absolute;
+  top: 6rem;
+  left: 2rem;
+
+  width: 16.8rem;
+  height: 5.6rem;
+
+  color: ${({ theme }) => theme.colors.grayScaleBG};
+  ${({ theme }) => theme.fonts.Head1_SB_20}
+  word-break: keep-all;
+`;
 const SeniorListWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -131,6 +177,7 @@ const SeniorListWrapper = styled.div`
   align-items: center;
 
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+  margin-bottom: 9.8rem;
   padding: 0.8rem 2rem;
 `;

@@ -46,20 +46,19 @@ const BottomSheetWrapper = styled.form<{ $isSheetOpen: boolean }>`
   position: fixed;
   bottom: 0;
   z-index: 4;
-  padding: 3.9rem 2rem 4rem 2rem;
 
   width: 100%;
   height: auto;
+  padding: 3.9rem 2rem 4rem;
   border-radius: 16px 16px 0 0;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 
   opacity: ${({ $isSheetOpen }) => ($isSheetOpen ? 1 : 0)};
-  transform: translateY(${({ $isSheetOpen }) => ($isSheetOpen ? '0' : '100%')});
-
   transition:
     transform 250ms ease-out,
     opacity 250ms ease-out;
+  transform: translateY(${({ $isSheetOpen }) => ($isSheetOpen ? '0' : '100%')});
 `;
 
 const ExitBottomSheet = styled.button<{ $isActive: boolean }>`

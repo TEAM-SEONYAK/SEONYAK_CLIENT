@@ -1,7 +1,7 @@
 import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
-import BottomSheet from '@pages/onboarding/components/BottomSheet';
+import FullBottomSheet from '@pages/onboarding/components/BottomSheet';
 import { 세부직무_DESCRIPTION, 세부직무_LIST } from '@pages/onboarding/constants';
 import { useContext, useState } from 'react';
 
@@ -23,9 +23,9 @@ const Step직무선택 = () => {
         <button onClick={handleOpenSheet}>BottomSheet 올라간다간다간다뿅!</button>
       </div>
       {isOpenSheet && (
-        <BottomSheet handleClose={handleCloseSheet}>
+        <FullBottomSheet handleClose={handleCloseSheet}>
           <Sheet재직인증 handleSelectDetails={handleSelectDetails} />
-        </BottomSheet>
+        </FullBottomSheet>
       )}
     </>
   );
@@ -34,7 +34,6 @@ const Step직무선택 = () => {
 export default Step직무선택;
 
 interface Sheet재직인증PropType {
-  // eslint-disable-next-line no-unused-vars
   handleSelectDetails: (selectValue: string) => void;
 }
 

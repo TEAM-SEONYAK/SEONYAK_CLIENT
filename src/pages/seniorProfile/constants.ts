@@ -1,4 +1,4 @@
-import { dayType } from '@pages/seniorProfile/types';
+import { dayType, weekendType } from '@pages/seniorProfile/types';
 
 export const SENIOR_PROFILE_STEPS = [
   {
@@ -35,7 +35,8 @@ export const SENIOR_PROFILE_STEPS = [
   },
 ];
 
-export const WEEKENDS: dayType[] = ['월', '화', '수', '목', '금', '토', '일'];
+export const DAYOFWEEK_LIST: dayType[] = ['월', '화', '수', '목', '금', '토', '일'];
+export const WEEKEND_LIST: weekendType[] = ['주중', '주말'];
 
 export const HOUR_TIME = [
   '06:00',
@@ -98,3 +99,5 @@ export const TIME_LIST = [
   '23:30',
   '24:00',
 ];
+
+export const TOASTER_TEXT = '채워지지 않은 칸이 있어요! 등록하시겠어요?';
