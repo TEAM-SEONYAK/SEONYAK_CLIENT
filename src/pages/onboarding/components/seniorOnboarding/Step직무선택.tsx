@@ -98,7 +98,6 @@ const DropdownIcon = styled(DropdownIc)`
 `;
 
 interface Sheet직무선택PropType {
-  // eslint-disable-next-line no-unused-vars
   handleSelectDetails: (selectValue: string) => void;
   selectedDetail: string;
   handleSheetClose: () => void;

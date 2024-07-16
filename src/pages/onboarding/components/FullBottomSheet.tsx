@@ -37,7 +37,5 @@ const Wrapper = styled.div`
 
 const Divider = styled.hr`
   width: 100%;
-  height: 0;
-  stroke-width: 1.4px;
-  stroke: ${({ theme }) => theme.colors.grayScaleLG2};
+  border: 1.4px solid ${({ theme }) => theme.colors.grayScaleLG2};
 `;

@@ -34,7 +34,6 @@ const Step직무선택 = () => {
 export default Step직무선택;
 
 interface Sheet재직인증PropType {
-  // eslint-disable-next-line no-unused-vars
   handleSelectDetails: (selectValue: string) => void;
 }
 

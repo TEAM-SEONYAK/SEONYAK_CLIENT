@@ -36,7 +36,6 @@ const Wrapper = styled.div`
 `;
 
 interface Sheet학교선택PropType {
-  // eslint-disable-next-line no-unused-vars
   handleSelectUniv: (selectValue: string) => void;
   handleClose: () => void;
 }

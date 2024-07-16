@@ -15,7 +15,6 @@ const Layout = ({
 }: {
   userRole: 'SENIOR' | 'JUNIOR';
   step: number;
-  // eslint-disable-next-line no-unused-vars
   handleSetStep: (dir: 'NEXT' | 'PREV') => void;
   children: ReactNode;
 }) => {
