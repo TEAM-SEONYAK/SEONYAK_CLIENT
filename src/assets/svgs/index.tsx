@@ -28,5 +28,3 @@ export { default as PlusIc } from './ic_plus_btn.svg?react';
 export { default as GoogleLogoIc } from './googleLogoIc.svg?react';
 export { default as DropdownIc } from './ic_dropdown.svg?react';
 export { default as HbHomeMainIC } from './img_hbhome_main.svg?react';
-export { default as HbHomeProfile1 } from './img_hbhome_profile1.svg?react';
-export { default as HbHomeProfile2 } from './img_hbhome_profile2.svg?react';
