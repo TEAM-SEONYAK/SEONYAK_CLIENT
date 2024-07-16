@@ -9,7 +9,7 @@ const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [userRole, setUserRole] = useState<UserRole>('JUNIOR');
+  const [userRole] = useState<UserRole>('JUNIOR');
   const [currNav, setCurrNav] = useState(location.pathname);
 
   useEffect(() => {
@@ -67,6 +67,7 @@ const Wrapper = styled.nav`
   width: 100vw;
   padding: 0.9rem 5.5rem 1.7rem;
   border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
+
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
@@ -82,6 +83,7 @@ const TapContainer = styled.div<{ disabled?: boolean }>`
 
 const TapContent = styled.span<{ $isActive: boolean }>`
   width: fit-content;
+
   color: ${({ theme, $isActive }) => ($isActive ? theme.colors.grayScaleBG : theme.colors.grayScaleMG1)};
   ${({ theme }) => theme.fonts.navigation};
 `;
