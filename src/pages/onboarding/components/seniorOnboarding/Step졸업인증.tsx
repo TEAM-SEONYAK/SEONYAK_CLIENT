@@ -1,4 +1,7 @@
+import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
+import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
+import { ChangeEvent, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import { useContext } from 'react';
@@ -6,19 +9,44 @@ import { StepContext } from '@pages/onboarding/OnboardingPage';
 
 const Step졸업인증 = () => {
   const { onNext } = useContext(StepContext);
-  // 임시 변수 : 서버 통신 결과에 따라
-  const isSucceed = true;
-
+  const DEFAULT_TEXT = '파일 첨부하기';
+  const [isError, setError] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
+  const [fileName, setFileName] = useState(DEFAULT_TEXT);
+  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setFileName(e.target.files[0].name);
+  };
+  const handleSetSuccess = (type: boolean) => {
+    setSuccess(type);
+  };
   return (
-    <Wrapper>
-      <TextBox label="졸업증명서">
-        <InputBox label="졸업증명서" type="file" placeholder="파일 첨부하기">
-          <InnerButton text="첨부파일" />
-        </InputBox>
-        <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50BM)</Caption>
-      </TextBox>
-      <FullBtn text="인증하기" isActive={isSucceed} onClick={onNext} />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <TextBox label="졸업증명서">
+          <InputBox
+            label="졸업증명서"
+            type="file"
+            onChange={handleChangeFile}
+            text={fileName}
+            placeholder={DEFAULT_TEXT}
+            isError={isError}>
+            <InnerButton text="첨부파일" />
+          </InputBox>
+          {isError ? (
+            <WarnDescription isShown={isError} warnText="인증에 실패했어요. 학교명이 잘 보이는 지 확인해 주세요." />
+          ) : (
+            <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50MB)</Caption>
+          )}
+        </TextBox>
+      </Wrapper>
+
+      <ModalWrapper>
+        <AutoCloseModal text="인증에 성공했어요" showModal={isSuccess} handleShowModal={handleSetSuccess}>
+          <Dummy />
+        </AutoCloseModal>
+      </ModalWrapper>
+    </>
   );
 };
 
@@ -26,4 +54,17 @@ export default Step졸업인증;
 
 const Wrapper = styled.div`
   padding-top: 2rem;
+`;
+
+const Dummy = styled.div`
+  width: 27rem;
+  height: 17rem;
+
+  background-color: aliceblue;
+`;
+
+const ModalWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  margin-left: -2rem;
 `;

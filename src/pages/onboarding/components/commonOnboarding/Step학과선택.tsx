@@ -128,5 +128,7 @@ const MajorText = styled.p<{ $isActive: boolean }>`
 `;
 
 const IconWrapper = styled.i<{ $isActive: boolean }>`
-  fill: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : '')};
+  & svg {
+    fill: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : '')};
+  }
 `;
