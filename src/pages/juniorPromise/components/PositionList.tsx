@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-interface IPositionList {
+interface positionListPropType {
   position: string;
   selectedPosition: boolean[];
   handleChipPosition: (positionId: number) => void;

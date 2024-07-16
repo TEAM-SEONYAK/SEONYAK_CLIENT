@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import BottomSheet from '@pages/onboarding/components/BottomSheet';
 import { excludeCommonPart } from '@pages/onboarding/utils/excludeCommonPart';
 import { useContext, useState } from 'react';
 import SearchBox from '../SearchBox';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
 import { FullBtn } from '@components/commons/FullButton';
+import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
 
 const Step학교선택 = () => {
   const { onNext } = useContext(StepContext);
@@ -19,9 +19,9 @@ const Step학교선택 = () => {
     <Wrapper>
       <SearchBox placeholder="학교명을 입력해 주세요" handleInputClick={handleOpenSheet} searchValue={selectedUniv} />
       {isOpenSheet && (
-        <BottomSheet handleClose={handleCloseSheet}>
-          <Sheet학교선택 handleSelectUniv={handleSelectUniv} />
-        </BottomSheet>
+        <FullBottomSheet handleClose={handleCloseSheet} isSheetOpen={isOpenSheet}>
+          <Sheet학교선택 handleSelectUniv={handleSelectUniv} handleClose={handleCloseSheet} />
+        </FullBottomSheet>
       )}
       <FullBtn isActive={selectedUniv !== ''} onClick={onNext} />
     </Wrapper>
@@ -36,19 +36,24 @@ const Wrapper = styled.div`
 `;
 
 interface Sheet학교선택PropType {
-  // eslint-disable-next-line no-unused-vars
   handleSelectUniv: (selectValue: string) => void;
+  handleClose: () => void;
 }
 
-const Sheet학교선택 = ({ handleSelectUniv }: Sheet학교선택PropType) => {
+const Sheet학교선택 = ({ handleSelectUniv, handleClose }: Sheet학교선택PropType) => {
   const dummy = ['서울여자대학교', '서울여자대학교 특수치료전문대학원', '서울여성대학교'];
   const search = '서울여';
+
+  const handleListClick = (data: string) => {
+    handleSelectUniv(data);
+    handleClose();
+  };
   return (
     <SheetWrapper>
       <SearchBox placeholder="학교명을 입력해 주세요" />
       <Content>
         {dummy.map((d) => (
-          <ListWrapper key={d} onClick={() => handleSelectUniv(d)}>
+          <ListWrapper key={d} onClick={() => handleListClick(d)}>
             <ListBold key={d + 'idx'}>{search}</ListBold>
             <List key={d}>{excludeCommonPart({ common: search, str: d })}</List>
           </ListWrapper>

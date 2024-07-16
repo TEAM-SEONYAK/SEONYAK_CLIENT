@@ -7,7 +7,7 @@ import { funnelComponentPropType } from '@pages/seniorProfile/types';
 import { useEffect, useState } from 'react';
 
 const Story = ({ profile, setProfile, setStep }: funnelComponentPropType) => {
-  const [story, setStory] = useState(profile?.story + '');
+  const [story, setStory] = useState(profile.story + '');
   const { isNextActive, isWarning } = useValidation(story, 200);
   const handleChangeStory = (inputVal: string) => {
     setStory(inputVal);

@@ -30,6 +30,8 @@ export { default as DeleteIc } from './ic_delete_btn.svg?react';
 export { default as PlusIc } from './ic_plus_btn.svg?react';
 export { default as GoogleLogoIc } from './googleLogoIc.svg?react';
 export { default as DropdownIc } from './ic_dropdown.svg?react';
+export { default as CareerFlagIc } from './ic_career_flag.svg?react';
+export { default as AwardMedalIc } from './ic_award_medal.svg?react';
 
 export { default as BottomSheetRectangleIc } from './bottom-sheet-Rectangle.svg?react';
 export { default as ArrowDownMgIc } from './ic_arrow_down_mg.svg?react';

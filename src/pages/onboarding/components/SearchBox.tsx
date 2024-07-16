@@ -5,7 +5,6 @@ interface searchBoxPropType {
   placeholder: string;
   handleInputClick?: () => void;
   searchValue?: string;
-  // eslint-disable-next-line no-unused-vars
   handleSearchValue?: (selectedValue: string) => void;
 }
 

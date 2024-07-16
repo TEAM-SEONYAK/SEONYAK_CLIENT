@@ -1,9 +1,9 @@
+import { DeleteIc } from '@assets/svgs';
 import styled from '@emotion/styled';
-import { TimeCategoryType, preferredTimeType, funnelComponentPropType, weekendType } from '@pages/seniorProfile/types';
-import DurationSelect from './common/DurationSelect';
-import DeleteIc from '../../../assets/svgs/ic_delete_btn.svg?react';
+import DurationSelect from '@pages/seniorProfile/components/common/DurationSelect';
+import { TimeCategoryType, preferredTimeType, weekendType, TimePropType } from '@pages/seniorProfile/types';
 
-const TimeWeekdays = ({ profile, setProfile }: funnelComponentPropType) => {
+const TimeWeekdays = ({ profile, setProfile, isWarning }: TimePropType) => {
   const weekendsSetProfile =
     (key: weekendType) => (timeCategory: TimeCategoryType) => (selectedValue: string | boolean) =>
       setProfile((prev) => ({
@@ -27,6 +27,8 @@ const TimeWeekdays = ({ profile, setProfile }: funnelComponentPropType) => {
         <DurationSelect
           selectValue={profile.preferredTimeList.weekend.주중[0]}
           setProfile={weekendsSetProfile('주중')}
+          defaultActive={!!profile.preferredTimeList.weekend.주중[0].isActive}
+          isWarning={isWarning}
         />
       </TimeContainer>
       <CategoryText>주말</CategoryText>
@@ -34,6 +36,8 @@ const TimeWeekdays = ({ profile, setProfile }: funnelComponentPropType) => {
         <DurationSelect
           selectValue={profile.preferredTimeList.weekend.주말[0]}
           setProfile={weekendsSetProfile('주말')}
+          defaultActive={!!profile.preferredTimeList.weekend.주말[0].isActive}
+          isWarning={isWarning}
         />
       </TimeContainer>
     </Wrapper>

@@ -1,10 +1,10 @@
+import { FullBtn } from '@components/commons/FullButton';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
 import ImgTextBox from '@pages/seniorProfile/components/preView/ImgTextBox';
 import ProfileSummary from '@pages/seniorProfile/components/preView/ProfileSummary';
 import TimeTable from '@pages/seniorProfile/components/preView/TimeTable';
-import { funnelComponentPropType } from '@pages/seniorProfile/types';
-import { weekToDay } from '@pages/seniorProfile/utils/weekToDay';
+import { dayOfWeekTimeList } from '@pages/seniorProfile/types';
 
 const dummy = {
   nickname: '도리야끼다요',
@@ -76,31 +76,48 @@ const dummy = {
   },
 };
 
-const PreView = ({ profile }: funnelComponentPropType) => {
-  // 에러페이지 보내줄거임
-  if (!profile) return;
+interface preViewPropType {
+  nickname?: string;
+  company?: string;
+  field?: string;
+  position?: string;
+  detailPosition?: string;
+  level?: string;
 
-  const convertDayOfWeek = weekToDay(profile.isDayOfWeek, profile.preferredTimeList);
+  career: string;
+  award: string;
+  catchphrase: string;
+  story: string;
+
+  preferredTimeList: dayOfWeekTimeList;
+
+  // eslint-disable-next-line no-undef
+  setStep?: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const PreView = ({ career, award, catchphrase, story, preferredTimeList, setStep }: preViewPropType) => {
   return (
-    <Wrapper>
-      <SeniorCard
-        nickname={dummy.nickname}
-        company={dummy.company}
-        field={dummy.field}
-        position={dummy.position}
-        detailPosition={dummy.detailPosition}
-        level={+dummy.level}
-        variant="secondary"
-      />
-      <ProfileSummary description1="미제공" description2={1} description3="미제공" />
-      <Meta>선배의 이력 · 수상</Meta>
-      <ImgTextBox text={profile.career} />
-      <ImgTextBox text={profile.award} />
-      <Meta2>{profile.catchphrase}</Meta2>
-      <Description>{profile.story}</Description>
-      <Meta2>선배의 타임 테이블</Meta2>
-      <TimeTable preferredTime={convertDayOfWeek} />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <SeniorCard
+          nickname={dummy.nickname}
+          company={dummy.company}
+          field={dummy.field}
+          position={dummy.position}
+          detailPosition={dummy.detailPosition}
+          level={+dummy.level}
+        />
+        <ProfileSummary description1="미제공" description2={1} description3="미제공" />
+        <Meta>선배의 이력 · 수상</Meta>
+        <ImgTextBox variant="career" text={career} />
+        <ImgTextBox variant="award" text={award} />
+        <Meta2>{catchphrase}</Meta2>
+        <Description>{story}</Description>
+        <Meta2>선배의 타임 테이블</Meta2>
+        <TimeTable preferredTime={preferredTimeList} />
+      </Wrapper>
+      {setStep && <FullBtn text="프로필 등록하기" onClick={() => setStep((prev) => prev + 1)} isActive />}
+    </>
   );
 };
 
@@ -118,9 +135,9 @@ const Meta = styled.p`
 `;
 
 const Meta2 = styled.p`
-  ${({ theme }) => theme.fonts.Title1_SB_16};
-  padding: 3.6rem 0 1.2rem;
   width: 19.9rem;
+  padding: 3.6rem 0 1.2rem;
+  ${({ theme }) => theme.fonts.Title1_SB_16};
 `;
 
 const Description = styled.p`
