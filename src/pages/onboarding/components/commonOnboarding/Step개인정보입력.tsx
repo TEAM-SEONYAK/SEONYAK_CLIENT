@@ -11,7 +11,7 @@ const Step개인정보입력 = () => {
   const { onNext } = useContext(StepContext);
   // setNicknamError는 추후 서버 API 통신 결과값에 따라 업데이트
   // warnText도 에러메시지에 따라 조건부렌더링 예정
-  const [isNicknameError, setNicknameError] = useState(true);
+  const [isNicknameError, setNicknameError] = useState(false);
   const [imageFile, setImageFile] = useState('');
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = startImgArr[Math.floor(Math.random() * 2)];
@@ -24,6 +24,8 @@ const Step개인정보입력 = () => {
       setImageFile(reader.result as string);
     };
   };
+  // 임시 변수 (서버 통신 응답)
+  const isChecked = true;
 
   return (
     <>
@@ -49,7 +51,7 @@ const Step개인정보입력 = () => {
           <Caption>8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가</Caption>
         )}
       </TextBox>
-      <FullBtn isActive onClick={onNext} />
+      <FullBtn isActive={isChecked} onClick={onNext} />
     </>
   );
 };

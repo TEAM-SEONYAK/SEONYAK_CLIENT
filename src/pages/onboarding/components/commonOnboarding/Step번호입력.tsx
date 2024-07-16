@@ -6,6 +6,10 @@ import styled from '@emotion/styled';
 
 const Step번호입력 = () => {
   const { onNext } = useContext(StepContext);
+  // 임시 변수
+  const VERIFICATION_CODE = '0000';
+  const USER_INPUT = '0000';
+
   return (
     <Wrapper>
       <TextBox label="">
@@ -14,7 +18,7 @@ const Step번호입력 = () => {
         </InputBox>
         <InputBox label="인증번호" placeholder="전송된 4자리 코드를 입력해 주세요" />
       </TextBox>
-      <FullBtn text="인증 확인" isActive onClick={onNext} />
+      <FullBtn text="인증 확인" isActive={USER_INPUT === VERIFICATION_CODE} onClick={onNext} />
     </Wrapper>
   );
 };

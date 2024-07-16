@@ -6,6 +6,9 @@ import { StepContext } from '@pages/onboarding/OnboardingPage';
 
 const Step졸업인증 = () => {
   const { onNext } = useContext(StepContext);
+  // 임시 변수 : 서버 통신 결과에 따라
+  const isSucceed = true;
+
   return (
     <Wrapper>
       <TextBox label="졸업증명서">
@@ -14,7 +17,7 @@ const Step졸업인증 = () => {
         </InputBox>
         <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50BM)</Caption>
       </TextBox>
-      <FullBtn text="인증하기" isActive onClick={onNext} />
+      <FullBtn text="인증하기" isActive={isSucceed} onClick={onNext} />
     </Wrapper>
   );
 };

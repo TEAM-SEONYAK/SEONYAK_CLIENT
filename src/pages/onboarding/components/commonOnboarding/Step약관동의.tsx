@@ -45,7 +45,11 @@ const Step약관동의 = () => {
           </ItemWrapper>
         </li>
       ))}
-      <FullBtn text="동의하기" isActive onClick={onNext} />
+      <FullBtn
+        text="동의하기"
+        isActive={agreement[0] && agreement[1] && agreement[2] && agreement[3]}
+        onClick={onNext}
+      />
     </Wrapper>
   );
 };
@@ -55,6 +59,8 @@ export default Step약관동의;
 const Wrapper = styled.ul`
   display: flex;
   flex-direction: column;
+
+  padding-top: 1.3rem;
 `;
 
 const ItemWrapper = styled.button`

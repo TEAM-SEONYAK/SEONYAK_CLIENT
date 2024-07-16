@@ -27,11 +27,11 @@ const Step학과선택 = () => {
   };
 
   useEffect(() => {
-    if (selectedMajors.length > 3) {
+    if (selectedMajors.length > 0) {
       setSelectedMajors((prev) => prev.slice(0, 3));
       setIsExceed(true);
     }
-    if (selectedMajors.length < 3) {
+    if (selectedMajors.length < 2) {
       setIsExceed(false);
     }
   }, [selectedMajors]);
@@ -57,7 +57,7 @@ const Step학과선택 = () => {
           <SearchList key={m} handleSelectMajors={handleSelectMajors} majorName={m} selectedMajors={selectedMajors} />
         ))}
       </SearchListWrapper>
-      <FullBtn isActive onClick={onNext} />
+      <FullBtn isActive={selectedMajors.length > 0} onClick={onNext} />
     </Wrapper>
   );
 };
