@@ -1,10 +1,12 @@
+import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
+import { StepContext } from '@pages/onboarding/OnboardingPage';
 import BottomSheet from '@pages/onboarding/components/BottomSheet';
 import { 세부직무_DESCRIPTION, 세부직무_LIST } from '@pages/onboarding/constants';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 // 임시코드임니다 승희언니가 갈아끼울 예정이에오
-const Step재직인증 = () => {
+const Step직무선택 = () => {
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const [selectedDetails, setSelectedDetails] = useState<string[]>([]);
   const handleOpenSheet = () => setIsOpenSheet(true);
@@ -14,6 +16,7 @@ const Step재직인증 = () => {
       prev?.includes(selectedValue) ? prev.filter((detail) => detail !== selectedValue) : [...prev, selectedValue],
     );
   };
+  const { onNext } = useContext(StepContext);
   return (
     <>
       <div style={{ marginTop: '10rem' }}>
@@ -28,7 +31,7 @@ const Step재직인증 = () => {
   );
 };
 
-export default Step재직인증;
+export default Step직무선택;
 
 interface Sheet재직인증PropType {
   // eslint-disable-next-line no-unused-vars

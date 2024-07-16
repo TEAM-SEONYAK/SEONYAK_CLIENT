@@ -2,10 +2,13 @@ import { CheckItemIc } from '@assets/svgs';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import MajorChip from '@pages/onboarding/components/MajorChip';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SearchBox from '../SearchBox';
+import { FullBtn } from '@components/commons/FullButton';
+import { StepContext } from '@pages/onboarding/OnboardingPage';
 
 const Step학과선택 = () => {
+  const { onNext } = useContext(StepContext);
   const [searchValue, setSearchValue] = useState('');
   const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
   const [isExceed, setIsExceed] = useState(false);
@@ -24,11 +27,11 @@ const Step학과선택 = () => {
   };
 
   useEffect(() => {
-    if (selectedMajors.length > 3) {
+    if (selectedMajors.length > 0) {
       setSelectedMajors((prev) => prev.slice(0, 3));
       setIsExceed(true);
     }
-    if (selectedMajors.length < 3) {
+    if (selectedMajors.length < 2) {
       setIsExceed(false);
     }
   }, [selectedMajors]);
@@ -54,6 +57,7 @@ const Step학과선택 = () => {
           <SearchList key={m} handleSelectMajors={handleSelectMajors} majorName={m} selectedMajors={selectedMajors} />
         ))}
       </SearchListWrapper>
+      <FullBtn isActive={selectedMajors.length > 0} onClick={onNext} />
     </Wrapper>
   );
 };

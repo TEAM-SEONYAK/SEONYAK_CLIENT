@@ -24,7 +24,7 @@ const Wrapper = styled.div<{ $isTransparent: boolean }>`
   justify-content: center;
   position: fixed;
   bottom: 0;
-  z-index: 2;
+  z-index: 9;
 
   width: 100vw;
   padding-bottom: 3.8rem;
@@ -37,7 +37,6 @@ const FullBtnContainer = styled.button<{ $isActive: boolean }>`
   justify-content: center;
   align-items: center;
 
-  height: 4.5rem;
   width: 100%;
   padding: 1.55rem 0;
   border-radius: 5px;
