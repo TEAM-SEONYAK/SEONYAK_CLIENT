@@ -34,8 +34,9 @@ const AwardMedalIcon = styled(AwardMedalIc)`
 `;
 
 const Text = styled.p`
-  ${({ theme }) => theme.fonts.Body1_M_14};
+  width: 23.8rem;
+
   white-space: wrap;
 
-  width: 23.8rem;
+  ${({ theme }) => theme.fonts.Body1_M_14};
 `;

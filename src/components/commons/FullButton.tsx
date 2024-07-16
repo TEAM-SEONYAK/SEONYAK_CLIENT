@@ -26,8 +26,8 @@ const Wrapper = styled.div<{ $isTransparent: boolean }>`
   bottom: 0;
   z-index: 9;
 
-  width: 100vw;
-  padding-bottom: 3.8rem;
+  width: 100%;
+  padding: 0 2rem 3.8rem;
 
   background-color: ${({ $isTransparent }) => ($isTransparent ? '' : 'white')};
 `;

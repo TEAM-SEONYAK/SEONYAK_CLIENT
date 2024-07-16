@@ -5,7 +5,6 @@ import { formatTime } from '../../utils/formatTime';
 import { InnerButton, InputBox, TextBox } from '../TextBox';
 import { useContext } from 'react';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
-import styled from '@emotion/styled';
 
 const Step번호입력 = () => {
   const { onNext } = useContext(StepContext);
@@ -62,10 +61,10 @@ export default Step번호입력;
 
 const Wrapper = styled.div`
   padding-top: 2rem;
+`;
 
 const Timer = styled.div`
   position: absolute;
-
   right: 1.5rem;
   bottom: 1.45rem;
 
