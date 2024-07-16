@@ -2,26 +2,43 @@ import { DropdownIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { Caption, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
+import { 세부직무_DESCRIPTION, 세부직무_LIST } from '@pages/onboarding/constants';
+import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
+import { POSITION_LIST } from '@pages/juniorPromise/constants/positionList';
 
 const Step직무선택 = () => {
   const { onNext } = useContext(StepContext);
+  const [selectedDetails, setSelectedDetails] = useState<string[]>([]);
+  const [isOpenSheet, setIsOpenSheet] = useState(false);
+  const handleSheetClose = () => setIsOpenSheet(false);
+  const handleSelectDetails = (selectedValue: string) => {
+    setSelectedDetails((prev) =>
+      prev?.includes(selectedValue) ? prev.filter((detail) => detail !== selectedValue) : [...prev, selectedValue],
+    );
+  };
+
   return (
-    <Container>
-      <Wrapper>
-        <SubTitle>직무</SubTitle>
-        <SelectWrapper onClick={() => console.log('열기')}>
-          <SelectBtn>직무를 선택해주세요</SelectBtn>
-          <DropdownIcon />
-        </SelectWrapper>
-      </Wrapper>
-      <TextBox label="세부 직무">
-        <InputBox label="세부 직무" placeholder="Product Designer & Prdouct Manager"></InputBox>
-        <Caption>재직 중인 회사에서의 구체적인 직무를 작성해 주세요</Caption>
-      </TextBox>
-      <FullBtn isActive onClick={onNext} />
-    </Container>
+    <>
+      <Container>
+        <Wrapper>
+          <SubTitle>직무</SubTitle>
+          <SelectWrapper onClick={() => setIsOpenSheet(true)}>
+            <SelectBtn>직무를 선택해주세요</SelectBtn>
+            <DropdownIcon />
+          </SelectWrapper>
+        </Wrapper>
+        <TextBox label="세부 직무">
+          <InputBox label="세부 직무" placeholder="Product Designer & Prdouct Manager"></InputBox>
+          <Caption>재직 중인 회사에서의 구체적인 직무를 작성해 주세요</Caption>
+        </TextBox>
+        <FullBtn isActive onClick={onNext} />
+      </Container>
+      <FullBottomSheet isSheetOpen={isOpenSheet} handleClose={handleSheetClose}>
+        <Sheet직무선택 selectedDetails={selectedDetails} handleSelectDetails={handleSelectDetails} />
+      </FullBottomSheet>
+    </>
   );
 };
 
@@ -47,6 +64,8 @@ const SelectWrapper = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+
+  cursor: pointer;
 `;
 
 const SelectBtn = styled.button`
@@ -74,4 +93,71 @@ const DropdownIcon = styled(DropdownIc)`
   right: 0;
 
   margin-right: 1rem;
+  fill: ${({ theme }) => theme.colors.grayScaleMG2};
+`;
+
+interface Sheet직무선택PropType {
+  // eslint-disable-next-line no-unused-vars
+  handleSelectDetails: (selectValue: string) => void;
+  selectedDetails: string[];
+}
+
+const Sheet직무선택 = ({ handleSelectDetails, selectedDetails }: Sheet직무선택PropType) => {
+  const handleClick = (list: string) => {
+    handleSelectDetails(list);
+  };
+  return (
+    <>
+      <SheetWrapper>
+        {세부직무_LIST.map((list) => (
+          <PositionList key={list} $isActive={selectedDetails.includes(list)} onClick={() => handleClick(list)}>
+            <PositionText key={list} $isActive={selectedDetails.includes(list)}>
+              {list}
+            </PositionText>
+          </PositionList>
+        ))}
+      </SheetWrapper>
+      <DescriptionContainer>
+        <Description>{세부직무_DESCRIPTION}</Description>
+      </DescriptionContainer>
+    </>
+  );
+};
+
+const SheetWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem 1rem;
+  z-index: 10;
+
+  width: 33.5rem;
+  height: 46.4rem;
+  margin: 4.2rem 2rem 0;
+`;
+
+const DescriptionContainer = styled.section`
+  margin: 1rem 2rem 0;
+`;
+
+const Description = styled.p`
+  color: ${({ theme }) => theme.colors.grayScaleMG2};
+  white-space: pre-wrap;
+  ${({ theme }) => theme.fonts.Caption1_R_12};
+`;
+
+const PositionList = styled.section<{ $isActive: boolean }>`
+  display: flex;
+  align-items: center;
+
+  padding: 0.8rem 1.6rem;
+  border: 0.406px solid
+    ${({ theme, $isActive }) => ($isActive ? theme.colors.transparentBlue_50 : theme.colors.grayScaleLG2)};
+  border-radius: 8px;
+
+  background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primaryBlue50 : theme.colors.grayScaleLG2)};
+`;
+
+const PositionText = styled.p<{ $isActive: boolean }>`
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleDG)};
+  ${({ theme }) => theme.fonts.Caption2_SB_12};
 `;

@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 
-interface IPositionList {
+interface positionListPropType {
   position: string;
   selectedPosition: boolean[];
   handleChipPosition: (positionId: number) => void;
   positionId: number;
 }
-export const PositionList = (props: IPositionList) => {
+export const PositionList = (props: positionListPropType) => {
   const { position, selectedPosition, handleChipPosition, positionId } = props;
   return (
     <>
