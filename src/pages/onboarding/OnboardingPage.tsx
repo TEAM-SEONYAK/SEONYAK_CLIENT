@@ -4,7 +4,7 @@ import ProgressBar from '@components/commons/ProgressBar';
 import styled from '@emotion/styled';
 import Layout from '@pages/onboarding/components/Layout';
 import Step재직인증 from '@pages/onboarding/components/seniorOnboarding/Step재직인증';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import Step개인정보입력 from './components/commonOnboarding/Step개인정보입력';
 import Step계열선택 from './components/commonOnboarding/Step계열선택';
 import Step번호입력 from './components/commonOnboarding/Step번호입력';
@@ -16,9 +16,13 @@ import Step재직기간 from './components/seniorOnboarding/Step재직기간';
 import Step졸업인증 from './components/seniorOnboarding/Step졸업인증';
 import Step직무선택 from './components/seniorOnboarding/Step직무선택';
 import TitleBox from './components/TitleBox';
+import Step명함인증 from './components/seniorOnboarding/Step명함인증';
+
+export const StepContext = createContext({
+  onNext: () => {},
+});
 
 const OnboardingPage = () => {
-  // 테스트
   const role = 'SENIOR';
   const [step, setStep] = useState(1);
   const handleSetStep = (dir: 'NEXT' | 'PREV') => {
@@ -40,11 +44,11 @@ const OnboardingPage = () => {
       case 6:
         return <Step졸업인증 />;
       case 7:
-        return <Step재직인증 />;
+        return <Step명함인증 />;
       case 9:
-        return <Step재직기간 />;
-      case 10:
         return <Step직무선택 />;
+      case 10:
+        return <Step재직기간 />;
       case 11:
         return <Step번호입력 />;
     }
@@ -57,23 +61,18 @@ const OnboardingPage = () => {
         <ProgressBar max={4} current={4} />
         <Content>
           <TitleBox title="인증이 완료되었어요" description="명함 정보를 확인해 주세요" />
-          <Step인증완료 />
+          <Step인증완료 onNext={() => handleSetStep('NEXT')} />
         </Content>
-        <Caption>
-          {`현재 입력된 정보가 잘못되어 있어도 괜찮아요 !\n이후 인증 절차(전화번호)와 마이페이지(회사명)에서 수정이 가능해요`}
-        </Caption>
-        <ButtonWrapper>
-          <BlackButton>다시찍기</BlackButton>
-          <BlueButton onClick={() => handleSetStep('NEXT')}>다음으로</BlueButton>
-        </ButtonWrapper>
       </Wrapper>
     );
   }
 
   return (
-    <Layout userRole={role} step={step} handleSetStep={handleSetStep}>
-      <Step />
-    </Layout>
+    <StepContext.Provider value={{ onNext: () => handleSetStep('NEXT') }}>
+      <Layout userRole={role} step={step} handleSetStep={handleSetStep}>
+        <Step />
+      </Layout>
+    </StepContext.Provider>
   );
 };
 
@@ -85,7 +84,7 @@ const Wrapper = styled.section`
   justify-content: space-between;
 
   height: 100dvh;
-  padding: 5.8rem 2rem 3.6rem;
+  padding: 5.8rem 0 3.6rem;
 `;
 
 const Content = styled.article`
@@ -94,49 +93,5 @@ const Content = styled.article`
   gap: 2rem;
 
   height: 100%;
-  padding-top: 3rem;
-`;
-
-const Caption = styled.p`
-  width: 100%;
-  margin-bottom: 2rem;
-
-  color: ${({ theme }) => theme.colors.grayScaleMG2};
-  text-align: center;
-  white-space: pre-line;
-  ${({ theme }) => theme.fonts.Caption1_R_12};
-`;
-const ButtonWrapper = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-const BlackButton = styled.button`
-  width: 10.6rem;
-  height: 5.6rem;
-  padding: 1.5rem 2rem;
-  border-radius: 5px;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleBG};
-
-  ${({ theme }) => theme.fonts.Head2_SB_18}
-  color: ${({ theme }) => theme.colors.grayScaleWhite};
-`;
-const BlueButton = styled.button`
-  z-index: 1;
-
-  width: 21.9rem;
-  height: 5.6rem;
-  padding: 1.55rem 7.85rem;
-  border-radius: 5px;
-
-  background-color: ${({ theme }) => theme.colors.Blue};
-
-  ${({ theme }) => theme.fonts.Head2_SB_18}
-  color: ${({ theme }) => theme.colors.grayScaleWhite};
-
-  &:disabled {
-    background-color: ${({ theme }) => theme.colors.grayScaleMG2};
-
-    cursor: default;
-  }
+  padding: 3rem 2rem 0;
 `;

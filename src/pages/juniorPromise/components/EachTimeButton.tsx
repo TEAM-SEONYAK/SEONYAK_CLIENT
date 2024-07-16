@@ -27,14 +27,14 @@ const Wrapper = styled.div<{ $isActive: boolean }>`
   height: 3.8rem;
   margin: 0.5rem 0.3rem;
   border: ${({ $isActive, theme }) =>
-    $isActive ? `1px solid ${theme.colors.Blue}` : `1px solid ${theme.colors.grayScaleLG1}`};
+    $isActive ? `1px solid ${theme.colors.Blue}` : `1px solid ${theme.colors.grayScaleLG2}`};
   border-radius: 8px;
 
   background-color: ${({ $isActive, theme }) =>
     $isActive ? theme.colors.transparentBlue_5 : theme.colors.grayScaleWhite};
 
   ${({ theme }) => theme.fonts.Body1_M_14};
-  color: ${({ theme }) => theme.colors.grayScaleMG1};
+  color: ${({ theme }) => theme.colors.grayScaleBG};
 
   cursor: pointer;
 `;

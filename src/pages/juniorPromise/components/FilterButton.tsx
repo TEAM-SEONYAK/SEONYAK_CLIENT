@@ -26,6 +26,7 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
         <PositionName $positionChipNum={positionChipNum}>직무</PositionName>
         {positionChipNum > 0 && <ChipNum>{positionChipNum}</ChipNum>}
         <PositionArrowDown positionchipnum={positionChipNum + ''} />
+        <PositionArrowDown positionchipnum={positionChipNum + ''} />
       </FilterPositionBtn>
     </FilterBtnContainer>
   );

@@ -98,7 +98,7 @@ const JuniorPromisePage = () => {
   };
 
   return (
-    <>
+    <Wrapper>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
       <HbHomeMainIcon />
       <Title>반가워요 도리님,고민을 해결해볼까요?</Title>
@@ -144,11 +144,17 @@ const JuniorPromisePage = () => {
         chipPositionName={chipPositionName}
         pushPositionList={pushPositionList}
       />
-    </>
+    </Wrapper>
   );
 };
 
 export default JuniorPromisePage;
+const Wrapper = styled.div`
+  width: 100vw;
+  min-height: calc(var(--vh, 1vh) * 100 - 44px);
+  background-color: ${({ theme }) => theme.colors.grayScaleWG};
+`;
+
 const HbHomeMainIcon = styled(HbHomeMainIc)`
   position: relative;
 `;
