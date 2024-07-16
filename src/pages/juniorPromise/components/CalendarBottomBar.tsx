@@ -9,11 +9,18 @@ interface CalendarBottomBarPropType {
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
   setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
   btnId: number;
+  handleCheckAllSelected: () => void;
 }
 
 // 만약 selectedTime의 selectedTime과 clickedDay가 문자열인지 확인
 // 조건에 따라 버튼의 스타일을 변경
-const CalendarBottomBar = ({ setIsCalendarOpen, selectedTime, setSelectedTime, btnId }: CalendarBottomBarPropType) => {
+const CalendarBottomBar = ({
+  setIsCalendarOpen,
+  selectedTime,
+  setSelectedTime,
+  btnId,
+  handleCheckAllSelected,
+}: CalendarBottomBarPropType) => {
   const selectedTimeMent = ['첫 번째 일정 선택하기', '두 번째 일정 선택하기', '세 번째 일정 선택하기'];
   const [isSelected, setIsSelected] = useState(false);
 
@@ -26,6 +33,7 @@ const CalendarBottomBar = ({ setIsCalendarOpen, selectedTime, setSelectedTime, b
   const handleOpenSelect = () => {
     setIsCalendarOpen(false);
     setIsSelected(false);
+    handleCheckAllSelected();
   };
 
   const handleReload = () => {

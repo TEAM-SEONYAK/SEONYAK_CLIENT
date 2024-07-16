@@ -11,6 +11,7 @@ interface BottomSheetPropType {
   isCalendarOpen: boolean;
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   btnId: number;
+  handleCheckAllSelected: () => void;
 }
 
 const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
@@ -19,6 +20,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
   selectedTime,
   setSelectedTime,
   btnId,
+  handleCheckAllSelected,
 }) => {
   return (
     <>
@@ -39,6 +41,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
           setSelectedTime={setSelectedTime}
           setIsCalendarOpen={setIsCalendarOpen}
           btnId={btnId}
+          handleCheckAllSelected={handleCheckAllSelected}
         />
       </BottomSheetWrapper>
     </>
