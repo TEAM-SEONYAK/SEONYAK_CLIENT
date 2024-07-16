@@ -6,12 +6,15 @@ import { ChangeEvent, useContext, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
+import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
 
 const Step개인정보입력 = () => {
   const { onNext } = useContext(StepContext);
-  // setNicknamError는 추후 서버 API 통신 결과값에 따라 업데이트
-  // warnText도 에러메시지에 따라 조건부렌더링 예정
+  const [nickname, setNickname] = useState('');
+  const mutation = useNicknameValid();
   const [isNicknameError, setNicknameError] = useState(false);
+  const [isNicknameValid, setIsNicknameValid] = useState(false);
+
   const [imageFile, setImageFile] = useState('');
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = startImgArr[Math.floor(Math.random() * 2)];
@@ -25,7 +28,25 @@ const Step개인정보입력 = () => {
     };
   };
   // 임시 변수 (서버 통신 응답)
-  const isChecked = true;
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+
+    if (e.target.value.length == 0) {
+      setNicknameError(false);
+      setIsNicknameValid(false);
+    }
+  };
+  const handleCheckNickname = () => {
+    mutation.mutate(nickname, {
+      onSuccess: () => {
+        setIsNicknameValid(true);
+      },
+      onError: () => {
+        setNicknameError(true);
+        setIsNicknameValid(false);
+      },
+    });
+  };
 
   return (
     <>
@@ -42,16 +63,23 @@ const Step개인정보입력 = () => {
         </ImageInputWrapper>
       </Wrapper>
       <TextBox label="닉네임">
-        <InputBox label="닉네임" placeholder="닉네임을 입력해주세요" isError={isNicknameError}>
-          <InnerButton text="중복확인" />
+        <InputBox
+          label="닉네임"
+          placeholder="닉네임을 입력해주세요"
+          isError={isNicknameError}
+          value={nickname}
+          onChange={handleChangeInput}>
+          <InnerButton text="중복확인" onClick={handleCheckNickname} />
         </InputBox>
         {isNicknameError ? (
           <WarnDescription isShown={isNicknameError} warnText="닉네임 조건을 확인해주세요 !" />
         ) : (
-          <Caption>8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가</Caption>
+          <Caption isValid={isNicknameValid}>
+            {isNicknameValid ? '사용 가능한 닉네임이에요' : '8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가'}
+          </Caption>
         )}
       </TextBox>
-      <FullBtn isActive={isChecked} onClick={onNext} />
+      <FullBtn isActive={isNicknameValid} onClick={onNext} />
     </>
   );
 };
