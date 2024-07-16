@@ -9,18 +9,20 @@ const Step계열선택 = () => {
   const [selectedField, setSelectedField] = useState('');
   const { onNext } = useContext(StepContext);
   return (
-    <Wrapper>
-      {계열_LIST.map((el) => (
-        <ItemWrapper key={el} onClick={() => setSelectedField(el)}>
-          <Item>
-            <Icon />
-            {el}
-          </Item>
-          <CheckItemIc />
-        </ItemWrapper>
-      ))}
+    <>
+      <Wrapper>
+        {계열_LIST.map((el) => (
+          <ItemWrapper key={el} onClick={() => setSelectedField(el)}>
+            <Item>
+              <Icon />
+              {el}
+            </Item>
+            <CheckItemIc />
+          </ItemWrapper>
+        ))}
+      </Wrapper>
       <FullBtn isActive={selectedField !== ''} onClick={onNext} />
-    </Wrapper>
+    </>
   );
 };
 

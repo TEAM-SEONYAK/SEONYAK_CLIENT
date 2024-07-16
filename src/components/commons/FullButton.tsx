@@ -2,14 +2,14 @@ import styled from '@emotion/styled';
 // 화면 하단 풀사이즈 버튼
 interface FullBtnPropType {
   isActive?: boolean;
-  text: string;
+  text?: string;
   onClick: () => void;
   onInactiveClick?: () => void;
   isTransparent?: boolean;
 }
 
 export const FullBtn = (props: FullBtnPropType) => {
-  const { isActive = true, text, onClick, onInactiveClick, isTransparent = false } = props;
+  const { isActive = true, text = '다음으로', onClick, onInactiveClick, isTransparent = false } = props;
   return (
     <Wrapper $isTransparent={isTransparent}>
       <FullBtnContainer type="button" $isActive={isActive} onClick={isActive ? onClick : onInactiveClick}>
@@ -24,6 +24,7 @@ const Wrapper = styled.div<{ $isTransparent: boolean }>`
   justify-content: center;
   position: fixed;
   bottom: 0;
+  left: 0;
   z-index: 9;
 
   width: 100%;
