@@ -10,6 +10,7 @@ interface CalendarBottomBarPropType {
   setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
   btnId: number;
   handleCheckAllSelected: () => void;
+  onCalendarChange: (date: Date) => void;
 }
 
 // 만약 selectedTime의 selectedTime과 clickedDay가 문자열인지 확인
@@ -20,6 +21,7 @@ const CalendarBottomBar = ({
   setSelectedTime,
   btnId,
   handleCheckAllSelected,
+  onCalendarChange,
 }: CalendarBottomBarPropType) => {
   const selectedTimeMent = ['첫 번째 일정 선택하기', '두 번째 일정 선택하기', '세 번째 일정 선택하기'];
   const [isSelected, setIsSelected] = useState(false);
@@ -39,6 +41,7 @@ const CalendarBottomBar = ({
   const handleReload = () => {
     const tomorrow = formatCalDateToString(getTomorrow());
 
+    // 버튼 id 랑 index 비교해서 선택적 초기화하기
     setSelectedTime((prevTimes) =>
       prevTimes.map((time, index) => ({
         ...time,

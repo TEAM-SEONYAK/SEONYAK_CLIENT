@@ -23,6 +23,8 @@ interface CustomCalendarPropType {
 
 const CustomCalendar = ({ btnId, setSelectedTime, selectedTime }: CustomCalendarPropType) => {
   // 초기값을 내일 날짜로 설정
+  // get tomorrow 가 아니라 clicked day 로 업데이트
+  // getTomorrow 대신에 clicked day 를 쓰고, 초기값 업데이트 할 때 get Tomorrow 로 씀.
   const [value, onChange] = useState<Value>(getTomorrow());
 
   const handleDateClick = (date: string) => {
