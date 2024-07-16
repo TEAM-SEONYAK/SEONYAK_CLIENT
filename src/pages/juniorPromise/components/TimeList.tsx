@@ -83,12 +83,15 @@ export default TimeList;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 
+  padding-bottom: 14.4rem;
   padding-left: 1.3rem;
 `;
 
 const Layout = styled.div`
   display: grid;
+  overflow-y: auto;
 `;
 
 const Label = styled.div`
