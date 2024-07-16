@@ -150,7 +150,6 @@ const JuniorPromisePage = () => {
 
 export default JuniorPromisePage;
 const Wrapper = styled.div`
-  width: 100vw;
   min-height: calc(var(--vh, 1vh) * 100 - 44px);
   background-color: ${({ theme }) => theme.colors.grayScaleWG};
 `;
