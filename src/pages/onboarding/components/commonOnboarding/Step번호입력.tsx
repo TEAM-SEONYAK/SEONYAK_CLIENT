@@ -1,5 +1,4 @@
 import { FullBtn } from '@components/commons/FullButton';
-import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
 import { formatTime } from '../../utils/formatTime';
 import { InnerButton, InputBox, TextBox } from '../TextBox';
@@ -62,10 +61,10 @@ export default Step번호입력;
 
 const Wrapper = styled.div`
   padding-top: 2rem;
+`;
 
 const Timer = styled.div`
   position: absolute;
-
   right: 1.5rem;
   bottom: 1.45rem;
 
