@@ -9,10 +9,11 @@ interface BtnCloseModalPropType {
   handleModalOpen: (type: boolean) => void;
   children?: React.ReactNode;
   btnText: string;
+  btnOnClick?: () => void;
 }
 
 export const BtnCloseModal = (props: BtnCloseModalPropType) => {
-  const { title, isModalOpen, handleModalOpen, children, btnText } = props;
+  const { title, isModalOpen, handleModalOpen, children, btnText, btnOnClick } = props;
 
   const handleModalClose = () => {
     handleModalOpen(false);
@@ -26,7 +27,7 @@ export const BtnCloseModal = (props: BtnCloseModalPropType) => {
           <CloseIcon onClick={handleModalClose} />
           <BtnModalTitle>{title}</BtnModalTitle>
           {children}
-          <BtnModalBtn onClick={handleModalClose}>{btnText}</BtnModalBtn>
+          <BtnModalBtn onClick={btnOnClick || handleModalClose}>{btnText}</BtnModalBtn>
         </BtnModalWrapper>
       </Wrapper>
     )
