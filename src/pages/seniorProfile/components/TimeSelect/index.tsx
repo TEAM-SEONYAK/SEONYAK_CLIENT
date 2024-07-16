@@ -35,6 +35,8 @@ const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) =
         ...prevProfile,
         isDayOfWeek: ret === 'right',
       }));
+      setIsWarning(false);
+      setIsToaster(false);
       return ret;
     });
   };
