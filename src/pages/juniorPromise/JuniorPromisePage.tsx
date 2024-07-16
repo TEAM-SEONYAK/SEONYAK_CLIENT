@@ -172,6 +172,7 @@ const SeniorListWrapper = styled.div`
   align-items: center;
 
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+  margin-bottom: 9.8rem;
   padding: 0.8rem 2rem;
 `;
