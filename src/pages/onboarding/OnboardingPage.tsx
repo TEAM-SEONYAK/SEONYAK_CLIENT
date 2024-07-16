@@ -17,6 +17,7 @@ import Step졸업인증 from './components/seniorOnboarding/Step졸업인증';
 import Step직무선택 from './components/seniorOnboarding/Step직무선택';
 import TitleBox from './components/TitleBox';
 import Step명함인증 from './components/seniorOnboarding/Step명함인증';
+import Step이메일입력 from './components/juniorOnboarding/Step이메일입력';
 
 export const StepContext = createContext({
   onNext: () => {},
@@ -32,7 +33,7 @@ const OnboardingPage = () => {
   const Step = () => {
     switch (step) {
       case 1:
-        return <Step번호입력 />;
+        return <Step이메일입력 />;
       case 2:
         return <Step개인정보입력 />;
       case 3:
