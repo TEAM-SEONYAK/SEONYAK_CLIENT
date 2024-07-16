@@ -4,15 +4,22 @@ import { ArrowDownIc } from '../../../assets/svgs/index';
 interface FilterButtonProps {
   handleFilterActiveBtn: (btnText: string) => void;
   positionChipNum: number;
-  fieldChipNum: number;
+  chipFieldName: string[];
 }
-export const FilterButton: React.FC<FilterButtonProps> = ({ handleFilterActiveBtn, positionChipNum, fieldChipNum }) => {
+export const FilterButton: React.FC<FilterButtonProps> = ({
+  handleFilterActiveBtn,
+  positionChipNum,
+  chipFieldName,
+}) => {
   return (
     <FilterBtnContainer>
-      <FilterFieldBtn type="button" onClick={() => handleFilterActiveBtn('계열')} $fieldChipNum={fieldChipNum}>
-        <FiledName $fieldChipNum={fieldChipNum}>계열</FiledName>
-        {fieldChipNum > 0 && <ChipNum>{fieldChipNum}</ChipNum>}
-        <FieldArrowDownIc fieldchipnum={fieldChipNum + ''} />
+      <FilterFieldBtn
+        type="button"
+        onClick={() => handleFilterActiveBtn('계열')}
+        $chipFieldNameNum={chipFieldName.length}>
+        <FiledName $chipFieldNameNum={chipFieldName.length}>계열</FiledName>
+        {chipFieldName.length > 0 && <ChipNum>{chipFieldName.length}</ChipNum>}
+        <FieldArrowDownIc chipfieldname={chipFieldName.length + ''} />
       </FilterFieldBtn>
 
       <FilterPositionBtn type="button" onClick={() => handleFilterActiveBtn('직무')} $positionChipNum={positionChipNum}>
@@ -28,18 +35,19 @@ const FilterBtnContainer = styled.div`
   gap: 0.8rem;
 `;
 
-const FilterFieldBtn = styled.button<{ $fieldChipNum: number }>`
+const FilterFieldBtn = styled.button<{ $chipFieldNameNum: number }>`
   display: flex;
   gap: 1rem;
   justify-content: center;
   align-items: center;
 
   padding: 0.8rem 1rem;
-  border: 1px solid ${({ theme, $fieldChipNum }) => ($fieldChipNum > 0 ? theme.colors.Blue : theme.colors.grayScaleWG)};
+  border: 1px solid
+    ${({ theme, $chipFieldNameNum }) => ($chipFieldNameNum > 0 ? theme.colors.Blue : theme.colors.grayScaleWG)};
   border-radius: 6px;
 
-  background: ${({ theme, $fieldChipNum }) =>
-    $fieldChipNum > 0 ? theme.colors.primaryBlue100 : theme.colors.grayScaleLG2};
+  background: ${({ theme, $chipFieldNameNum }) =>
+    $chipFieldNameNum > 0 ? theme.colors.primaryBlue100 : theme.colors.grayScaleLG2};
 
   ${({ theme }) => theme.fonts.Caption2_SB_12};
 `;
@@ -59,9 +67,9 @@ const FilterPositionBtn = styled.button<{ $positionChipNum: number }>`
 
   ${({ theme }) => theme.fonts.Caption2_SB_12};
 `;
-const FiledName = styled.p<{ $fieldChipNum: number }>`
+const FiledName = styled.p<{ $chipFieldNameNum: number }>`
   ${({ theme }) => theme.fonts.Caption2_SB_12};
-  color: ${({ theme, $fieldChipNum }) => ($fieldChipNum > 0 ? theme.colors.Blue : theme.colors.grayScaleDG)};
+  color: ${({ theme, $chipFieldNameNum }) => ($chipFieldNameNum > 0 ? theme.colors.Blue : theme.colors.grayScaleDG)};
 `;
 const ChipNum = styled.p`
   color: ${({ theme }) => theme.colors.Blue};
@@ -71,9 +79,9 @@ const PositionName = styled.p<{ $positionChipNum: number }>`
   color: ${({ theme, $positionChipNum }) => ($positionChipNum > 0 ? theme.colors.Blue : theme.colors.grayScaleDG)};
 `;
 
-const FieldArrowDownIc = styled(ArrowDownIc)<{ fieldchipnum: string }>`
+const FieldArrowDownIc = styled(ArrowDownIc)<{ chipfieldname: string }>`
   path {
-    stroke: ${({ theme, fieldchipnum }) => (fieldchipnum > '0' ? theme.colors.Blue : theme.colors.grayScaleDG)};
+    stroke: ${({ theme, chipfieldname }) => (chipfieldname > '0' ? theme.colors.Blue : theme.colors.grayScaleDG)};
   }
 `;
 

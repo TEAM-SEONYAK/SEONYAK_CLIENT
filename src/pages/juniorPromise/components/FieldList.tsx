@@ -18,7 +18,6 @@ export const FieldList = (props: IFieldList) => {
     pushFieldList(chipFieldName);
   };
   return (
-    // 클릭하면 fieldList의 id값, 이름
     <FieldWrapper onClick={onSelected}>
       <FieldTitle isSelected={isSelected}>{field}</FieldTitle>
       <CheckBox isselected={isSelected + ''} />

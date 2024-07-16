@@ -40,15 +40,15 @@ const Nav = () => {
       <TapContainer
         onClick={() => userRole === 'JUNIOR' && handleOnClickNav('둘러보기')}
         disabled={userRole === 'SENIOR'}>
-        <NaviLookBlackIcon isActive={currNav === '/juniorPromise'} />
+        <NaviLookBlackIcon isactive={(currNav === '/juniorPromise') + ''} />
         <TapContent $isActive={currNav === '/juniorPromise'}>둘러보기</TapContent>
       </TapContainer>
       <TapContainer onClick={() => handleOnClickNav('나의 약속')}>
-        <NaviPromiseBlackIcon isActive={currNav === '/'} />
+        <NaviPromiseBlackIcon isactive={(currNav === '/') + ''} />
         <TapContent $isActive={currNav === '/'}>나의 약속</TapContent>
       </TapContainer>
       <TapContainer onClick={() => userRole === 'JUNIOR' && handleOnClickNav('마이페이지')} disabled={true}>
-        <NaviMyBlackIcon isActive={currNav === '마이페이지'} />
+        <NaviMyBlackIcon isactive={(currNav === '마이페이지') + ''} />
         <TapContent $isActive={currNav === '마이페이지'}>마이페이지</TapContent>
       </TapContainer>
     </Wrapper>
@@ -88,14 +88,14 @@ const TapContent = styled.span<{ $isActive: boolean }>`
   ${({ theme }) => theme.fonts.navigation};
 `;
 
-const NaviLookBlackIcon = styled(NaviLookBlackIc)<{ isActive: boolean }>`
-  stroke: ${({ isActive }) => (isActive ? 'rgba(39, 39, 45, 1)' : 'rgba(197, 197, 197, 1)')};
+const NaviLookBlackIcon = styled(NaviLookBlackIc)<{ isactive: string }>`
+  stroke: ${({ isactive }) => (isactive === 'true' ? 'rgba(39, 39, 45, 1)' : 'rgba(197, 197, 197, 1)')};
 `;
 
-const NaviPromiseBlackIcon = styled(NaviPromiseBlackIc)<{ isActive: boolean }>`
-  stroke: ${({ isActive }) => (isActive ? 'rgba(39, 39, 45, 1)' : 'rgba(197, 197, 197, 1)')};
+const NaviPromiseBlackIcon = styled(NaviPromiseBlackIc)<{ isactive: string }>`
+  stroke: ${({ isactive }) => (isactive === 'true' ? 'rgba(39, 39, 45, 1)' : 'rgba(197, 197, 197, 1)')};
 `;
 
-const NaviMyBlackIcon = styled(NaviMyBlackIc)<{ isActive: boolean }>`
-  stroke: ${({ isActive }) => (isActive ? 'rgba(39, 39, 45, 1)' : 'rgba(197, 197, 197, 1)')};
+const NaviMyBlackIcon = styled(NaviMyBlackIc)<{ isactive: string }>`
+  stroke: ${({ isactive }) => (isactive === 'true' ? 'rgba(39, 39, 45, 1)' : 'rgba(197, 197, 197, 1)')};
 `;
