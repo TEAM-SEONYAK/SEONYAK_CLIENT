@@ -7,10 +7,12 @@ import { StepContext } from '@pages/onboarding/OnboardingPage';
 import styled from '@emotion/styled';
 import { formatPhone } from '@pages/onboarding/utils/formatPhone';
 import WarnDescription from '@components/commons/WarnDescription';
+import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 
 const Step번호입력 = () => {
   const [isNumError, setIsNumError] = useState(false);
   const [isValidCodeError, setIsValidCodeError] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const { onNext } = useContext(StepContext);
@@ -48,6 +50,17 @@ const Step번호입력 = () => {
     setPhoneNumber(formattedNum);
   };
 
+  const handleShowModal = (type: boolean) => {
+    setIsModalOpen(type);
+  };
+
+  const handleClickButton = () => {
+    setIsModalOpen(true);
+    setTimeout(() => {
+      onNext();
+    }, 2000);
+  };
+
   return (
     <Wrapper>
       <TextBox label="">
@@ -60,7 +73,7 @@ const Step번호입력 = () => {
             isError={isNumError}>
             <InnerButton onClick={handleClickTimer} text={isActive ? '재전송' : '인증번호 전송'} />
           </InputBox>
-          <WarnDescription isShown={isNumError} warnText="이미 사용 중인 번호예요." />
+          {isNumError && <WarnDescription isShown={isNumError} warnText="이미 사용 중인 번호예요." />}
         </>
         {isActive && (
           <>
@@ -73,11 +86,20 @@ const Step번호입력 = () => {
                 {minutes} : {seconds}
               </Timer>
             </InputBox>
-            <WarnDescription isShown={isValidCodeError} warnText="코드가 틀렸어요. 다시 한번 확인해 주세요." />
+            {isValidCodeError && (
+              <WarnDescription isShown={isValidCodeError} warnText="코드가 틀렸어요. 다시 한번 확인해 주세요." />
+            )}
           </>
         )}
       </TextBox>
-      <FullBtn text="인증 확인" isActive={timeLeft > 0 && USER_INPUT === VERIFICATION_CODE} onClick={onNext} />
+      <FullBtn
+        text="인증 확인"
+        isActive={timeLeft > 0 && USER_INPUT === VERIFICATION_CODE}
+        onClick={handleClickButton}
+      />
+      <AutoCloseModal text="인증에 성공했어요" showModal={isModalOpen} handleShowModal={handleShowModal}>
+        <DummyImage />
+      </AutoCloseModal>
     </Wrapper>
   );
 };
@@ -95,4 +117,11 @@ const Timer = styled.div`
 
   ${({ theme }) => theme.fonts.Body1_M_14};
   color: ${({ theme }) => theme.colors.grayScaleMG2};
+`;
+
+const DummyImage = styled.div`
+  width: 27rem;
+  height: 17rem;
+
+  background-color: red;
 `;
