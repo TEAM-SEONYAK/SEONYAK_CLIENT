@@ -20,6 +20,7 @@ const PromiseListPage = () => {
           <Title nickname={promiseData.myNickname} userRole={userRole} count={promiseData.scheduled.length} />
           <RecentCard
             userRole={userRole}
+            nickname={promiseData.myNickname}
             recentAppointment={promiseData.scheduled && promiseData.scheduled[0]}
             appointmentNum={promiseData.scheduled.length}
           />
