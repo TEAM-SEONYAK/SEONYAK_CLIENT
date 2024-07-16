@@ -9,10 +9,10 @@ interface FullBtnPropType {
 }
 
 export const FullBtn = (props: FullBtnPropType) => {
-  const { isActive, text, onClick, onInactiveClick, isTransparent = false } = props;
+  const { isActive = true, text, onClick, onInactiveClick, isTransparent = false } = props;
   return (
     <Wrapper $isTransparent={isTransparent}>
-      <FullBtnContainer type="button" disabled={!isActive} onClick={isActive ? onClick : onInactiveClick}>
+      <FullBtnContainer type="button" $isActive={isActive} onClick={isActive ? onClick : onInactiveClick}>
         {text}
       </FullBtnContainer>
     </Wrapper>
@@ -32,7 +32,7 @@ const Wrapper = styled.div<{ $isTransparent: boolean }>`
   background-color: ${({ $isTransparent }) => ($isTransparent ? '' : 'white')};
 `;
 
-const FullBtnContainer = styled.button`
+const FullBtnContainer = styled.button<{ $isActive: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,14 +41,10 @@ const FullBtnContainer = styled.button`
   height: 4.5rem;
   border-radius: 5px;
 
-  background-color: ${({ theme }) => theme.colors.Blue};
+  background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleMG2)};
 
   ${({ theme }) => theme.fonts.Head2_SB_18}
   color: ${({ theme }) => theme.colors.grayScaleWhite};
 
-  &:disabled {
-    background-color: ${({ theme }) => theme.colors.grayScaleMG2};
-
-    cursor: default;
-  }
+  cursor: ${({ $isActive }) => ($isActive ? 'pointer' : 'default')};
 `;

@@ -22,9 +22,6 @@ const Sentence = ({ profile, setProfile, setStep }: funnelComponentPropType) => 
       ...prev,
       catchphrase,
     }));
-
-    console.log({ catchphrase });
-    console.log({ isWarning });
   }, [catchphrase]);
 
   return (

@@ -10,6 +10,7 @@ interface DropDownPropType {
   // eslint-disable-next-line no-unused-vars
   setProfile: (selectedValue: string | boolean) => void;
   isStartTime: boolean;
+  isWarning: boolean;
 }
 
 const DropDown = ({
@@ -18,6 +19,7 @@ const DropDown = ({
   defaultValue,
   setProfile,
   isStartTime,
+  isWarning,
 }: DropDownPropType) => {
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
   const [isSelectDown, setIsSelectDown] = useState(false);
@@ -48,7 +50,11 @@ const DropDown = ({
     <>
       {isSelectDown && <BackdropContainer onClick={handleClickOutside} />}
       <div>
-        <DropdownContainer $isDefault={variant === 'default'} onClick={handleClickDropdown} $isActive={isActive}>
+        <DropdownContainer
+          $isDefault={variant === 'default'}
+          onClick={handleClickDropdown}
+          $isActive={isActive}
+          $isWarning={isWarning}>
           <SelectedText $isActive={isActive}>{selectedValue}</SelectedText>
           <ArrowDownIcon isactive={isActive.toString()} />
         </DropdownContainer>
@@ -77,7 +83,7 @@ const BackdropContainer = styled.div`
   margin: -4rem 0 0 -2rem;
 `;
 
-const DropdownContainer = styled.section<{ $isDefault: boolean; $isActive: boolean }>`
+const DropdownContainer = styled.section<{ $isDefault: boolean; $isActive: boolean; $isWarning: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -85,10 +91,11 @@ const DropdownContainer = styled.section<{ $isDefault: boolean; $isActive: boole
   width: ${({ $isDefault }) => ($isDefault ? '13rem' : '12rem')};
   height: 4rem;
   padding: 0.3rem 0 0.3rem ${({ $isDefault }) => ($isDefault ? '1.4rem' : '1.2rem')};
-  border: 1px solid ${({ theme }) => theme.colors.grayScaleLG1};
+  border: 1px solid ${({ theme, $isWarning }) => ($isWarning ? theme.colors.Red : theme.colors.grayScaleLG1)};
   border-radius: 4px;
 
-  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
+  background-color: ${({ theme, $isWarning }) =>
+    $isWarning ? theme.colors.transparentRed_3 : theme.colors.grayScaleWhite};
 
   cursor: ${({ $isActive }) => ($isActive ? 'pointer' : 'default')};
 `;

@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { DAYOFWEEK_LIST } from '@pages/seniorProfile/constants';
-import { TimeCategoryType, dayType, preferredTimeType, funnelComponentPropType } from '@pages/seniorProfile/types';
+import { TimeCategoryType, dayType, preferredTimeType, TimePropType } from '@pages/seniorProfile/types';
 import DurationSelect from '../common/DurationSelect';
 
-const TimeAlldays = ({ profile, setProfile }: funnelComponentPropType) => {
+const TimeAlldays = ({ profile, setProfile, isWarning }: TimePropType) => {
   const dayOfWeekSetProfile = (key: dayType) => (timeCategory: TimeCategoryType) => (selectedValue: string | boolean) =>
     setProfile((prev) => ({
       ...prev,
@@ -28,7 +28,8 @@ const TimeAlldays = ({ profile, setProfile }: funnelComponentPropType) => {
             variant="secondary"
             selectValue={profile.preferredTimeList.dayOfWeek[w][0]}
             setProfile={dayOfWeekSetProfile(w)}
-            defaultActive={!!profile.preferredTimeList.weekend.주중[0].isActive}
+            defaultActive={!!profile.preferredTimeList.dayOfWeek[w][0].isActive}
+            isWarning={isWarning}
           />
         </Container>
       ))}

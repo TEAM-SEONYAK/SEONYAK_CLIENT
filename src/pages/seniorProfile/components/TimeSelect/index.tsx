@@ -6,38 +6,49 @@ import TimeWeekdays from '@pages/seniorProfile/components/TimeSelect/TimeWeekday
 import { TOASTER_TEXT } from '@pages/seniorProfile/constants';
 import { funnelComponentPropType } from '@pages/seniorProfile/types';
 import { isDropdownActive } from '@pages/seniorProfile/utils/isDropdownActive';
+import { isTimeValid } from '@pages/seniorProfile/utils/isTimeValid';
 import { useEffect, useState } from 'react';
 import TimeAlldays from './TimeAlldays';
 import ToggleButton from '../../../../components/commons/ToggleButton';
 
 const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) => {
-  const timeType = profile.isDayOfWeek ? 'right' : 'left';
-  const [selectToggle, setSelectToggle] = useState<'left' | 'right'>(timeType);
+  const [selectToggle, setSelectToggle] = useState<'left' | 'right'>(profile.isDayOfWeek ? 'right' : 'left');
+  const timeType = selectToggle === 'left' ? 'weekend' : 'dayOfWeek';
   const [isBtnActive, setIsBtnActive] = useState(true);
   const [isToaster, setIsToaster] = useState(false);
-  // const [isWarning, setIsWarning] = useState(false);
+  const [isWarning, setIsWarning] = useState(false);
 
   useEffect(() => {
+    if (isTimeValid(profile.preferredTimeList[timeType])) {
+      setIsBtnActive(true);
+      setIsWarning(false);
+    } else {
+      setIsBtnActive(false);
+      setIsToaster(false);
+    }
+  }, [profile.preferredTimeList]);
+
+  const handleActiveButton = () => {
+    setSelectToggle((prev) => (prev === 'left' ? 'right' : 'left'));
     setProfile((prev) => ({
       ...prev,
       isDayOfWeek: selectToggle === 'right',
     }));
-  }, [selectToggle]);
-
-  const isWarning = false;
-  const handleActiveButton = () => {
-    setSelectToggle((prev) => (prev === 'left' ? 'right' : 'left'));
   };
 
   const handleActiveBtnClick = () => {
-    isToaster && setStep && setStep((prev) => prev + 1);
-    isDropdownActive(profile.preferredTimeList[selectToggle === 'left' ? 'weekend' : 'dayOfWeek'])
-      ? setStep && setStep((prev) => prev + 1)
-      : setIsToaster(true);
-  };
-  const handleInactiveBtnClick = () => {};
+    if (isToaster) {
+      setStep && setStep((prev) => prev + 1);
+      return;
+    }
 
-  console.log({ profile });
+    isDropdownActive(profile.preferredTimeList[timeType]) ? setStep && setStep((prev) => prev + 1) : setIsToaster(true);
+  };
+
+  const handleInactiveBtnClick = () => {
+    setIsWarning(true);
+  };
+
   return (
     <>
       <Wrapper>
@@ -51,9 +62,9 @@ const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) =
           <WarnDescription isShown={isWarning} warnText="시간을 입력해주세요" />
         </WarnWrapper>
         {selectToggle === 'left' ? (
-          <TimeWeekdays profile={profile} setProfile={setProfile} />
+          <TimeWeekdays profile={profile} setProfile={setProfile} isWarning={isWarning} />
         ) : (
-          <TimeAlldays profile={profile} setProfile={setProfile} />
+          <TimeAlldays profile={profile} setProfile={setProfile} isWarning={isWarning} />
         )}
       </Wrapper>
       {isToaster && <Toaster text={TOASTER_TEXT} />}
