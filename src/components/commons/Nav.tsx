@@ -32,6 +32,7 @@ const Wrapper = styled.nav`
   width: 100vw;
   padding: 0.9rem 5.5rem 1.7rem;
   border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const TapContainer = styled.div`

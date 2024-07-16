@@ -1,12 +1,17 @@
 import { CheckItemIc } from '@assets/svgs';
+import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
+import { StepContext } from '@pages/onboarding/OnboardingPage';
 import { 계열_LIST } from '@pages/onboarding/constants';
+import { useContext, useState } from 'react';
 
 const Step계열선택 = () => {
+  const [selectedField, setSelectedField] = useState('');
+  const { onNext } = useContext(StepContext);
   return (
     <Wrapper>
       {계열_LIST.map((el) => (
-        <ItemWrapper key={el}>
+        <ItemWrapper key={el} onClick={() => setSelectedField(el)}>
           <Item>
             <Icon />
             {el}
@@ -14,6 +19,7 @@ const Step계열선택 = () => {
           <CheckItemIc />
         </ItemWrapper>
       ))}
+      <FullBtn isActive={selectedField !== ''} onClick={onNext} />
     </Wrapper>
   );
 };
@@ -24,6 +30,8 @@ const Wrapper = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  padding-top: 2rem;
 `;
 
 const ItemWrapper = styled.li`

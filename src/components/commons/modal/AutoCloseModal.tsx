@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
 
@@ -38,7 +37,7 @@ const ModalBackground = styled.div<{ $showModal: boolean }>`
   align-items: center;
   position: fixed;
   top: 0;
-  z-index: 2;
+  z-index: 5;
 
   width: 100vw;
   height: 100%;

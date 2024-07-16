@@ -13,7 +13,7 @@ const Banner: React.FC<SeniorProps> = ({ senior = '도리 선배' }) => {
       <Text>
         <SeniorText>{senior}</SeniorText> 님에게
         <br />
-        약속 신청을 시작할게요
+        약속 신청을 시작할까요?
       </Text>
       <ImgSbdetail1Ic />
     </BannerWrapper>

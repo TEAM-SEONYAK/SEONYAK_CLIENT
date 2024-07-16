@@ -1,34 +1,45 @@
 import styled from '@emotion/styled';
-import { ReactNode } from 'react';
+import { InputHTMLAttributes, ReactNode } from 'react';
 
-export const InnerButton = ({ text }: { text: string }) => {
-  return <Button type="button">{text}</Button>;
+interface InnerButtonProps {
+  text: string;
+  onClick?: () => void;
+}
+
+export const InnerButton = ({ text, onClick }: InnerButtonProps) => {
+  return (
+    <Button type="button" onClick={onClick}>
+      {text}
+    </Button>
+  );
 };
+
+interface InputBoxPropType
+  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value' | 'onChange' | 'maxLength'> {
+  label: string;
+  type?: 'text' | 'file';
+  isError?: boolean;
+  text?: string;
+  children?: ReactNode;
+}
 
 export const InputBox = ({
   label,
-  placeholder,
-  value,
   children,
+  isError = false,
   type = 'text',
-}: {
-  label: string;
-  placeholder: string;
-  value?: string;
-  type?: 'text' | 'file';
-  children?: ReactNode;
-}) => {
+  text,
+  ...inputElements
+}: InputBoxPropType) => {
   return (
     <InputWrapper>
       {type === 'text' ? (
-        <Input type={type} id={label} placeholder={placeholder} value={value} />
+        <Input type={type} id={label} {...inputElements} $isError={isError} />
       ) : (
-        <>
-          <FileLabel>
-            파일 첨부하기
-            <FileInput type="file" accept="image/*, .pdf" />
-          </FileLabel>
-        </>
+        <FileLabel $isError={isError}>
+          <FileText $isDefault={text === inputElements.placeholder}>{text}</FileText>
+          <FileInput type="file" accept="image/*, .pdf" {...inputElements} />
+        </FileLabel>
       )}
       {children}
     </InputWrapper>
@@ -67,16 +78,16 @@ const LabelText = styled.label`
 const InputWrapper = styled.div`
   position: relative;
 `;
-const Input = styled.input`
+const Input = styled.input<{ $isError: boolean }>`
   width: 100%;
   height: 5.1rem;
   margin-top: 0.4rem;
   padding: 1rem 1.5rem;
   ${({ theme }) => theme.fonts.Title2_M_16};
-  border: none;
+  border: ${({ $isError, theme }) => ($isError ? `1px solid ${theme.colors.Red}` : 'none')};
   border-radius: 8px;
 
-  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+  background-color: ${({ $isError, theme }) => ($isError ? theme.colors.transparentRed_3 : theme.colors.grayScaleLG1)};
 
   color: ${({ theme }) => theme.colors.grayScaleBG};
 
@@ -108,7 +119,7 @@ const Button = styled.button`
   color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
-const FileLabel = styled.label`
+const FileLabel = styled.label<{ $isError: boolean }>`
   display: flex;
   align-items: center;
 
@@ -116,15 +127,24 @@ const FileLabel = styled.label`
   height: 5.1rem;
   margin-top: 0.4rem;
   padding: 1rem 1.5rem;
-  ${({ theme }) => theme.fonts.Title2_M_16};
-  border: none;
+  border: ${({ $isError, theme }) => ($isError ? `1px solid ${theme.colors.Red}` : 'none')};
   border-radius: 8px;
 
-  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
-
-  color: ${({ theme }) => theme.colors.grayScaleMG2};
+  background-color: ${({ $isError, theme }) => ($isError ? theme.colors.transparentRed_3 : theme.colors.grayScaleLG1)};
 `;
 
 const FileInput = styled.input`
   display: none;
+`;
+
+const FileText = styled.span<{ $isDefault: boolean }>`
+  overflow: hidden;
+
+  width: calc(100% - 7rem);
+
+  ${({ theme }) => theme.fonts.Title2_M_16};
+  color: ${({ $isDefault, theme }) => ($isDefault ? theme.colors.grayScaleMG2 : theme.colors.grayScaleBG)};
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
 `;

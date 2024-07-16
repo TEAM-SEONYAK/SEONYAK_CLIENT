@@ -3,26 +3,37 @@ import styled from '@emotion/styled';
 // 화면 하단 풀사이즈 버튼
 interface FullBtnPropType {
   isActive?: boolean;
-  text: string;
-  onClick: () => void;
-  bottom: number;
+  text?: string;
+  onClick?: () => void;
 }
 
 export const FullBtn = (props: FullBtnPropType) => {
-  const { isActive, text, onClick, bottom } = props;
+  const { isActive, text = '다음으로', onClick } = props;
   return (
-    <FullBtnWrapper type="button" $bottom={bottom} disabled={!isActive} onClick={onClick}>
-      {text}
-    </FullBtnWrapper>
+    <Wrapper>
+      <FullBtnWrapper type="button" disabled={!isActive} onClick={onClick}>
+        {text}
+      </FullBtnWrapper>
+    </Wrapper>
   );
 };
 
-const FullBtnWrapper = styled.button<{ $bottom: number }>`
+const Wrapper = styled.div`
   position: fixed;
-  bottom: ${({ $bottom }) => `${$bottom}rem`};
-  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
 
-  width: 33.5rem;
+  width: 100%;
+  padding: 3.6rem 2rem;
+`;
+const FullBtnWrapper = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
   padding: 1.55rem 0;
   border-radius: 5px;
 

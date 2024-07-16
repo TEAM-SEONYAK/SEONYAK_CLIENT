@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import BottomBar from './BottomBar';
+import CalendarBottomBar from './CalendarBottomBar';
 import CustomCalendar from './CustomCalendar';
 import GrayLine from './GrayLine';
 import TimeList from './TimeList';
@@ -11,6 +11,7 @@ interface BottomSheetPropType {
   isCalendarOpen: boolean;
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   btnId: number;
+  handleCheckAllSelected: () => void;
 }
 
 const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
@@ -19,6 +20,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
   selectedTime,
   setSelectedTime,
   btnId,
+  handleCheckAllSelected,
 }) => {
   return (
     <>
@@ -29,16 +31,28 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
         }}
       />
       <BottomSheetWrapper $isCalendarOpen={isCalendarOpen}>
-        <CustomCalendar btnId={btnId} setSelectedTime={setSelectedTime} />
-        <GrayLine />
-        <TimeList selectedTime={selectedTime} setSelectedTime={setSelectedTime} btnId={btnId} />
-        <BottomBar setIsCalendarOpen={setIsCalendarOpen} />
+        <Scroll>
+          <CustomCalendar btnId={btnId} selectedTime={selectedTime} setSelectedTime={setSelectedTime} />
+          <GrayLine />
+          <TimeList selectedTime={selectedTime} setSelectedTime={setSelectedTime} btnId={btnId} />
+        </Scroll>
+        <CalendarBottomBar
+          selectedTime={selectedTime}
+          setSelectedTime={setSelectedTime}
+          setIsCalendarOpen={setIsCalendarOpen}
+          btnId={btnId}
+          handleCheckAllSelected={handleCheckAllSelected}
+        />
       </BottomSheetWrapper>
     </>
   );
 };
 
 export default CalendarBottomSheet;
+
+const Scroll = styled.div`
+  overflow-y: scroll;
+`;
 
 const Background = styled.div<{ $isCalendarOpen: boolean }>`
   display: ${({ $isCalendarOpen }) => ($isCalendarOpen ? 'flex' : 'none')};
@@ -57,10 +71,12 @@ const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
   display: flex;
   flex-direction: column;
   position: fixed;
+  top: 5rem;
   bottom: 0;
   left: 0;
   z-index: 4;
 
+  height: 100vh;
   border-radius: 16px 16px 0 0;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};

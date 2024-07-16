@@ -8,7 +8,7 @@ interface BtnCloseModalPropType {
   isModalOpen: boolean;
   handleModalOpen: (type: boolean) => void;
   children?: React.ReactNode;
-  btnText: string;
+  btnText?: string;
 }
 
 export const BtnCloseModal = (props: BtnCloseModalPropType) => {
@@ -19,15 +19,17 @@ export const BtnCloseModal = (props: BtnCloseModalPropType) => {
   };
 
   return (
-    <Wrapper>
-      <ModalBackground $isModalOpen={isModalOpen} onClick={handleModalClose} />
-      <BtnModalWrapper $isModalOpen={isModalOpen}>
-        <CloseIcon onClick={handleModalClose} />
-        <BtnModalTitle>{title}</BtnModalTitle>
-        {children}
-        <BtnModalBtn onClick={handleModalClose}>{btnText}</BtnModalBtn>
-      </BtnModalWrapper>
-    </Wrapper>
+    isModalOpen && (
+      <Wrapper>
+        <ModalBackground $isModalOpen={isModalOpen} onClick={handleModalClose} />
+        <BtnModalWrapper $isModalOpen={isModalOpen}>
+          <CloseIcon onClick={handleModalClose} />
+          <BtnModalTitle>{title}</BtnModalTitle>
+          {children}
+          {btnText && <BtnModalBtn onClick={handleModalClose}>{btnText}</BtnModalBtn>}
+        </BtnModalWrapper>
+      </Wrapper>
+    )
   );
 };
 
@@ -35,10 +37,13 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100dvh;
 `;
 
 const ModalBackground = styled.div<{ $isModalOpen: boolean }>`
@@ -49,8 +54,8 @@ const ModalBackground = styled.div<{ $isModalOpen: boolean }>`
   top: 0;
   z-index: 2;
 
-  width: 100vw;
-  height: 100%;
+  width: 100%;
+  height: 100dvh;
 
   background-color: ${({ theme }) => theme.colors.transparentBlack_65};
 `;
@@ -64,7 +69,7 @@ const BtnModalWrapper = styled.section<{ $isModalOpen: boolean }>`
   z-index: 5;
 
   width: 30rem;
-  padding: 3.6rem 1.3rem 1.5rem;
+  padding: 3.6rem 2rem 3rem;
   border: none;
   border-radius: 8px;
 
