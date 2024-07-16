@@ -14,7 +14,7 @@ const SelectJuniorPromiseSection = () => {
   const [isAllSelected, setIsAllSelected] = useState(false);
   const [isAnyWorrySelected, setIsAnyWorrySelected] = useState(false);
   const [isTextareaFilled, setIsTextareaFilled] = useState(false);
-  const [unfilledFields, setUnfilledFields] = useState<number[]>([]);
+  const [, setUnfilledFields] = useState<number[]>([]);
   // 약속 신청하기 눌렸는지 확인
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
 
@@ -46,7 +46,6 @@ const SelectJuniorPromiseSection = () => {
   // 걱정 버튼 중 하나라도 선택했는지 확인
   const handleCheckWorrySelected = (isSelected: boolean) => {
     setIsAnyWorrySelected(isSelected);
-    // console.log(isSelected);
   };
 
   // isAllSelected 업데이트
@@ -68,7 +67,6 @@ const SelectJuniorPromiseSection = () => {
         selectedTime={selectedTime}
         setIsCalendarOpen={setIsCalendarOpen}
         setBtnId={setBtnId}
-        unfilledFields={unfilledFields}
         isSubmitClicked={isSubmitClicked}
       />
       <GrayLine />

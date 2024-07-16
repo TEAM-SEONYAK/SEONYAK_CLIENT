@@ -24,7 +24,6 @@ export { default as NaviPromiseGrayIc } from './ic_navi_promise_gray.svg?react';
 export { default as CardArrowRightGrayIc } from './ic_cardarrow_right_gray.svg?react';
 export { default as ClockIc } from './ic_clock.svg?react';
 export { default as ReloadIc } from './ReloadIc.svg?react';
-export { default as BottomSheetRectangleIc } from './bottom-sheet-Rectangle.svg?react';
 export { default as ModalCheckIc } from './ic_modal_check.svg?react';
 export { default as ArrowRightIc } from './ic_arrow_right.svg?react';
 export { default as DeleteIc } from './ic_delete_btn.svg?react';

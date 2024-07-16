@@ -3,13 +3,11 @@ import { formatBtnDateToString } from '../utils/formatBtnDateToString';
 import { ButtonCheckIc } from '../../../assets/svgs';
 import { TIME_SELECTION_BUTTON } from '../constants/constants';
 import WarnDescription from '@components/commons/WarnDescription';
-import { useEffect, useState } from 'react';
 
 interface TimeSelectionButtonProps {
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setBtnId: React.Dispatch<React.SetStateAction<number>>;
-  unfilledFields: number[];
   isSubmitClicked: boolean;
 }
 
@@ -17,7 +15,6 @@ const TimeSelectionButton: React.FC<TimeSelectionButtonProps> = ({
   selectedTime,
   setIsCalendarOpen,
   setBtnId,
-  unfilledFields,
   isSubmitClicked,
 }: TimeSelectionButtonProps) => {
   const handleTimeSelectBtn = (btnId: number) => {
@@ -31,14 +28,22 @@ const TimeSelectionButton: React.FC<TimeSelectionButtonProps> = ({
         <TimeBtn
           key={item.id}
           $isActive={item.selectedTime !== TIME_SELECTION_BUTTON[idx]}
-          $isUnfilled={isSubmitClicked && unfilledFields.includes(item.id)}
+          $isUnfilled={isSubmitClicked && item.selectedTime === TIME_SELECTION_BUTTON[idx]}
           onClick={() => handleTimeSelectBtn(item.id)}>
-          {item.selectedTime !== TIME_SELECTION_BUTTON[idx] && formatBtnDateToString(item.clickedDay)}
+          {item.selectedTime !== TIME_SELECTION_BUTTON[idx] && formatBtnDateToString(item.clickedDay)} {''}
           {item.selectedTime}
           <ButtonCheckIcon isactive={(item.selectedTime !== TIME_SELECTION_BUTTON[idx]).toString()} />
         </TimeBtn>
       ))}
-      <WarnDescription isShown={isSubmitClicked && unfilledFields.length > 0} warnText={'시간을 입력해주세요'} />
+      <WarnDescription
+        isShown={
+          isSubmitClicked &&
+          (selectedTime[0].selectedTime === TIME_SELECTION_BUTTON[0] ||
+            selectedTime[1].selectedTime === TIME_SELECTION_BUTTON[1] ||
+            selectedTime[2].selectedTime === TIME_SELECTION_BUTTON[2])
+        }
+        warnText={'시간을 입력해주세요'}
+      />
     </Wrapper>
   );
 };

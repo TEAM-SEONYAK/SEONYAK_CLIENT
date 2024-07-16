@@ -42,7 +42,6 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
           setIsCalendarOpen={setIsCalendarOpen}
           btnId={btnId}
           handleCheckAllSelected={handleCheckAllSelected}
-          onCalendarChange={onCalendarChange}
         />
       </BottomSheetWrapper>
     </>
