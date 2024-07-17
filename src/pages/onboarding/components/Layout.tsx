@@ -4,7 +4,7 @@ import TitleBox from './TitleBox';
 import { ArrowLeftIc } from '../../../assets/svgs';
 import { Header } from '../../../components/commons/Header';
 import ProgressBar from '../../../components/commons/ProgressBar';
-import { ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } from '../constants';
+import { JUNIOR_ONBOARDING_STEPS, ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } from '../constants';
 import convertToGroupStep from '../utils/convertToGroupStep';
 
 const Layout = ({
@@ -18,7 +18,8 @@ const Layout = ({
   handleSetStep: (dir: 'NEXT' | 'PREV') => void;
   children: ReactNode;
 }) => {
-  const { title, description } = SENIOR_ONBOARDING_STEPS[step - 1];
+  const onboardingStep = userRole === 'SENIOR' ? SENIOR_ONBOARDING_STEPS : JUNIOR_ONBOARDING_STEPS;
+  const { title, description } = onboardingStep[step - 1];
   const GROUP_STEP = convertToGroupStep(userRole, step);
 
   return (

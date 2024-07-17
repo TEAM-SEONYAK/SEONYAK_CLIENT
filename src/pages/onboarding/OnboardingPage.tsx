@@ -23,7 +23,7 @@ export const StepContext = createContext({
 });
 
 const OnboardingPage = () => {
-  const role = 'SENIOR';
+  const role = 'JUNIOR';
   const [step, setStep] = useState(1);
   const handleSetStep = (dir: 'NEXT' | 'PREV') => {
     dir === 'NEXT' ? setStep((prev) => prev + 1) : setStep((prev) => prev - 1);
