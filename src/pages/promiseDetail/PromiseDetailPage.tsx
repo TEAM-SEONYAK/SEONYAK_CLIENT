@@ -49,7 +49,7 @@ const PromiseDetail = () => {
   const { mutate: postGoogleMeetLink } = usePostGoogleMeetLink((link) => {
     setGoogleMeet(link);
     patchSeniorAccept({
-      appointmentId: 68,
+      appointmentId: 69,
       googleMeetLink: link,
       timeList: [
         {

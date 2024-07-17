@@ -34,6 +34,7 @@ export const usePatchSeniorAccept = (onSuccessCallback?: () => void) => {
       }
     },
     onError: (error) => {
+      // 에러페이지 나오면 연결필요
       console.error('Error in mutation:', error);
     },
   });
