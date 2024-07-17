@@ -24,7 +24,7 @@ const SelectJuniorPromiseSection = () => {
   const [, setUnfilledFields] = useState<number[]>([]);
   const navigate = useNavigate();
   // 약속 신청하기 눌렸는지 확인
-  const [isSubmitClicked] = useState(false);
+  const [isSubmitClicked, setIsSubmitCicked] = useState(false);
 
   // 적용할래요 눌렀는지 확인
   const [isModalClicked, setIsModalClicked] = useState(false);
@@ -69,6 +69,7 @@ const SelectJuniorPromiseSection = () => {
   };
 
   const handleSubmit = (isAllSelected: boolean) => {
+    setIsSubmitCicked(true);
     isAllSelected && handleModalOpen(true);
   };
 
@@ -158,6 +159,7 @@ const Wrapper = styled.div`
 
   width: 100%;
   margin-top: 5rem;
+  margin-bottom: 3rem;
   padding: 0 2rem;
   padding-bottom: 12.4rem;
 `;
@@ -224,7 +226,7 @@ const GrayLine1 = styled.div`
 
 const GrayLine2 = styled.div`
   position: absolute;
-  top: 47.9rem;
+  top: 49.9rem;
   left: 0;
   z-index: 0;
 

@@ -28,5 +28,5 @@ const Wrapper = styled.div`
   gap: 0.2rem;
 
   height: 4.9rem;
-  margin-top: 17.2rem;
+  margin-top: 16.2rem;
 `;
