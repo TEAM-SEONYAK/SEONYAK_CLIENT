@@ -1,20 +1,55 @@
 import styled from '@emotion/styled';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { NaviLookBlackIc, NaviPromiseBlackIc, NaviMyBlackIc } from '../../assets/svgs';
 
+type UserRole = 'JUNIOR' | 'SENIOR';
+
 const Nav = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [userRole] = useState<UserRole>('JUNIOR');
+  const [currNav, setCurrNav] = useState(location.pathname);
+
+  useEffect(() => {
+    if (currNav !== location.pathname) {
+      navigate(currNav);
+    }
+  }, [currNav, navigate, location.pathname]);
+
+  // 유저가 선배일 경우 접근 가능한 곳 : 나의 약속
+  // 유저가 후배일 경우 접근 가능한 곳 : 둘러보기, 나의 약속
+  // 접근 불가능한 곳은 클릭 안되고, 라우팅 처리 안됨
+  const handleOnClickNav = (nav: string) => {
+    if (userRole === 'JUNIOR') {
+      if (nav === '둘러보기') {
+        setCurrNav('/juniorPromise');
+      } else if (nav === '나의 약속') {
+        setCurrNav('/');
+      }
+    } else if (userRole === 'SENIOR') {
+      if (nav === '나의 약속') {
+        setCurrNav('/');
+      }
+    }
+  };
+
   return (
     <Wrapper>
-      <TapContainer>
-        <NaviLookBlackIc />
-        <TapContent>나의 약속</TapContent>
+      <TapContainer
+        onClick={() => userRole === 'JUNIOR' && handleOnClickNav('둘러보기')}
+        disabled={userRole === 'SENIOR'}>
+        <NaviLookBlackIcon isactive={(currNav === '/juniorPromise') + ''} />
+        <TapContent $isActive={currNav === '/juniorPromise'}>둘러보기</TapContent>
       </TapContainer>
-      <TapContainer>
-        <NaviPromiseBlackIc />
-        <TapContent>둘러보기</TapContent>
+      <TapContainer onClick={() => handleOnClickNav('나의 약속')}>
+        <NaviPromiseBlackIcon isactive={(currNav === '/') + ''} />
+        <TapContent $isActive={currNav === '/'}>나의 약속</TapContent>
       </TapContainer>
-      <TapContainer>
-        <NaviMyBlackIc />
-        <TapContent>마이페이지</TapContent>
+      <TapContainer onClick={() => userRole === 'JUNIOR' && handleOnClickNav('마이페이지')} disabled={true}>
+        <NaviMyBlackIcon isactive={(currNav === '마이페이지') + ''} />
+        <TapContent $isActive={currNav === '마이페이지'}>마이페이지</TapContent>
       </TapContainer>
     </Wrapper>
   );
@@ -32,20 +67,35 @@ const Wrapper = styled.nav`
   width: 100vw;
   padding: 0.9rem 5.5rem 1.7rem;
   border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
+
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
-const TapContainer = styled.div`
+const TapContainer = styled.div<{ disabled?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
 
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `;
 
-const TapContent = styled.span`
+const TapContent = styled.span<{ $isActive: boolean }>`
   width: fit-content;
-  ${({ theme }) => theme.fonts.navigation}
+
+  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.grayScaleBG : theme.colors.grayScaleMG1)};
+  ${({ theme }) => theme.fonts.navigation};
+`;
+
+const NaviLookBlackIcon = styled(NaviLookBlackIc)<{ isactive: string }>`
+  stroke: ${({ isactive }) => (isactive === 'true' ? 'rgba(39, 39, 45, 1)' : 'rgba(197, 197, 197, 1)')};
+`;
+
+const NaviPromiseBlackIcon = styled(NaviPromiseBlackIc)<{ isactive: string }>`
+  stroke: ${({ isactive }) => (isactive === 'true' ? 'rgba(39, 39, 45, 1)' : 'rgba(197, 197, 197, 1)')};
+`;
+
+const NaviMyBlackIcon = styled(NaviMyBlackIc)<{ isactive: string }>`
+  stroke: ${({ isactive }) => (isactive === 'true' ? 'rgba(39, 39, 45, 1)' : 'rgba(197, 197, 197, 1)')};
 `;

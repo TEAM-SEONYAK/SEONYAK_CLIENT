@@ -1,19 +1,19 @@
 import { FullBtn } from '@components/commons/FullButton';
-import { useState, useEffect, ChangeEvent, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { formatTime } from '../../utils/formatTime';
 import { InnerButton, InputBox, TextBox } from '../TextBox';
+import { useContext } from 'react';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
 import styled from '@emotion/styled';
-import { formatPhone } from '@pages/onboarding/utils/formatPhone';
 import WarnDescription from '@components/commons/WarnDescription';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 
-const Step번호입력 = () => {
-  const [isNumError, setIsNumError] = useState(false);
+const Step이메일입력 = () => {
+  const [isEmailError, setIsEmailError] = useState(false);
   const [isValidCodeError, setIsValidCodeError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
   const { onNext } = useContext(StepContext);
   // 임시 변수
   const VERIFICATION_CODE = '0000';
@@ -44,11 +44,6 @@ const Step번호입력 = () => {
     setTimeLeft(TIME);
   };
 
-  const handleChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
-    const formattedNum = formatPhone(e.target.value);
-    setPhoneNumber(formattedNum);
-  };
-
   const handleShowModal = (type: boolean) => {
     setIsModalOpen(type);
   };
@@ -65,14 +60,14 @@ const Step번호입력 = () => {
       <TextBox label="">
         <>
           <InputBox
-            label="폰번호"
-            placeholder="전화번호를 입력해 주세요"
-            value={phoneNumber}
-            onChange={handleChangePhone}
-            isError={isNumError}>
+            label="학교메일"
+            placeholder="메일 주소를 입력해 주세요"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            isError={isEmailError}>
             <InnerButton onClick={handleClickTimer} text={isActive ? '재전송' : '인증번호 전송'} />
           </InputBox>
-          {isNumError && <WarnDescription isShown={isNumError} warnText="이미 사용 중인 번호예요." />}
+          {isEmailError && <WarnDescription isShown={isEmailError} warnText="유효하지 않은 메일이에요." />}
         </>
         {isActive && (
           <>
@@ -103,7 +98,7 @@ const Step번호입력 = () => {
   );
 };
 
-export default Step번호입력;
+export default Step이메일입력;
 
 const Wrapper = styled.div`
   padding-top: 2rem;

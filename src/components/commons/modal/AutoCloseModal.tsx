@@ -37,10 +37,11 @@ const ModalBackground = styled.div<{ $showModal: boolean }>`
   align-items: center;
   position: fixed;
   top: 0;
-  z-index: 5;
+  left: 0;
+  z-index: 9;
 
-  width: 100vw;
-  height: 100%;
+  width: 100%;
+  height: 100dvh;
 
   background-color: ${({ theme }) => theme.colors.transparentBlack_65};
 `;

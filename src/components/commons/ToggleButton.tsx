@@ -1,14 +1,13 @@
 import styled from '@emotion/styled';
-import React from 'react';
 
-interface Props {
+interface toggleButtonPropType {
   left: string;
   right: string;
   activeButton: string;
   onSetActiveButtonHandler: (button: string) => void;
 }
 
-const ToggleButton: React.FC<Props> = ({ left, right, activeButton, onSetActiveButtonHandler }) => {
+const ToggleButton = ({ left, right, activeButton, onSetActiveButtonHandler }: toggleButtonPropType) => {
   return (
     <Wrapper>
       <Layout>
@@ -35,6 +34,8 @@ const Layout = styled.div`
   width: 33.7rem;
   height: 4.4rem;
   border-radius: 8px;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleLG1};
 `;
 
 const ToggleBtn = styled.div<{ isActive: boolean }>`

@@ -89,7 +89,6 @@ const SearchListWrapper = styled.article`
 export default Step학과선택;
 
 interface searchListPropType {
-  // eslint-disable-next-line no-unused-vars
   handleSelectMajors: (selectedValue: string) => void;
   majorName: string;
   selectedMajors: string[];

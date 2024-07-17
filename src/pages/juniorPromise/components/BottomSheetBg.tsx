@@ -18,6 +18,8 @@ interface BottomSheetPropType {
   handleReset: () => void;
   chipFieldName: string[];
   pushFieldList: (chipName: string) => void;
+  chipPositionName: string[];
+  pushPositionList: (chipName: string) => void;
 }
 
 export const BottomSheet = (props: BottomSheetPropType) => {
@@ -32,6 +34,7 @@ export const BottomSheet = (props: BottomSheetPropType) => {
     selectedField,
     handleReset,
     pushFieldList,
+    pushPositionList,
   } = props;
 
   return (
@@ -73,6 +76,8 @@ export const BottomSheet = (props: BottomSheetPropType) => {
                   selectedPosition={selectedPosition}
                   handleChipPosition={handleChipPosition}
                   positionId={list.id}
+                  chipPositionName={list.position}
+                  pushPositionList={pushPositionList}
                 />
               ))}
             </PositionLayout>

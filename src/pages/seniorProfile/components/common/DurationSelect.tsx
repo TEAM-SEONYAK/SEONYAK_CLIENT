@@ -10,11 +10,18 @@ interface DurationPropType {
   variant?: 'default' | 'secondary';
   selectValue: preferredTimeType;
   setProfile: (timeCategory: TimeCategoryType) => (selectedValue: string | boolean) => void;
+  defaultActive: boolean;
+  isWarning: boolean;
 }
 
-const DurationSelect = ({ variant = 'default', selectValue, setProfile }: DurationPropType) => {
-  const [isActive, setIsActive] = useState(true);
-
+const DurationSelect = ({
+  variant = 'default',
+  selectValue,
+  setProfile,
+  defaultActive,
+  isWarning,
+}: DurationPropType) => {
+  const [isActive, setIsActive] = useState(defaultActive);
   const handleDelete = () => {
     setIsActive((prev) => !prev);
     setProfile('startTime')('시작 시간');
@@ -35,6 +42,7 @@ const DurationSelect = ({ variant = 'default', selectValue, setProfile }: Durati
         defaultValue={selectValue.startTime}
         setProfile={setProfile('startTime')}
         isStartTime={true}
+        isWarning={!!(isWarning && selectValue.isActive && selectValue.startTime === '시작 시간')}
       />
       <WaveText $isDefault={variant === 'default'} $isActive={isActive}>
         ~
@@ -45,6 +53,7 @@ const DurationSelect = ({ variant = 'default', selectValue, setProfile }: Durati
         defaultValue={selectValue.endTime}
         setProfile={setProfile('endTime')}
         isStartTime={false}
+        isWarning={!!(isWarning && selectValue.isActive && selectValue.endTime === '마지막 시간')}
       />
       {isActive ? <DeleteIcon onClick={handleDelete} /> : <PlusIcon onClick={handlePlus} />}
     </Wrapper>

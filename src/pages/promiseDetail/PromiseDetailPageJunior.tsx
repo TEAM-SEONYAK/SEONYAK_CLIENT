@@ -14,6 +14,7 @@ const PromiseDetailPageJunior = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const tap = location.state.tap;
+  const myNickname = location.state.myNickname;
   const profileCardData = {
     appointmentId: 2,
     appointmentStatus: 'SCHEDULED',
@@ -53,7 +54,13 @@ const PromiseDetailPageJunior = () => {
           <TitleContainer>
             <Title>예솔 선배님의 프로필</Title>
             <PromiseDiv>
-              <ProfileContainer userRole="JUNIOR" tap="default" profileCardData={profileCardData} isarrow="false" />
+              <ProfileContainer
+                myNickname={myNickname}
+                userRole="JUNIOR"
+                tap="default"
+                profileCardData={profileCardData}
+                isarrow="false"
+              />
             </PromiseDiv>
           </TitleContainer>
 
@@ -74,7 +81,7 @@ const PromiseDetailPageJunior = () => {
         </Layout>
         <BtnWrapper>
           {tap === 'pending' ? (
-            <FullBtn text="이미 신청한 선약은 취소할 수 없어요" />
+            <FullBtn text="이미 신청한 선약은 취소할 수 없어요" isActive={false} />
           ) : (
             <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="detail" />
           )}

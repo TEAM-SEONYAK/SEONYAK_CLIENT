@@ -46,8 +46,8 @@ export const InputBox = ({
   );
 };
 
-export const Caption = ({ children }: { children: string }) => {
-  return <CaptionText>{children}</CaptionText>;
+export const Caption = ({ children, isValid = false }: { children: string; isValid?: boolean }) => {
+  return <CaptionText $isValid={isValid}>{children}</CaptionText>;
 };
 
 interface TextBoxProps {
@@ -96,9 +96,9 @@ const Input = styled.input<{ $isError: boolean }>`
   }
 `;
 
-const CaptionText = styled.p`
+const CaptionText = styled.p<{ $isValid: boolean }>`
   ${({ theme }) => theme.fonts.Caption3_M_12};
-  color: ${({ theme }) => theme.colors.grayScaleMG2};
+  color: ${({ theme, $isValid }) => ($isValid ? theme.colors.grayScaleBG : theme.colors.grayScaleMG2)};
 `;
 
 const Button = styled.button`

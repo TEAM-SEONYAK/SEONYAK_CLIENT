@@ -10,10 +10,11 @@ interface RecentCardPropType {
   userRole: string;
   recentAppointment?: profileCardDataType;
   appointmentNum: number;
+  nickname: string;
 }
 
 const RecentCard = (props: RecentCardPropType) => {
-  const { userRole, recentAppointment, appointmentNum } = props;
+  const { userRole, recentAppointment, appointmentNum, nickname } = props;
   const { diffText, diff, dDayDiff } = useCountdown(recentAppointment?.date, recentAppointment?.startTime);
 
   return (
@@ -28,7 +29,13 @@ const RecentCard = (props: RecentCardPropType) => {
       <DashedDivider />
       {appointmentNum ? (
         <>
-          <ProfileContainer userRole={userRole} tap="default" profileCardData={recentAppointment} isarrow="true" />
+          <ProfileContainer
+            userRole={userRole}
+            tap="default"
+            profileCardData={recentAppointment}
+            isarrow="true"
+            myNickname={nickname}
+          />
           <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="recent" />
         </>
       ) : (

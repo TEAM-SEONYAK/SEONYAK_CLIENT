@@ -2,15 +2,27 @@ import { ResetIc, Line292Ic, CloseIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React, { ReactNode } from 'react';
 import { FilterButton } from './FilterButton';
+import { FIELD_LIST } from '../constants/fieldList';
+import { POSITION_LIST } from '../constants/positionList';
+// import { POSITION_LIST } from '../constants/positionList';
 
 interface SeniorListBackgroundProps {
   children: ReactNode;
   handleFilterActiveBtn: (btnText: string) => void;
   handleReset: () => void;
   positionChipNum: number;
-  fieldChipNum: number;
   chipFieldName: string[];
   deleteFieldList: (chipName: string) => void;
+  handleChipField: (fieldId: number) => void;
+  chipPositionName: string[];
+  deletePositionList: (chipName: string) => void;
+  handleChipPosition: (postion: number) => void;
+  $chipFieldName: string[];
+  $chipPositionName: string[];
+}
+interface SelectedChipListProps {
+  $chipFieldName: string[];
+  $chipPositionName: string[];
 }
 
 export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
@@ -18,14 +30,25 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
   handleFilterActiveBtn,
   handleReset,
   positionChipNum,
-  fieldChipNum,
   chipFieldName,
   deleteFieldList,
+  handleChipField,
+  chipPositionName,
+  deletePositionList,
+  handleChipPosition,
 }) => {
-  const handleDeleteChip = (field: string) => {
+  const handleDeleteFieldChip = (field: string) => {
+    // 삭제되는 fieldName의 최초데이터에서의 index값 찾기
+    const findDeleteFieldIndex = FIELD_LIST.findIndex((list) => list.field === field);
     deleteFieldList(field);
+    handleChipField(findDeleteFieldIndex);
   };
+  const handleDeletePositionChip = (position: string) => {
+    const findDeletePositionIndex = POSITION_LIST.findIndex((list) => list.position === position);
 
+    deletePositionList(position);
+    handleChipPosition(findDeletePositionIndex);
+  };
   return (
     <ListBackground>
       <SeniorSearchWrapper>
@@ -34,18 +57,26 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
           <FilterButton
             handleFilterActiveBtn={handleFilterActiveBtn}
             positionChipNum={positionChipNum}
-            fieldChipNum={fieldChipNum}
+            chipFieldName={chipFieldName}
           />
           <LineWrapper>
             <Line292Ic />
           </LineWrapper>
           <ResetIc onClick={handleReset} />
         </BtnLayout>
-        <SelectedChipList>
+        <SelectedChipList $chipFieldName={chipFieldName} $chipPositionName={chipPositionName}>
           {chipFieldName.map((field, fieldId) => (
             <Chip key={fieldId}>
               {field}
-              <CloseButton onClick={() => handleDeleteChip(field)}>
+              <CloseButton onClick={() => handleDeleteFieldChip(field)}>
+                <CloseIc />
+              </CloseButton>
+            </Chip>
+          ))}
+          {chipPositionName.map((position, positionId) => (
+            <Chip key={positionId}>
+              {position}
+              <CloseButton onClick={() => handleDeletePositionChip(position)}>
                 <CloseIc />
               </CloseButton>
             </Chip>
@@ -58,10 +89,11 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
 };
 
 const ListBackground = styled.div`
+  position: absolute;
+  top: 17.7rem;
+
   width: 100%;
-  height: 100vh;
-  margin-top: 4.4rem;
-  padding: 1rem 0 3rem;
+  margin-bottom: 9.8rem;
   border-radius: 16px 16px 0 0;
 
   background: ${({ theme }) => theme.colors.grayScaleWG};
@@ -89,9 +121,9 @@ const BtnLayout = styled.div`
 
   padding: 0.7rem 2rem;
 `;
-
-const SelectedChipList = styled.div`
-  display: flex;
+const SelectedChipList = styled.div<SelectedChipListProps>`
+  display: ${({ $chipFieldName, $chipPositionName }) =>
+    $chipFieldName.length > 0 || $chipPositionName.length > 0 ? 'flex' : 'none'};
   gap: 0.8rem;
   align-items: center;
 
@@ -99,9 +131,14 @@ const SelectedChipList = styled.div`
   overflow: scroll hidden;
 
   height: 4.4rem;
-  padding: 0.7rem 2rem;
+  margin: 0 2rem;
+  padding: 0.7rem 0;
 
   white-space: nowrap;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const Chip = styled.div`
   display: flex;
