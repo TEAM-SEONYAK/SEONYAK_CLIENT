@@ -3,7 +3,6 @@ import { Header } from '@components/commons/Header';
 import ProgressBar from '@components/commons/ProgressBar';
 import styled from '@emotion/styled';
 import Layout from '@pages/onboarding/components/Layout';
-import Step재직인증 from '@pages/onboarding/components/seniorOnboarding/Step재직인증';
 import { createContext, useState } from 'react';
 import Step개인정보입력 from './components/commonOnboarding/Step개인정보입력';
 import Step계열선택 from './components/commonOnboarding/Step계열선택';
@@ -17,6 +16,7 @@ import Step졸업인증 from './components/seniorOnboarding/Step졸업인증';
 import Step직무선택 from './components/seniorOnboarding/Step직무선택';
 import TitleBox from './components/TitleBox';
 import Step명함인증 from './components/seniorOnboarding/Step명함인증';
+import Step이메일입력 from './components/juniorOnboarding/Step이메일입력';
 
 export const StepContext = createContext({
   onNext: () => {},

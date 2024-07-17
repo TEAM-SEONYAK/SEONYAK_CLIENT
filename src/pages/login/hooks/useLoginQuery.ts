@@ -9,7 +9,7 @@ const useGoogleLoginHook = () => {
       localStorage.setItem('accessToken', data.data.data.accessToken);
     },
     onError: (error) => {
-      console.error('Error:', error);
+      console.error('login post Error: ', error);
     },
   });
 
