@@ -1,4 +1,3 @@
-import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
 import FullBottomSheet from '@pages/onboarding/components/BottomSheet';

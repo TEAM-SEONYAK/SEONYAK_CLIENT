@@ -2,14 +2,19 @@ import { StartProfile1Img, StartProfile2Img } from '@assets/images';
 import { CameraIc } from '@assets/svgs';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
 import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
+import { useNavigate } from 'react-router-dom';
 
 const Step개인정보입력 = () => {
-  const { onNext } = useContext(StepContext);
+  const ROLE = 'SENIOR'; // 임시
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
+  };
+
   const [nickname, setNickname] = useState('');
   const mutation = useNicknameValid();
   const [isNicknameError, setNicknameError] = useState(false);
@@ -79,7 +84,7 @@ const Step개인정보입력 = () => {
           </Caption>
         )}
       </TextBox>
-      <FullBtn isActive={isNicknameValid} onClick={onNext} />
+      <FullBtn onClick={handleClickLink} />
     </>
   );
 };

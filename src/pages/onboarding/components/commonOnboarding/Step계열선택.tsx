@@ -1,24 +1,29 @@
 import { CheckItemIc } from '@assets/svgs';
 import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
 import { 계열_LIST } from '@pages/onboarding/constants';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Step계열선택 = () => {
+  const ROLE = 'SENIOR'; // 임시
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/5' : '/juniorOnboarding/7');
+  };
+
   const [selectedField, setSelectedField] = useState('');
-  const { onNext } = useContext(StepContext);
   return (
     <>
       <Wrapper>
         {계열_LIST.map((el) => (
           <ItemWrapper key={el} onClick={() => setSelectedField(el)}>
             <Text>{el}</Text>
-            <CheckItemIcon isactive={selectedField === el} />
+            <CheckItemIcon isactive={(selectedField === el) + ''} />
           </ItemWrapper>
         ))}
       </Wrapper>
-      <FullBtn isActive={selectedField !== ''} onClick={onNext} />
+      <FullBtn isActive={selectedField !== ''} onClick={handleClickLink} />
     </>
   );
 };
@@ -51,6 +56,6 @@ const Text = styled.p`
   ${({ theme }) => theme.fonts.Title1_SB_16};
 `;
 
-const CheckItemIcon = styled(CheckItemIc)<{ isactive: boolean }>`
-  fill: ${({ theme, isactive }) => (isactive ? theme.colors.Blue : theme.colors.grayScaleLG2)};
+const CheckItemIcon = styled(CheckItemIc)<{ isactive: string }>`
+  fill: ${({ theme, isactive }) => (isactive === 'true' ? theme.colors.Blue : theme.colors.grayScaleLG2)};
 `;

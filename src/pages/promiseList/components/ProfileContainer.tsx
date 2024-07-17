@@ -1,4 +1,4 @@
-import { CardArrowRightGrayIc, ClockIc, SbhbHomeProfile1Img, SbhbHomeProfile2Img } from '@assets/svgs';
+import { CardArrowRightGrayIc, ClockIc, SbhbHomeProfile1Img } from '@assets/svgs';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import styled from '@emotion/styled';
 import { getLevelName } from '@utils/getLevelName';
