@@ -1,14 +1,21 @@
 import { TempLogoIc, AlarmIc, HbHomeMainIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
-import SeniorCard from '@components/commons/seniorCard/SeniorCard';
-import { SENIOR_LIST } from '@components/commons/seniorCard/seniorCardConstants';
+import { SeniorCard } from '@components/commons/SeniorCard';
 import styled from '@emotion/styled';
 import { BottomSheet } from '@pages/juniorPromise/components/BottomSheetBg';
 import { useState } from 'react';
 import { SeniorListBackground } from './components/SeniorListBackground';
+import { useQuery } from '@tanstack/react-query';
+import { getSeniorProfile } from './apis/getSeniorProfile';
+
 const JuniorPromisePage = () => {
-  const { seniorList } = SENIOR_LIST;
+  // 임시 토큰 넣어두기
+  localStorage.setItem(
+    'accessToken',
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MjExNTk1MDIsImV4cCI6MTcyMTc2NDMwMiwibWVtYmVySWQiOjIwfQ.dHUNfUipnHLBlnf8vSSuI_ky5FkRbuy7nG45w5IjdqbPsh82KB2p-04DRgWPCzFSddJT7hh_hrHh_t8rMUP_ZA',
+  );
+
   // 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
   // 바텀 시트 여는 동작
@@ -96,12 +103,35 @@ const JuniorPromisePage = () => {
   const deletePositionList = (chipName: string) => {
     setChipPositionName((prev) => prev.filter((name) => name !== chipName));
   };
+  // 필터링을 위한 선택된 값들
+  const selectedFields = chipFieldName;
+  const selectedPositions = chipPositionName;
 
+  // 쿼리 키
+  const QUERY_KEY = {
+    SENIOR_PROFILE: 'seniorProfile',
+  };
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: [QUERY_KEY.SENIOR_PROFILE, selectedFields, selectedPositions],
+    queryFn: () => getSeniorProfile(selectedFields, selectedPositions),
+    enabled: selectedFields.length > 0 || selectedPositions.length > 0,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>Error occurred</div>;
+  }
+
+  const seniorList = data?.data.seniorList || [];
   return (
     <Wrapper>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
       <HbHomeMainIcon />
       <Title>반가워요 도리님,고민을 해결해볼까요?</Title>
+
       <SeniorListBackground
         handleFilterActiveBtn={handleFilterActiveBtn}
         handleReset={handleReset}
@@ -115,7 +145,7 @@ const JuniorPromisePage = () => {
         $chipFieldName={chipFieldName}
         $chipPositionName={chipPositionName}>
         <SeniorListWrapper>
-          {seniorList.map((list) => (
+          {seniorList?.map((list) => (
             <SeniorCard
               key={list.seniorId}
               nickname={list.nickname}
@@ -129,6 +159,7 @@ const JuniorPromisePage = () => {
         </SeniorListWrapper>
         <Nav />
       </SeniorListBackground>
+
       <BottomSheet
         filterActiveBtn={filterActiveBtn}
         handleFilterActiveBtn={handleFilterActiveBtn}
@@ -151,6 +182,7 @@ const JuniorPromisePage = () => {
 export default JuniorPromisePage;
 const Wrapper = styled.div`
   min-height: calc(var(--vh, 1vh) * 100 - 44px);
+
   background-color: ${({ theme }) => theme.colors.grayScaleWG};
 `;
 
