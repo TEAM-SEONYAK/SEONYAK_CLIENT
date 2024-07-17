@@ -18,10 +18,12 @@ const JuniorPromisePage = () => {
   const handleFilterActiveBtn = (btnText: string) => {
     setFilterActiveBtn(btnText);
     setIsBottomSheetOpen(true);
+    document.body.style.overflow = 'hidden';
   };
   // 바텀시트 닫기
   const handleCloseBottomSheet = () => {
     setIsBottomSheetOpen(false);
+    document.body.style.overflow = 'auto';
   };
 
   // 바텀시트 내 직무 칩
@@ -151,6 +153,7 @@ const JuniorPromisePage = () => {
 export default JuniorPromisePage;
 const Wrapper = styled.div`
   min-height: calc(var(--vh, 1vh) * 100 - 44px);
+
   background-color: ${({ theme }) => theme.colors.grayScaleWG};
 `;
 
