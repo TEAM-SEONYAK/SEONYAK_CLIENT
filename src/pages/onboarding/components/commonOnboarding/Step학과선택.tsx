@@ -66,7 +66,7 @@ const Step학과선택 = () => {
           {list &&
             list.map(({ deptName, isClosed }) => (
               <SearchList
-                key={deptName}
+                key={`${deptName}${isClosed ? '(폐과)' : ''}`}
                 handleSelectMajors={handleSelectMajors}
                 majorName={`${deptName}${isClosed ? '(폐과)' : ''}`}
                 selectedMajors={selectedMajors}
