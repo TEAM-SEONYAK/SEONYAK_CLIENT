@@ -2,19 +2,22 @@ import { FullBtn } from '@components/commons/FullButton';
 import { useState, useEffect } from 'react';
 import { formatTime } from '../../utils/formatTime';
 import { InnerButton, InputBox, TextBox } from '../TextBox';
-import { useContext } from 'react';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
 import styled from '@emotion/styled';
 import WarnDescription from '@components/commons/WarnDescription';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
+import { useNavigate } from 'react-router-dom';
 
 const Step이메일입력 = () => {
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    navigate('/juniorOnboarding/6');
+  };
+
   const [isEmailError, setIsEmailError] = useState(false);
   const [isValidCodeError, setIsValidCodeError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [email, setEmail] = useState('');
-  const { onNext } = useContext(StepContext);
   // 임시 변수
   const VERIFICATION_CODE = '0000';
   const USER_INPUT = '0000';
@@ -51,7 +54,7 @@ const Step이메일입력 = () => {
   const handleClickButton = () => {
     setIsModalOpen(true);
     setTimeout(() => {
-      onNext();
+      handleClickLink();
     }, 2000);
   };
 

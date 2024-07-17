@@ -2,13 +2,17 @@ import { DropdownIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { Caption, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
-import { useContext, useState } from 'react';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
+import { useState } from 'react';
 import { 세부직무_DESCRIPTION, 세부직무_LIST } from '@pages/onboarding/constants';
 import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
+import { useNavigate } from 'react-router-dom';
 
 const Step직무선택 = () => {
-  const { onNext } = useContext(StepContext);
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    navigate('/seniorOnboarding/10');
+  };
+
   const [selectedDetail, setSelectedDetail] = useState<string>('');
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const handleSheetClose = () => setIsOpenSheet(false);
@@ -30,7 +34,7 @@ const Step직무선택 = () => {
           <InputBox label="세부 직무" placeholder="Product Designer & Prdouct Manager"></InputBox>
           <Caption>재직 중인 회사에서의 구체적인 직무를 작성해 주세요</Caption>
         </TextBox>
-        <FullBtn isActive onClick={onNext} />
+        <FullBtn isActive onClick={handleClickLink} />
       </Container>
       <FullBottomSheet isSheetOpen={isOpenSheet} handleClose={handleSheetClose}>
         <Sheet직무선택

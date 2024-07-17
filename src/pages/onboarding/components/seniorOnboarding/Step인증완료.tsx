@@ -2,8 +2,14 @@ import { ChangeEvent } from 'react';
 import { InputBox, TextBox } from '../TextBox';
 
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
-const Step인증완료 = ({ onNext }: { onNext: () => void }) => {
+const Step인증완료 = () => {
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    navigate('/seniorOnboarding/9');
+  };
+
   const company = '네이버';
   const phoneNum = '전화번호';
 
@@ -28,7 +34,7 @@ const Step인증완료 = ({ onNext }: { onNext: () => void }) => {
           <input type="file" accept="image/*" capture="environment" onChange={handleChangeFile} />
           다시찍기
         </BlackButton>
-        <BlueButton type="button" onClick={onNext}>
+        <BlueButton type="button" onClick={handleClickLink}>
           다음으로
         </BlueButton>
       </ButtonWrapper>

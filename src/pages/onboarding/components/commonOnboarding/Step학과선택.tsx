@@ -2,13 +2,19 @@ import { CheckItemIc } from '@assets/svgs';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import MajorChip from '@pages/onboarding/components/MajorChip';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchBox from '../SearchBox';
 import { FullBtn } from '@components/commons/FullButton';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
+import { useNavigate } from 'react-router-dom';
 
 const Step학과선택 = () => {
-  const { onNext } = useContext(StepContext);
+  const ROLE = 'SENIOR'; // 임시
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/6');
+    else alert('온보딩 끝!');
+  };
+
   const [searchValue, setSearchValue] = useState('');
   const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
   const [isExceed, setIsExceed] = useState(false);
@@ -57,7 +63,7 @@ const Step학과선택 = () => {
           <SearchList key={m} handleSelectMajors={handleSelectMajors} majorName={m} selectedMajors={selectedMajors} />
         ))}
       </SearchListWrapper>
-      <FullBtn isActive={selectedMajors.length > 0} onClick={onNext} />
+      <FullBtn isActive={selectedMajors.length > 0} onClick={handleClickLink} />
     </Wrapper>
   );
 };
