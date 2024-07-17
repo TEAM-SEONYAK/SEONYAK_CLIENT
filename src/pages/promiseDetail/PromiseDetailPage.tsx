@@ -6,12 +6,12 @@ import { Header } from '@components/commons/Header';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import Textarea from '@components/commons/Textarea';
 import styled from '@emotion/styled';
-// import useCountdown from '@hooks/useCountDown';
+import useCountdown from '@hooks/useCountDown';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SENIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
 import { formatDate } from './utils/formatDate';
-import { usePostGoogleMeetLink } from '@pages/promiseList/hooks/queries';
+import { usePostGoogleMeetLink, usePatchSeniorAccept } from '@pages/promiseList/hooks/queries';
 
 const PromiseDetail = () => {
   const location = useLocation();
@@ -38,13 +38,30 @@ const PromiseDetail = () => {
   // 받아온 구글밋 링크 저장
   const [googleMeet, setGoogleMeet] = useState('');
 
-  // 구글밋 링크 받아오기
-  const { mutate: postGoogleMeetLink, data: googleMeetLink } = usePostGoogleMeetLink(setGoogleMeet);
-  // 구글밋 링크 받아온 후 약속 수락 요청
+  // 선배 약속 수락
+  const { mutate: patchSeniorAccept } = usePatchSeniorAccept();
+
+  // 구글밋 링크 받아오기(post) 후 약속 수락 patch
+  const { mutate: postGoogleMeetLink } = usePostGoogleMeetLink((link) => {
+    setGoogleMeet(link);
+    patchSeniorAccept({
+      appointmentId: 1,
+      googleMeetLink: link,
+      timeList: [
+        {
+          date: serverTimeList.date,
+          startTime: serverTimeList.startTime,
+          endTime: serverTimeList.endTime,
+        },
+      ],
+    });
+  });
+  // console.log(googleMeet);
 
   // 수락하기 버튼 누를 때
   const handleAppointmentApprove = () => {
     postGoogleMeetLink();
+    // patchSeniorAccept();
   };
 
   // 선택값 저장 함수
@@ -83,7 +100,7 @@ const PromiseDetail = () => {
   };
 
   // 실 데이터로연결 필요
-  // const { diffText, diff } = useCountdown(SENIOR_RESPONSE.timeList[0]?.date, SENIOR_RESPONSE.timeList[0]?.startTime);
+  const { diffText, diff } = useCountdown(SENIOR_RESPONSE.timeList[0]?.date, SENIOR_RESPONSE.timeList[0]?.startTime);
 
   return (
     <>
@@ -195,8 +212,8 @@ const PromiseDetail = () => {
                   onClick={() => {
                     console.log('hi');
                   }}
-                  // text={diff <= 0 ? '지금 입장하기' : `약속 시간까지 ${diffText} 남았어요`}
-                  // isActive={diff <= 0}
+                  text={diff <= 0 ? '지금 입장하기' : `약속 시간까지 ${diffText} 남았어요`}
+                  isActive={diff <= 0}
                 />
               </BtnWrapper>
               <BtnBackground />
