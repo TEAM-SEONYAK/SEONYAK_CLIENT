@@ -1,8 +1,27 @@
 // 선배 약속 거절 api
 import { authAxios } from '@utils/apis';
 
-const dummy = {
-  appointmentId: 3,
-  rejectReason: '후배와 시간이 맞지 않아요',
-  rejectDetail: '아주 자세한 이유인데 그냥 싫어요 그냥 싫다구요',
+export interface patchSeniorRejectRequestType {
+  appointmentId: number;
+  rejectReason: string;
+  rejectDetail: string;
+}
+
+export const patchSeniorReject = async ({
+  appointmentId,
+  rejectReason,
+  rejectDetail,
+}: patchSeniorRejectRequestType) => {
+  try {
+    const response = await authAxios.patch('/v1/appointment/reject', {
+      appointmentId,
+      rejectReason,
+      rejectDetail,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error('선배 약속 거절 에러:', error);
+    throw error;
+  }
 };
