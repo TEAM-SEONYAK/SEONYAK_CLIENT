@@ -1,14 +1,20 @@
 import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
-
+import { useNavigate } from 'react-router-dom';
 interface SeniorNamePropType {
   senior: string;
 }
 
 const JuniorPromiseComplete = ({ senior = '도리' }: SeniorNamePropType) => {
+  const navigate = useNavigate();
+
   const handleMyPromise = () => {
     // 나의 약속 페이지 이동 라우터 설정
-    console.log('나의 약속으로 버튼 클릭');
+    navigate('/juniorPromise');
+  };
+
+  const handleGoHome = () => {
+    navigate('/');
   };
   return (
     <Wrapper>
@@ -18,7 +24,7 @@ const JuniorPromiseComplete = ({ senior = '도리' }: SeniorNamePropType) => {
       </Title>
       <Img />
       <FullBtn isActive={true} text={'나의 약속으로'} onClick={handleMyPromise} />
-      <HomeBtn>홈으로</HomeBtn>
+      <HomeBtn onClick={handleGoHome}>홈으로</HomeBtn>
     </Wrapper>
   );
 };
