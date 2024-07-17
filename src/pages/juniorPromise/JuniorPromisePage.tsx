@@ -115,7 +115,6 @@ const JuniorPromisePage = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: [QUERY_KEY.SENIOR_PROFILE, selectedFields, selectedPositions],
     queryFn: () => getSeniorProfile(selectedFields, selectedPositions),
-    enabled: selectedFields.length > 0 || selectedPositions.length > 0,
   });
 
   if (isLoading) {
@@ -155,6 +154,7 @@ const JuniorPromisePage = () => {
               position={list.position}
               detailPosition={list.detailPosition}
               level={list.level}
+              variant="secondary"
             />
           ))}
         </SeniorListWrapper>
