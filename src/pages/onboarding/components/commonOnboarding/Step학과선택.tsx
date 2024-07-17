@@ -68,7 +68,7 @@ const Step학과선택 = () => {
               <SearchList
                 key={deptName}
                 handleSelectMajors={handleSelectMajors}
-                majorName={deptName}
+                majorName={`${deptName}${isClosed ? '(폐과)' : ''}`}
                 selectedMajors={selectedMajors}
               />
             ))}
