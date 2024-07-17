@@ -30,13 +30,12 @@ export const SeniorCard = (props: seniorListPropType) => {
           <Field>{field}</Field>
         </SeniorInfo>
         <SeniorJob>
-          <Position>{position}</Position>
+          {position}
           <Divider />
-          <DetailPosition>{detailPosition}</DetailPosition>
+          {detailPosition}
+          <Divider />
+          {levelName} ({level})
         </SeniorJob>
-        <Level>
-          {levelName} ({level}년 차)
-        </Level>
       </SeniorCardLayout>
     </SeniorCardWrapper>
   );
@@ -137,30 +136,34 @@ const Field = styled.p`
 
 const SeniorJob = styled.div`
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  word-break: break-all;
+
   align-items: center;
 
-  width: 19.2rem;
-  margin-top: 0.5rem;
-`;
-const Position = styled.p`
+  width: 22rem;
+  margin-top: 0.3rem;
+
   ${({ theme }) => theme.fonts.Body1_M_14}
   color: ${({ theme }) => theme.colors.grayScaleDG};
 `;
 
+
 const Divider = styled.div`
   width: 0.1rem;
   height: 1.4rem;
+  margin: 0 0.5rem;
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
-const DetailPosition = styled.p`
-  color: ${({ theme }) => theme.colors.grayScaleDG};
-  ${({ theme }) => theme.fonts.Body1_M_14};
-`;
+// const DetailPosition = styled.p`
+//   color: ${({ theme }) => theme.colors.grayScaleDG};
+//   ${({ theme }) => theme.fonts.Body1_M_14};
+// `;
 
-const Level = styled.p`
-  ${({ theme }) => theme.fonts.Body1_M_14};
-  color: ${({ theme }) => theme.colors.grayScaleDG};
-`;
+// const Level = styled.p`
+//   ${({ theme }) => theme.fonts.Body1_M_14};
+//   color: ${({ theme }) => theme.colors.grayScaleDG};
+// `;
