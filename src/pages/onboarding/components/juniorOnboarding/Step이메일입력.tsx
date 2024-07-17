@@ -1,11 +1,12 @@
 import { FullBtn } from '@components/commons/FullButton';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { formatTime } from '../../utils/formatTime';
 import { InnerButton, InputBox, TextBox } from '../TextBox';
 import styled from '@emotion/styled';
 import WarnDescription from '@components/commons/WarnDescription';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import { useNavigate } from 'react-router-dom';
+import { useUnivVerify, useUnivVerifycode } from '@pages/onboarding/hooks/useUnivQuery';
 
 const Step이메일입력 = () => {
   const navigate = useNavigate();
@@ -13,19 +14,23 @@ const Step이메일입력 = () => {
     navigate('/juniorOnboarding/6');
   };
 
+  const verifyMutation = useUnivVerify();
+  const verifycodeMutation = useUnivVerifycode();
+
   const [isEmailError, setIsEmailError] = useState(false);
   const [isValidCodeError, setIsValidCodeError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [email, setEmail] = useState('');
-  // 임시 변수
-  const VERIFICATION_CODE = '0000';
-  const USER_INPUT = '0000';
+  const [code, setCode] = useState('');
+  const univName = '숭실대학교';
 
   const TIME = 180 * 1000;
   const [timeLeft, setTimeLeft] = useState(TIME);
-  const [isActive, setIsActive] = useState<boolean>(false);
   const { minutes, seconds } = formatTime(timeLeft);
+
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isNextActive, setIsNextActive] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -42,11 +47,47 @@ const Step이메일입력 = () => {
     return () => clearInterval(id);
   }, [isActive, timeLeft]);
 
-  const handleClickTimer = () => {
-    setIsActive(true);
-    setTimeLeft(TIME);
+  const handleClickSend = () => {
+    verifyMutation.mutate(
+      {
+        email,
+        univName,
+      },
+      {
+        onSuccess: () => {
+          setIsEmailError(false);
+          setIsActive(true);
+          setTimeLeft(TIME);
+        },
+        onError: () => {
+          setIsEmailError(true);
+        },
+      },
+    );
   };
 
+  const handleChangeCode = (e: ChangeEvent<HTMLInputElement>) => {
+    const codeInput = e.target.value;
+    setCode(codeInput);
+
+    if (codeInput.length < 4) {
+      setIsValidCodeError(false);
+      setIsNextActive(false);
+      return;
+    }
+
+    verifycodeMutation.mutate(
+      { email, univName, code },
+      {
+        onSuccess: () => {
+          setIsNextActive(true);
+        },
+        onError: () => {
+          setIsValidCodeError(true);
+        },
+      },
+    );
+  };
   const handleShowModal = (type: boolean) => {
     setIsModalOpen(type);
   };
@@ -68,7 +109,7 @@ const Step이메일입력 = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             isError={isEmailError}>
-            <InnerButton onClick={handleClickTimer} text={isActive ? '재전송' : '인증번호 전송'} />
+            <InnerButton onClick={handleClickSend} text={isActive ? '재전송' : '인증번호 전송'} />
           </InputBox>
           {isEmailError && <WarnDescription isShown={isEmailError} warnText="유효하지 않은 메일이에요." />}
         </>
@@ -77,6 +118,8 @@ const Step이메일입력 = () => {
             <InputBox
               label="인증번호"
               placeholder="전송된 4자리 코드를 입력해 주세요"
+              value={code}
+              onChange={handleChangeCode}
               maxLength={4}
               isError={isValidCodeError}>
               <Timer>
@@ -89,11 +132,7 @@ const Step이메일입력 = () => {
           </>
         )}
       </TextBox>
-      <FullBtn
-        text="인증 확인"
-        isActive={timeLeft > 0 && USER_INPUT === VERIFICATION_CODE}
-        onClick={handleClickButton}
-      />
+      <FullBtn text="인증 확인" isActive={isNextActive} onClick={handleClickButton} />
       <AutoCloseModal text="인증에 성공했어요" showModal={isModalOpen} handleShowModal={handleShowModal}>
         <DummyImage />
       </AutoCloseModal>
