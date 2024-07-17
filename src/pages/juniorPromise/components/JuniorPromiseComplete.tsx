@@ -1,3 +1,4 @@
+import { ImgPromiseCompleteIc } from '@assets/svgs';
 import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
@@ -22,8 +23,8 @@ const JuniorPromiseComplete = ({ senior = '도리' }: SeniorNamePropType) => {
         {senior} 선배님과의
         <br /> 약속 신청이 완료됐어요!
       </Title>
-      <Img />
-      <FullBtn isActive={true} text={'나의 약속으로'} onClick={handleMyPromise} />
+      <ImgPromiseCompleteIc />
+      <FullBtn paddingBottom={5.6} isActive={true} text={'나의 약속으로'} onClick={handleMyPromise} />
       <HomeBtn onClick={handleGoHome}>홈으로</HomeBtn>
     </Wrapper>
   );
@@ -41,7 +42,7 @@ const Title = styled.div`
 
 const HomeBtn = styled.div`
   position: fixed;
-  bottom: 1.2rem;
+  bottom: 2.4rem;
   z-index: 9;
 
   color: ${({ theme }) => theme.colors.grayScaleMG1};
