@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { authAxios } from '@utils/apis';
 
-interface SeniorProfile {
+interface seniorProfile {
   seniorId: number;
   nickname: string;
   company: string;
@@ -15,7 +15,7 @@ interface SeniorProfile {
 interface GetSeniorProfileResponse {
   code: string;
   data: {
-    seniorList: SeniorProfile[];
+    seniorList: seniorProfile[];
   };
 }
 
