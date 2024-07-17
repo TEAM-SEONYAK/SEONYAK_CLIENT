@@ -7,6 +7,7 @@ import { formatPhone } from '@pages/onboarding/utils/formatPhone';
 import WarnDescription from '@components/commons/WarnDescription';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import { useNavigate } from 'react-router-dom';
+import { usePhoneVerify, usePhoneVerifycode } from '@pages/onboarding/hooks/usePhoneQuery';
 
 const Step번호입력 = () => {
   const ROLE = 'SENIOR'; // 임시
@@ -16,18 +17,21 @@ const Step번호입력 = () => {
     else navigate('/juniorOnboarding/4');
   };
 
+  const verifyMutation = usePhoneVerify();
+  const verifycodeMutation = usePhoneVerifycode();
   const [isNumError, setIsNumError] = useState(false);
   const [isValidCodeError, setIsValidCodeError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [phoneNumber, setPhoneNumber] = useState('');
-  // 임시 변수
-  const VERIFICATION_CODE = '0000';
-  const USER_INPUT = '0000';
+  const [verifyCode, setVerifyCode] = useState('');
+  const [isAlreadyPhone, setIsAlreadyPhone] = useState(false);
+  const [isAlreadyModal, setIsAlreadyModalOpen] = useState(false);
 
   const TIME = 180 * 1000;
   const [timeLeft, setTimeLeft] = useState(TIME);
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [isNextActive, setIsNextActive] = useState(false);
   const { minutes, seconds } = formatTime(timeLeft);
 
   useEffect(() => {
@@ -45,14 +49,51 @@ const Step번호입력 = () => {
     return () => clearInterval(id);
   }, [isActive, timeLeft]);
 
-  const handleClickTimer = () => {
-    setIsActive(true);
-    setTimeLeft(TIME);
+  useEffect(() => {
+    if (verifyCode.length !== 4) return;
+
+    verifycodeMutation.mutate(
+      { phoneNumber: phoneNumber, verificationCode: verifyCode },
+      {
+        onSuccess: () => {
+          setIsNextActive(true);
+          setIsValidCodeError(false);
+        },
+        onError: (error) => {
+          if (error.response.data.code === '40902') {
+            setIsAlreadyPhone(true);
+            setIsNextActive(true);
+          } else {
+            setIsValidCodeError(true);
+          }
+        },
+      },
+    );
+  }, [verifyCode]);
+
+  const handleClickSend = () => {
+    if (isActive) {
+      setIsValidCodeError(false);
+      setVerifyCode('');
+    }
+    verifyMutation.mutate(phoneNumber, {
+      onSuccess: () => {
+        setIsNumError(false);
+        setIsActive(true);
+        setTimeLeft(TIME);
+      },
+      onError: () => {
+        setIsNumError(true);
+      },
+    });
   };
 
   const handleChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
     const formattedNum = formatPhone(e.target.value);
     setPhoneNumber(formattedNum);
+  };
+  const handleChangeVerifycode = (e: ChangeEvent<HTMLInputElement>) => {
+    setVerifyCode(e.target.value);
   };
 
   const handleShowModal = (type: boolean) => {
@@ -60,10 +101,13 @@ const Step번호입력 = () => {
   };
 
   const handleClickButton = () => {
-    setIsModalOpen(true);
-    setTimeout(() => {
-      handleClickLink();
-    }, 2000);
+    if (isAlreadyPhone) setIsAlreadyModalOpen(true);
+    else {
+      setIsModalOpen(true);
+      setTimeout(() => {
+        handleClickLink();
+      }, 2000);
+    }
   };
 
   return (
@@ -76,15 +120,17 @@ const Step번호입력 = () => {
             value={phoneNumber}
             onChange={handleChangePhone}
             isError={isNumError}>
-            <InnerButton onClick={handleClickTimer} text={isActive ? '재전송' : '인증번호 전송'} />
+            <InnerButton onClick={handleClickSend} text={isActive ? '재전송' : '인증번호 전송'} />
           </InputBox>
-          {isNumError && <WarnDescription isShown={isNumError} warnText="이미 사용 중인 번호예요." />}
+          {isNumError && <WarnDescription isShown={isNumError} warnText="올바른 휴대전화 번호 형식을 입력해주세요." />}
         </>
         {isActive && (
           <>
             <InputBox
               label="인증번호"
               placeholder="전송된 4자리 코드를 입력해 주세요"
+              value={verifyCode}
+              onChange={handleChangeVerifycode}
               maxLength={4}
               isError={isValidCodeError}>
               <Timer>
@@ -97,11 +143,7 @@ const Step번호입력 = () => {
           </>
         )}
       </TextBox>
-      <FullBtn
-        text="인증 확인"
-        isActive={timeLeft > 0 && USER_INPUT === VERIFICATION_CODE}
-        onClick={handleClickButton}
-      />
+      <FullBtn text="인증 확인" isActive={timeLeft > 0 && isNextActive} onClick={handleClickButton} />
       <AutoCloseModal text="인증에 성공했어요" showModal={isModalOpen} handleShowModal={handleShowModal}>
         <DummyImage />
       </AutoCloseModal>
