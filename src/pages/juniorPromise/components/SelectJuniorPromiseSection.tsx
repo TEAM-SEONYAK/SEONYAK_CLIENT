@@ -8,9 +8,12 @@ import SelectJuniorWorryTextBoxWrapper from '../components/SelectJuniorWorryText
 import SelectJuniorWorryTitleWrapper from '../components/SelectJuniorWorryTitleWrapper';
 import TimeSelectionButton from '../components/TimeSelectionButton';
 import TimeSelectionTitleWrapper from '../components/TimeSelectionTitleWrapper';
+import { BtnCloseModal } from '@components/commons/modal/BtnModal';
+import CheckModalContent from './CheckModalContent';
 
 const SelectJuniorPromiseSection = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAllSelected, setIsAllSelected] = useState(false);
   const [isAnyWorrySelected, setIsAnyWorrySelected] = useState(false);
   const [isTextareaFilled, setIsTextareaFilled] = useState(false);
@@ -35,6 +38,11 @@ const SelectJuniorPromiseSection = () => {
     setActiveButton(button);
   };
 
+  // modal open 함수 정의
+  const handleModalOpen = (bool: boolean) => {
+    setIsModalOpen(bool);
+  };
+
   // 모든 일정 선택했는지 확인
   const handleCheckAllSelected = () => {
     const unfilled = selectedTime
@@ -48,6 +56,10 @@ const SelectJuniorPromiseSection = () => {
     setIsAnyWorrySelected(isSelected);
   };
 
+  const handleSubmit = (isAllSelected: boolean) => {
+    isAllSelected && handleModalOpen(true);
+  };
+
   // isAllSelected 업데이트
   useEffect(() => {
     setIsAllSelected(
@@ -55,10 +67,6 @@ const SelectJuniorPromiseSection = () => {
         (isAnyWorrySelected || isTextareaFilled),
     );
   }, [selectedTime, isAnyWorrySelected, isTextareaFilled]);
-
-  const handleSubmit = () => {
-    setIsSubmitClicked(true);
-  };
 
   return (
     <TimeSelectionContainer>
@@ -77,6 +85,15 @@ const SelectJuniorPromiseSection = () => {
         activeButton={activeButton}
         onSetActiveButtonHandler={handleToggle}
       />
+      {isModalOpen && (
+        <BtnCloseModal
+          title={'약속 잡기 전 주의해주세요'}
+          isModalOpen={isModalOpen}
+          handleModalOpen={handleModalOpen}
+          btnText={'적용할래요'}>
+          <CheckModalContent />
+        </BtnCloseModal>
+      )}
       {activeButton === '선택할래요' ? (
         <SelectJuniorWorryButton handleCheckWorrySelected={handleCheckWorrySelected} />
       ) : (
@@ -95,7 +112,7 @@ const SelectJuniorPromiseSection = () => {
           <Label>총 결제금액</Label>
           <Cost>0원</Cost>
         </CostWrapper>
-        <SubmitBtn type="button" onClick={handleSubmit} $isAllSelected={isAllSelected}>
+        <SubmitBtn type="button" onClick={() => handleSubmit(isAllSelected)} $isAllSelected={isAllSelected}>
           약속 신청하기
         </SubmitBtn>
       </PageBottomBar>

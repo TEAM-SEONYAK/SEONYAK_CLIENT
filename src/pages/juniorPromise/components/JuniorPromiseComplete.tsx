@@ -17,7 +17,7 @@ const JuniorPromiseComplete = ({ senior = '도리' }: SeniorNamePropType) => {
         <br /> 약속 신청이 완료됐어요!
       </Title>
       <Img />
-      <FullBtn bottom={5.6} isActive={true} text={'나의 약속으로'} onClick={handleMyPromise} />
+      <FullBtn isActive={true} text={'나의 약속으로'} onClick={handleMyPromise} />
       <HomeBtn>홈으로</HomeBtn>
     </Wrapper>
   );
