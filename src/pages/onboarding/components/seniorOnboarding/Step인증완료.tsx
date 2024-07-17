@@ -3,7 +3,7 @@ import { InputBox, TextBox } from '../TextBox';
 
 import styled from '@emotion/styled';
 
-const Step인증완료 = ({ onNext }: { onNext: () => void }) => {
+const Step인증완료 = () => {
   const company = '네이버';
   const phoneNum = '전화번호';
 
@@ -28,9 +28,7 @@ const Step인증완료 = ({ onNext }: { onNext: () => void }) => {
           <input type="file" accept="image/*" capture="environment" onChange={handleChangeFile} />
           다시찍기
         </BlackButton>
-        <BlueButton type="button" onClick={onNext}>
-          다음으로
-        </BlueButton>
+        <BlueButton type="button">다음으로</BlueButton>
       </ButtonWrapper>
     </>
   );
