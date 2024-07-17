@@ -10,12 +10,6 @@ import { useQuery } from '@tanstack/react-query';
 import { getSeniorProfile } from './apis/getSeniorProfile';
 
 const JuniorPromisePage = () => {
-  // 임시 토큰 넣어두기
-  localStorage.setItem(
-    'accessToken',
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MjExNTk1MDIsImV4cCI6MTcyMTc2NDMwMiwibWVtYmVySWQiOjIwfQ.dHUNfUipnHLBlnf8vSSuI_ky5FkRbuy7nG45w5IjdqbPsh82KB2p-04DRgWPCzFSddJT7hh_hrHh_t8rMUP_ZA',
-  );
-
   // 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
   // 바텀 시트 여는 동작
