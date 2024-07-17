@@ -55,6 +55,7 @@ const Sheet학교선택 = ({ handleSelectUniv, handleClose }: Sheet학교선택P
         placeholder="학교명을 입력해 주세요"
         searchValue={searchValue}
         handleSearchValue={(selectedValue: string) => setSearchValue(selectedValue)}
+        autoFocus
       />
       <Content>
         {list &&
