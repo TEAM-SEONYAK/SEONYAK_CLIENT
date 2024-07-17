@@ -5,11 +5,17 @@ import { InnerButton, InputBox, TextBox } from '../TextBox';
 import styled from '@emotion/styled';
 import WarnDescription from '@components/commons/WarnDescription';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useUnivVerify, useUnivVerifycode } from '@pages/onboarding/hooks/useUnivQuery';
+import { BtnCloseModal } from '@components/commons/modal/BtnModal';
+import { AlreadyModalView } from '@pages/onboarding/components/commonOnboarding/Step번호입력';
+import axios from 'axios';
 
 const Step이메일입력 = () => {
   const navigate = useNavigate();
+  const { univName } = useLocation().state;
+  // const univName = '숭실대학교';
+
   const handleClickLink = () => {
     navigate('/juniorOnboarding/6');
   };
@@ -23,7 +29,6 @@ const Step이메일입력 = () => {
 
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
-  const univName = '숭실대학교';
 
   const TIME = 180 * 1000;
   const [timeLeft, setTimeLeft] = useState(TIME);
@@ -31,6 +36,7 @@ const Step이메일입력 = () => {
 
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isNextActive, setIsNextActive] = useState(false);
+  const [isAlreadyModalOpen, setIsAlreadyModalOpen] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -59,8 +65,12 @@ const Step이메일입력 = () => {
           setIsActive(true);
           setTimeLeft(TIME);
         },
-        onError: () => {
-          setIsEmailError(true);
+        onError: (error) => {
+          if (axios.isAxiosError(error) && error.response && error.response.data.code === '40018') {
+            setIsAlreadyModalOpen(true);
+          } else {
+            setIsEmailError(true);
+          }
         },
       },
     );
@@ -77,7 +87,7 @@ const Step이메일입력 = () => {
     }
 
     verifycodeMutation.mutate(
-      { email, univName, code },
+      { email, univName, code: codeInput },
       {
         onSuccess: () => {
           setIsNextActive(true);
@@ -97,6 +107,10 @@ const Step이메일입력 = () => {
     setTimeout(() => {
       handleClickLink();
     }, 2000);
+  };
+
+  const handleShowAlreadyModal = (type: boolean) => {
+    setIsAlreadyModalOpen(type);
   };
 
   return (
@@ -136,6 +150,15 @@ const Step이메일입력 = () => {
       <AutoCloseModal text="인증에 성공했어요" showModal={isModalOpen} handleShowModal={handleShowModal}>
         <DummyImage />
       </AutoCloseModal>
+      <BtnCloseModal
+        isModalOpen={isAlreadyModalOpen}
+        handleModalOpen={handleShowAlreadyModal}
+        btnText="로그인 하러 가기"
+        handleBtnClick={() => {
+          navigate('/login');
+        }}>
+        <AlreadyModalView />
+      </BtnCloseModal>
     </Wrapper>
   );
 };

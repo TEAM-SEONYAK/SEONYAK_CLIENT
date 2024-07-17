@@ -186,7 +186,7 @@ const Step번호입력 = () => {
         handleBtnClick={() => {
           navigate('/login');
         }}>
-        <AlreadyPhoneModalView />
+        <AlreadyModalView />
       </BtnCloseModal>
     </Wrapper>
   );
@@ -214,7 +214,7 @@ const DummyImage = styled.div`
   background-color: red;
 `;
 
-const AlreadyPhoneModalView = () => {
+export const AlreadyModalView = () => {
   const PHONEMODAL_TEXT = `이미 서비스에 가입한 번호예요\n변경을 원하시는 경우\n해당 계정으로 로그인을 하신 후\n이의 신청해주시길 바랍니다`;
   return (
     <ModalWrapper>
