@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { SENIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
 import { formatDate } from './utils/formatDate';
 import { usePatchSeniorReject } from './hooks/queries';
+import { useGetGoogleMeetLink } from '@pages/promiseList/hooks/queries';
 
 const PromiseDetail = () => {
   const location = useLocation();
@@ -47,6 +48,18 @@ const PromiseDetail = () => {
       rejectDetail: rejectDetail,
     });
   };
+
+  // 구글밋 링크 받기
+  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
+  const [googleMeetLink, setGoogleMeetLink] = useState('');
+
+  const handleClickEnterBtn = (link: string) => {
+    setGoogleMeetLink(link);
+    window.open(link, '_blank');
+  };
+
+  // appointmentId로 바꿔야 함 !!
+  useGetGoogleMeetLink(68, isEnterBtnClicked, handleClickEnterBtn);
 
   // 선택값 저장 함수
   const handleClickTimeBox = (idx: number) => {
@@ -184,7 +197,7 @@ const PromiseDetail = () => {
                 {/* 구글밋 입장 연결 필요 */}
                 <FullBtn
                   onClick={() => {
-                    console.log('hi');
+                    setIsEnterBtnClicked(true);
                   }}
                   text={diff <= 0 ? '지금 입장하기' : `약속 시간까지 ${diffText} 남았어요`}
                   isActive={diff <= 0}
