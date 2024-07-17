@@ -30,42 +30,59 @@ const OnboardingPage = () => {
   };
 
   const Step = () => {
-    switch (step) {
-      case 1:
-        return <Step약관동의 />;
-      case 2:
-        return <Step개인정보입력 />;
-      case 3:
-        return <Step학교선택 />;
-      case 4:
-        return <Step계열선택 />;
-      case 5:
-        return <Step학과선택 />;
-      case 6:
-        return <Step졸업인증 />;
-      case 7:
-        return <Step명함인증 />;
-      case 9:
-        return <Step직무선택 />;
-      case 10:
-        return <Step재직기간 />;
-      case 11:
-        return <Step번호입력 />;
+    if (role === 'SENIOR') {
+      switch (step) {
+        case 1:
+          return <Step약관동의 />;
+        case 2:
+          return <Step개인정보입력 />;
+        case 3:
+          return <Step학교선택 />;
+        case 4:
+          return <Step계열선택 />;
+        case 5:
+          return <Step학과선택 />;
+        case 6:
+          return <Step졸업인증 />;
+        case 7:
+          return <Step명함인증 />;
+        case 8:
+          return (
+            <Wrapper>
+              <Header title="재직 인증" LeftSvg={ArrowLeftIc} onClickLeft={() => handleSetStep('PREV')} />
+              <ProgressBar max={4} current={4} />
+              <Content>
+                <TitleBox title="인증이 완료되었어요" description="명함 정보를 확인해 주세요" />
+                <Step인증완료 onNext={() => handleSetStep('NEXT')} />
+              </Content>
+            </Wrapper>
+          );
+        case 9:
+          return <Step직무선택 />;
+        case 10:
+          return <Step재직기간 />;
+        case 11:
+          return <Step번호입력 />;
+      }
+    } else {
+      switch (step) {
+        case 1:
+          return <Step약관동의 />;
+        case 2:
+          return <Step개인정보입력 />;
+        case 3:
+          return <Step번호입력 />;
+        case 4:
+          return <Step학교선택 />;
+        case 5:
+          return <Step이메일입력 />;
+        case 6:
+          return <Step계열선택 />;
+        case 7:
+          return <Step학과선택 />;
+      }
     }
   };
-
-  if (role === 'SENIOR' && step === 8) {
-    return (
-      <Wrapper>
-        <Header title="재직 인증" LeftSvg={ArrowLeftIc} onClickLeft={() => handleSetStep('PREV')} />
-        <ProgressBar max={4} current={4} />
-        <Content>
-          <TitleBox title="인증이 완료되었어요" description="명함 정보를 확인해 주세요" />
-          <Step인증완료 onNext={() => handleSetStep('NEXT')} />
-        </Content>
-      </Wrapper>
-    );
-  }
 
   return (
     <StepContext.Provider value={{ onNext: () => handleSetStep('NEXT') }}>
