@@ -17,6 +17,7 @@ import Step직무선택 from './components/seniorOnboarding/Step직무선택';
 import TitleBox from './components/TitleBox';
 import Step명함인증 from './components/seniorOnboarding/Step명함인증';
 import Step이메일입력 from './components/juniorOnboarding/Step이메일입력';
+import { Outlet } from 'react-router-dom';
 
 export const StepContext = createContext({
   onNext: () => {},
@@ -87,7 +88,7 @@ const OnboardingPage = () => {
   return (
     <StepContext.Provider value={{ onNext: () => handleSetStep('NEXT') }}>
       <Layout userRole={role} step={step} handleSetStep={handleSetStep}>
-        <Step />
+        <Outlet />
       </Layout>
     </StepContext.Provider>
   );
