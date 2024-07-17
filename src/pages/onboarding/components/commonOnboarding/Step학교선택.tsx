@@ -5,7 +5,7 @@ import SearchBox from '../SearchBox';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
 import { FullBtn } from '@components/commons/FullButton';
 import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
-import useSearchQuery from '@pages/onboarding/hooks/useSearchQuery';
+import useSearchUnivQuery from '@pages/onboarding/hooks/useSearchUnivQuery';
 
 const Step학교선택 = () => {
   const { onNext } = useContext(StepContext);
@@ -43,7 +43,7 @@ interface Sheet학교선택PropType {
 
 const Sheet학교선택 = ({ handleSelectUniv, handleClose }: Sheet학교선택PropType) => {
   const [searchValue, setSearchValue] = useState('');
-  const list: string[] = useSearchQuery(searchValue);
+  const list: string[] = useSearchUnivQuery(searchValue);
 
   const handleListClick = (data: string) => {
     handleSelectUniv(data);

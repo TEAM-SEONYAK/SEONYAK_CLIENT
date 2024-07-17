@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import SearchBox from '../SearchBox';
 import { FullBtn } from '@components/commons/FullButton';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
+import useSearchDeptQuery from '@pages/onboarding/hooks/useSearchDeptQuery';
 
 const Step학과선택 = () => {
   const { onNext } = useContext(StepContext);
@@ -35,6 +36,8 @@ const Step학과선택 = () => {
       setIsExceed(false);
     }
   }, [selectedMajors]);
+
+  console.log(useSearchDeptQuery('이화여자대학교', searchValue));
 
   const dummyMajor = ['사회과학', '윤서진~나 사랑해 윤서진~나 좋아', '보고싶어', '안녕하세요'];
   return (

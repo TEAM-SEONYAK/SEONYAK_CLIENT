@@ -8,11 +8,11 @@ export const univNameAxios = async (univName: string) => {
   });
 };
 
-export const departmentAxios = async (univName: string, department: string) => {
+export const departmentAxios = async (univName: string, deptName: string) => {
   return await axios.get('/v1/search/dept', {
     params: {
       univName,
-      department,
+      deptName,
     },
   });
 };
