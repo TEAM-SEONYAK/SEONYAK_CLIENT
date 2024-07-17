@@ -12,8 +12,7 @@ const Step개인정보입력 = () => {
   const ROLE = 'SENIOR'; // 임시
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/3');
-    else navigate('/juniorOnboarding/3');
+    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
   };
 
   const [nickname, setNickname] = useState('');

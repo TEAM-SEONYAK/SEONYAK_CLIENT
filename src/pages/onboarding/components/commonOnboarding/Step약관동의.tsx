@@ -9,8 +9,7 @@ const Step약관동의 = () => {
   const ROLE = 'SENIOR'; // 임시
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/2');
-    else navigate('/juniorOnboarding/2');
+    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/2' : '/juniorOnboarding/2');
   };
 
   const [agreement, setAgreement] = useState(Array(5).fill(false));

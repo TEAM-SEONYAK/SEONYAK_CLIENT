@@ -9,8 +9,7 @@ const Step계열선택 = () => {
   const ROLE = 'SENIOR'; // 임시
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/5');
-    else navigate('/juniorOnboarding/7');
+    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/5' : '/juniorOnboarding/7');
   };
 
   const [selectedField, setSelectedField] = useState('');
