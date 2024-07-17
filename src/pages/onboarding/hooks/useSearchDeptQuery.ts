@@ -6,7 +6,7 @@ const useSearchDeptQuery = (univName: string, deptName: string) => {
     queryKey: ['univ', univName, deptName],
     queryFn: () => departmentAxios(univName, deptName),
   });
-  return data?.data.data.deptSearchResult;
+  return data?.data.data;
 };
 
 export default useSearchDeptQuery;
