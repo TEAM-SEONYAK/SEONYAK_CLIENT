@@ -1,5 +1,5 @@
 import { FullBtn } from '@components/commons/FullButton';
-import { useState, useEffect, ChangeEvent, useContext } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { formatTime } from '../../utils/formatTime';
 import { InnerButton, InputBox, TextBox } from '../TextBox';
 import styled from '@emotion/styled';
@@ -21,20 +21,25 @@ const Step번호입력 = () => {
 
   const verifyMutation = usePhoneVerify();
   const verifycodeMutation = usePhoneVerifycode();
-  const [isNumError, setIsNumError] = useState(false);
-  const [isValidCodeError, setIsValidCodeError] = useState(false);
-  const [isDoneModalOpen, setIsDoneModalOpen] = useState(false);
+
+  const [isError, setIsError] = useState({
+    isNumError: false,
+    isValidCodeError: false,
+  });
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const [verifyCode, setVerifyCode] = useState('');
+
+  const [isDoneModalOpen, setIsDoneModalOpen] = useState(false);
   const [isAlreadyPhone, setIsAlreadyPhone] = useState(false);
   const [isAlreadyModalOpen, setIsAlreadyModalOpen] = useState(false);
 
   const TIME = 180 * 1000;
   const [timeLeft, setTimeLeft] = useState(TIME);
+  const { minutes, seconds } = formatTime(timeLeft);
+
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isNextActive, setIsNextActive] = useState(false);
-  const { minutes, seconds } = formatTime(timeLeft);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -53,7 +58,10 @@ const Step번호입력 = () => {
 
   useEffect(() => {
     if (verifyCode.length < 4) {
-      setIsValidCodeError(false);
+      setIsError((prev) => ({
+        ...prev,
+        isValidCodeError: false,
+      }));
       return;
     }
     verifycodeMutation.mutate(
@@ -61,15 +69,24 @@ const Step번호입력 = () => {
       {
         onSuccess: () => {
           setIsNextActive(true);
-          setIsValidCodeError(false);
+          setIsError((prev) => ({
+            ...prev,
+            isValidCodeError: false,
+          }));
         },
         onError: (error) => {
           if (error.response.data.code === '40902') {
             setIsAlreadyPhone(true);
             setIsNextActive(true);
-            setIsValidCodeError(false);
+            setIsError((prev) => ({
+              ...prev,
+              isValidCodeError: false,
+            }));
           } else {
-            setIsValidCodeError(true);
+            setIsError((prev) => ({
+              ...prev,
+              isValidCodeError: true,
+            }));
           }
         },
       },
@@ -78,17 +95,26 @@ const Step번호입력 = () => {
 
   const handleClickSend = () => {
     if (isActive) {
-      setIsValidCodeError(false);
+      setIsError((prev) => ({
+        ...prev,
+        isValidCodeError: false,
+      }));
       setVerifyCode('');
     }
     verifyMutation.mutate(phoneNumber, {
       onSuccess: () => {
-        setIsNumError(false);
+        setIsError((prev) => ({
+          ...prev,
+          isNumError: false,
+        }));
         setIsActive(true);
         setTimeLeft(TIME);
       },
       onError: () => {
-        setIsNumError(true);
+        setIsError((prev) => ({
+          ...prev,
+          isNumError: true,
+        }));
       },
     });
   };
@@ -128,10 +154,12 @@ const Step번호입력 = () => {
             placeholder="전화번호를 입력해 주세요"
             value={phoneNumber}
             onChange={handleChangePhone}
-            isError={isNumError}>
+            isError={isError.isNumError}>
             <InnerButton onClick={handleClickSend} text={isActive ? '재전송' : '인증번호 전송'} />
           </InputBox>
-          {isNumError && <WarnDescription isShown={isNumError} warnText="올바른 휴대전화 번호 형식을 입력해주세요." />}
+          {isError.isNumError && (
+            <WarnDescription isShown={isError.isNumError} warnText="올바른 휴대전화 번호 형식을 입력해주세요." />
+          )}
         </>
         {isActive && (
           <>
@@ -141,14 +169,12 @@ const Step번호입력 = () => {
               value={verifyCode}
               onChange={handleChangeVerifycode}
               maxLength={4}
-              isError={isValidCodeError}>
+              isError={isError.isValidCodeError}>
               <Timer>
                 {minutes} : {seconds}
               </Timer>
             </InputBox>
-            {isValidCodeError && (
-              <WarnDescription isShown={isValidCodeError} warnText="코드가 틀렸어요. 다시 한번 확인해 주세요." />
-            )}
+            <WarnDescription isShown={isError.isValidCodeError} warnText="코드가 틀렸어요. 다시 한번 확인해 주세요." />
           </>
         )}
       </TextBox>
