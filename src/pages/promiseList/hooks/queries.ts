@@ -6,7 +6,7 @@ export const QUERY_KEY_PROMISE_DETAIL = {
 };
 
 // 구글밋 링크 받기
-export const usePostGoogleMeetLink = (onSuccessCallback) => {
+export const usePostGoogleMeetLink = (onSuccessCallback?: (data: string) => void) => {
   const { mutate, data } = useMutation({
     mutationKey: [QUERY_KEY_PROMISE_DETAIL.postGoogleMeetLink],
     mutationFn: postGoogleMeetLink,
