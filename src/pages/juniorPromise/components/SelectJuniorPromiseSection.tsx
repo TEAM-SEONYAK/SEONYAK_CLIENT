@@ -117,6 +117,9 @@ const SelectJuniorPromiseSection = () => {
         </SubmitBtn>
       </PageBottomBar>
     </TimeSelectionContainer>
+          <SubmitBtn type="button" onClick={() => handleSubmit(isAllSelected)} $isAllSelected={isAllSelected}>
+            약속 신청하기
+          </SubmitBtn>
   );
 };
 
