@@ -64,11 +64,11 @@ const Step학과선택 = () => {
       <Container>
         <SearchListWrapper>
           {list &&
-            list.map(({ deptName, isClosed }) => (
+            list.map(({ deptName }) => (
               <SearchList
-                key={`${deptName}${isClosed ? '(폐과)' : ''}`}
+                key={deptName}
                 handleSelectMajors={handleSelectMajors}
-                majorName={`${deptName}${isClosed ? '(폐과)' : ''}`}
+                majorName={deptName}
                 selectedMajors={selectedMajors}
               />
             ))}
