@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const Step이메일입력 = () => {
   const navigate = useNavigate();
   const handleClickLink = () => {
-    navigate('/juniorOnboarding/step6');
+    navigate('/juniorOnboarding/6');
   };
 
   const [isEmailError, setIsEmailError] = useState(false);

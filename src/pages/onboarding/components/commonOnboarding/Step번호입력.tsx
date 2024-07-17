@@ -9,11 +9,11 @@ import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import { useNavigate } from 'react-router-dom';
 
 const Step번호입력 = () => {
-  const ROLE = 'JUNIOR'; // 임시
+  const ROLE = 'SENIOR'; // 임시
   const navigate = useNavigate();
   const handleClickLink = () => {
     if (ROLE === 'SENIOR') alert('온보딩 끝!');
-    else navigate('/juniorOnboarding/step4');
+    else navigate('/juniorOnboarding/4');
   };
 
   const [isNumError, setIsNumError] = useState(false);

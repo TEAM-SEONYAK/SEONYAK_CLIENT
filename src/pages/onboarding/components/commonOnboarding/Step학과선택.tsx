@@ -8,10 +8,10 @@ import { FullBtn } from '@components/commons/FullButton';
 import { useNavigate } from 'react-router-dom';
 
 const Step학과선택 = () => {
-  const ROLE = 'JUNIOR'; // 임시
+  const ROLE = 'SENIOR'; // 임시
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/step6');
+    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/6');
     else alert('온보딩 끝!');
   };
 

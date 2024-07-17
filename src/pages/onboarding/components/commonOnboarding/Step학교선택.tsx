@@ -7,11 +7,11 @@ import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
 import { useNavigate } from 'react-router-dom';
 
 const Step학교선택 = () => {
-  const ROLE = 'JUNIOR'; // 임시
+  const ROLE = 'SENIOR'; // 임시
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/step4');
-    else navigate('/juniorOnboarding/step5');
+    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/4');
+    else navigate('/juniorOnboarding/5');
   };
 
   const [isOpenSheet, setIsOpenSheet] = useState(false);

@@ -6,29 +6,19 @@ import { Header } from '../../../components/commons/Header';
 import ProgressBar from '../../../components/commons/ProgressBar';
 import { JUNIOR_ONBOARDING_STEPS, ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } from '../constants';
 import convertToGroupStep from '../utils/convertToGroupStep';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const Layout = ({
-  userRole,
-  step,
-  handleSetStep,
-  children,
-}: {
-  userRole: 'SENIOR' | 'JUNIOR';
-  step: number;
-  handleSetStep: (dir: 'NEXT' | 'PREV') => void;
-  children: ReactNode;
-}) => {
+const Layout = ({ userRole, children }: { userRole: 'SENIOR' | 'JUNIOR'; children: ReactNode }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const step = +location.pathname.slice(18);
   const onboardingStep = userRole === 'SENIOR' ? SENIOR_ONBOARDING_STEPS : JUNIOR_ONBOARDING_STEPS;
   const { title, description } = onboardingStep[step - 1];
   const GROUP_STEP = convertToGroupStep(userRole, step);
 
   return (
     <Wrapper>
-      <Header
-        title={ONBOARDING_HEADER[GROUP_STEP - 1]}
-        LeftSvg={ArrowLeftIc}
-        onClickLeft={() => handleSetStep('PREV')}
-      />
+      <Header title={ONBOARDING_HEADER[GROUP_STEP - 1]} LeftSvg={ArrowLeftIc} onClickLeft={() => navigate(-1)} />
       <ProgressBar max={userRole === 'SENIOR' ? 4 : 3} current={GROUP_STEP} />
       <MetaContainer>
         <TitleBox title={title} description={description} />

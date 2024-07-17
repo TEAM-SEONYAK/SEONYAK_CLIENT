@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const Step인증완료 = () => {
   const navigate = useNavigate();
   const handleClickLink = () => {
-    navigate('/seniorOnboarding/step9');
+    navigate('/seniorOnboarding/9');
   };
 
   const company = '네이버';

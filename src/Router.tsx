@@ -48,50 +48,50 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Navigate to="step1" />,
+            element: <Navigate to="1" />,
           },
           {
-            path: 'step1',
+            path: '1',
             element: <Step약관동의 />,
           },
           {
-            path: 'step2',
+            path: '2',
             element: <Step개인정보입력 />,
           },
           {
-            path: 'step3',
+            path: '3',
             element: <Step학교선택 />,
           },
           {
-            path: 'step4',
+            path: '4',
             element: <Step계열선택 />,
           },
           {
-            path: 'step5',
+            path: '5',
             element: <Step학과선택 />,
           },
           {
-            path: 'step6',
+            path: '6',
             element: <Step졸업인증 />,
           },
           {
-            path: 'step7',
+            path: '7',
             element: <Step명함인증 />,
           },
           {
-            path: 'step8',
+            path: '8',
             element: <Step인증완료 />,
           },
           {
-            path: 'step9',
+            path: '9',
             element: <Step직무선택 />,
           },
           {
-            path: 'step10',
+            path: '10',
             element: <Step재직기간 />,
           },
           {
-            path: 'step11',
+            path: '11',
             element: <Step번호입력 />,
           },
         ],
@@ -102,34 +102,34 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Navigate to="step1" />,
+            element: <Navigate to="1" />,
           },
           {
-            path: 'step1',
+            path: '1',
             element: <Step약관동의 />,
           },
           {
-            path: 'step2',
+            path: '2',
             element: <Step개인정보입력 />,
           },
           {
-            path: 'step3',
+            path: '3',
             element: <Step번호입력 />,
           },
           {
-            path: 'step4',
+            path: '4',
             element: <Step학교선택 />,
           },
           {
-            path: 'step5',
+            path: '5',
             element: <Step이메일입력 />,
           },
           {
-            path: 'step6',
+            path: '6',
             element: <Step계열선택 />,
           },
           {
-            path: 'step7',
+            path: '7',
             element: <Step학과선택 />,
           },
         ],

@@ -9,11 +9,11 @@ import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
 import { useNavigate } from 'react-router-dom';
 
 const Step개인정보입력 = () => {
-  const ROLE = 'JUNIOR'; // 임시
+  const ROLE = 'SENIOR'; // 임시
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/step3');
-    else navigate('/juniorOnboarding/step3');
+    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/3');
+    else navigate('/juniorOnboarding/3');
   };
 
   const [nickname, setNickname] = useState('');

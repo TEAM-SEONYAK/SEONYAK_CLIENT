@@ -6,11 +6,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Step계열선택 = () => {
-  const ROLE = 'JUNIOR'; // 임시
+  const ROLE = 'SENIOR'; // 임시
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/step5');
-    else navigate('/juniorOnboarding/step7');
+    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/5');
+    else navigate('/juniorOnboarding/7');
   };
 
   const [selectedField, setSelectedField] = useState('');

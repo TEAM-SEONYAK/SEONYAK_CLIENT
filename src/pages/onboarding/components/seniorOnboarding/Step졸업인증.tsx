@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const Step졸업인증 = () => {
   const navigate = useNavigate();
   const handleClickLink = () => {
-    navigate('/seniorOnboarding/step7');
+    navigate('/seniorOnboarding/7');
   };
 
   const [isNextActive, setIsNextActive] = useState(true);

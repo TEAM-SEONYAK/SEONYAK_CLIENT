@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Step재직기간 = () => {
   const navigate = useNavigate();
   const handleClickLink = () => {
-    navigate('/seniorOnboarding/step11');
+    navigate('/seniorOnboarding/11');
   };
 
   const PLACEHOLDER = '연차를 선택해 주세요';

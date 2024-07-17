@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const Step직무선택 = () => {
   const navigate = useNavigate();
   const handleClickLink = () => {
-    navigate('/seniorOnboarding/step10');
+    navigate('/seniorOnboarding/10');
   };
 
   const [selectedDetail, setSelectedDetail] = useState<string>('');

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Step명함인증 = () => {
   const navigate = useNavigate();
   const handleClickLink = () => {
-    navigate('/seniorOnboarding/step8');
+    navigate('/seniorOnboarding/8');
   };
 
   const [imageFile, setImageFile] = useState('');

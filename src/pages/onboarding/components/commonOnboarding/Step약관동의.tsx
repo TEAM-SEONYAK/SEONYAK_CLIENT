@@ -6,11 +6,11 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Step약관동의 = () => {
-  const ROLE = 'JUNIOR'; // 임시
+  const ROLE = 'SENIOR'; // 임시
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/step2');
-    else navigate('/juniorOnboarding/step2');
+    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/2');
+    else navigate('/juniorOnboarding/2');
   };
 
   const [agreement, setAgreement] = useState(Array(5).fill(false));
