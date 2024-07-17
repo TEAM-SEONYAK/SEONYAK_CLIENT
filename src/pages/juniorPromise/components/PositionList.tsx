@@ -8,7 +8,7 @@ interface positionListPropType {
   chipPositionName: string;
   pushPositionList: (chipName: string) => void;
 }
-export const PositionList = (props: IPositionList) => {
+export const PositionList = (props: positionListPropType) => {
   const { position, selectedPosition, handleChipPosition, positionId, chipPositionName, pushPositionList } = props;
   const isSeleted = selectedPosition[positionId];
   const onSeleted = () => {

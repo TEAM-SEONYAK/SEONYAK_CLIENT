@@ -4,6 +4,7 @@ import { formatTime } from '../../utils/formatTime';
 import { InnerButton, InputBox, TextBox } from '../TextBox';
 import { useContext } from 'react';
 import { StepContext } from '@pages/onboarding/OnboardingPage';
+import styled from '@emotion/styled';
 
 const Step번호입력 = () => {
   const { onNext } = useContext(StepContext);

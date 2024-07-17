@@ -14,7 +14,7 @@ const Step계열선택 = () => {
         {계열_LIST.map((el) => (
           <ItemWrapper key={el} onClick={() => setSelectedField(el)}>
             <Text>{el}</Text>
-            <CheckItemIcon isactive={selectedField === el} />
+            <CheckItemIcon isactive={(selectedField === el) + ''} />
           </ItemWrapper>
         ))}
       </Wrapper>
@@ -51,6 +51,6 @@ const Text = styled.p`
   ${({ theme }) => theme.fonts.Title1_SB_16};
 `;
 
-const CheckItemIcon = styled(CheckItemIc)<{ isactive: boolean }>`
-  fill: ${({ theme, isactive }) => (isactive ? theme.colors.Blue : theme.colors.grayScaleLG2)};
+const CheckItemIcon = styled(CheckItemIc)<{ isactive: string }>`
+  fill: ${({ theme, isactive }) => (isactive === 'true' ? theme.colors.Blue : theme.colors.grayScaleLG2)};
 `;
