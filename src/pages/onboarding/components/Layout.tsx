@@ -1,14 +1,13 @@
 import styled from '@emotion/styled';
-import { ReactNode } from 'react';
 import TitleBox from './TitleBox';
 import { ArrowLeftIc } from '../../../assets/svgs';
 import { Header } from '../../../components/commons/Header';
 import ProgressBar from '../../../components/commons/ProgressBar';
 import { JUNIOR_ONBOARDING_STEPS, ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } from '../constants';
 import convertToGroupStep from '../utils/convertToGroupStep';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-const Layout = ({ userRole, children }: { userRole: 'SENIOR' | 'JUNIOR'; children: ReactNode }) => {
+const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const step = +location.pathname.slice(18);
@@ -23,7 +22,9 @@ const Layout = ({ userRole, children }: { userRole: 'SENIOR' | 'JUNIOR'; childre
       <MetaContainer>
         <TitleBox title={title} description={description} />
       </MetaContainer>
-      <Content>{children}</Content>
+      <Content>
+        <Outlet />
+      </Content>
       <ButtonBg />
     </Wrapper>
   );

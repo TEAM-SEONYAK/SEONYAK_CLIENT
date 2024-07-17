@@ -5,7 +5,6 @@ import App from './App';
 // import HomePage from './pages/home/HomePage';
 import JuniorPromisePage from './pages/juniorPromise/JuniorPromisePage';
 import LoginPage from './pages/login/LoginPage';
-import OnboardingPage from './pages/onboarding/OnboardingPage';
 import PromiseListPage from './pages/promiseList/PromiseListPage';
 import SeniorProfilePage from './pages/seniorProfile/SeniorProfilePage';
 import Step약관동의 from '@pages/onboarding/components/commonOnboarding/Step약관동의';
@@ -20,6 +19,7 @@ import Step재직기간 from '@pages/onboarding/components/seniorOnboarding/Step
 import Step번호입력 from '@pages/onboarding/components/commonOnboarding/Step번호입력';
 import Step인증완료 from '@pages/onboarding/components/seniorOnboarding/Step인증완료';
 import Step이메일입력 from '@pages/onboarding/components/juniorOnboarding/Step이메일입력';
+import Layout from '@pages/onboarding/components/Layout';
 
 const router = createBrowserRouter([
   {
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'seniorOnboarding',
-        element: <OnboardingPage />,
+        element: <Layout userRole="SENIOR" />,
         children: [
           {
             index: true,
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'juniorOnboarding',
-        element: <OnboardingPage />,
+        element: <Layout userRole="JUNIOR" />,
         children: [
           {
             index: true,
