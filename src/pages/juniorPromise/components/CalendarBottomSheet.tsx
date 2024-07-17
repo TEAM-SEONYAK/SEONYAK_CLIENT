@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import React from 'react';
 import CalendarBottomBar from './CalendarBottomBar';
 import CustomCalendar from './CustomCalendar';
-import GrayLine from './GrayLine';
 import TimeList from './TimeList';
 
 interface BottomSheetPropType {
@@ -86,4 +85,13 @@ const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
     transform 250ms ease-out,
     opacity 250ms ease-out;
   transform: translateY(${({ $isCalendarOpen }) => ($isCalendarOpen ? '0' : '100%')});
+`;
+
+const GrayLine = styled.div`
+  z-index: 10;
+
+  width: 100%;
+  height: 1rem;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWG};
 `;

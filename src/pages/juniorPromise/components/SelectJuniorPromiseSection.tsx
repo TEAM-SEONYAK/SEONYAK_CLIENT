@@ -179,3 +179,23 @@ const Cost = styled.span`
   color: ${({ theme }) => theme.colors.grayScaleBG};
   ${({ theme }) => theme.fonts.Head2_SB_18};
 `;
+
+const GrayLine1 = styled.div`
+  position: absolute;
+  top: 17.2rem;
+  z-index: 10;
+
+  width: 100%;
+  height: 1rem;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWG};
+`;
+
+const GrayLine2 = styled.div`
+  z-index: 10;
+
+  width: 100%;
+  height: 1rem;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWG};
+`;
