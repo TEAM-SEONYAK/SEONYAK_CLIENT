@@ -1,13 +1,19 @@
 import styled from '@emotion/styled';
 import { excludeCommonPart } from '@pages/onboarding/utils/excludeCommonPart';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import SearchBox from '../SearchBox';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
 import { FullBtn } from '@components/commons/FullButton';
 import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
+import { useNavigate } from 'react-router-dom';
 
 const Step학교선택 = () => {
-  const { onNext } = useContext(StepContext);
+  const ROLE = 'JUNIOR'; // 임시
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/step4');
+    else navigate('/juniorOnboarding/step5');
+  };
+
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const [selectedUniv, setSelectedUniv] = useState('');
   const handleOpenSheet = () => setIsOpenSheet(true);
@@ -23,7 +29,7 @@ const Step학교선택 = () => {
           <Sheet학교선택 handleSelectUniv={handleSelectUniv} handleClose={handleCloseSheet} />
         </FullBottomSheet>
       )}
-      <FullBtn isActive={selectedUniv !== ''} onClick={onNext} />
+      <FullBtn isActive={selectedUniv !== ''} onClick={handleClickLink} />
     </Wrapper>
   );
 };

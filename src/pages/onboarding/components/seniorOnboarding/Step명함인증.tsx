@@ -2,12 +2,16 @@ import { ModalCheckIc } from '@assets/svgs';
 import { FullBtn } from '@components/commons/FullButton';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
 import styled from '@emotion/styled';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Step명함인증 = () => {
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    navigate('/seniorOnboarding/step8');
+  };
+
   const [imageFile, setImageFile] = useState('');
-  const { onNext } = useContext(StepContext);
   const [isOpen, setOpen] = useState(false);
   const handleSetOpen = (type: boolean) => {
     setOpen(type);
@@ -20,7 +24,7 @@ const Step명함인증 = () => {
     if (!e.target.files) return;
     const file = e.target.files[0];
     // file을 multipart/form-data 로 통신
-    onNext();
+    handleClickLink();
   };
 
   return (

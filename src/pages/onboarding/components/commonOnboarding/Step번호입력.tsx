@@ -2,19 +2,25 @@ import { FullBtn } from '@components/commons/FullButton';
 import { useState, useEffect, ChangeEvent, useContext } from 'react';
 import { formatTime } from '../../utils/formatTime';
 import { InnerButton, InputBox, TextBox } from '../TextBox';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
 import styled from '@emotion/styled';
 import { formatPhone } from '@pages/onboarding/utils/formatPhone';
 import WarnDescription from '@components/commons/WarnDescription';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
+import { useNavigate } from 'react-router-dom';
 
 const Step번호입력 = () => {
+  const ROLE = 'JUNIOR'; // 임시
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    if (ROLE === 'SENIOR') alert('온보딩 끝!');
+    else navigate('/juniorOnboarding/step4');
+  };
+
   const [isNumError, setIsNumError] = useState(false);
   const [isValidCodeError, setIsValidCodeError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [phoneNumber, setPhoneNumber] = useState('');
-  const { onNext } = useContext(StepContext);
   // 임시 변수
   const VERIFICATION_CODE = '0000';
   const USER_INPUT = '0000';
@@ -56,7 +62,7 @@ const Step번호입력 = () => {
   const handleClickButton = () => {
     setIsModalOpen(true);
     setTimeout(() => {
-      onNext();
+      handleClickLink();
     }, 2000);
   };
 

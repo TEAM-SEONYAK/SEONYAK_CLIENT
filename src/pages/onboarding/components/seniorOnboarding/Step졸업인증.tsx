@@ -4,11 +4,14 @@ import styled from '@emotion/styled';
 import { ChangeEvent, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
-import { useContext } from 'react';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
+import { useNavigate } from 'react-router-dom';
 
 const Step졸업인증 = () => {
-  const { onNext } = useContext(StepContext);
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    navigate('/seniorOnboarding/step7');
+  };
+
   const [isNextActive, setIsNextActive] = useState(true);
   const DEFAULT_TEXT = '파일 첨부하기';
   const [isError, setError] = useState(false);
@@ -40,9 +43,9 @@ const Step졸업인증 = () => {
             <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50MB)</Caption>
           )}
         </TextBox>
-        <FullBtn text="텍스트" isActive={fileName !== DEFAULT_TEXT} onClick={onNext} />
+        <FullBtn text="텍스트" isActive={fileName !== DEFAULT_TEXT} onClick={handleClickLink} />
       </Wrapper>
-      <FullBtn onClick={onNext} isActive={isNextActive} />
+      <FullBtn onClick={handleClickLink} isActive={isNextActive} />
       <ModalWrapper>
         <AutoCloseModal text="인증에 성공했어요" showModal={isSuccess} handleShowModal={handleSetSuccess}>
           <Dummy />
