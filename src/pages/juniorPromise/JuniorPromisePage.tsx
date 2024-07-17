@@ -6,8 +6,7 @@ import styled from '@emotion/styled';
 import { BottomSheet } from '@pages/juniorPromise/components/BottomSheetBg';
 import { useState } from 'react';
 import { SeniorListBackground } from './components/SeniorListBackground';
-import { useQuery } from '@tanstack/react-query';
-import { getSeniorProfile } from './apis/getSeniorProfile';
+import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 
 const JuniorPromisePage = () => {
   // 필터 버튼
@@ -97,28 +96,20 @@ const JuniorPromisePage = () => {
   const deletePositionList = (chipName: string) => {
     setChipPositionName((prev) => prev.filter((name) => name !== chipName));
   };
-  // 필터링을 위한 선택된 값들
-  const selectedFields = chipFieldName;
-  const selectedPositions = chipPositionName;
 
-  // 쿼리 키
-  const QUERY_KEY = {
-    SENIOR_PROFILE: 'seniorProfile',
-  };
-
-  const { data, isLoading, isError } = useQuery({
-    queryKey: [QUERY_KEY.SENIOR_PROFILE, selectedFields, selectedPositions],
-    queryFn: () => getSeniorProfile(selectedFields, selectedPositions),
-  });
+  // 쿼리 사용하여 데이터 가져오기
+  const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
   if (isError) {
     return <div>Error occurred</div>;
   }
 
   const seniorList = data?.data.seniorList || [];
+
   return (
     <Wrapper>
       <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} bgColor="transparent" />

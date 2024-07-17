@@ -12,7 +12,7 @@ interface seniorProfile {
   level: number;
 }
 
-interface GetSeniorProfileResponse {
+export interface GetSeniorProfileResponse {
   code: string;
   data: {
     seniorList: seniorProfile[];
