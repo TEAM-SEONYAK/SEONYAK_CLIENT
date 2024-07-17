@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SENIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
 import { formatDate } from './utils/formatDate';
+import { usePatchSeniorReject } from './hooks/queries';
 
 const PromiseDetail = () => {
   const location = useLocation();
@@ -19,6 +20,10 @@ const PromiseDetail = () => {
   const tap = location.state.tap;
   const myNickname = location.state.myNickname;
   const userRole = 'SENIOR';
+
+  const handleModalOpen = (type: boolean) => {
+    setIsModalOpen(type);
+  };
 
   // 기본뷰 / 거절뷰
   const [viewType, setViewType] = useState('DEFAULT');
@@ -33,13 +38,19 @@ const PromiseDetail = () => {
   // 작성한 거절사유 저장
   const [rejectDetail, setRejectDetail] = useState('');
 
+  // 선배 약속 거절
+  const { mutate: patchSeniorReject } = usePatchSeniorReject(() => handleModalOpen(true));
+  const handleRejectBtn = () => {
+    patchSeniorReject({
+      appointmentId: 73,
+      rejectReason: rejectReason,
+      rejectDetail: rejectDetail,
+    });
+  };
+
   // 선택값 저장 함수
   const handleClickTimeBox = (idx: number) => {
     setSelectTime(idx);
-  };
-
-  const handleModalOpen = (type: boolean) => {
-    setIsModalOpen(type);
   };
 
   const handleBottomSheetOpen = () => {
@@ -187,7 +198,7 @@ const PromiseDetail = () => {
             <FullBtn
               text="거절하기"
               isActive={rejectReason !== DEFAULT_REJECT_TEXT}
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => handleRejectBtn()}
             />
             <BtnBackground />
           </>
