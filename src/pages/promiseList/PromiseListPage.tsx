@@ -13,7 +13,8 @@ const PromiseListPage = () => {
   const userRole = 'SENIOR';
   const promiseData = userRole === 'SENIOR' ? SENIOR_DATA : JUNIOR_DATA;
 
-  useGetPromiseList();
+  const { data } = useGetPromiseList();
+  console.log(data);
 
   return (
     <>
