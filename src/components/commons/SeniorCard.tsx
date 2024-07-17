@@ -149,7 +149,6 @@ const SeniorJob = styled.div`
   color: ${({ theme }) => theme.colors.grayScaleDG};
 `;
 
-
 const Divider = styled.div`
   width: 0.1rem;
   height: 1.4rem;
@@ -157,13 +156,3 @@ const Divider = styled.div`
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
-
-// const DetailPosition = styled.p`
-//   color: ${({ theme }) => theme.colors.grayScaleDG};
-//   ${({ theme }) => theme.fonts.Body1_M_14};
-// `;
-
-// const Level = styled.p`
-//   ${({ theme }) => theme.fonts.Body1_M_14};
-//   color: ${({ theme }) => theme.colors.grayScaleDG};
-// `;

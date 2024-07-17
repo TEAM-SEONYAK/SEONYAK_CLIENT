@@ -23,10 +23,8 @@ export const getSeniorProfile = async (fields: string[], positions: string[]): P
   const fieldQuery = fields.map((field) => `field=${field}`).join('&');
   const positionQuery = positions.map((position) => `position=${position}`).join('&');
   const queryString = fieldQuery && positionQuery ? `${fieldQuery}&${positionQuery}` : `${fieldQuery}${positionQuery}`;
-  console.log(queryString);
   try {
     const response = await authAxios.get<GetSeniorProfileResponse>(`/v1/senior/search?${queryString}`);
-    console.log(response.data);
 
     return response.data;
   } catch (error) {
