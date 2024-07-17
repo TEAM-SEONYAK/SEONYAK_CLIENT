@@ -6,11 +6,12 @@ import { Header } from '@components/commons/Header';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import Textarea from '@components/commons/Textarea';
 import styled from '@emotion/styled';
-import useCountdown from '@hooks/useCountDown';
+// import useCountdown from '@hooks/useCountDown';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SENIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
 import { formatDate } from './utils/formatDate';
+import { usePostGoogleMeetLink } from '@pages/promiseList/hooks/queries';
 
 const PromiseDetail = () => {
   const location = useLocation();
@@ -32,10 +33,29 @@ const PromiseDetail = () => {
   const [rejectReason, setRejectReason] = useState(DEFAULT_REJECT_TEXT);
   // 작성한 거절사유 저장
   const [rejectDetail, setRejectDetail] = useState('');
+  // 서버 전달용 날짜, 시작시간, 끝시간 저장 state
+  const [serverTimeList, setServerTimeList] = useState({ date: '', startTime: '', endTime: '' });
+  // 받아온 구글밋 링크 저장
+  const [googleMeet, setGoogleMeet] = useState('');
+
+  // 구글밋 링크 받아오기
+  const { mutate: postGoogleMeetLink, data: googleMeetLink } = usePostGoogleMeetLink(setGoogleMeet);
+  // 구글밋 링크 받아온 후 약속 수락 요청
+
+  // 수락하기 버튼 누를 때
+  const handleAppointmentApprove = () => {
+    postGoogleMeetLink();
+  };
 
   // 선택값 저장 함수
-  const handleClickTimeBox = (idx: number) => {
+  const handleClickTimeBox = (idx: number, date: string, startTime: string, endTime: string) => {
     setSelectTime(idx);
+    setServerTimeList((prev) => ({
+      ...prev,
+      date: date,
+      startTime: startTime,
+      endTime: endTime,
+    }));
   };
 
   const handleModalOpen = (type: boolean) => {
@@ -63,7 +83,7 @@ const PromiseDetail = () => {
   };
 
   // 실 데이터로연결 필요
-  const { diffText, diff } = useCountdown(SENIOR_RESPONSE.timeList[0]?.date, SENIOR_RESPONSE.timeList[0]?.startTime);
+  // const { diffText, diff } = useCountdown(SENIOR_RESPONSE.timeList[0]?.date, SENIOR_RESPONSE.timeList[0]?.startTime);
 
   return (
     <>
@@ -133,7 +153,7 @@ const PromiseDetail = () => {
                 {SENIOR_RESPONSE.timeList.map((el, idx) => (
                   <Time
                     key={el.date + idx + el.startTime}
-                    onClick={() => handleClickTimeBox(idx)}
+                    onClick={() => handleClickTimeBox(idx, el.date, el.startTime, el.endTime)}
                     $isActive={selectTime === idx}>
                     {formatDate(el.date)} {el.startTime} - {el.endTime}
                     <ButtonCheckIcon isactive={(selectTime === idx).toString()} />
@@ -161,7 +181,7 @@ const PromiseDetail = () => {
                   type="button"
                   disabled={selectTime === null}
                   $isActive={selectTime !== null}
-                  onClick={() => setIsModalOpen(true)}>
+                  onClick={handleAppointmentApprove}>
                   수락하기
                 </AcceptBtn>
               </BtnWrapper>
@@ -175,8 +195,8 @@ const PromiseDetail = () => {
                   onClick={() => {
                     console.log('hi');
                   }}
-                  text={diff <= 0 ? '지금 입장하기' : `약속 시간까지 ${diffText} 남았어요`}
-                  isActive={diff <= 0}
+                  // text={diff <= 0 ? '지금 입장하기' : `약속 시간까지 ${diffText} 남았어요`}
+                  // isActive={diff <= 0}
                 />
               </BtnWrapper>
               <BtnBackground />
@@ -202,7 +222,6 @@ const PromiseDetail = () => {
           <DeclineImg />
         </AutoCloseModal>
       )}
-
       <BottomSheet
         btnActive={rejectReason}
         isSheetOpen={isBottomSheetOpen}
