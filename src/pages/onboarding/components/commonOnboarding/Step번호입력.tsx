@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { usePhoneVerify, usePhoneVerifycode } from '@pages/onboarding/hooks/usePhoneQuery';
 import { BtnCloseModal, BtnModalTitle } from '@components/commons/modal/BtnModal';
 import { WarningImg } from '@assets/svgs';
+import axios from 'axios';
 
 const Step번호입력 = () => {
   const ROLE = 'SENIOR'; // 임시
@@ -26,6 +27,18 @@ const Step번호입력 = () => {
     isNumError: false,
     isValidCodeError: false,
   });
+  const setValidCodeError = (value: boolean) => {
+    setIsError((prev) => ({
+      ...prev,
+      isValidCodeError: value,
+    }));
+  };
+  const setNumError = (value: boolean) => {
+    setIsError((prev) => ({
+      ...prev,
+      isNumError: value,
+    }));
+  };
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const [verifyCode, setVerifyCode] = useState('');
@@ -56,65 +69,19 @@ const Step번호입력 = () => {
     return () => clearInterval(id);
   }, [isActive, timeLeft]);
 
-  useEffect(() => {
-    if (verifyCode.length < 4) {
-      setIsError((prev) => ({
-        ...prev,
-        isValidCodeError: false,
-      }));
-      return;
-    }
-    verifycodeMutation.mutate(
-      { phoneNumber: phoneNumber, verificationCode: verifyCode },
-      {
-        onSuccess: () => {
-          setIsNextActive(true);
-          setIsError((prev) => ({
-            ...prev,
-            isValidCodeError: false,
-          }));
-        },
-        onError: (error) => {
-          if (error.response.data.code === '40902') {
-            setIsAlreadyPhone(true);
-            setIsNextActive(true);
-            setIsError((prev) => ({
-              ...prev,
-              isValidCodeError: false,
-            }));
-          } else {
-            setIsError((prev) => ({
-              ...prev,
-              isValidCodeError: true,
-            }));
-          }
-        },
-      },
-    );
-  }, [verifyCode]);
-
   const handleClickSend = () => {
     if (isActive) {
-      setIsError((prev) => ({
-        ...prev,
-        isValidCodeError: false,
-      }));
+      setValidCodeError(false);
       setVerifyCode('');
     }
     verifyMutation.mutate(phoneNumber, {
       onSuccess: () => {
-        setIsError((prev) => ({
-          ...prev,
-          isNumError: false,
-        }));
+        setNumError(false);
         setIsActive(true);
         setTimeLeft(TIME);
       },
       onError: () => {
-        setIsError((prev) => ({
-          ...prev,
-          isNumError: true,
-        }));
+        setNumError(true);
       },
     });
   };
@@ -123,8 +90,38 @@ const Step번호입력 = () => {
     const formattedNum = formatPhone(e.target.value);
     setPhoneNumber(formattedNum);
   };
+
   const handleChangeVerifycode = (e: ChangeEvent<HTMLInputElement>) => {
-    setVerifyCode(e.target.value);
+    const verifyValue = e.target.value;
+    setVerifyCode(verifyValue);
+
+    if (verifyValue.length < 4) {
+      setValidCodeError(false);
+      setIsNextActive(false);
+      setIsError((prev) => ({
+        ...prev,
+        isValidCodeError: false,
+      }));
+      return;
+    }
+    verifycodeMutation.mutate(
+      { phoneNumber: phoneNumber, verificationCode: verifyValue },
+      {
+        onSuccess: () => {
+          setIsNextActive(true);
+          setValidCodeError(false);
+        },
+        onError: (error) => {
+          if (axios.isAxiosError(error) && error.response && error.response.data.code === '40902') {
+            setIsAlreadyPhone(true);
+            setIsNextActive(true);
+            setValidCodeError(false);
+          } else {
+            setValidCodeError(true);
+          }
+        },
+      },
+    );
   };
 
   const handleShowDoneModal = (type: boolean) => {
