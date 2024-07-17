@@ -32,7 +32,7 @@ const OnboardingPage = () => {
   const Step = () => {
     switch (step) {
       case 1:
-        return <Step이메일입력 />;
+        return <Step약관동의 />;
       case 2:
         return <Step개인정보입력 />;
       case 3:
