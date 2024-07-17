@@ -38,14 +38,18 @@ const PromiseDetail = () => {
   // 받아온 구글밋 링크 저장
   const [googleMeet, setGoogleMeet] = useState('');
 
+  const handleModalOpen = (type: boolean) => {
+    setIsModalOpen(type);
+  };
+
   // 선배 약속 수락
-  const { mutate: patchSeniorAccept } = usePatchSeniorAccept();
+  const { mutate: patchSeniorAccept } = usePatchSeniorAccept(() => handleModalOpen(true));
 
   // 구글밋 링크 받아오기(post) 후 약속 수락 patch
   const { mutate: postGoogleMeetLink } = usePostGoogleMeetLink((link) => {
     setGoogleMeet(link);
     patchSeniorAccept({
-      appointmentId: 1,
+      appointmentId: 68,
       googleMeetLink: link,
       timeList: [
         {
@@ -56,12 +60,10 @@ const PromiseDetail = () => {
       ],
     });
   });
-  // console.log(googleMeet);
 
   // 수락하기 버튼 누를 때
   const handleAppointmentApprove = () => {
     postGoogleMeetLink();
-    // patchSeniorAccept();
   };
 
   // 선택값 저장 함수
@@ -73,10 +75,6 @@ const PromiseDetail = () => {
       startTime: startTime,
       endTime: endTime,
     }));
-  };
-
-  const handleModalOpen = (type: boolean) => {
-    setIsModalOpen(type);
   };
 
   const handleBottomSheetOpen = () => {
@@ -231,11 +229,11 @@ const PromiseDetail = () => {
         )}
       </Wrapper>
       {viewType === 'DECLINE' ? (
-        <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+        <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/">
           <DeclineImg />
         </AutoCloseModal>
       ) : (
-        <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+        <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/">
           <DeclineImg />
         </AutoCloseModal>
       )}
