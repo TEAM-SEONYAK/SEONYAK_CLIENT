@@ -6,10 +6,8 @@ const titleDescription = SELECT_JUNIOR_TITLE[0];
 const TimeSelectionTitleWrapper = () => {
   return (
     <Wrapper>
-      <Layout>
-        <TimeSelectionTitle>{titleDescription.title}</TimeSelectionTitle>
-        <TimeSelectionDescription>{titleDescription.description}</TimeSelectionDescription>
-      </Layout>
+      <TimeSelectionTitle>{titleDescription.title}</TimeSelectionTitle>
+      <TimeSelectionDescription>{titleDescription.description}</TimeSelectionDescription>
     </Wrapper>
   );
 };
@@ -23,15 +21,12 @@ const TimeSelectionDescription = styled.span`
   ${({ theme }) => theme.fonts.Body1_M_14};
   color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
-const Wrapper = styled.div`
-  display: flex;
 
-  width: 100%;
-`;
-const Layout = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 
   height: 4.9rem;
+  margin-top: 17.2rem;
 `;

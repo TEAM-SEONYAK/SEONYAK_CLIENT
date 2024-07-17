@@ -27,7 +27,7 @@ export default JuniorPromiseComplete;
 
 const Title = styled.div`
   ${({ theme }) => theme.fonts.Head1_B_20};
-  position: relative;
+  position: fixed;
   top: 9.642rem;
 
   text-align: center;
@@ -35,9 +35,8 @@ const Title = styled.div`
 
 const HomeBtn = styled.div`
   position: fixed;
-
-  bottom: 2.4rem;
-  z-index: 2;
+  bottom: 1.2rem;
+  z-index: 9;
 
   color: ${({ theme }) => theme.colors.grayScaleMG1};
   text-decoration: underline;
@@ -49,12 +48,22 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Head1_B_20};
 `;
 
 const Img = styled.div`
   position: fixed;
   bottom: 12.7rem;
+
   width: 33.1rem;
   height: 32.1rem;
 

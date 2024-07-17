@@ -1,4 +1,3 @@
-import { ImgSbdetail1Ic } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -15,7 +14,6 @@ const Banner: React.FC<SeniorProps> = ({ senior = '도리 선배' }) => {
         <br />
         약속 신청을 시작할까요?
       </Text>
-      <ImgSbdetail1Ic />
     </BannerWrapper>
   );
 };
@@ -26,9 +24,15 @@ const BannerWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+  left: 0;
 
   width: 100%;
+  height: 12rem;
   padding: 1rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const Text = styled.div`

@@ -88,7 +88,7 @@ const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
 `;
 
 const GrayLine = styled.div`
-  z-index: 10;
+  z-index: 7;
 
   width: 100%;
   height: 1rem;
