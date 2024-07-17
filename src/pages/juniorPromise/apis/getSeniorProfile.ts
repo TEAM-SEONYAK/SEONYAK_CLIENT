@@ -5,6 +5,7 @@ interface SeniorProfile {
   seniorId: number;
   nickname: string;
   company: string;
+  image: string;
   position: string;
   detailPosition: string;
   field: string;

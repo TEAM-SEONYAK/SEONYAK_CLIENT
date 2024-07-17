@@ -150,6 +150,7 @@ const JuniorPromisePage = () => {
               key={list.seniorId}
               nickname={list.nickname}
               company={list.company}
+              image={list.image}
               field={list.field}
               position={list.position}
               detailPosition={list.detailPosition}

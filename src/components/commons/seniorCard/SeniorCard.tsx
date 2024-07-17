@@ -21,11 +21,11 @@ export const SeniorCard = (props: seniorListPropType) => {
   const randomColor = Math.floor(Math.random() * 3);
   return (
     <SeniorCardWrapper $isSmall={variant === 'secondary'}>
-      <SeniorImg $isSmall={variant === 'secondary'} />
       <SeniorCardLayout>
         <Nickname>{nickname}</Nickname>
         <SeniorInfo>
           <Company $randomColor={randomColor}>{company}</Company>
+          <SeniorImg $isSmall={variant === 'secondary'}>{image}</SeniorImg>
           <Field>{field}</Field>
         </SeniorInfo>
         <SeniorJob>
@@ -59,8 +59,6 @@ const SeniorImg = styled.img<{ $isSmall: boolean }>`
   width: ${({ $isSmall }) => ($isSmall ? '8.8rem' : '11.4rem')};
   height: ${({ $isSmall }) => ($isSmall ? '8.8rem' : '11.4rem')};
   border-radius: 112.82px;
-
-  background: ${({ theme }) => theme.colors.Blue};
 `;
 
 const SeniorCardLayout = styled.div`
