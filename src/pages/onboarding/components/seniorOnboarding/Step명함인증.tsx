@@ -38,7 +38,7 @@ const Step명함인증 = () => {
         <GrayBox>
           <GrayText>
             <ModalCheckIc />
-            <span>흔들림 없이 찍어주세요</span>
+            <span>흔들림 없이 찍어 주세요</span>
           </GrayText>
           <GrayText>
             <ModalCheckIc />
@@ -51,9 +51,9 @@ const Step명함인증 = () => {
           <GrayText>
             <ModalCheckIc />
             <span>
-              만약 명함 내용을 인식하지 못할 경우
+              잘못 인식된 내용이 있다면 적절한
               <br />
-              재촬영을 요구할 수 있어요 !
+              환경에서 다시 찍어 주세요
             </span>
           </GrayText>
         </GrayBox>

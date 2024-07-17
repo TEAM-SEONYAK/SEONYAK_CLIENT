@@ -70,14 +70,14 @@ const Step개인정보입력 = () => {
       <TextBox label="닉네임">
         <InputBox
           label="닉네임"
-          placeholder="닉네임을 입력해주세요"
+          placeholder="닉네임을 입력해 주세요"
           isError={isNicknameError}
           value={nickname}
           onChange={handleChangeInput}>
           <InnerButton text="중복확인" onClick={handleCheckNickname} />
         </InputBox>
         {isNicknameError ? (
-          <WarnDescription isShown={isNicknameError} warnText="닉네임 조건을 확인해주세요 !" />
+          <WarnDescription isShown={isNicknameError} warnText="닉네임이 조건을 충족하지 않아요." />
         ) : (
           <Caption isValid={isNicknameValid}>
             {isNicknameValid ? '사용 가능한 닉네임이에요' : '8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가'}

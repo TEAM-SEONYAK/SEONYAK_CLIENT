@@ -13,7 +13,7 @@ const Step졸업인증 = () => {
   };
 
   const [isNextActive, setIsNextActive] = useState(true);
-  const DEFAULT_TEXT = '파일 첨부하기';
+  const DEFAULT_TEXT = '졸업증명서를 첨부해 주세요';
   const [isError, setError] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [fileName, setFileName] = useState(DEFAULT_TEXT);
@@ -43,9 +43,8 @@ const Step졸업인증 = () => {
             <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50MB)</Caption>
           )}
         </TextBox>
-        <FullBtn text="텍스트" isActive={fileName !== DEFAULT_TEXT} onClick={handleClickLink} />
       </Wrapper>
-      <FullBtn onClick={handleClickLink} isActive={isNextActive} />
+      <FullBtn text="인증하기" onClick={handleClickLink} isActive={isNextActive} />
       <ModalWrapper>
         <AutoCloseModal text="인증에 성공했어요" showModal={isSuccess} handleShowModal={handleSetSuccess}>
           <Dummy />
