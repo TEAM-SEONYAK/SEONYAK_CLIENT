@@ -4,12 +4,13 @@ interface PromiseTimerBtnPropType {
   isActive: boolean;
   diff: string;
   page: string;
+  onClick?: () => void;
 }
 
 const PromiseTimerBtn = (props: PromiseTimerBtnPropType) => {
-  const { isActive, diff, page } = props;
+  const { isActive, diff, page, onClick } = props;
   return (
-    <Wrapper $page={page} disabled={!isActive}>
+    <Wrapper $page={page} disabled={!isActive} onClick={onClick}>
       {isActive ? '지금 입장하기' : page === 'recent' ? `약속 시간까지 ${diff}` : `약속 시간까지 ${diff} 남았어요`}
     </Wrapper>
   );
