@@ -32,7 +32,7 @@ const Step명함인증 = () => {
 
   const VerificationDone = () =>
     info && (
-      <>
+      <DoneWrapper>
         <TextBox label="회사명">
           <InputBox label="회사명" placeholder="회사명을 입력해주세요" value={info.company} disabled />
         </TextBox>
@@ -40,7 +40,10 @@ const Step명함인증 = () => {
           <InputBox label="전화번호" placeholder="연락처를 입력해주세요" value={info.phoneNumber} disabled />
           <Caption>{`회사명과 전화번호를 확인해 주세요`}</Caption>
         </TextBox>
-        <BottomCaption>테스트</BottomCaption>
+        <BottomCaption>
+          현재 입력된 정보가 잘못되어 있어도 괜찮아요 !<br />
+          이후 인증 절차(전화번호)와 마이페이지(회사명)에서 수정이 가능해요
+        </BottomCaption>
         <ButtonWrapper>
           <BlackButton>
             <input type="file" accept="image/*" capture="environment" onChange={handleChangeFile} />
@@ -50,7 +53,7 @@ const Step명함인증 = () => {
             다음으로
           </BlueButton>
         </ButtonWrapper>
-      </>
+      </DoneWrapper>
     );
 
   return !!info ? (
@@ -155,6 +158,13 @@ const BtnModalBtn = styled.label`
 `;
 
 // VerificationDone
+const DoneWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  margin-top: 2rem;
+`;
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 1rem;
