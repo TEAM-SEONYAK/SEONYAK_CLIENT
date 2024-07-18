@@ -1,19 +1,20 @@
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { ButtonCheckIc } from '../../../assets/svgs';
 import { WORRY_SELECTION_BUTTON } from '../constants/constants';
 
 interface SelectJuniorWorryButtonProps {
-  // eslint-disable-next-line no-unused-vars
   handleCheckWorrySelected: (isSelected: boolean) => void;
   selectedButtons: string[];
   setSelectedButtons: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const SelectJuniorWorryButton: React.FC<SelectJuniorWorryButtonProps> = ({ handleCheckWorrySelected }) => {
-  const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
-
+const SelectJuniorWorryButton: React.FC<SelectJuniorWorryButtonProps> = ({
+  handleCheckWorrySelected,
+  selectedButtons,
+  setSelectedButtons,
+}) => {
   const handleButtonClick = (title: string) => {
     setSelectedButtons((prevSelectedButtons: string[]) =>
       prevSelectedButtons.includes(title)

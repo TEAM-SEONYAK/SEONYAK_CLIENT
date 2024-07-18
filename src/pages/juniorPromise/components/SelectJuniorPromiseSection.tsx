@@ -26,10 +26,8 @@ const SelectJuniorPromiseSection = () => {
   const navigate = useNavigate();
   // 약속 신청하기 눌렸는지 확인
   const [isSubmitClicked, setIsSubmitCicked] = useState(false);
-
   // 적용할래요 눌렀는지 확인
   const [isModalClicked, setIsModalClicked] = useState(false);
-
   // 캘린더 여닫기
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   // 각 버튼마다 선택된 시간 저장
@@ -38,10 +36,8 @@ const SelectJuniorPromiseSection = () => {
     { id: 1, selectedTime: '두 번째 일정 선택하기', clickedDay: '' },
     { id: 2, selectedTime: '세 번째 일정 선택하기', clickedDay: '' },
   ]);
-
   // 몇 번째 버튼이 눌렸니~
   const [btnId, setBtnId] = useState(0);
-
   // 선택한 고민 리스트
   const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
 
@@ -77,28 +73,30 @@ const SelectJuniorPromiseSection = () => {
 
   const handlePostAppointment = () => {
     console.log('post 요청 보냄');
-    postAppointment({
-      seniorId: 33,
-      topic: selectedButtons,
-      personalTopic: inputVal,
-      TimeList: [
-        {
-          date: '2024-08-09',
-          startTime: '11:00',
-          endTime: '14:30',
-        },
-        {
-          date: '2024-08-10',
-          startTime: '12:00',
-          endTime: '18:30',
-        },
-        {
-          date: '202-08-11',
-          startTime: '09:00',
-          endTime: '21:30',
-        },
-      ],
-    });
+    if (isAllSelected) {
+      postAppointment({
+        seniorId: 33,
+        topic: selectedButtons,
+        personalTopic: inputVal,
+        TimeList: [
+          {
+            date: selectedTime[0].clickedDay,
+            startTime: selectedTime[0].selectedTime.split('-')[0],
+            endTime: selectedTime[0].selectedTime.split('-')[1],
+          },
+          {
+            date: selectedTime[1].clickedDay,
+            startTime: selectedTime[1].selectedTime.split('-')[0],
+            endTime: selectedTime[1].selectedTime.split('-')[1],
+          },
+          {
+            date: selectedTime[2].clickedDay,
+            startTime: selectedTime[2].selectedTime.split('-')[0],
+            endTime: selectedTime[2].selectedTime.split('-')[1],
+          },
+        ],
+      });
+    }
   };
 
   // 버튼 클릭시 실행 함수
