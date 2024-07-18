@@ -275,7 +275,7 @@ const DefaultProfileIcon = styled(DefaultProfileIc)`
 
 ### 📪 우리들의 고민 아카이빙
 | 💥 선배들의 트러블 슈팅 | 
-| <ul><li></li></ul> | <ul><li>[ESLint의 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/ESLint-9943b8e2aebe4f3e99c6e29fb6a06e5d?pvs=4)</li> |
+| <ul><li>[ESLint의 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/ESLint-9943b8e2aebe4f3e99c6e29fb6a06e5d?pvs=4)</li> |
 | <li>[stylelint 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/stylelint-1dc73926f66d4a76afdf3d84096d58a5?pvs=4)</li> |
 | <li>[emotion과 styled component의 차이](https://cumbersome-cactus-843.notion.site/emotion-styled-component-9a456aa44c294499ab11ae9027c3686f?pvs=4)</li> |
 | <li>[styled(svg) 왜 안되냐?](https://www.notion.so/styled-svg-c250961f0cd84260895bdef04ffbed61?pvs=21)</li> |
