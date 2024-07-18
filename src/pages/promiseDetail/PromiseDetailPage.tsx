@@ -45,8 +45,8 @@ const PromiseDetail = () => {
   // 선배 약속 수락
   const { mutate: patchSeniorAccept } = usePatchSeniorAccept(() => handleModalOpen(true));
 
-  // 구글밋 링크 받아오기(post) 후 약속 수락 patch
-  const { mutate: postGoogleMeetLink } = usePostGoogleMeetLink((link) => {
+  // 구글밋 링크 patch 콜백 함수
+  const handleSuccessCallback = (link: string) => {
     setGoogleMeet(link);
     patchSeniorAccept({
       appointmentId: 69,
@@ -59,6 +59,11 @@ const PromiseDetail = () => {
         },
       ],
     });
+  };
+
+  // 구글밋 링크 받아오기(post) 후 약속 수락 patch
+  const { mutate: postGoogleMeetLink } = usePostGoogleMeetLink((link) => {
+    handleSuccessCallback(link);
   });
 
   // 수락하기 버튼 누를 때
