@@ -151,7 +151,7 @@ const Step이메일입력 = () => {
           </>
         )}
       </TextBox>
-      <FullBtn text="인증 확인" isActive={code.length == 4} onClick={handleClickButton} />
+      <FullBtn text="인증 확인" isActive={code.length == 4 && !isValidCodeError} onClick={handleClickButton} />
       <AutoCloseModal text="인증에 성공했어요" showModal={isModalOpen} handleShowModal={handleShowModal}>
         <DummyImage />
       </AutoCloseModal>

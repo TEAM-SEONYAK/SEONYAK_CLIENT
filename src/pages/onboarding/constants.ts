@@ -135,3 +135,4 @@ export const 연차_LIST = [
 ];
 
 export const 이미_가입된_계정_이메일_에러코드 = '40018';
+export const 이미_사용중인_전화번호_에러코드 = '40902';
