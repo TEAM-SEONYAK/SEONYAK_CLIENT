@@ -4,19 +4,21 @@ import React from 'react';
 import { CloseIc } from '../../../assets/svgs';
 
 interface BtnCloseModalPropType {
-  title: string;
+  title?: string;
   isModalOpen: boolean;
   handleModalOpen: (type: boolean) => void;
   children?: React.ReactNode;
   btnText?: string;
+  handleBtnClick?: () => void;
   onClicked?: () => void;
 }
 
 export const BtnCloseModal = (props: BtnCloseModalPropType) => {
-  const { title, isModalOpen, handleModalOpen, children, btnText, onClicked } = props;
+  const { title, isModalOpen, handleModalOpen, children, btnText, onClicked, handleBtnClick } = props;
 
   const handleModalClose = () => {
     handleModalOpen(false);
+
     if (onClicked) {
       onClicked();
     }
@@ -28,9 +30,9 @@ export const BtnCloseModal = (props: BtnCloseModalPropType) => {
         <ModalBackground $isModalOpen={isModalOpen} onClick={handleModalClose} />
         <BtnModalWrapper $isModalOpen={isModalOpen}>
           <CloseIcon onClick={handleModalClose} />
-          <BtnModalTitle>{title}</BtnModalTitle>
+          {title && <BtnModalTitle>{title}</BtnModalTitle>}
           {children}
-          {btnText && <BtnModalBtn onClick={handleModalClose}>{btnText}</BtnModalBtn>}
+          {btnText && <BtnModalBtn onClick={handleBtnClick}>{btnText}</BtnModalBtn>}
         </BtnModalWrapper>
       </Wrapper>
     )
@@ -86,7 +88,7 @@ const CloseIcon = styled(CloseIc)`
   right: 1.1rem;
 `;
 
-const BtnModalTitle = styled.h2`
+export const BtnModalTitle = styled.h2`
   ${({ theme }) => theme.fonts.Head2_SB_18};
   color: ${({ theme }) => theme.colors.grayScaleBG};
 `;

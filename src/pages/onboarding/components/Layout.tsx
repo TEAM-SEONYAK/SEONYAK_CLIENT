@@ -1,38 +1,30 @@
 import styled from '@emotion/styled';
-import { ReactNode } from 'react';
 import TitleBox from './TitleBox';
 import { ArrowLeftIc } from '../../../assets/svgs';
 import { Header } from '../../../components/commons/Header';
 import ProgressBar from '../../../components/commons/ProgressBar';
-import { ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } from '../constants';
+import { JUNIOR_ONBOARDING_STEPS, ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } from '../constants';
 import convertToGroupStep from '../utils/convertToGroupStep';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-const Layout = ({
-  userRole,
-  step,
-  handleSetStep,
-  children,
-}: {
-  userRole: 'SENIOR' | 'JUNIOR';
-  step: number;
-  handleSetStep: (dir: 'NEXT' | 'PREV') => void;
-  children: ReactNode;
-}) => {
-  const { title, description } = SENIOR_ONBOARDING_STEPS[step - 1];
+const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const step = +location.pathname.slice(18);
+  const onboardingStep = userRole === 'SENIOR' ? SENIOR_ONBOARDING_STEPS : JUNIOR_ONBOARDING_STEPS;
+  const { title, description } = onboardingStep[step - 1];
   const GROUP_STEP = convertToGroupStep(userRole, step);
 
   return (
     <Wrapper>
-      <Header
-        title={ONBOARDING_HEADER[GROUP_STEP - 1]}
-        LeftSvg={ArrowLeftIc}
-        onClickLeft={() => handleSetStep('PREV')}
-      />
+      <Header title={ONBOARDING_HEADER[GROUP_STEP - 1]} LeftSvg={ArrowLeftIc} onClickLeft={() => navigate(-1)} />
       <ProgressBar max={userRole === 'SENIOR' ? 4 : 3} current={GROUP_STEP} />
       <MetaContainer>
         <TitleBox title={title} description={description} />
       </MetaContainer>
-      <Content>{children}</Content>
+      <Content>
+        <Outlet />
+      </Content>
       <ButtonBg />
     </Wrapper>
   );
