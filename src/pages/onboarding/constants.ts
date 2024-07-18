@@ -28,10 +28,6 @@ export const SENIOR_ONBOARDING_STEPS = [
     description: '명함을 통해 회사명과 전화번호를 자동으로 가져올게요',
   },
   {
-    title: '재직 사실을 인증해 주세요',
-    description: '명함을 통해 회사명과 전화번호를 자동으로 가져올게요',
-  },
-  {
     title: '직무를 알려주세요',
     description: '선배님의 직무와 세부 직무를 입력해 주세요',
   },
