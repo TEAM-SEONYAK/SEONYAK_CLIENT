@@ -160,9 +160,9 @@ const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__navigation button:disabled {
-    background: none;
+    background: none !important;
 
-    color: ${({ theme }) => theme.colors.grayScaleDG};
+    color: ${({ theme }) => theme.colors.grayScaleDG} !important;
   }
 
   .react-calendar__tile--active:enabled:hover,
@@ -188,6 +188,10 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__month-view__days__day--weekend {
     ${({ theme }) => theme.fonts.Title2_M_16};
     color: ${({ theme }) => theme.colors.grayScaleBG};
+
+    &:disabled {
+      color: ${({ theme }) => theme.colors.grayScaleLG2};
+    }
   }
 
   .react-calendar__month-view__weekdays abbr {
@@ -198,5 +202,14 @@ const StyledCalendar = styled(Calendar)`
     color: ${({ theme }) => theme.colors.grayScaleLG2} !important;
 
     cursor: not-allowed;
+  }
+
+  .react-calendar__month-view__days__day {
+    ${({ theme }) => theme.fonts.Title2_M_16};
+    color: ${({ theme }) => theme.colors.grayScaleBG};
+
+    &:disabled {
+      color: ${({ theme }) => theme.colors.grayScaleLG2};
+    }
   }
 `;

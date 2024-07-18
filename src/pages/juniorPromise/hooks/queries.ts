@@ -6,10 +6,10 @@ export const QUERY_KEY_PRIMISE_DETAIL = {
 };
 
 export const useSeniorTimeQuery = (seniorId: number) => {
-  const { data, isSuccess, isLoading } = useQuery({
+  const { data, isSuccess, isLoading, isError } = useQuery({
     queryKey: [QUERY_KEY_PRIMISE_DETAIL.getSeniorTimeAxios, seniorId],
     queryFn: () => getSeniorTimeAxios(seniorId),
   });
 
-  return { data, isSuccess, isLoading };
+  return { data, isSuccess, isLoading, isError };
 };
