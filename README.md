@@ -1,11 +1,12 @@
-<h1> 선약 </h1>
+![데스크탑 화면](https://github.com/user-attachments/assets/5a1f59b8-ed54-4488-801d-29dded71ff36)
 
-<h3> ☺️ 서비스 이름 및 소개 </h3>
+<h1> 🤙🏻 선약 </h1>
 
-### 선약
+
+${\textsf{\color{blue}진로 고민, 선약과 함께 해답을 찾다}}$
 
 ```
-"사회의 걸음마를 뗄 후배들이 선배의 손을 잡고 뛸 수 있도록"
+막막한 진로 고민을 해결해 줄 선배와의 특별한 약속
 같은 계열 '선'배와의 진로 상담 '약'속, 선약
 
 ㄴ 같은 경험을 가진 선배와의 진로 상담을 통해 더 맞춤화된 조언을 받을 수 있도록
@@ -14,7 +15,34 @@
 
 <br/>
 
-<h2>👩🏻‍💻🧑🏻‍💻 선약 Web Developers </h2>
+<h2> 서비스 플로우 </h2>
+
+![전체적인 플로우](https://github.com/user-attachments/assets/e3de8468-3935-4c41-b398-86d13d67e83d)
+
+
+
+<h2> 핵심기능 </h2>
+<p>
+	
+1. ONBOARDING
+![1번 수정](https://github.com/user-attachments/assets/3141046b-5c2e-4c55-a6c0-20632a5ad59d)
+
+2. MENTOR PROFILE
+![2번](https://github.com/user-attachments/assets/3e71fb76-f127-4a48-b462-f9e18fc2a45e)
+
+3. SEARCH MENTOR
+![3번](https://github.com/user-attachments/assets/f65ff2d7-d723-43b1-9a26-cfdb0ac590eb)
+
+4. MAKE MY SEONYAK
+![4번](https://github.com/user-attachments/assets/a8b1efcd-1e47-401e-b917-b58aab9c127b)
+
+5. MY SEONYAK
+![5번](https://github.com/user-attachments/assets/7d745b1f-0b3e-45d6-bc69-643882c5521c)
+
+
+<br />
+
+<h2> 선약 Web Developers </h2>
 <br/>
 
 <div align="center">
@@ -75,7 +103,7 @@
 
 - `"@emotion/react": "^11.11.4"` <br />
 - `"@tanstack/react-query": "^5.48.0"` <br />
-- `"@mobiscroll/cli": :^5.31.0` <br />
+- `"react-calendar": "^5.0.0` <br />
 
 
 <br/>
@@ -128,7 +156,9 @@
 |-- .stylelintrc
 ```
 
-<h2> 🪡 컨벤션 </h2>
+<br />
+
+<h2> 🌐 컨벤션 </h2>
 
 ### [📏 컨벤션 노션 링크](https://cumbersome-cactus-843.notion.site/eaa9e593f097401a8d70137887d304e9?pvs=4)
 <details>
@@ -247,9 +277,25 @@ const DefaultProfileIcon = styled(DefaultProfileIc)`
 <hr>
 
 ### 📪 우리들의 고민 아카이빙
+| 💥 선배들의 트러블 슈팅 | 
+| <ul><li>[ESLint의 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/ESLint-9943b8e2aebe4f3e99c6e29fb6a06e5d?pvs=4)</li> |
+| <li>[stylelint 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/stylelint-1dc73926f66d4a76afdf3d84096d58a5?pvs=4)</li> |
+| <li>[emotion과 styled component의 차이](https://cumbersome-cactus-843.notion.site/emotion-styled-component-9a456aa44c294499ab11ae9027c3686f?pvs=4)</li> |
+| <li>[styled(svg) 왜 안되냐?](https://www.notion.so/styled-svg-c250961f0cd84260895bdef04ffbed61?pvs=21)</li> |
+| <li>[줄바꿈 어떻게 하게용 ?](https://www.notion.so/b56ac9faf3ec4f1c801769ce2319a06f?pvs=21)</li> |
+| <li>[내가 만든 유틸함수 불러와서 사용하기](https://www.notion.so/ac2a283b0c684d02b11893e0b34b2ccb?pvs=21)</li> |
+| <li>[styled component props 동적 스타일링 변경](https://www.notion.so/styled-component-props-7575805bb41344e489e4f29f0450644a?pvs=21)</li> |
+| <li>[Dispatch와 SetStateAction<인자타입>](https://www.notion.so/Dispatch-SetStateAction-392520a888b444fb8988568ac388b3d8?pvs=21)</li> |
+| <li>[React-Calendar 스타일 규칙과 stylelint 규칙이 충돌하는 경우](https://www.notion.so/React-Calendar-stylelint-bb0684039a764b45b5058e4791a0709d?pvs=21)</li> |
+| <li>[**map함수 사용시 클릭에따른 스타일 변화**](https://www.notion.so/map-6887ba3bdffc42678837c65982680b6e?pvs=21)</li> |
+| <li>[클릭에 따른 스타일 변화 한번 더 클릭해서 스타일 원상복구](https://www.notion.so/8a005fd4764c4ac1bdf7eb8a7d75a644?pvs=21)</li> |
+| <li>[가로 스크롤 구현, 세로 스크롤은 감추기](https://www.notion.so/fb879c6cf09948cca128b2e6f10038f0?pvs=21)</li> |
+| <li>[필터링 버튼과 칩 삭제 연결하기](https://www.notion.so/1688aabb6616489da366367ab6904f16?pvs=21)</li> |
+| <li>[사라지지 않는 바텀시트 내 선택값에 대하여..](https://www.notion.so/ae8656b197a64133a714e2e84af25e22?pvs=21)</li> |
+| <li>[조건부 렌더링 시 렌더링 안되는 경우 여백 없애기](https://www.notion.so/493cc5e6791d424ba0b369b6c17325fe?pvs=21)</li> |
+| <li>[스크롤바 안보이게하기, 스크롤 영역지정](https://www.notion.so/3158feb2c7b84f15ab578a1996200ff7?pvs=21)</li>
+| <li>[선택적으로 props 받기](https://www.notion.so/props-9ee1a39940f44edfb5c7137c398257e3?pvs=21)</li></ul> |
 
-| 🪄 선배들의 아티클 | 💥 선배들의 트러블 슈팅 |
-| ---------------------- | ---------------------- |
-| <ul><li></li></ul> | <ul><li>[ESLint의 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/ESLint-9943b8e2aebe4f3e99c6e29fb6a06e5d?pvs=4)</li><li>[stylelint 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/stylelint-1dc73926f66d4a76afdf3d84096d58a5?pvs=4)</li><li>[emotion과 styled component의 차이](https://cumbersome-cactus-843.notion.site/emotion-styled-component-9a456aa44c294499ab11ae9027c3686f?pvs=4)</li></ul> |
 
-
+| 🪄 선배들의 아티클 | 
+| ---------------------- |

@@ -1,13 +1,18 @@
 import { CheckItemIc } from '@assets/svgs';
 import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
 import { 계열_LIST } from '@pages/onboarding/constants';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Step계열선택 = () => {
+  const ROLE = 'SENIOR'; // 임시
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/5' : '/juniorOnboarding/7');
+  };
+
   const [selectedField, setSelectedField] = useState('');
-  const { onNext } = useContext(StepContext);
   return (
     <>
       <Wrapper>
@@ -18,7 +23,7 @@ const Step계열선택 = () => {
           </ItemWrapper>
         ))}
       </Wrapper>
-      <FullBtn isActive={selectedField !== ''} onClick={onNext} />
+      <FullBtn isActive={selectedField !== ''} onClick={handleClickLink} />
     </>
   );
 };

@@ -1,13 +1,17 @@
 import { ArrowRightIc, CheckItemIc } from '@assets/svgs';
 import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
 import { 약관_LIST } from '@pages/onboarding/constants';
-import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Step약관동의 = () => {
-  const { onNext } = useContext(StepContext);
+  const ROLE = 'SENIOR'; // 임시
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/2' : '/juniorOnboarding/2');
+  };
+
   const [agreement, setAgreement] = useState(Array(5).fill(false));
 
   const handleClickCheck = (id: number | 'all') => {
@@ -45,11 +49,7 @@ const Step약관동의 = () => {
           </ItemWrapper>
         </li>
       ))}
-      <FullBtn
-        text="동의하기"
-        isActive={agreement[0] && agreement[1] && agreement[2] && agreement[3]}
-        onClick={onNext}
-      />
+      <FullBtn isActive={agreement[0] && agreement[1] && agreement[2] && agreement[3]} onClick={handleClickLink} />
     </Wrapper>
   );
 };
