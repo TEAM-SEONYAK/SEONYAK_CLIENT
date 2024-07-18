@@ -1,12 +1,13 @@
+import { ProfileCompleteIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { SENIOR_PROFILE_STEPS } from '@pages/seniorProfile/constants';
 
 const Complete = () => {
   return (
     <Wrapper>
-      <Meta>{SENIOR_PROFILE_STEPS[8].meta}</Meta>
-      <Description>{SENIOR_PROFILE_STEPS[8].description}</Description>
-      <Box />
+      <Meta>{SENIOR_PROFILE_STEPS[7].meta}</Meta>
+      <Description>{SENIOR_PROFILE_STEPS[7].description}</Description>
+      <ProfileCompleteIc />
     </Wrapper>
   );
 };
@@ -32,6 +33,11 @@ const Meta = styled.p`
 `;
 
 const Description = styled.p`
+  margin-top: 0.9rem;
+  margin-bottom: 5.2rem;
+
+  color: ${({ theme }) => theme.colors.grayScaleMG2};
+
   ${({ theme }) => theme.fonts.Body1_M_14};
 `;
 

@@ -54,7 +54,7 @@ const SeniorProfilePage = () => {
 
   return (
     <div>
-      {step > 1 && step < 8 && (
+      {step > 1 && step < 7 && (
         <>
           <Header
             title={step == 2 ? '' : '프로필 등록'}
