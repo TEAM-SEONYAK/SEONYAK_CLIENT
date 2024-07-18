@@ -16,9 +16,6 @@ interface PromiseTapPropType {
 const PromiseTap = (props: PromiseTapPropType) => {
   const [tap, setTap] = useState('pending');
   const { userRole, pending, scheduled, past, myNickname } = props;
-  console.log(pending);
-  console.log(scheduled);
-  console.log(past);
 
   const getTapContent = (tap: string) => {
     switch (tap) {
