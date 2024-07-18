@@ -1,6 +1,6 @@
 <h1> 선약 </h1>
 
-<img src={![데스크탑 화면](https://github.com/user-attachments/assets/5c4db468-7c8a-481b-bad4-c3d1e7f4bb6a)} />
+{![데스크탑 화면](https://github.com/user-attachments/assets/5c4db468-7c8a-481b-bad4-c3d1e7f4bb6a)}
 
 <h3> ☺️ 서비스 이름 및 소개 </h3>
 
