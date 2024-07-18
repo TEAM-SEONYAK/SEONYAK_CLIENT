@@ -34,6 +34,8 @@ const ButtonWrapper = styled.div`
   border-radius: 5px;
 
   background-color: ${({ theme }) => theme.colors.Blue};
+
+  cursor: pointer;
 `;
 
 const Text = styled.p`

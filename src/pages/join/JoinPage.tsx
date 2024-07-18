@@ -1,8 +1,11 @@
 import { BigMainLogoIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import JoinButton from '@pages/join/Button';
+import useGoogleLoginHook from '@pages/login/hooks/useLoginQuery';
 
 const JoinPage = () => {
+  const { login } = useGoogleLoginHook();
+
   const subTitle = `막막한 진로고민 해결을 위한\n선배와의 특별한 약속`;
   return (
     <Wrapper>
@@ -11,7 +14,7 @@ const JoinPage = () => {
       <JoinButton />
       <SignupContainer>
         <QuestionText>이미 아이디가 있으신가요?</QuestionText>
-        <SignupContent>
+        <SignupContent onClick={() => login()}>
           <SignupText>로그인 하기</SignupText>
           <Underline />
         </SignupContent>
@@ -61,6 +64,8 @@ const QuestionText = styled.p`
 
 const SignupContent = styled.section`
   color: ${({ theme }) => theme.colors.Blue};
+
+  cursor: pointer;
 `;
 
 const SignupText = styled.p`
