@@ -4,7 +4,7 @@ import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from './App';
 // import HomePage from './pages/home/HomePage';
 import JuniorPromisePage from './pages/juniorPromise/JuniorPromisePage';
-import LoginPage from './pages/login/LoginPage';
+import SignupPage from './pages/login/SignupPage';
 import PromiseListPage from './pages/promiseList/PromiseListPage';
 import SeniorProfilePage from './pages/seniorProfile/SeniorProfilePage';
 import Step약관동의 from '@pages/onboarding/components/commonOnboarding/Step약관동의';
@@ -20,6 +20,7 @@ import Step번호입력 from '@pages/onboarding/components/commonOnboarding/Step
 import Step인증완료 from '@pages/onboarding/components/seniorOnboarding/Step인증완료';
 import Step이메일입력 from '@pages/onboarding/components/juniorOnboarding/Step이메일입력';
 import Layout from '@pages/onboarding/components/Layout';
+import JoinPage from '@pages/join/JoinPage';
 
 const router = createBrowserRouter([
   {
@@ -39,8 +40,12 @@ const router = createBrowserRouter([
         element: <PromiseDetailPageJunior />,
       },
       {
-        path: 'login',
-        element: <LoginPage />,
+        path: 'join',
+        element: <JoinPage />,
+      },
+      {
+        path: 'signup',
+        element: <SignupPage />,
       },
       {
         path: 'seniorOnboarding',
