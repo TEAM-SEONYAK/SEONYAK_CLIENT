@@ -40,11 +40,3 @@ const Description = styled.p`
 
   ${({ theme }) => theme.fonts.Body1_M_14};
 `;
-
-const Box = styled.div`
-  width: 33rem;
-  height: 38rem;
-  margin-top: 5.2rem;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleLG2};
-`;

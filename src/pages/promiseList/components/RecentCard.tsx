@@ -19,17 +19,14 @@ const RecentCard = (props: RecentCardPropType) => {
   const { userRole, recentAppointment, appointmentNum, nickname } = props;
   const { diffText, diff, dDayDiff } = useCountdown(recentAppointment?.date, recentAppointment?.startTime);
   const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
-  const [googleMeetLink, setGoogleMeetLink] = useState('');
+  const [, setGoogleMeetLink] = useState('');
 
   const handleClickEnterBtn = (link: string) => {
     setGoogleMeetLink(link);
     window.open(link, '_blank');
   };
 
-  console.log(googleMeetLink);
-
-  // appointmentId로 바꿔야 함 !!
-  useGetGoogleMeetLink(68, isEnterBtnClicked, handleClickEnterBtn);
+  useGetGoogleMeetLink(recentAppointment?.appointmentId, isEnterBtnClicked, handleClickEnterBtn);
 
   return (
     <Wrapper $userRole={userRole}>

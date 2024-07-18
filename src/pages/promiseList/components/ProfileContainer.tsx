@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ProfileChip from './ProfileChip';
 import { profileCardDataType } from '../types/type';
 import { extractMonthAndDay } from '../utils/extractMonthAndDay';
-import { ComingSoonModalImg, GhostImg } from '@assets/svgs';
+import { ComingSoonImg } from '@assets/images';
 
 interface ProfileContainerPropType {
   userRole: string;
@@ -48,25 +48,24 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
   const handleClickProfileContainer = (tap: string, userRole: string) => {
     if (userRole === 'SENIOR' && tap === 'pending') {
       navigate('/promiseDetail', {
-        state: { tap: 'pending', myNickname: myNickname },
+        state: { tap: 'pending', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
     if (userRole === 'JUNIOR' && tap === 'pending') {
       navigate('./promiseDetailJunior', {
-        state: { tap: 'pending', myNickname: myNickname },
+        state: { tap: 'pending', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
     // 진이 뷰 연결 필요
     if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
-      console.log('first');
       navigate('./promiseDetail', {
-        state: { tap: 'scheduled', myNickname: myNickname },
+        state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
     // 진이 뷰 연결 필요
     if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
       navigate('./promiseDetailJunior', {
-        state: { tap: 'scheduled', myNickname: myNickname },
+        state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
   };
@@ -149,7 +148,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         text="아직 준비중인 기능이에요"
         showModal={isReviewClicked}
         handleShowModal={ShowReviewClickedModal}>
-        <ComingSoonModalImg />
+        <img src={ComingSoonImg} alt="준비중인 기능 모달" />
       </AutoCloseModal>
     </ReviewWrapper>
   );
