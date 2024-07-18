@@ -25,7 +25,7 @@ ${\textsf{\color{blue}진로 고민, 선약과 함께 해답을 찾다}}$
 <p>
 	
 1. ONBOARDING
-![1번 수정](https://github.com/user-attachments/assets/3141046b-5c2e-4c55-a6c0-20632a5ad59d)
+![1번 수정](https://github.com/user-attachments/assets/8c1ee399-a67c-47c5-a7f4-ef6863276d30)
 
 2. MENTOR PROFILE
 ![2번](https://github.com/user-attachments/assets/3e71fb76-f127-4a48-b462-f9e18fc2a45e)
