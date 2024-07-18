@@ -16,6 +16,9 @@ interface PromiseTapPropType {
 const PromiseTap = (props: PromiseTapPropType) => {
   const [tap, setTap] = useState('pending');
   const { userRole, pending, scheduled, past, myNickname } = props;
+  console.log(pending);
+  console.log(scheduled);
+  console.log(past);
 
   const getTapContent = (tap: string) => {
     switch (tap) {
@@ -29,8 +32,6 @@ const PromiseTap = (props: PromiseTapPropType) => {
         return pending;
     }
   };
-
-  const content = getTapContent(tap);
 
   return (
     <Wrapper>
@@ -46,10 +47,10 @@ const PromiseTap = (props: PromiseTapPropType) => {
           </TapText>
         ))}
       </TapContainer>
-      {content.length ? (
+      {getTapContent(tap).length ? (
         <ProfileWrapper>
           {tap === 'past' &&
-            content.map((profileData) =>
+            getTapContent(tap).map((profileData) =>
               profileData.appointmentStatus === 'REJECTED' ? (
                 <ProfileContainer
                   myNickname={myNickname}
@@ -70,7 +71,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
             )}
 
           {tap !== 'past' &&
-            content.map((profileCardData, idx) => (
+            getTapContent(tap).map((profileCardData, idx) => (
               <ProfileContainer
                 myNickname={myNickname}
                 key={profileCardData.appointmentId + idx}

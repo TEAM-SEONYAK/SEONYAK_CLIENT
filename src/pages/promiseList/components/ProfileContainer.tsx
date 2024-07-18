@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ProfileChip from './ProfileChip';
 import { profileCardDataType } from '../types/type';
 import { extractMonthAndDay } from '../utils/extractMonthAndDay';
-import { ComingSoonModalImg, GhostImg } from '@assets/svgs';
+import { ComingSoonModalImg } from '@assets/svgs';
 
 interface ProfileContainerPropType {
   userRole: string;
@@ -148,7 +148,10 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         text="아직 준비중인 기능이에요"
         showModal={isReviewClicked}
         handleShowModal={ShowReviewClickedModal}>
-        <ComingSoonModalImg />
+        <GhostWrapper>
+          {/* <img src={ComingSoonImg} alt="준비중인 기능 모달" /> */}
+          <ComingSoonModalImg />
+        </GhostWrapper>
       </AutoCloseModal>
     </ReviewWrapper>
   );
@@ -291,4 +294,9 @@ const RejectedChip = styled.div`
 
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Caption2_SB_12};
+`;
+
+const GhostWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
