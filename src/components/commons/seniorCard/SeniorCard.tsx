@@ -7,7 +7,7 @@ interface seniorListPropType {
   field: string;
   position: string;
   detailPosition: string;
-  level: number;
+  level: string;
   variant?: 'default' | 'secondary';
 }
 
@@ -17,15 +17,15 @@ interface CompanyProps {
 
 export const SeniorCard = (props: seniorListPropType) => {
   const { nickname, company, field, position, detailPosition, level, variant = 'default' } = props;
-  const levelName = getLevelName(level + '');
+  const levelName = getLevelName(level);
   const randomColor = Math.floor(Math.random() * 3);
   return (
     <SeniorCardWrapper $isSmall={variant === 'secondary'}>
-      <SeniorImg $isSmall={variant === 'secondary'} />
       <SeniorCardLayout>
         <Nickname>{nickname}</Nickname>
         <SeniorInfo>
           <Company $randomColor={randomColor}>{company}</Company>
+          <SeniorImg $isSmall={variant === 'secondary'}>{image}</SeniorImg>
           <Field>{field}</Field>
         </SeniorInfo>
         <SeniorJob>
@@ -34,7 +34,7 @@ export const SeniorCard = (props: seniorListPropType) => {
           <DetailPosition>{detailPosition}</DetailPosition>
         </SeniorJob>
         <Level>
-          {levelName} ({level}년 차)
+          {levelName} ({level})
         </Level>
       </SeniorCardLayout>
     </SeniorCardWrapper>
@@ -59,8 +59,6 @@ const SeniorImg = styled.img<{ $isSmall: boolean }>`
   width: ${({ $isSmall }) => ($isSmall ? '8.8rem' : '11.4rem')};
   height: ${({ $isSmall }) => ($isSmall ? '8.8rem' : '11.4rem')};
   border-radius: 112.82px;
-
-  background: ${({ theme }) => theme.colors.Blue};
 `;
 
 const SeniorCardLayout = styled.div`

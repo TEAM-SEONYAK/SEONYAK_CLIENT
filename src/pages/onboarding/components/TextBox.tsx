@@ -79,6 +79,8 @@ const InputWrapper = styled.div`
   position: relative;
 `;
 const Input = styled.input<{ $isError: boolean }>`
+  overflow-y: scroll;
+
   width: 100%;
   height: 5.1rem;
   margin-top: 0.4rem;

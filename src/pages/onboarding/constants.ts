@@ -28,10 +28,6 @@ export const SENIOR_ONBOARDING_STEPS = [
     description: '명함을 통해 회사명과 전화번호를 자동으로 가져올게요',
   },
   {
-    title: '재직 사실을 인증해 주세요',
-    description: '명함을 통해 회사명과 전화번호를 자동으로 가져올게요',
-  },
-  {
     title: '직무를 알려주세요',
     description: '선배님의 직무와 세부 직무를 입력해 주세요',
   },
@@ -133,3 +129,6 @@ export const 연차_LIST = [
   '12년 차',
   '13년 차 이상',
 ];
+
+export const 이미_가입된_계정_이메일_에러코드 = '40018';
+export const 이미_사용중인_전화번호_에러코드 = '40902';

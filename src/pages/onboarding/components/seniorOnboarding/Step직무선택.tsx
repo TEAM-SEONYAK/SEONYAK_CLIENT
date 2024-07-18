@@ -27,7 +27,7 @@ const Step직무선택 = () => {
         <Wrapper>
           <SubTitle>직무</SubTitle>
           <SelectWrapper onClick={() => setIsOpenSheet(true)}>
-            <SelectBtn placeholder="직무를 선택해 주세요" value={selectedJob} />
+            <SelectBtn placeholder="직무를 선택해 주세요" value={selectedJob} readOnly />
             <DropdownIcon />
           </SelectWrapper>
         </Wrapper>
@@ -35,7 +35,8 @@ const Step직무선택 = () => {
           <InputBox
             label="세부 직무"
             placeholder="구체적인 직무를 작성해 주세요"
-            onChange={(e) => setDetailJob(e.target.value)}></InputBox>
+            onChange={(e) => setDetailJob(e.target.value)}
+          />
           <Caption>최대 25자까지 작성할 수 있어요</Caption>
         </TextBox>
         <FullBtn isActive={detailJob !== '' && selectedJob !== ''} onClick={handleClickLink} />
