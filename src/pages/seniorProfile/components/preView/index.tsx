@@ -45,12 +45,12 @@ const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeLis
     <>
       <Wrapper>
         <SeniorCard
-          nickname={cardData?.nickname + ''}
-          company={cardData?.company + ''}
-          field={cardData?.field + ''}
-          position={cardData?.position + ''}
-          detailPosition={cardData?.detailPosition + ''}
-          level={cardData?.level + ''}
+          nickname={cardData ? cardData.nickname + '' : ''}
+          company={cardData ? cardData.company + '' : ''}
+          field={cardData ? cardData.field + '' : ''}
+          position={cardData ? cardData.position + '' : ''}
+          detailPosition={cardData ? cardData.detailPosition + '' : ''}
+          level={cardData ? cardData.level + '' : ''}
         />
         <ProfileSummary description1="미제공" description2={1} description3="미제공" />
         <Meta>선배의 이력 · 수상</Meta>
