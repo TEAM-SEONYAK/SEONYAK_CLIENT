@@ -2,13 +2,20 @@ import styled from '@emotion/styled';
 import { SearchIc } from '../../../assets/svgs';
 
 interface searchBoxPropType {
+  autoFocus?: boolean;
   placeholder: string;
   handleInputClick?: () => void;
   searchValue?: string;
   handleSearchValue?: (selectedValue: string) => void;
 }
 
-const SearchBox = ({ placeholder, handleInputClick, searchValue, handleSearchValue }: searchBoxPropType) => {
+const SearchBox = ({
+  placeholder,
+  handleInputClick,
+  searchValue,
+  handleSearchValue,
+  autoFocus = false,
+}: searchBoxPropType) => {
   // eslint-disable-next-line no-undef
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleSearchValue && handleSearchValue(e.target.value);
@@ -21,6 +28,7 @@ const SearchBox = ({ placeholder, handleInputClick, searchValue, handleSearchVal
         value={searchValue}
         onClick={handleInputClick}
         onChange={handleInputChange}
+        autoFocus={autoFocus}
       />
       <SearchIcon />
     </InputWrapper>

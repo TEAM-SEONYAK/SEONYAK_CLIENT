@@ -12,6 +12,7 @@ import { BtnCloseModal, BtnModalTitle } from '@components/commons/modal/BtnModal
 import { WarningImg } from '@assets/svgs';
 import axios from 'axios';
 import { 이미_사용중인_전화번호_에러코드 } from '@pages/onboarding/constants';
+import { SuccessImg } from '@assets/images';
 
 const Step번호입력 = () => {
   const ROLE = 'SENIOR'; // 임시
@@ -179,7 +180,7 @@ const Step번호입력 = () => {
         onClick={handleClickButton}
       />
       <AutoCloseModal text="인증에 성공했어요" showModal={isDoneModalOpen} handleShowModal={handleShowDoneModal}>
-        <DummyImage />
+        <Img src={SuccessImg} alt="" />
       </AutoCloseModal>
       <BtnCloseModal
         isModalOpen={isAlreadyModalOpen}
@@ -209,11 +210,9 @@ const Timer = styled.div`
   color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
 
-const DummyImage = styled.div`
+const Img = styled.img`
   width: 27rem;
   height: 17rem;
-
-  background-color: red;
 `;
 
 export const AlreadyModalView = () => {
