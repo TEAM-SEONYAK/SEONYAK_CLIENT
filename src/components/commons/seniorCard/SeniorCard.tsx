@@ -34,7 +34,7 @@ export const SeniorCard = (props: seniorListPropType) => {
           <DetailPosition>{detailPosition}</DetailPosition>
         </SeniorJob>
         <Level>
-          {levelName} ({level}년 차)
+          {levelName} ({level})
         </Level>
       </SeniorCardLayout>
     </SeniorCardWrapper>
