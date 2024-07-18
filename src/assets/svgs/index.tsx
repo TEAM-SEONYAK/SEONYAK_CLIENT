@@ -43,3 +43,4 @@ export { default as WarningImg } from './img_warning.svg?react';
 export { default as BigMainLogoIc } from './ic_big_main_logo.svg?react';
 export { default as OnboardingBackgroundSBIc } from './img_onboarding_sb.svg?react';
 export { default as OnboardingBackgroundHBIc } from './img_onboarding_hb.svg?react';
+export { default as OnboardingGradIc } from './img_grad.svg?react';
