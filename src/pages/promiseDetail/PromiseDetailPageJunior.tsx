@@ -5,44 +5,32 @@ import { Header } from '@components/commons/Header';
 import styled from '@emotion/styled';
 import ProfileContainer from '@pages/promiseList/components/ProfileContainer';
 import PromiseTimerBtn from '@pages/promiseList/components/PromiseTimerBtn';
-import { calculateTimeLeft } from '@pages/promiseList/utils/calculateTimeLeft';
-import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useGetPromiseDetail } from './hooks/queries';
+import useCountdown from '@hooks/useCountDown';
 
 const PromiseDetailPageJunior = () => {
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
   const navigate = useNavigate();
   const location = useLocation();
   const tap = location.state.tap;
-  const profileCardData = {
-    appointmentId: 2,
-    appointmentStatus: 'SCHEDULED',
-    nickname: '홍석범',
-    image: 'https://example.com/senior2.jpg',
-    company: '다이닝코드',
-    field: '공학계열',
-    position: '개발',
-    detailPosition: 'BE Developer',
-    level: '5년차',
-    date: '2024.08.05',
-    startTime: '14:30',
-    endTime: '15:00',
-  };
+  const myNickname = location.state.myNickname;
+  const appointmentId = location.state.appointmentId;
 
-  // 커스텀훅으로 분리하기 ~
-  const [timeLeft, setTimeLeft] = useState(() =>
-    calculateTimeLeft(profileCardData?.date + '', profileCardData?.startTime + ''),
-  );
+  const { juniorInfo, seniorInfo, timeList1, topic, personalTopic, isSuccess, isLoading } =
+    useGetPromiseDetail(appointmentId);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft(profileCardData?.date + '', profileCardData?.startTime + ''));
-    }, 1000);
+  const countdown = useCountdown(timeList1?.date, timeList1?.startTime);
 
-    return () => clearInterval(timer);
-  }, [profileCardData?.date, profileCardData?.startTime]);
+  if (isLoading) {
+    return <div>Loading...</div>; // 로딩 중일 때 표시
+  }
 
-  const { diffText, diff } = timeLeft;
+  if (!isSuccess || !timeList1) {
+    return <div>데이터 없음</div>; // 데이터가 없을 때 표시
+  }
+
+  const { diffText, diff } = countdown;
 
   return (
     <>
@@ -51,30 +39,38 @@ const PromiseDetailPageJunior = () => {
         <Layout>
           {/* 여기 진이 뷰랑 연결 필요 */}
           <TitleContainer>
-            <Title>예솔 선배님의 프로필</Title>
+            <Title>{seniorInfo.nickname} 선배님의 프로필</Title>
             <PromiseDiv>
-              <ProfileContainer userRole="JUNIOR" tap="default" profileCardData={profileCardData} isarrow="false" />
+              <ProfileContainer
+                myNickname={myNickname}
+                userRole="JUNIOR"
+                tap="default"
+                profileCardData={seniorInfo}
+                isarrow="false"
+                detail="detail"
+              />
             </PromiseDiv>
           </TitleContainer>
 
           <TitleContainer>
             <Title>나의 정보</Title>
-            <Content>홍익대학교 조형대학 디자인컨버전스학부</Content>
+            <Content>
+              {juniorInfo.univName} {juniorInfo.field} {juniorInfo.department}
+            </Content>
           </TitleContainer>
 
           <TitleContainer>
-            <Title>예솔 선배님과 상담하고 싶은 내용</Title>
-            <WrittenContent>
-              저는 기술적 전문성과 혁신적인 아이디어로 고객의 니즈를 해결하는 개발자입니다. 오랜 기간 쌓아온 경험과
-              노하우를 바탕으로 고객님의 요구사항을 신속하고 정확하게 파악하여 최적의 솔루션을 제공해 드리겠습니다. 마치
-              제가 직접 운영하는 가게처럼 열정을 다해 고객 맞춤형 서비스를 설계하겠습니다.는 가게처럼 열정을 다해 고객
-              맞춤형 서비스를 설계하겠습니다.습니다.다
-            </WrittenContent>
+            <Title>{seniorInfo.nickname} 선배님과 상담하고 싶은 내용</Title>
+            {topic[0] !== '' ? (
+              topic.map((el: string, idx: number) => <Content key={idx + el}>{el}</Content>)
+            ) : (
+              <WrittenContent>{personalTopic}</WrittenContent>
+            )}
           </TitleContainer>
         </Layout>
         <BtnWrapper>
           {tap === 'pending' ? (
-            <FullBtn text="이미 신청한 선약은 취소할 수 없어요" />
+            <FullBtn text="이미 신청한 선약은 취소할 수 없어요" isActive={false} />
           ) : (
             <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="detail" />
           )}
@@ -146,6 +142,7 @@ const WrittenContent = styled.div`
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
   color: ${({ theme }) => theme.colors.grayScaleBG};
   ${({ theme }) => theme.fonts.Body1_M_14};
+  white-space: pre-line;
 `;
 
 const BtnWrapper = styled.div`

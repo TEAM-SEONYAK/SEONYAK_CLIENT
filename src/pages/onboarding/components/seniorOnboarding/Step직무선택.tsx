@@ -2,18 +2,23 @@ import { DropdownIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { Caption, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
-import { useContext, useState } from 'react';
-import { StepContext } from '@pages/onboarding/OnboardingPage';
+import { useState } from 'react';
 import { 세부직무_DESCRIPTION, 세부직무_LIST } from '@pages/onboarding/constants';
 import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
+import { useNavigate } from 'react-router-dom';
 
 const Step직무선택 = () => {
-  const { onNext } = useContext(StepContext);
-  const [selectedDetail, setSelectedDetail] = useState<string>('');
+  const navigate = useNavigate();
+  const handleClickLink = () => {
+    navigate('/seniorOnboarding/10');
+  };
+
+  const [detailJob, setDetailJob] = useState('');
+  const [selectedJob, setSelectedJob] = useState<string>('');
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const handleSheetClose = () => setIsOpenSheet(false);
-  const handleSelectDetails = (selectedValue: string) => {
-    setSelectedDetail(selectedValue);
+  const handleSelectJob = (selectedValue: string) => {
+    setSelectedJob(selectedValue);
   };
 
   return (
@@ -22,20 +27,24 @@ const Step직무선택 = () => {
         <Wrapper>
           <SubTitle>직무</SubTitle>
           <SelectWrapper onClick={() => setIsOpenSheet(true)}>
-            <SelectBtn placeholder="직무를 선택해주세요" value={selectedDetail} />
+            <SelectBtn placeholder="직무를 선택해 주세요" value={selectedJob} readOnly />
             <DropdownIcon />
           </SelectWrapper>
         </Wrapper>
         <TextBox label="세부 직무">
-          <InputBox label="세부 직무" placeholder="Product Designer & Prdouct Manager"></InputBox>
-          <Caption>재직 중인 회사에서의 구체적인 직무를 작성해 주세요</Caption>
+          <InputBox
+            label="세부 직무"
+            placeholder="구체적인 직무를 작성해 주세요"
+            onChange={(e) => setDetailJob(e.target.value)}
+          />
+          <Caption>최대 25자까지 작성할 수 있어요</Caption>
         </TextBox>
-        <FullBtn isActive onClick={onNext} />
+        <FullBtn isActive={detailJob !== '' && selectedJob !== ''} onClick={handleClickLink} />
       </Container>
       <FullBottomSheet isSheetOpen={isOpenSheet} handleClose={handleSheetClose}>
         <Sheet직무선택
-          selectedDetail={selectedDetail}
-          handleSelectDetails={handleSelectDetails}
+          selectedDetail={selectedJob}
+          handleSelectDetails={handleSelectJob}
           handleSheetClose={handleSheetClose}
         />
       </FullBottomSheet>

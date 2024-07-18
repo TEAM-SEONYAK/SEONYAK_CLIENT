@@ -9,16 +9,27 @@ import styled from '@emotion/styled';
 import useCountdown from '@hooks/useCountDown';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SENIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
+import { REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
 import { formatDate } from './utils/formatDate';
+import { useGetGoogleMeetLink } from '@pages/promiseList/hooks/queries';
+import {
+  usePostGoogleMeetLink,
+  usePatchSeniorAccept,
+  usePatchSeniorReject,
+  useGetPromiseDetail,
+} from './hooks/queries';
+import { extractMonthAndDay } from '@pages/promiseList/utils/extractMonthAndDay';
+import { ModalRejectImg, ModalAcceptImg } from '@assets/svgs';
 
 const PromiseDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const tap = location.state.tap;
-  const myNickname = location.state.myNickname;
+  const { tap, myNickname, appointmentId } = location.state;
   const userRole = 'SENIOR';
+
+  const { juniorInfo, seniorInfo, timeList1, timeList2, timeList3, topic, personalTopic, isSuccess, isLoading } =
+    useGetPromiseDetail(appointmentId);
 
   // 기본뷰 / 거절뷰
   const [viewType, setViewType] = useState('DEFAULT');
@@ -32,15 +43,75 @@ const PromiseDetail = () => {
   const [rejectReason, setRejectReason] = useState(DEFAULT_REJECT_TEXT);
   // 작성한 거절사유 저장
   const [rejectDetail, setRejectDetail] = useState('');
-
-  // 선택값 저장 함수
-  const handleClickTimeBox = (idx: number) => {
-    setSelectTime(idx);
-  };
+  // 서버 전달용 날짜, 시작시간, 끝시간 저장 state
+  const [serverTimeList, setServerTimeList] = useState({ date: '', startTime: '', endTime: '' });
+  // 받아온 구글밋 링크 저장
+  const [, setGoogleMeet] = useState('');
 
   const handleModalOpen = (type: boolean) => {
     setIsModalOpen(type);
   };
+
+  // 선배 약속 수락
+  const { mutate: patchSeniorAccept } = usePatchSeniorAccept(() => handleModalOpen(true));
+
+  // 구글밋 링크 patch 콜백 함수
+  const handleSuccessCallback = (link: string) => {
+    setGoogleMeet(link);
+    patchSeniorAccept({
+      appointmentId: appointmentId,
+      googleMeetLink: link,
+      timeList: [
+        {
+          date: serverTimeList.date,
+          startTime: serverTimeList.startTime,
+          endTime: serverTimeList.endTime,
+        },
+      ],
+    });
+  };
+
+  // 구글밋 링크 받아오기(post) 후 약속 수락 patch
+  const { mutate: postGoogleMeetLink } = usePostGoogleMeetLink((link) => {
+    handleSuccessCallback(link);
+  });
+
+  // 수락하기 버튼 누를 때
+  const handleAppointmentApprove = () => {
+    postGoogleMeetLink();
+  };
+
+  // 선택값 저장 함수
+  const handleClickTimeBox = (idx: number, date: string, startTime: string, endTime: string) => {
+    setSelectTime(idx);
+    setServerTimeList((prev) => ({
+      ...prev,
+      date: date,
+      startTime: startTime,
+      endTime: endTime,
+    }));
+  };
+
+  // 선배 약속 거절
+  const { mutate: patchSeniorReject } = usePatchSeniorReject(() => handleModalOpen(true));
+  const handleRejectBtn = () => {
+    patchSeniorReject({
+      appointmentId: 73,
+      rejectReason: rejectReason,
+      rejectDetail: rejectDetail,
+    });
+  };
+
+  // 구글밋 링크 받기
+  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
+  const [, setGoogleMeetLink] = useState('');
+
+  const handleClickEnterBtn = (link: string) => {
+    setGoogleMeetLink(link);
+    window.open(link, '_blank');
+  };
+
+  useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
 
   const handleBottomSheetOpen = () => {
     setIsBottomSheetOpen(true);
@@ -61,9 +132,21 @@ const PromiseDetail = () => {
   const handleRejectDetailReason = (detailReason: string) => {
     setRejectDetail(detailReason);
   };
+  // 훅을 조건문 밖에서 호출
+  const countdown = useCountdown(timeList1?.date, timeList1?.startTime);
+  const dateInfo = extractMonthAndDay(timeList1?.date + '');
 
-  // 실 데이터로연결 필요
-  const { diffText, diff } = useCountdown(SENIOR_RESPONSE.timeList[0]?.date, SENIOR_RESPONSE.timeList[0]?.startTime);
+  if (isLoading) {
+    return <div>Loading...</div>; // 로딩 중일 때 표시
+  }
+
+  if (!isSuccess || !timeList1) {
+    return <div>데이터 없음</div>; // 데이터가 없을 때 표시
+  }
+
+  // 조건부로 훅의 결과를 처리
+  const { diffText, diff } = countdown;
+  const { month, day } = dateInfo;
 
   return (
     <>
@@ -79,14 +162,13 @@ const PromiseDetail = () => {
             <Title>
               {viewType === 'DEFAULT'
                 ? userRole === 'SENIOR'
-                  ? `${SENIOR_RESPONSE.juniorInfo.nickname} 후배님의 정보`
-                  : `${SENIOR_RESPONSE.juniorInfo.nickname} 선배님의 정보`
+                  ? `${juniorInfo.nickname} 후배님의 정보`
+                  : `${seniorInfo.nickname} 선배님의 정보`
                 : DEFAULT_REJECT_TEXT}
             </Title>
             {viewType === 'DEFAULT' ? (
               <Content>
-                {SENIOR_RESPONSE.juniorInfo.univName} {SENIOR_RESPONSE.juniorInfo.field}
-                {SENIOR_RESPONSE.juniorInfo.department}
+                {juniorInfo.univName} {juniorInfo.field} {juniorInfo.department}
               </Content>
             ) : (
               <DeclineContent onClick={() => setIsBottomSheetOpen(true)}>
@@ -102,10 +184,10 @@ const PromiseDetail = () => {
             </Title>
             {viewType === 'DEFAULT' ? (
               <ContentContainer>
-                {SENIOR_RESPONSE.topic.length ? (
-                  SENIOR_RESPONSE.topic.map((el, idx) => <Content key={idx + el}>{el}</Content>)
+                {topic && topic.length ? (
+                  topic.map((el: string, idx: number) => <Content key={idx + el}>{el}</Content>)
                 ) : (
-                  <WrittenContent>{SENIOR_RESPONSE.personalTopic}</WrittenContent>
+                  <WrittenContent>{personalTopic}</WrittenContent>
                 )}
               </ContentContainer>
             ) : (
@@ -130,10 +212,10 @@ const PromiseDetail = () => {
               <Title>희망하는 약속 시간</Title>
               <Description>세 가지 시간 중 하나를 필수로 선택해주세요</Description>
               <ContentContainer>
-                {SENIOR_RESPONSE.timeList.map((el, idx) => (
+                {[timeList1, timeList2, timeList3].map((el, idx) => (
                   <Time
                     key={el.date + idx + el.startTime}
-                    onClick={() => handleClickTimeBox(idx)}
+                    onClick={() => handleClickTimeBox(idx, el.date, el.startTime, el.endTime)}
                     $isActive={selectTime === idx}>
                     {formatDate(el.date)} {el.startTime} - {el.endTime}
                     <ButtonCheckIcon isactive={(selectTime === idx).toString()} />
@@ -145,8 +227,9 @@ const PromiseDetail = () => {
           {viewType === 'DEFAULT' && tap === 'scheduled' && (
             <ContentContainer>
               <Title>약속 시간</Title>
-              {/* 여기 응답값으로 바꾸기 */}
-              <Content>2024년 7월 7일 20:30 - 21:00</Content>
+              <Content>
+                {month}월 {day}일 {timeList1.startTime} - {timeList1.endTime}
+              </Content>
             </ContentContainer>
           )}
         </Layout>
@@ -161,7 +244,7 @@ const PromiseDetail = () => {
                   type="button"
                   disabled={selectTime === null}
                   $isActive={selectTime !== null}
-                  onClick={() => setIsModalOpen(true)}>
+                  onClick={handleAppointmentApprove}>
                   수락하기
                 </AcceptBtn>
               </BtnWrapper>
@@ -173,7 +256,7 @@ const PromiseDetail = () => {
                 {/* 구글밋 입장 연결 필요 */}
                 <FullBtn
                   onClick={() => {
-                    console.log('hi');
+                    setIsEnterBtnClicked(true);
                   }}
                   text={diff <= 0 ? '지금 입장하기' : `약속 시간까지 ${diffText} 남았어요`}
                   isActive={diff <= 0}
@@ -187,7 +270,7 @@ const PromiseDetail = () => {
             <FullBtn
               text="거절하기"
               isActive={rejectReason !== DEFAULT_REJECT_TEXT}
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => handleRejectBtn()}
             />
             <BtnBackground />
           </>
@@ -195,14 +278,13 @@ const PromiseDetail = () => {
       </Wrapper>
       {viewType === 'DECLINE' ? (
         <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
-          <DeclineImg />
+          <ModalRejectImg />
         </AutoCloseModal>
       ) : (
         <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
-          <DeclineImg />
+          <ModalAcceptImg />
         </AutoCloseModal>
       )}
-
       <BottomSheet
         btnActive={rejectReason}
         isSheetOpen={isBottomSheetOpen}
@@ -233,19 +315,20 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3rem 1.765rem 0 2.035rem;
 
   width: 100vw;
   height: 100%;
   margin-top: 4.4rem;
+  padding: 3rem 1.765rem 0 2.035rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
-  border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
 const Layout = styled.div<{ $viewType: string }>`
   display: flex;
   flex-direction: column;
+
   width: 100%;
   margin-bottom: ${({ $viewType }) => ($viewType === 'DEFAULT' ? '11.6rem' : '0')};
 `;
@@ -254,6 +337,7 @@ const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
   margin-bottom: 3rem;
 `;
 
@@ -272,19 +356,25 @@ const Content = styled.div`
   width: 100%;
   padding: 1.1rem 0 1.1rem 1.5rem;
   border-radius: 8px;
+
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
   color: ${({ theme }) => theme.colors.grayScaleBG};
   ${({ theme }) => theme.fonts.Body1_M_14}
 `;
 
 const DeclineContent = styled.div`
   position: relative;
+
   width: 100%;
   padding: 1.1rem 0 1.1rem 1.5rem;
   height: 4.4rem;
   border-radius: 8px;
+
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
   color: ${({ theme }) => theme.colors.grayScaleMG2};
+
   ${({ theme }) => theme.fonts.Body1_M_14}
   cursor: pointer;
 `;
@@ -297,13 +387,18 @@ const ArrowDownMgIcon = styled(ArrowDownMgIc)`
 
 const Time = styled.div<{ $isActive: boolean }>`
   width: 100%;
+
   display: flex;
   justify-content: space-between;
+
   padding: 1.1rem 1.5rem;
   border-radius: 8px;
+
   background-color: ${({ theme, $isActive }) =>
     $isActive ? theme.colors.transparentBlue_5 : theme.colors.grayScaleLG1};
+
   color: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleBG)};
+
   ${({ theme }) => theme.fonts.Body1_M_14};
   cursor: pointer;
 
@@ -318,7 +413,9 @@ const ButtonCheckIcon = styled(ButtonCheckIc)<{ isactive: string }>`
 const WrittenContent = styled.div`
   padding: 1rem 1.5rem;
   border-radius: 8px;
+
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
   color: ${({ theme }) => theme.colors.grayScaleBG};
   ${({ theme }) => theme.fonts.Body1_M_14};
 `;
@@ -331,69 +428,77 @@ const TimeContainer = styled.div`
 const DeclineText = styled.p`
   width: 100%;
   height: 4.4rem;
+
   white-space: pre-wrap;
   color: ${({ theme }) => theme.colors.grayScaleDG};
   ${({ theme }) => theme.fonts.Body1_M_14}
 `;
 
 const Description = styled.span`
-  margin: 0.4rem 0 1rem 0;
+  margin: 0.4rem 0 1rem;
+
   color: ${({ theme }) => theme.colors.grayScaleMG2};
   ${({ theme }) => theme.fonts.Body1_M_14};
 `;
 
 const BtnWrapper = styled.div`
-  position: fixed;
-  z-index: 2;
-  bottom: 0;
-  width: 100%;
-  padding: 0 2.035rem 0 1.965rem;
   display: flex;
   gap: 1rem;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+
+  width: 100%;
   margin-bottom: 3.977rem;
+  padding: 0 2.035rem 0 1.965rem;
 `;
 
 const DeclineBtn = styled.button`
   z-index: 2;
+
   border-radius: 5px;
   width: 10.6rem;
   height: 5.6rem;
+
   background-color: ${({ theme }) => theme.colors.grayScaleBG};
+
   color: ${({ theme }) => theme.colors.grayScaleWhite};
+
   ${({ theme }) => theme.fonts.Head2_SB_18}
   cursor: pointer;
 `;
 
 const AcceptBtn = styled.button<{ $isActive: boolean }>`
   z-index: 2;
+
   border-radius: 5px;
   width: 21.9rem;
   height: 5.6rem;
+
   background-color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleMG2)};
+
   color: ${({ theme }) => theme.colors.grayScaleWhite};
+
   cursor: ${({ $isActive }) => ($isActive ? 'pointer' : 'default')};
   ${({ theme }) => theme.fonts.Head2_SB_18};
 `;
 
 const BtnBackground = styled.div`
-  width: 100%;
-  height: 6.1rem;
-  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
-  z-index: 1;
   position: fixed;
   bottom: 0;
-`;
+  z-index: 1;
 
-const DeclineImg = styled.div`
-  width: 27rem;
-  height: 17.1rem;
-  background-color: ${({ theme }) => theme.colors.grayScaleMG2};
+  width: 100%;
+  height: 6.1rem;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const BottomSheetLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
   margin-bottom: 2.5rem;
 `;
 
@@ -408,8 +513,10 @@ const DeclineReasonWrapper = styled.div`
 `;
 
 const DeclineReason = styled.div<{ $isActive: boolean }>`
-  padding: 1rem 0 1rem 0;
+  padding: 1rem 0;
+
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
+
   color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleDG)};
   ${({ theme }) => theme.fonts.Title2_M_16};
 `;

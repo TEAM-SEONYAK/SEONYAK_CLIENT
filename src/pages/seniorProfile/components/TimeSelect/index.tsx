@@ -37,8 +37,6 @@ const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) =
     setIsWarning(false);
     setIsToaster(false);
     setSelectToggle(selectedToggle);
-    console.log({ selectedToggle, selectToggle });
-    console.log(profile.isDayOfWeek);
   };
 
   const handleActiveBtnClick = () => {
