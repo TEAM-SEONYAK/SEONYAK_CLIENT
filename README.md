@@ -103,7 +103,7 @@ ${\textsf{\color{blue}진로 고민, 선약과 함께 해답을 찾다}}$
 
 - `"@emotion/react": "^11.11.4"` <br />
 - `"@tanstack/react-query": "^5.48.0"` <br />
-- `"react-calendar": "^5.0.0,` <br />
+- `"react-calendar": "^5.0.0` <br />
 
 
 <br/>
