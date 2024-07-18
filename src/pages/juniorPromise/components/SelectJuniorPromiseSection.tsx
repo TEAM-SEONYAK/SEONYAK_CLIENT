@@ -14,7 +14,7 @@ import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import { useNavigate } from 'react-router-dom';
 import Banner from './Banner';
-import { usePostAppointment } from '../hooks/useAppointmentQuery';
+import { usePostAppointment } from '../hooks/queries';
 
 const SelectJuniorPromiseSection = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
