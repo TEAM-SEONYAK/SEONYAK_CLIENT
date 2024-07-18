@@ -1,4 +1,4 @@
-import { TempLogoIc, AlarmIc } from '@assets/svgs';
+import { HeaderLogoIc, AlarmIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import styled from '@emotion/styled';
@@ -19,7 +19,7 @@ const PromiseListPage = () => {
 
   return (
     <>
-      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} bgColor="gray" />
+      <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="gray" />
       <Wrapper>
         <RecentLayout>
           <Title nickname={myNickname} userRole={userRole} count={scheduled.length} />

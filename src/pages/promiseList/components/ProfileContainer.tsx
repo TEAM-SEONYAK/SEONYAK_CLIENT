@@ -16,10 +16,11 @@ interface ProfileContainerPropType {
   isarrow: string;
   myNickname: string;
   googleMeetLink?: string;
+  detail?: string;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  const { userRole, profileCardData, tap, isarrow, myNickname } = props;
+  const { userRole, profileCardData, tap, isarrow, myNickname, detail } = props;
   const navigate = useNavigate();
 
   // 리뷰 모달 띄우기 용
@@ -55,12 +56,15 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         state: { tap: 'pending', myNickname: myNickname },
       });
     }
-    if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default')) {
+    // 진이 뷰 연결 필요
+    if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
+      console.log('first');
       navigate('./promiseDetail', {
         state: { tap: 'scheduled', myNickname: myNickname },
       });
     }
-    if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default')) {
+    // 진이 뷰 연결 필요
+    if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
       navigate('./promiseDetailJunior', {
         state: { tap: 'scheduled', myNickname: myNickname },
       });
