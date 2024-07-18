@@ -430,13 +430,6 @@ const BtnBackground = styled.div`
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
-const DeclineImg = styled.div`
-  width: 27rem;
-  height: 17.1rem;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleMG2};
-`;
-
 const BottomSheetLayout = styled.div`
   display: flex;
   flex-direction: column;
