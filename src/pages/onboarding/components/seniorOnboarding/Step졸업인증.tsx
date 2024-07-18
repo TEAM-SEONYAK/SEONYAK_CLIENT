@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import useOCRUnivQuery from '@pages/onboarding/hooks/useOCRUnivQuery';
 
 const Step졸업인증 = () => {
-  const DEFAULT_TEXT = '파일 첨부하기';
+  const DEFAULT_TEXT = '졸업증명서를 첨부해 주세요';
   const [isError, setError] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [file, setFile] = useState<File | null>(null);
@@ -60,7 +60,7 @@ const Step졸업인증 = () => {
           )}
         </TextBox>
       </Wrapper>
-      <FullBtn onClick={handleClickLink} isActive={!!file} />
+      <FullBtn text="인증하기" onClick={handleClickLink} isActive={!!file} />
       <ModalWrapper>
         <AutoCloseModal text="인증에 성공했어요" showModal={isSuccess} handleShowModal={handleSetSuccess}>
           <Dummy />
