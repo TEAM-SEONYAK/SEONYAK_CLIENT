@@ -25,9 +25,7 @@ const PromiseDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const tap = location.state.tap;
-  const myNickname = location.state.myNickname;
-  const appointmentId = location.state.appointmentId;
+  const { tap, myNickname, appointmentId } = location.state;
   const userRole = 'SENIOR';
 
   const { juniorInfo, seniorInfo, timeList1, timeList2, timeList3, topic, personalTopic, isSuccess, isLoading } =
