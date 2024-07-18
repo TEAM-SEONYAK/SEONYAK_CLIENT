@@ -10,11 +10,12 @@ import { useUnivVerify, useUnivVerifycode } from '@pages/onboarding/hooks/useUni
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
 import { AlreadyModalView } from '@pages/onboarding/components/commonOnboarding/Step번호입력';
 import axios from 'axios';
+import { 이미_가입된_계정_이메일_에러코드 } from '@pages/onboarding/constants';
 
 const Step이메일입력 = () => {
   const navigate = useNavigate();
-  const { univName } = useLocation().state;
-  // const univName = '숭실대학교';
+  // const { univName } = useLocation().state;
+  const univName = '숭실대학교';
 
   const handleClickLink = () => {
     navigate('/juniorOnboarding/6');
@@ -35,7 +36,6 @@ const Step이메일입력 = () => {
   const { minutes, seconds } = formatTime(timeLeft);
 
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [isNextActive, setIsNextActive] = useState(false);
   const [isAlreadyModalOpen, setIsAlreadyModalOpen] = useState(false);
 
   useEffect(() => {
@@ -54,6 +54,10 @@ const Step이메일입력 = () => {
   }, [isActive, timeLeft]);
 
   const handleClickSend = () => {
+    if (isActive) {
+      setIsValidCodeError(false);
+      setCode('');
+    }
     verifyMutation.mutate(
       {
         email,
@@ -66,7 +70,11 @@ const Step이메일입력 = () => {
           setTimeLeft(TIME);
         },
         onError: (error) => {
-          if (axios.isAxiosError(error) && error.response && error.response.data.code === '40018') {
+          if (
+            axios.isAxiosError(error) &&
+            error.response &&
+            error.response.data.code === 이미_가입된_계정_이메일_에러코드
+          ) {
             setIsAlreadyModalOpen(true);
           } else {
             setIsEmailError(true);
@@ -82,31 +90,28 @@ const Step이메일입력 = () => {
 
     if (codeInput.length < 4) {
       setIsValidCodeError(false);
-      setIsNextActive(false);
-      return;
     }
+  };
 
+  const handleShowModal = (type: boolean) => {
+    setIsModalOpen(type);
+  };
+
+  const handleClickButton = () => {
     verifycodeMutation.mutate(
-      { email, univName, code: codeInput },
+      { email, univName, code },
       {
         onSuccess: () => {
-          setIsNextActive(true);
+          setIsModalOpen(true);
+          setTimeout(() => {
+            handleClickLink();
+          }, 2000);
         },
         onError: () => {
           setIsValidCodeError(true);
         },
       },
     );
-  };
-  const handleShowModal = (type: boolean) => {
-    setIsModalOpen(type);
-  };
-
-  const handleClickButton = () => {
-    setIsModalOpen(true);
-    setTimeout(() => {
-      handleClickLink();
-    }, 2000);
   };
 
   const handleShowAlreadyModal = (type: boolean) => {
@@ -146,7 +151,7 @@ const Step이메일입력 = () => {
           </>
         )}
       </TextBox>
-      <FullBtn text="인증 확인" isActive={isNextActive} onClick={handleClickButton} />
+      <FullBtn text="인증 확인" isActive={code.length == 4} onClick={handleClickButton} />
       <AutoCloseModal text="인증에 성공했어요" showModal={isModalOpen} handleShowModal={handleShowModal}>
         <DummyImage />
       </AutoCloseModal>
