@@ -1,14 +1,14 @@
 import { HeaderLogoIc, AlarmIc, HbHomeMainIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
-import SeniorCard from '@components/commons/seniorCard/SeniorCard';
-import { SENIOR_LIST } from '@components/commons/seniorCard/seniorCardConstants';
+import { SeniorCard } from '@components/commons/SeniorCard';
 import styled from '@emotion/styled';
 import { BottomSheet } from '@pages/juniorPromise/components/BottomSheetBg';
 import { useState } from 'react';
 import { SeniorListBackground } from './components/SeniorListBackground';
+import seniorProfileQueries from '../../hooks/seniorProfileQueries';
+
 const JuniorPromisePage = () => {
-  const { seniorList } = SENIOR_LIST;
   // 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
   // 바텀 시트 여는 동작
@@ -97,11 +97,25 @@ const JuniorPromisePage = () => {
     setChipPositionName((prev) => prev.filter((name) => name !== chipName));
   };
 
+  // 쿼리 사용하여 데이터 가져오기
+  const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error occurred</div>;
+  }
+
+  const seniorList = data?.data.seniorList || [];
+
   return (
     <Wrapper>
       <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
       <HbHomeMainIcon />
       <Title>반가워요 도리님,고민을 해결해볼까요?</Title>
+
       <SeniorListBackground
         handleFilterActiveBtn={handleFilterActiveBtn}
         handleReset={handleReset}
@@ -115,20 +129,23 @@ const JuniorPromisePage = () => {
         $chipFieldName={chipFieldName}
         $chipPositionName={chipPositionName}>
         <SeniorListWrapper>
-          {seniorList.map((list) => (
+          {seniorList?.map((list) => (
             <SeniorCard
               key={list.seniorId}
               nickname={list.nickname}
               company={list.company}
+              image={list.image}
               field={list.field}
               position={list.position}
               detailPosition={list.detailPosition}
               level={list.level}
+              variant="secondary"
             />
           ))}
         </SeniorListWrapper>
         <Nav />
       </SeniorListBackground>
+
       <BottomSheet
         filterActiveBtn={filterActiveBtn}
         handleFilterActiveBtn={handleFilterActiveBtn}
