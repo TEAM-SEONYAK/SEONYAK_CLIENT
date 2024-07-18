@@ -49,11 +49,7 @@ const Step약관동의 = () => {
           </ItemWrapper>
         </li>
       ))}
-      <FullBtn
-        text="동의하기"
-        isActive={agreement[0] && agreement[1] && agreement[2] && agreement[3]}
-        onClick={handleClickLink}
-      />
+      <FullBtn isActive={agreement[0] && agreement[1] && agreement[2] && agreement[3]} onClick={handleClickLink} />
     </Wrapper>
   );
 };

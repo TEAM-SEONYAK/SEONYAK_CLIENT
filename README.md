@@ -1,13 +1,11 @@
-<h1> 선약 </h1>
+![데스크탑 화면](https://github.com/user-attachments/assets/5a1f59b8-ed54-4488-801d-29dded71ff36)
 
-![데스크탑 화면](https://github.com/user-attachments/assets/5c4db468-7c8a-481b-bad4-c3d1e7f4bb6a)
+<h1> 🤙🏻 선약 </h1>
 
-<h3> ☺️ 서비스 이름 및 소개 </h3>
-
-### 선약
+<p>$\bf{\large{\color{#6580DD} 진로 고민, 선약과 함께 해답을 찾다 }}$</p>
 
 ```
-"사회의 걸음마를 뗄 후배들이 선배의 손을 잡고 뛸 수 있도록"
+막막한 진로 고민을 해결해 줄 선배와의 특별한 약속
 같은 계열 '선'배와의 진로 상담 '약'속, 선약
 
 ㄴ 같은 경험을 가진 선배와의 진로 상담을 통해 더 맞춤화된 조언을 받을 수 있도록
@@ -15,6 +13,30 @@
 ```
 
 <br/>
+
+
+
+<h2> 🚀 핵심기능 </h2>
+<p>
+	
+1. 진로 고민을 해결하고, 또 해결해주기 위한 마음을 먹었나요?! <br />
+: 자신의 학력과 재직 상태를 인증하고 선약에 가입해보세요
+
+2. 후배에게 어떤 선배가 되어주고 싶나요? <br />
+: 후배에게 보여줄 선배의 상세 프로필을 구체적으로 작성해요
+
+3. 내가 원하는 선배를 쉽게 찾아요 <br />
+: 나와 같은 경험을 한 선배의 이야기를 듣기 위해  '필터링' 기능을 사용해봐요
+
+4. 나와 딱! 맞는 그 선배에게 선약을 신청해요! <br />
+: 선배에게 물어보고 싶은 내용과 원하는 약속 시간을 골라 선배에게 선약을 보내요
+
+5. 나의 약속을 확인하고 관리해요 <br />
+: 선약 시간이 얼마나 남았는지 확인한 뒤, 약속 시간이 되면 비대면 화상 채팅으로 접속해 약속을 진행할 수 있어요! <br />
+: 선배는 후배의 약속을 수락/거절 할 수 있어요!
+
+</p>
+<br />
 
 <h2>👩🏻‍💻🧑🏻‍💻 선약 Web Developers </h2>
 <br/>
@@ -252,6 +274,22 @@ const DefaultProfileIcon = styled(DefaultProfileIc)`
 
 | 🪄 선배들의 아티클 | 💥 선배들의 트러블 슈팅 |
 | ---------------------- | ---------------------- |
-| <ul><li></li></ul> | <ul><li>[ESLint의 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/ESLint-9943b8e2aebe4f3e99c6e29fb6a06e5d?pvs=4)</li><li>[stylelint 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/stylelint-1dc73926f66d4a76afdf3d84096d58a5?pvs=4)</li><li>[emotion과 styled component의 차이](https://cumbersome-cactus-843.notion.site/emotion-styled-component-9a456aa44c294499ab11ae9027c3686f?pvs=4)</li></ul> |
+| <ul><li></li></ul> | <ul><li>[ESLint의 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/ESLint-9943b8e2aebe4f3e99c6e29fb6a06e5d?pvs=4)</li>
+<li>[stylelint 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/stylelint-1dc73926f66d4a76afdf3d84096d58a5?pvs=4)</li>
+<li>[emotion과 styled component의 차이](https://cumbersome-cactus-843.notion.site/emotion-styled-component-9a456aa44c294499ab11ae9027c3686f?pvs=4)</li>
+<li>[styled(svg) 왜 안되냐?](https://www.notion.so/styled-svg-c250961f0cd84260895bdef04ffbed61?pvs=21)</li>
+<li>[줄바꿈 어떻게 하게용 ?](https://www.notion.so/b56ac9faf3ec4f1c801769ce2319a06f?pvs=21)</li>
+<li>[내가 만든 유틸함수 불러와서 사용하기](https://www.notion.so/ac2a283b0c684d02b11893e0b34b2ccb?pvs=21)</li>
+<li>[styled component props 동적 스타일링 변경](https://www.notion.so/styled-component-props-7575805bb41344e489e4f29f0450644a?pvs=21)</li>
+<li>[Dispatch와 SetStateAction<인자타입>](https://www.notion.so/Dispatch-SetStateAction-392520a888b444fb8988568ac388b3d8?pvs=21)</li>
+<li>[React-Calendar 스타일 규칙과 stylelint 규칙이 충돌하는 경우](https://www.notion.so/React-Calendar-stylelint-bb0684039a764b45b5058e4791a0709d?pvs=21)</li>
+<li>[**map함수 사용시 클릭에따른 스타일 변화**](https://www.notion.so/map-6887ba3bdffc42678837c65982680b6e?pvs=21)</li>
+<li>[클릭에 따른 스타일 변화 한번 더 클릭해서 스타일 원상복구](https://www.notion.so/8a005fd4764c4ac1bdf7eb8a7d75a644?pvs=21)</li>
+<li>[가로 스크롤 구현, 세로 스크롤은 감추기](https://www.notion.so/fb879c6cf09948cca128b2e6f10038f0?pvs=21)</li>
+<li>[필터링 버튼과 칩 삭제 연결하기](https://www.notion.so/1688aabb6616489da366367ab6904f16?pvs=21)</li>
+<li>[사라지지 않는 바텀시트 내 선택값에 대하여..](https://www.notion.so/ae8656b197a64133a714e2e84af25e22?pvs=21)</li>
+<li>[조건부 렌더링 시 렌더링 안되는 경우 여백 없애기](https://www.notion.so/493cc5e6791d424ba0b369b6c17325fe?pvs=21)</li>
+<li>[스크롤바 안보이게하기, 스크롤 영역지정](https://www.notion.so/3158feb2c7b84f15ab578a1996200ff7?pvs=21)</li>
+<li>[선택적으로 props 받기](https://www.notion.so/props-9ee1a39940f44edfb5c7137c398257e3?pvs=21)</li></ul> |
 
 
