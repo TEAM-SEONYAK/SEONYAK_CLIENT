@@ -48,3 +48,4 @@ export { default as ImgPromiseCompleteIc } from './img_promise_complete.svg?reac
 export { default as ModalAcceptImg } from './img_modal_accept.svg?react';
 export { default as ModalRejectImg } from './img_modal_reject.svg?react';
 export { default as ComingSoonModalImg } from './comingSoonModalImg.svg?react';
+export { default as GhostImg } from './img_ghost.svg?react';

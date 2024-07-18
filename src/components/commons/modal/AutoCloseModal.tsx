@@ -8,7 +8,6 @@ interface AutoCloseModalPropType {
   handleShowModal: (type: boolean) => void;
   children: React.ReactNode;
   path?: string;
-  position?: boolean;
 }
 
 export const AutoCloseModal = (props: AutoCloseModalPropType) => {
