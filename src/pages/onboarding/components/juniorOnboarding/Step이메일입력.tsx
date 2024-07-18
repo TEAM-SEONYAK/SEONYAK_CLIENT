@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import WarnDescription from '@components/commons/WarnDescription';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import { useNavigate } from 'react-router-dom';
+import { SuccessImg } from '@assets/images';
 
 const Step이메일입력 = () => {
   const navigate = useNavigate();
@@ -95,7 +96,7 @@ const Step이메일입력 = () => {
         onClick={handleClickButton}
       />
       <AutoCloseModal text="인증에 성공했어요" showModal={isModalOpen} handleShowModal={handleShowModal}>
-        <DummyImage />
+        <Img src={SuccessImg} alt="" />
       </AutoCloseModal>
     </Wrapper>
   );
@@ -116,9 +117,7 @@ const Timer = styled.div`
   color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
 
-const DummyImage = styled.div`
+const Img = styled.img`
   width: 27rem;
   height: 17rem;
-
-  background-color: red;
 `;

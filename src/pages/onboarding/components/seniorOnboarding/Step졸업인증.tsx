@@ -5,6 +5,7 @@ import { ChangeEvent, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import { useNavigate } from 'react-router-dom';
+import { SuccessImg } from '@assets/images';
 import useOCRUnivQuery from '@pages/onboarding/hooks/useOCRUnivQuery';
 
 const Step졸업인증 = () => {
@@ -63,7 +64,7 @@ const Step졸업인증 = () => {
       <FullBtn text="인증하기" onClick={handleClickLink} isActive={!!file} />
       <ModalWrapper>
         <AutoCloseModal text="인증에 성공했어요" showModal={isSuccess} handleShowModal={handleSetSuccess}>
-          <Dummy />
+          <Img src={SuccessImg} alt="" />
         </AutoCloseModal>
       </ModalWrapper>
     </>
@@ -76,11 +77,9 @@ const Wrapper = styled.div`
   padding-top: 2rem;
 `;
 
-const Dummy = styled.div`
+const Img = styled.img`
   width: 27rem;
   height: 17rem;
-
-  background-color: aliceblue;
 `;
 
 const ModalWrapper = styled.div`

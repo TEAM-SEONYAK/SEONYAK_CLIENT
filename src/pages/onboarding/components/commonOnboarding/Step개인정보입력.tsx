@@ -2,7 +2,7 @@ import { StartProfile1Img, StartProfile2Img } from '@assets/images';
 import { CameraIc } from '@assets/svgs';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
@@ -22,7 +22,8 @@ const Step개인정보입력 = () => {
 
   const [imageFile, setImageFile] = useState('');
   const startImgArr = [StartProfile1Img, StartProfile2Img];
-  const startImg = startImgArr[Math.floor(Math.random() * 2)];
+  const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
+
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
@@ -84,7 +85,7 @@ const Step개인정보입력 = () => {
           </Caption>
         )}
       </TextBox>
-      <FullBtn onClick={handleClickLink} />
+      <FullBtn onClick={handleClickLink} isActive={isNicknameValid} />
     </>
   );
 };
