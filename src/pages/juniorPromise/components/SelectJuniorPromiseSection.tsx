@@ -14,6 +14,7 @@ import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import { useNavigate } from 'react-router-dom';
 import Banner from './Banner';
+import { usePostAppointment } from '../hooks/queries';
 
 const SelectJuniorPromiseSection = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
@@ -25,10 +26,8 @@ const SelectJuniorPromiseSection = () => {
   const navigate = useNavigate();
   // 약속 신청하기 눌렸는지 확인
   const [isSubmitClicked, setIsSubmitCicked] = useState(false);
-
   // 적용할래요 눌렀는지 확인
   const [isModalClicked, setIsModalClicked] = useState(false);
-
   // 캘린더 여닫기
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   // 각 버튼마다 선택된 시간 저장
@@ -37,9 +36,10 @@ const SelectJuniorPromiseSection = () => {
     { id: 1, selectedTime: '두 번째 일정 선택하기', clickedDay: '' },
     { id: 2, selectedTime: '세 번째 일정 선택하기', clickedDay: '' },
   ]);
-
   // 몇 번째 버튼이 눌렸니~
   const [btnId, setBtnId] = useState(0);
+  // 선택한 고민 리스트
+  const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
 
   // onToggle 함수 정의
   const handleToggle = (button: string) => {
@@ -68,6 +68,42 @@ const SelectJuniorPromiseSection = () => {
     setIsAnyWorrySelected(isSelected);
   };
 
+  // 작성할래요 인풋 값 가져오기
+  const [inputVal, setInputVal] = useState<string>('');
+  const handleAppointmentSendSuccess = () => {
+    setIsModalClicked(true);
+  };
+  const { mutate: postAppointment } = usePostAppointment(() => handleAppointmentSendSuccess());
+
+  const handlePostAppointment = () => {
+    if (isAllSelected) {
+      postAppointment({
+        // 선배 ID 받아와야함
+        seniorId: 30,
+        topic: activeButton === '선택할래요' ? selectedButtons : [],
+        personalTopic: activeButton === '선택할래요' ? '' : inputVal,
+        timeList: [
+          {
+            date: selectedTime[0].clickedDay,
+            startTime: selectedTime[0].selectedTime.split('-')[0],
+            endTime: selectedTime[0].selectedTime.split('-')[1],
+          },
+          {
+            date: selectedTime[1].clickedDay,
+            startTime: selectedTime[1].selectedTime.split('-')[0],
+            endTime: selectedTime[1].selectedTime.split('-')[1],
+          },
+          {
+            date: selectedTime[2].clickedDay,
+            startTime: selectedTime[2].selectedTime.split('-')[0],
+            endTime: selectedTime[2].selectedTime.split('-')[1],
+          },
+        ],
+      });
+    }
+  };
+
+  // 버튼 클릭시 실행 함수
   const handleSubmit = (isAllSelected: boolean) => {
     setIsSubmitCicked(true);
     isAllSelected && handleModalOpen(true);
@@ -109,15 +145,24 @@ const SelectJuniorPromiseSection = () => {
             title={'약속 잡기 전 주의해주세요'}
             isModalOpen={isModalOpen}
             handleModalOpen={handleModalOpen}
+            handleBtnClick={handlePostAppointment}
             btnText={'적용할래요'}>
             <CheckModalContent />
           </BtnCloseModal>
         )}
         {isModalClicked && <JuniorPromiseComplete senior={'도리2'} />}
         {activeButton === '선택할래요' ? (
-          <SelectJuniorWorryButton handleCheckWorrySelected={handleCheckWorrySelected} />
+          <SelectJuniorWorryButton
+            selectedButtons={selectedButtons}
+            setSelectedButtons={setSelectedButtons}
+            handleCheckWorrySelected={handleCheckWorrySelected}
+          />
         ) : (
-          <SelectJuniorWorryTextBoxWrapper setIsTextareaFilled={setIsTextareaFilled} />
+          <SelectJuniorWorryTextBoxWrapper
+            inputVal={inputVal}
+            setInputVal={setInputVal}
+            setIsTextareaFilled={setIsTextareaFilled}
+          />
         )}
         <CalendarBottomSheet
           selectedTime={selectedTime}
