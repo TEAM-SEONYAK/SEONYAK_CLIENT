@@ -40,3 +40,4 @@ export { default as SbhbHomeProfile1Img } from './img_sbhbhome_profile1.svg?reac
 export { default as SbhbHomeProfile2Img } from './img_sbhbhome_profile2.svg?react';
 export { default as HbHomeMainIc } from './img_hbhome_main.svg?react';
 export { default as WarningImg } from './img_warning.svg?react';
+export { default as RefreshImgIc } from './img_refresh.svg?react';
