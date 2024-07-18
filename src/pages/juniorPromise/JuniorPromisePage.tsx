@@ -1,4 +1,4 @@
-import { TempLogoIc, AlarmIc, HbHomeMainIc } from '@assets/svgs';
+import { HeaderLogoIc, AlarmIc, HbHomeMainIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
@@ -99,7 +99,7 @@ const JuniorPromisePage = () => {
 
   return (
     <Wrapper>
-      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
+      <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
       <HbHomeMainIcon />
       <Title>반가워요 도리님,고민을 해결해볼까요?</Title>
       <SeniorListBackground
@@ -151,6 +151,7 @@ const JuniorPromisePage = () => {
 export default JuniorPromisePage;
 const Wrapper = styled.div`
   min-height: calc(var(--vh, 1vh) * 100 - 44px);
+
   background-color: ${({ theme }) => theme.colors.grayScaleWG};
 `;
 

@@ -1,6 +1,6 @@
 export const formatDate = (dateString: string) => {
   // 날짜 문자열을 '.' 기준으로 분할
-  const dateParts = dateString.split('.');
+  const dateParts = dateString.split('-');
 
   // 연, 월, 일을 변수에 저장
   const year = dateParts[0];

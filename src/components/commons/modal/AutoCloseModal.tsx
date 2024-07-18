@@ -1,20 +1,24 @@
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface AutoCloseModalPropType {
   text: string;
   showModal: boolean;
   handleShowModal: (type: boolean) => void;
   children: React.ReactNode;
+  path?: string;
 }
 
 export const AutoCloseModal = (props: AutoCloseModalPropType) => {
-  const { text, showModal, handleShowModal, children } = props;
+  const navigate = useNavigate();
+  const { text, showModal, handleShowModal, children, path } = props;
 
   useEffect(() => {
     if (showModal) {
       const timer = setTimeout(() => {
         handleShowModal(false);
+        path && navigate(`${path}`);
       }, 2000);
 
       return () => clearTimeout(timer);

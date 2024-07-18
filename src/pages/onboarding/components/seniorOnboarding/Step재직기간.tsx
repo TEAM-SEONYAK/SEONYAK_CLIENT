@@ -19,7 +19,7 @@ const Step재직기간 = () => {
   return (
     <>
       <SelectBox select={select} onSetSelect={handleSetSelect} placeholder={PLACEHOLDER} />
-      <FullBtn isActive={select !== ''} onClick={handleClickLink} />
+      <FullBtn isActive={select !== PLACEHOLDER} onClick={handleClickLink} />
     </>
   );
 };

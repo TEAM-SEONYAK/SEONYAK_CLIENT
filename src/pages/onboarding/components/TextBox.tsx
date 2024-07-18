@@ -15,7 +15,7 @@ export const InnerButton = ({ text, onClick }: InnerButtonProps) => {
 };
 
 interface InputBoxPropType
-  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value' | 'onChange' | 'maxLength'> {
+  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value' | 'onChange' | 'maxLength' | 'disabled'> {
   label: string;
   type?: 'text' | 'file';
   isError?: boolean;
@@ -79,6 +79,8 @@ const InputWrapper = styled.div`
   position: relative;
 `;
 const Input = styled.input<{ $isError: boolean }>`
+  overflow-y: scroll;
+
   width: 100%;
   height: 5.1rem;
   margin-top: 0.4rem;

@@ -13,11 +13,12 @@ const Step직무선택 = () => {
     navigate('/seniorOnboarding/10');
   };
 
-  const [selectedDetail, setSelectedDetail] = useState<string>('');
+  const [detailJob, setDetailJob] = useState('');
+  const [selectedJob, setSelectedJob] = useState<string>('');
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const handleSheetClose = () => setIsOpenSheet(false);
-  const handleSelectDetails = (selectedValue: string) => {
-    setSelectedDetail(selectedValue);
+  const handleSelectJob = (selectedValue: string) => {
+    setSelectedJob(selectedValue);
   };
 
   return (
@@ -26,20 +27,23 @@ const Step직무선택 = () => {
         <Wrapper>
           <SubTitle>직무</SubTitle>
           <SelectWrapper onClick={() => setIsOpenSheet(true)}>
-            <SelectBtn placeholder="직무를 선택해주세요" value={selectedDetail} />
+            <SelectBtn placeholder="직무를 선택해 주세요" value={selectedJob} />
             <DropdownIcon />
           </SelectWrapper>
         </Wrapper>
         <TextBox label="세부 직무">
-          <InputBox label="세부 직무" placeholder="Product Designer & Prdouct Manager"></InputBox>
-          <Caption>재직 중인 회사에서의 구체적인 직무를 작성해 주세요</Caption>
+          <InputBox
+            label="세부 직무"
+            placeholder="구체적인 직무를 작성해 주세요"
+            onChange={(e) => setDetailJob(e.target.value)}></InputBox>
+          <Caption>최대 25자까지 작성할 수 있어요</Caption>
         </TextBox>
-        <FullBtn isActive onClick={handleClickLink} />
+        <FullBtn isActive={detailJob !== '' && selectedJob !== ''} onClick={handleClickLink} />
       </Container>
       <FullBottomSheet isSheetOpen={isOpenSheet} handleClose={handleSheetClose}>
         <Sheet직무선택
-          selectedDetail={selectedDetail}
-          handleSelectDetails={handleSelectDetails}
+          selectedDetail={selectedJob}
+          handleSelectDetails={handleSelectJob}
           handleSheetClose={handleSheetClose}
         />
       </FullBottomSheet>

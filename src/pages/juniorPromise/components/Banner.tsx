@@ -1,4 +1,3 @@
-import { TechCharacterIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -15,7 +14,6 @@ const Banner: React.FC<SeniorProps> = ({ senior = '도리 선배' }) => {
         <br />
         약속 신청을 시작할까요?
       </Text>
-      <TechCharacterIcon />
     </BannerWrapper>
   );
 };
@@ -26,9 +24,15 @@ const BannerWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+  left: 0;
 
   width: 100%;
+  height: 12rem;
   padding: 1rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const Text = styled.div`
@@ -40,9 +44,4 @@ const Text = styled.div`
 
 const SeniorText = styled.span`
   color: ${({ theme }) => theme.colors.Blue};
-`;
-
-const TechCharacterIcon = styled(TechCharacterIc)`
-  width: 13.9rem;
-  height: 11.8rem;
 `;
