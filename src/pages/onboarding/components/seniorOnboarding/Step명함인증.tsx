@@ -1,3 +1,4 @@
+import { NamecardImg } from '@assets/images';
 import { ModalCheckIc } from '@assets/svgs';
 import { FullBtn } from '@components/commons/FullButton';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
@@ -30,7 +31,7 @@ const Step명함인증 = () => {
   return (
     <>
       <Wrapper>
-        <Image />
+        <img src={NamecardImg} alt="" />
         <Caption>재직 사실 확인을 위해 명함 촬영이 필요해요</Caption>
         <FullBtn text="명함 촬영하기" isActive onClick={handleClickPhoto} />
       </Wrapper>

@@ -11,6 +11,7 @@ import { usePhoneVerify, usePhoneVerifycode } from '@pages/onboarding/hooks/useP
 import { BtnCloseModal, BtnModalTitle } from '@components/commons/modal/BtnModal';
 import { WarningImg } from '@assets/svgs';
 import axios from 'axios';
+import { SuccessImg } from '@assets/images';
 
 const Step번호입력 = () => {
   const ROLE = 'SENIOR'; // 임시
@@ -177,7 +178,7 @@ const Step번호입력 = () => {
       </TextBox>
       <FullBtn text="인증 확인" isActive={timeLeft > 0 && isNextActive} onClick={handleClickButton} />
       <AutoCloseModal text="인증에 성공했어요" showModal={isDoneModalOpen} handleShowModal={handleShowDoneModal}>
-        <DummyImage />
+        <Img src={SuccessImg} alt="" />
       </AutoCloseModal>
       <BtnCloseModal
         isModalOpen={isAlreadyModalOpen}
@@ -207,11 +208,9 @@ const Timer = styled.div`
   color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
 
-const DummyImage = styled.div`
+const Img = styled.img`
   width: 27rem;
   height: 17rem;
-
-  background-color: red;
 `;
 
 const AlreadyPhoneModalView = () => {
