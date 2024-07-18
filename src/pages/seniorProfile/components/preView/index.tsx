@@ -8,6 +8,7 @@ import { useSeniorCardQuery } from '@pages/seniorProfile/hooks/useSeniorCardQuer
 import useSeniorProfileHook from '@pages/seniorProfile/hooks/useSeniorProfileQuery';
 import { dayOfWeekTimeList } from '@pages/seniorProfile/types';
 import { deleteProfileField } from '@pages/seniorProfile/utils/deleteProfileField';
+import { useNavigate } from 'react-router-dom';
 
 interface preViewPropType {
   seniorId: string;
@@ -22,7 +23,13 @@ interface preViewPropType {
 }
 
 const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeList, setStep }: preViewPropType) => {
-  const { data: cardData } = useSeniorCardQuery(seniorId);
+  const { data: cardData, error, isLoading } = useSeniorCardQuery(seniorId);
+  const navigate = useNavigate();
+  if (error || (!isLoading && !cardData)) {
+    navigate('/error');
+    return null;
+  }
+
   const mutation = useSeniorProfileHook();
   const handleRegisterClick = () => {
     mutation.mutate(
@@ -40,17 +47,16 @@ const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeLis
       },
     );
   };
-
   return (
     <>
       <Wrapper>
         <SeniorCard
-          nickname={cardData ? cardData.nickname + '' : ''}
-          company={cardData ? cardData.company + '' : ''}
-          field={cardData ? cardData.field + '' : ''}
-          position={cardData ? cardData.position + '' : ''}
-          detailPosition={cardData ? cardData.detailPosition + '' : ''}
-          level={cardData ? cardData.level + '' : ''}
+          nickname={cardData?.nickname + ''}
+          company={cardData?.company + ''}
+          field={cardData?.field + ''}
+          position={cardData?.position + ''}
+          detailPosition={cardData?.detailPosition + ''}
+          level={cardData?.level + ''}
         />
         <ProfileSummary description1="미제공" description2={1} description3="미제공" />
         <Meta>선배의 이력 · 수상</Meta>
@@ -87,4 +93,12 @@ const Meta2 = styled.p`
 
 const Description = styled.p`
   ${({ theme }) => theme.fonts.Body1_M_14};
+`;
+
+const Loading = styled.div`
+  padding-top: 3rem;
+
+  text-align: center;
+
+  ${({ theme }) => theme.fonts.Title1_SB_16};
 `;
