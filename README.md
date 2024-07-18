@@ -2,7 +2,8 @@
 
 <h1> 🤙🏻 선약 </h1>
 
-<p>$\bf{\large{\color{#6580DD} 진로 고민, 선약과 함께 해답을 찾다 }}$</p>
+
+${\textsf{\color{blue}진로 고민, 선약과 함께 해답을 찾다}}$
 
 ```
 막막한 진로 고민을 해결해 줄 선배와의 특별한 약속
@@ -24,7 +25,7 @@
 <p>
 	
 1. ONBOARDING
-![1번](https://github.com/user-attachments/assets/fdfa42c5-66b0-4d12-8d09-17b78acd40c7)
+![1번 수정](https://github.com/user-attachments/assets/3141046b-5c2e-4c55-a6c0-20632a5ad59d)
 
 2. MENTOR PROFILE
 ![2번](https://github.com/user-attachments/assets/3e71fb76-f127-4a48-b462-f9e18fc2a45e)
@@ -102,7 +103,7 @@
 
 - `"@emotion/react": "^11.11.4"` <br />
 - `"@tanstack/react-query": "^5.48.0"` <br />
-- `"@mobiscroll/cli": :^5.31.0` <br />
+- `"react-calendar": "^5.0.0,` <br />
 
 
 <br/>
@@ -155,7 +156,9 @@
 |-- .stylelintrc
 ```
 
-<h2> 🪡 컨벤션 </h2>
+<br />
+
+<h2> 🌐 컨벤션 </h2>
 
 ### [📏 컨벤션 노션 링크](https://cumbersome-cactus-843.notion.site/eaa9e593f097401a8d70137887d304e9?pvs=4)
 <details>
