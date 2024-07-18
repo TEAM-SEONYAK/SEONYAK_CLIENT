@@ -9,7 +9,7 @@ export { default as ButtonCheckIc } from './ic_check.svg?react';
 export { default as ErrorIc } from './ic_error.svg?react';
 export { default as ArrowLeftIc } from './icn_arrow_left.svg?react';
 export { default as AlarmIc } from './logo-alarm.svg?react';
-export { default as TempLogoIc } from './TempLogo.svg?react';
+export { default as HeaderLogoIc } from './img_headerlogo.svg?react';
 export { default as CloseIc } from './ic_close.svg?react';
 export { default as TechCharacterIc } from './tech_character.svg?react';
 export { default as ErrorSmallIc } from './ic_error_small.svg?react';
@@ -45,3 +45,7 @@ export { default as SbhbHomeProfile2Img } from './img_sbhbhome_profile2.svg?reac
 export { default as HbHomeMainIc } from './img_hbhome_main.svg?react';
 export { default as WarningImg } from './img_warning.svg?react';
 export { default as ImgPromiseCompleteIc } from './img_promise_complete.svg?react';
+export { default as ModalAcceptImg } from './img_modal_accept.svg?react';
+export { default as ModalRejectImg } from './img_modal_reject.svg?react';
+export { default as ComingSoonModalImg } from './comingSoonModalImg.svg?react';
+export { default as GhostImg } from './ghost.svg?react';

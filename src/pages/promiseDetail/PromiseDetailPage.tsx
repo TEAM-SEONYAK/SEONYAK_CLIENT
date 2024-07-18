@@ -9,8 +9,17 @@ import styled from '@emotion/styled';
 import useCountdown from '@hooks/useCountDown';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SENIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
+import { REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
 import { formatDate } from './utils/formatDate';
+import { useGetGoogleMeetLink } from '@pages/promiseList/hooks/queries';
+import {
+  usePostGoogleMeetLink,
+  usePatchSeniorAccept,
+  usePatchSeniorReject,
+  useGetPromiseDetail,
+} from './hooks/queries';
+import { extractMonthAndDay } from '@pages/promiseList/utils/extractMonthAndDay';
+import { ModalRejectImg, ModalAcceptImg } from '@assets/svgs';
 
 const PromiseDetail = () => {
   const location = useLocation();
@@ -19,6 +28,9 @@ const PromiseDetail = () => {
   const tap = location.state.tap;
   const myNickname = location.state.myNickname;
   const userRole = 'SENIOR';
+
+  const { juniorInfo, seniorInfo, timeList1, timeList2, timeList3, topic, personalTopic, isSuccess, isLoading } =
+    useGetPromiseDetail(63);
 
   // 기본뷰 / 거절뷰
   const [viewType, setViewType] = useState('DEFAULT');
@@ -32,15 +44,76 @@ const PromiseDetail = () => {
   const [rejectReason, setRejectReason] = useState(DEFAULT_REJECT_TEXT);
   // 작성한 거절사유 저장
   const [rejectDetail, setRejectDetail] = useState('');
-
-  // 선택값 저장 함수
-  const handleClickTimeBox = (idx: number) => {
-    setSelectTime(idx);
-  };
+  // 서버 전달용 날짜, 시작시간, 끝시간 저장 state
+  const [serverTimeList, setServerTimeList] = useState({ date: '', startTime: '', endTime: '' });
+  // 받아온 구글밋 링크 저장
+  const [, setGoogleMeet] = useState('');
 
   const handleModalOpen = (type: boolean) => {
     setIsModalOpen(type);
   };
+
+  // 선배 약속 수락
+  const { mutate: patchSeniorAccept } = usePatchSeniorAccept(() => handleModalOpen(true));
+
+  // 구글밋 링크 patch 콜백 함수
+  const handleSuccessCallback = (link: string) => {
+    setGoogleMeet(link);
+    patchSeniorAccept({
+      appointmentId: 69,
+      googleMeetLink: link,
+      timeList: [
+        {
+          date: serverTimeList.date,
+          startTime: serverTimeList.startTime,
+          endTime: serverTimeList.endTime,
+        },
+      ],
+    });
+  };
+
+  // 구글밋 링크 받아오기(post) 후 약속 수락 patch
+  const { mutate: postGoogleMeetLink } = usePostGoogleMeetLink((link) => {
+    handleSuccessCallback(link);
+  });
+
+  // 수락하기 버튼 누를 때
+  const handleAppointmentApprove = () => {
+    postGoogleMeetLink();
+  };
+
+  // 선택값 저장 함수
+  const handleClickTimeBox = (idx: number, date: string, startTime: string, endTime: string) => {
+    setSelectTime(idx);
+    setServerTimeList((prev) => ({
+      ...prev,
+      date: date,
+      startTime: startTime,
+      endTime: endTime,
+    }));
+  };
+
+  // 선배 약속 거절
+  const { mutate: patchSeniorReject } = usePatchSeniorReject(() => handleModalOpen(true));
+  const handleRejectBtn = () => {
+    patchSeniorReject({
+      appointmentId: 73,
+      rejectReason: rejectReason,
+      rejectDetail: rejectDetail,
+    });
+  };
+
+  // 구글밋 링크 받기
+  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
+  const [googleMeetLink, setGoogleMeetLink] = useState('');
+
+  const handleClickEnterBtn = (link: string) => {
+    setGoogleMeetLink(link);
+    window.open(link, '_blank');
+  };
+
+  // appointmentId로 바꿔야 함 !!
+  useGetGoogleMeetLink(68, isEnterBtnClicked, handleClickEnterBtn);
 
   const handleBottomSheetOpen = () => {
     setIsBottomSheetOpen(true);
@@ -61,9 +134,21 @@ const PromiseDetail = () => {
   const handleRejectDetailReason = (detailReason: string) => {
     setRejectDetail(detailReason);
   };
+  // 훅을 조건문 밖에서 호출
+  const countdown = useCountdown(timeList1?.date, timeList1?.startTime);
+  const dateInfo = extractMonthAndDay(timeList1?.date + '');
 
-  // 실 데이터로연결 필요
-  const { diffText, diff } = useCountdown(SENIOR_RESPONSE.timeList[0]?.date, SENIOR_RESPONSE.timeList[0]?.startTime);
+  if (isLoading) {
+    return <div>Loading...</div>; // 로딩 중일 때 표시
+  }
+
+  if (!isSuccess || !timeList1) {
+    return <div>데이터 없음</div>; // 데이터가 없을 때 표시
+  }
+
+  // 조건부로 훅의 결과를 처리
+  const { diffText, diff } = countdown;
+  const { month, day } = dateInfo;
 
   return (
     <>
@@ -79,14 +164,13 @@ const PromiseDetail = () => {
             <Title>
               {viewType === 'DEFAULT'
                 ? userRole === 'SENIOR'
-                  ? `${SENIOR_RESPONSE.juniorInfo.nickname} 후배님의 정보`
-                  : `${SENIOR_RESPONSE.juniorInfo.nickname} 선배님의 정보`
+                  ? `${juniorInfo.nickname} 후배님의 정보`
+                  : `${seniorInfo.nickname} 선배님의 정보`
                 : DEFAULT_REJECT_TEXT}
             </Title>
             {viewType === 'DEFAULT' ? (
               <Content>
-                {SENIOR_RESPONSE.juniorInfo.univName} {SENIOR_RESPONSE.juniorInfo.field}
-                {SENIOR_RESPONSE.juniorInfo.department}
+                {juniorInfo.univName} {juniorInfo.field} {juniorInfo.department}
               </Content>
             ) : (
               <DeclineContent onClick={() => setIsBottomSheetOpen(true)}>
@@ -102,10 +186,10 @@ const PromiseDetail = () => {
             </Title>
             {viewType === 'DEFAULT' ? (
               <ContentContainer>
-                {SENIOR_RESPONSE.topic.length ? (
-                  SENIOR_RESPONSE.topic.map((el, idx) => <Content key={idx + el}>{el}</Content>)
+                {topic.length ? (
+                  topic.map((el: string, idx: number) => <Content key={idx + el}>{el}</Content>)
                 ) : (
-                  <WrittenContent>{SENIOR_RESPONSE.personalTopic}</WrittenContent>
+                  <WrittenContent>{personalTopic}</WrittenContent>
                 )}
               </ContentContainer>
             ) : (
@@ -130,10 +214,10 @@ const PromiseDetail = () => {
               <Title>희망하는 약속 시간</Title>
               <Description>세 가지 시간 중 하나를 필수로 선택해주세요</Description>
               <ContentContainer>
-                {SENIOR_RESPONSE.timeList.map((el, idx) => (
+                {[timeList1, timeList2, timeList3].map((el, idx) => (
                   <Time
                     key={el.date + idx + el.startTime}
-                    onClick={() => handleClickTimeBox(idx)}
+                    onClick={() => handleClickTimeBox(idx, el.date, el.startTime, el.endTime)}
                     $isActive={selectTime === idx}>
                     {formatDate(el.date)} {el.startTime} - {el.endTime}
                     <ButtonCheckIcon isactive={(selectTime === idx).toString()} />
@@ -145,8 +229,9 @@ const PromiseDetail = () => {
           {viewType === 'DEFAULT' && tap === 'scheduled' && (
             <ContentContainer>
               <Title>약속 시간</Title>
-              {/* 여기 응답값으로 바꾸기 */}
-              <Content>2024년 7월 7일 20:30 - 21:00</Content>
+              <Content>
+                {month}월 {day}일 {timeList1.startTime} - {timeList1.endTime}
+              </Content>
             </ContentContainer>
           )}
         </Layout>
@@ -161,7 +246,7 @@ const PromiseDetail = () => {
                   type="button"
                   disabled={selectTime === null}
                   $isActive={selectTime !== null}
-                  onClick={() => setIsModalOpen(true)}>
+                  onClick={handleAppointmentApprove}>
                   수락하기
                 </AcceptBtn>
               </BtnWrapper>
@@ -173,7 +258,7 @@ const PromiseDetail = () => {
                 {/* 구글밋 입장 연결 필요 */}
                 <FullBtn
                   onClick={() => {
-                    console.log('hi');
+                    setIsEnterBtnClicked(true);
                   }}
                   text={diff <= 0 ? '지금 입장하기' : `약속 시간까지 ${diffText} 남았어요`}
                   isActive={diff <= 0}
@@ -187,7 +272,7 @@ const PromiseDetail = () => {
             <FullBtn
               text="거절하기"
               isActive={rejectReason !== DEFAULT_REJECT_TEXT}
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => handleRejectBtn()}
             />
             <BtnBackground />
           </>
@@ -195,14 +280,13 @@ const PromiseDetail = () => {
       </Wrapper>
       {viewType === 'DECLINE' ? (
         <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
-          <DeclineImg />
+          <ModalRejectImg />
         </AutoCloseModal>
       ) : (
         <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
-          <DeclineImg />
+          <ModalAcceptImg />
         </AutoCloseModal>
       )}
-
       <BottomSheet
         btnActive={rejectReason}
         isSheetOpen={isBottomSheetOpen}
@@ -410,13 +494,6 @@ const BtnBackground = styled.div`
   height: 6.1rem;
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
-`;
-
-const DeclineImg = styled.div`
-  width: 27rem;
-  height: 17.1rem;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
 
 const BottomSheetLayout = styled.div`
