@@ -16,8 +16,7 @@ export interface seniorProfileAPIType {
   career: string;
   award: string;
   story: string;
-  level: string;
-  nickname: string;
+  preferredTimeList: dayOfWeekTimeList;
 }
 
 export interface preferredTimeListType {
