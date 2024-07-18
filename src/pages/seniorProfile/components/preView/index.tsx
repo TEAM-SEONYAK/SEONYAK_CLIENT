@@ -3,6 +3,7 @@ import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
 import ImgTextBox from '@pages/seniorProfile/components/preView/ImgTextBox';
 import ProfileSummary from '@pages/seniorProfile/components/preView/ProfileSummary';
+import Review from '@pages/seniorProfile/components/preView/Review';
 import TimeTable from '@pages/seniorProfile/components/preView/TimeTable';
 import { useSeniorCardQuery } from '@pages/seniorProfile/hooks/useSeniorCardQuery';
 import useSeniorProfileHook from '@pages/seniorProfile/hooks/useSeniorProfileQuery';
@@ -20,9 +21,20 @@ interface preViewPropType {
 
   preferredTimeList: dayOfWeekTimeList;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+
+  variant?: 'default' | 'secondary';
 }
 
-const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeList, setStep }: preViewPropType) => {
+const PreView = ({
+  seniorId,
+  career,
+  award,
+  catchphrase,
+  story,
+  preferredTimeList,
+  setStep,
+  variant = 'default',
+}: preViewPropType) => {
   const { data: cardData, error, isLoading } = useSeniorCardQuery(seniorId);
   const navigate = useNavigate();
   if (error || (!isLoading && !cardData)) {
@@ -66,6 +78,7 @@ const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeLis
         <ImgTextBox variant="award" text={award} />
         <Meta2>{catchphrase}</Meta2>
         <Description>{story}</Description>
+        {variant === 'secondary' && <Review />}
         <Meta2>선배의 타임 테이블</Meta2>
         <TimeTable preferredTime={preferredTimeList} />
       </Wrapper>
