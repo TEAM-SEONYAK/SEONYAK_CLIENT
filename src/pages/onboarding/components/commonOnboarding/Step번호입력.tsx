@@ -11,6 +11,7 @@ import { usePhoneVerify, usePhoneVerifycode } from '@pages/onboarding/hooks/useP
 import { BtnCloseModal, BtnModalTitle } from '@components/commons/modal/BtnModal';
 import { WarningImg } from '@assets/svgs';
 import axios from 'axios';
+import { 이미_사용중인_전화번호_에러코드 } from '@pages/onboarding/constants';
 import { SuccessImg } from '@assets/images';
 
 const Step번호입력 = () => {
@@ -42,7 +43,7 @@ const Step번호입력 = () => {
   };
 
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [verifyCode, setVerifyCode] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
 
   const [isDoneModalOpen, setIsDoneModalOpen] = useState(false);
   const [isAlreadyPhone, setIsAlreadyPhone] = useState(false);
@@ -53,7 +54,6 @@ const Step번호입력 = () => {
   const { minutes, seconds } = formatTime(timeLeft);
 
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [isNextActive, setIsNextActive] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -73,7 +73,7 @@ const Step번호입력 = () => {
   const handleClickSend = () => {
     if (isActive) {
       setValidCodeError(false);
-      setVerifyCode('');
+      setVerificationCode('');
     }
     verifyMutation.mutate(phoneNumber, {
       onSuccess: () => {
@@ -94,35 +94,12 @@ const Step번호입력 = () => {
 
   const handleChangeVerifycode = (e: ChangeEvent<HTMLInputElement>) => {
     const verifyValue = e.target.value;
-    setVerifyCode(verifyValue);
+    setVerificationCode(verifyValue);
 
     if (verifyValue.length < 4) {
       setValidCodeError(false);
-      setIsNextActive(false);
-      setIsError((prev) => ({
-        ...prev,
-        isValidCodeError: false,
-      }));
       return;
     }
-    verifycodeMutation.mutate(
-      { phoneNumber: phoneNumber, verificationCode: verifyValue },
-      {
-        onSuccess: () => {
-          setIsNextActive(true);
-          setValidCodeError(false);
-        },
-        onError: (error) => {
-          if (axios.isAxiosError(error) && error.response && error.response.data.code === '40902') {
-            setIsAlreadyPhone(true);
-            setIsNextActive(true);
-            setValidCodeError(false);
-          } else {
-            setValidCodeError(true);
-          }
-        },
-      },
-    );
   };
 
   const handleShowDoneModal = (type: boolean) => {
@@ -134,12 +111,33 @@ const Step번호입력 = () => {
   };
 
   const handleClickButton = () => {
+    verifycodeMutation.mutate(
+      { phoneNumber: phoneNumber, verificationCode },
+      {
+        onSuccess: () => {
+          setValidCodeError(false);
+          setIsDoneModalOpen(true);
+          setTimeout(() => {
+            handleClickLink();
+          }, 2000);
+        },
+        onError: (error) => {
+          if (
+            axios.isAxiosError(error) &&
+            error.response &&
+            error.response.data.code === 이미_사용중인_전화번호_에러코드
+          ) {
+            setIsAlreadyModalOpen(true);
+            setValidCodeError(false);
+          } else {
+            setValidCodeError(true);
+          }
+        },
+      },
+    );
+
     if (isAlreadyPhone) setIsAlreadyModalOpen(true);
     else {
-      setIsDoneModalOpen(true);
-      setTimeout(() => {
-        handleClickLink();
-      }, 2000);
     }
   };
 
@@ -164,7 +162,7 @@ const Step번호입력 = () => {
             <InputBox
               label="인증번호"
               placeholder="전송된 4자리 코드를 입력해 주세요"
-              value={verifyCode}
+              value={verificationCode}
               onChange={handleChangeVerifycode}
               maxLength={4}
               isError={isError.isValidCodeError}>
@@ -176,7 +174,11 @@ const Step번호입력 = () => {
           </>
         )}
       </TextBox>
-      <FullBtn text="인증 확인" isActive={timeLeft > 0 && isNextActive} onClick={handleClickButton} />
+      <FullBtn
+        text="인증 확인"
+        isActive={timeLeft > 0 && verificationCode.length == 4 && !isError.isValidCodeError}
+        onClick={handleClickButton}
+      />
       <AutoCloseModal text="인증에 성공했어요" showModal={isDoneModalOpen} handleShowModal={handleShowDoneModal}>
         <Img src={SuccessImg} alt="" />
       </AutoCloseModal>
@@ -187,7 +189,7 @@ const Step번호입력 = () => {
         handleBtnClick={() => {
           navigate('/login');
         }}>
-        <AlreadyPhoneModalView />
+        <AlreadyModalView />
       </BtnCloseModal>
     </Wrapper>
   );
@@ -213,7 +215,7 @@ const Img = styled.img`
   height: 17rem;
 `;
 
-const AlreadyPhoneModalView = () => {
+export const AlreadyModalView = () => {
   const PHONEMODAL_TEXT = `이미 서비스에 가입한 번호예요\n변경을 원하시는 경우\n해당 계정으로 로그인을 하신 후\n이의 신청해주시길 바랍니다`;
   return (
     <ModalWrapper>

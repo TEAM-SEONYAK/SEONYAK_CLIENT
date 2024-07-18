@@ -11,7 +11,11 @@ const Step학교선택 = () => {
   const ROLE = 'SENIOR'; // 임시
   const navigate = useNavigate();
   const handleClickLink = () => {
-    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/4' : '/juniorOnboarding/5');
+    if (ROLE === 'SENIOR') {
+      navigate('/seniorOnboarding/4');
+    } else {
+      navigate('/juniorOnboarding/5', { state: { univName: selectedUniv } });
+    }
   };
 
   const [isOpenSheet, setIsOpenSheet] = useState(false);
