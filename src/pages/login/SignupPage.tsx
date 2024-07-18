@@ -2,15 +2,14 @@ import { GoogleLogoIc, OnboardingBackgroundHBIc, OnboardingBackgroundSBIc } from
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import useGoogleLoginHook from './hooks/useLoginQuery';
-import { useLocation } from 'react-router-dom';
 
 const SignupPage = () => {
-  const role = useLocation().state.role;
+  const role = localStorage.getItem('role');
   const { login } = useGoogleLoginHook();
 
   return (
     <>
-      {role === 'senior' ? <OnboardingBackgroundSBIc /> : <OnboardingBackgroundHBIc />}
+      {role === 'SENIOR' ? <OnboardingBackgroundSBIc /> : <OnboardingBackgroundHBIc />}
       <BtnContainer onClick={() => login()}>
         <GoogleLogoIcon />
         <Text>구글로 시작하기</Text>
