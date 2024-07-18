@@ -7,8 +7,12 @@ import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
 import { useNavigate } from 'react-router-dom';
+import usePresignedUrlQuery from '@pages/onboarding/hooks/usePresignedUrlQuery';
 
 const Step개인정보입력 = () => {
+  const res = usePresignedUrlQuery();
+  console.log(res);
+
   const ROLE = 'SENIOR'; // 임시
   const navigate = useNavigate();
   const handleClickLink = () => {
