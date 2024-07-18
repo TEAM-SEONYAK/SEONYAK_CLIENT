@@ -85,7 +85,7 @@ const Step개인정보입력 = () => {
           </Caption>
         )}
       </TextBox>
-      <FullBtn onClick={handleClickLink} />
+      <FullBtn onClick={handleClickLink} isActive={isNicknameValid} />
     </>
   );
 };
