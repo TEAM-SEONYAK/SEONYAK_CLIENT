@@ -5,42 +5,43 @@ import ImgTextBox from '@pages/seniorProfile/components/preView/ImgTextBox';
 import ProfileSummary from '@pages/seniorProfile/components/preView/ProfileSummary';
 import Review from '@pages/seniorProfile/components/preView/Review';
 import TimeTable from '@pages/seniorProfile/components/preView/TimeTable';
+import { useGetSeniorProfileQuery } from '@pages/seniorProfile/hooks/useGetSeniorProfileQuery';
 import { useSeniorCardQuery } from '@pages/seniorProfile/hooks/useSeniorCardQuery';
 import useSeniorProfileHook from '@pages/seniorProfile/hooks/useSeniorProfileQuery';
-import { dayOfWeekTimeList } from '@pages/seniorProfile/types';
+import { dayOfWeekTimeList, seniorProfileRegisterType } from '@pages/seniorProfile/types';
 import { deleteProfileField } from '@pages/seniorProfile/utils/deleteProfileField';
+import { weekToDay } from '@pages/seniorProfile/utils/weekToDay';
 import { useNavigate } from 'react-router-dom';
 
 interface preViewPropType {
   seniorId: string;
 
-  career: string;
-  award: string;
-  catchphrase: string;
-  story: string;
-
-  preferredTimeList: dayOfWeekTimeList;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
+  profile?: seniorProfileRegisterType;
+  setStep?: React.Dispatch<React.SetStateAction<number>>;
 
   variant?: 'default' | 'secondary';
 }
 
-const PreView = ({
-  seniorId,
-  career,
-  award,
-  catchphrase,
-  story,
-  preferredTimeList,
-  setStep,
-  variant = 'default',
-}: preViewPropType) => {
+const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPropType) => {
   const { data: cardData, error, isLoading } = useSeniorCardQuery(seniorId);
+  const { data: profileData } = useGetSeniorProfileQuery(seniorId);
+
   const navigate = useNavigate();
+
   if (error || (!isLoading && !cardData)) {
     navigate('/error');
     return null;
   }
+
+  const isRegister = variant === 'default';
+
+  const career = (isRegister ? profile?.career : profileData?.career) + '';
+  const award = (isRegister ? profile?.award : profileData?.award) + '';
+  const catchphrase = (isRegister ? profile?.catchphrase : profileData?.catchphrase) + '';
+  const story = (isRegister ? profile?.story : profileData?.story) + '';
+  const preferredTimeList = (
+    isRegister ? profile && weekToDay(profile.isDayOfWeek, profile.preferredTimeList) : null
+  ) as dayOfWeekTimeList;
 
   const mutation = useSeniorProfileHook();
   const handleRegisterClick = () => {
@@ -54,7 +55,7 @@ const PreView = ({
       },
       {
         onSuccess: () => {
-          setStep((prev) => prev + 1);
+          setStep && setStep((prev) => prev + 1);
         },
       },
     );
@@ -78,11 +79,11 @@ const PreView = ({
         <ImgTextBox variant="award" text={award} />
         <Meta2>{catchphrase}</Meta2>
         <Description>{story}</Description>
-        {variant === 'secondary' && <Review />}
+        {!isRegister && <Review />}
         <Meta2>선배의 타임 테이블</Meta2>
         <TimeTable preferredTime={preferredTimeList} />
       </Wrapper>
-      <FullBtn text="프로필 등록하기" onClick={handleRegisterClick} isActive />
+      {isRegister && <FullBtn text="프로필 등록하기" onClick={handleRegisterClick} isActive />}
     </>
   );
 };
@@ -108,12 +109,4 @@ const Meta2 = styled.p`
 
 const Description = styled.p`
   ${({ theme }) => theme.fonts.Body1_M_14};
-`;
-
-const Loading = styled.div`
-  padding-top: 3rem;
-
-  text-align: center;
-
-  ${({ theme }) => theme.fonts.Title1_SB_16};
 `;
