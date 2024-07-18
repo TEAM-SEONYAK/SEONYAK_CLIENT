@@ -19,9 +19,9 @@ export const BtnCloseModal = (props: BtnCloseModalPropType) => {
   const handleModalClose = () => {
     handleModalOpen(false);
 
-    if (onClicked) {
-      onClicked();
-    }
+    // if (onClicked) {
+    //   onClicked();
+    // }
   };
 
   return (

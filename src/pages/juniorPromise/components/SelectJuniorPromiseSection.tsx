@@ -14,7 +14,7 @@ import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import { useNavigate } from 'react-router-dom';
 import Banner from './Banner';
-import { postAppointment } from '../apis/postAppointment';
+import { usePostAppointment } from '../hooks/useAppointmentQuery';
 
 const SelectJuniorPromiseSection = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
@@ -70,15 +70,19 @@ const SelectJuniorPromiseSection = () => {
 
   // 작성할래요 인풋 값 가져오기
   const [inputVal, setInputVal] = useState<string>('');
+  const handleAppointmentSendSuccess = () => {
+    setIsModalClicked(true);
+  };
+  const { mutate: postAppointment } = usePostAppointment(() => handleAppointmentSendSuccess());
 
   const handlePostAppointment = () => {
-    console.log('post 요청 보냄');
     if (isAllSelected) {
       postAppointment({
-        seniorId: 33,
+        // 선배 ID 받아와야함
+        seniorId: 30,
         topic: selectedButtons,
         personalTopic: inputVal,
-        TimeList: [
+        timeList: [
           {
             date: selectedTime[0].clickedDay,
             startTime: selectedTime[0].selectedTime.split('-')[0],
@@ -102,7 +106,6 @@ const SelectJuniorPromiseSection = () => {
   // 버튼 클릭시 실행 함수
   const handleSubmit = (isAllSelected: boolean) => {
     setIsSubmitCicked(true);
-    handlePostAppointment();
     isAllSelected && handleModalOpen(true);
   };
 
@@ -142,6 +145,7 @@ const SelectJuniorPromiseSection = () => {
             title={'약속 잡기 전 주의해주세요'}
             isModalOpen={isModalOpen}
             handleModalOpen={handleModalOpen}
+            handleBtnClick={handlePostAppointment}
             btnText={'적용할래요'}>
             <CheckModalContent />
           </BtnCloseModal>

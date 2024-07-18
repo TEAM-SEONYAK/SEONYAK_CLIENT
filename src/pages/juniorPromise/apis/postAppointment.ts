@@ -11,14 +11,14 @@ export interface postAppointmentType {
   seniorId: number;
   topic: string[];
   personalTopic: string;
-  TimeList: timeListType[];
+  timeList: timeListType[];
 }
 
-export const postAppointment = async ({ seniorId, topic, personalTopic, TimeList }: postAppointmentType) => {
+export const postAppointment = async ({ seniorId, topic, personalTopic, timeList }: postAppointmentType) => {
   try {
-    const response = await authAxios.post('/api/v1/appointment', { seniorId, topic, personalTopic, TimeList });
+    const response = await authAxios.post('/v1/appointment', { seniorId, topic, personalTopic, timeList });
 
-    console.log(response);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

@@ -11,11 +11,11 @@ const JuniorPromiseComplete = ({ senior = '도리' }: SeniorNamePropType) => {
 
   const handleMyPromise = () => {
     // 나의 약속 페이지 이동 라우터 설정
-    navigate('/juniorPromise');
+    navigate('/');
   };
 
   const handleGoHome = () => {
-    navigate('/');
+    navigate('/juniorPromise');
   };
   return (
     <Wrapper>
