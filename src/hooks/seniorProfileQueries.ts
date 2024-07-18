@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getSeniorProfile, GetSeniorProfileResponse } from '@pages/juniorPromise/apis/getSeniorProfile';
 
-const seniorProfileQueries = (selectedFields: string[], selectedPositions: string[]) => {
+const useSeniorProfileQueries = (selectedFields: string[], selectedPositions: string[]) => {
   const QUERY_KEY = {
     SENIOR_PROFILE: 'seniorProfile',
   };
@@ -14,4 +14,4 @@ const seniorProfileQueries = (selectedFields: string[], selectedPositions: strin
   return { data, isLoading, isError };
 };
 
-export default seniorProfileQueries;
+export default useSeniorProfileQueries;
