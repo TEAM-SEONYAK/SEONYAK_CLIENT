@@ -80,18 +80,14 @@ const router = createBrowserRouter([
           },
           {
             path: '8',
-            element: <Step인증완료 />,
-          },
-          {
-            path: '9',
             element: <Step직무선택 />,
           },
           {
-            path: '10',
+            path: '9',
             element: <Step재직기간 />,
           },
           {
-            path: '11',
+            path: '10',
             element: <Step번호입력 />,
           },
         ],
