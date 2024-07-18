@@ -46,7 +46,7 @@ export default SelectBox;
 const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
 
   padding-top: 2rem;
 `;
@@ -88,6 +88,7 @@ const DropdownIcon = styled(DropdownIc)`
   right: 0;
 
   margin-right: 1rem;
+  fill: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
 
 const OptionList = styled.ul`
@@ -98,11 +99,12 @@ const OptionList = styled.ul`
 
   height: 27.1rem;
   padding: 1rem;
+  border-radius: 8px;
 
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
 
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
   }
 
   &::-webkit-scrollbar-thumb {

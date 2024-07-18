@@ -15,7 +15,7 @@ export const InnerButton = ({ text, onClick }: InnerButtonProps) => {
 };
 
 interface InputBoxPropType
-  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value' | 'onChange' | 'maxLength'> {
+  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value' | 'onChange' | 'maxLength' | 'disabled'> {
   label: string;
   type?: 'text' | 'file';
   isError?: boolean;
