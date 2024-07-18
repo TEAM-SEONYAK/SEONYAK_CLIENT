@@ -113,7 +113,7 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__navigation {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     ${({ theme }) => theme.fonts.Head1_SB_20};
   }
 
