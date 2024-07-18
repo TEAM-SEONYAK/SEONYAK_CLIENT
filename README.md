@@ -25,7 +25,7 @@ ${\textsf{\color{blue}진로 고민, 선약과 함께 해답을 찾다}}$
 <p>
 	
 1. ONBOARDING
-![1번 수정](https://github.com/user-attachments/assets/3141046b-5c2e-4c55-a6c0-20632a5ad59d)
+![1번 수정](https://github.com/user-attachments/assets/8c1ee399-a67c-47c5-a7f4-ef6863276d30)
 
 2. MENTOR PROFILE
 ![2번](https://github.com/user-attachments/assets/3e71fb76-f127-4a48-b462-f9e18fc2a45e)
@@ -275,9 +275,10 @@ const DefaultProfileIcon = styled(DefaultProfileIc)`
 </details>
 
 <hr>
+## 💥 선배들의 트러블 슈팅
 
-### 📪 우리들의 고민 아카이빙
-| 💥 선배들의 트러블 슈팅 | 
+| 문제 해결 |
+| ---------- |
 | <ul><li>[ESLint의 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/ESLint-9943b8e2aebe4f3e99c6e29fb6a06e5d?pvs=4)</li> |
 | <li>[stylelint 버전 충돌 문제](https://cumbersome-cactus-843.notion.site/stylelint-1dc73926f66d4a76afdf3d84096d58a5?pvs=4)</li> |
 | <li>[emotion과 styled component의 차이](https://cumbersome-cactus-843.notion.site/emotion-styled-component-9a456aa44c294499ab11ae9027c3686f?pvs=4)</li> |
@@ -293,9 +294,7 @@ const DefaultProfileIcon = styled(DefaultProfileIc)`
 | <li>[필터링 버튼과 칩 삭제 연결하기](https://www.notion.so/1688aabb6616489da366367ab6904f16?pvs=21)</li> |
 | <li>[사라지지 않는 바텀시트 내 선택값에 대하여..](https://www.notion.so/ae8656b197a64133a714e2e84af25e22?pvs=21)</li> |
 | <li>[조건부 렌더링 시 렌더링 안되는 경우 여백 없애기](https://www.notion.so/493cc5e6791d424ba0b369b6c17325fe?pvs=21)</li> |
-| <li>[스크롤바 안보이게하기, 스크롤 영역지정](https://www.notion.so/3158feb2c7b84f15ab578a1996200ff7?pvs=21)</li>
+| <li>[스크롤바 안보이게하기, 스크롤 영역지정](https://www.notion.so/3158feb2c7b84f15ab578a1996200ff7?pvs=21)</li> |
 | <li>[선택적으로 props 받기](https://www.notion.so/props-9ee1a39940f44edfb5c7137c398257e3?pvs=21)</li></ul> |
-
-
 | 🪄 선배들의 아티클 | 
 | ---------------------- |
