@@ -32,6 +32,7 @@ const Step졸업인증 = () => {
 
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
+    setError(false);
     setFile(e.target.files[0]);
   };
 
