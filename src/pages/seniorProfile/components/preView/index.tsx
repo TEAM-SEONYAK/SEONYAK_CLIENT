@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import ImgTextBox from '@pages/seniorProfile/components/preView/ImgTextBox';
 import ProfileSummary from '@pages/seniorProfile/components/preView/ProfileSummary';
 import TimeTable from '@pages/seniorProfile/components/preView/TimeTable';
+import { useSeniorCardQuery } from '@pages/seniorProfile/hooks/useSeniorCardQuery';
 import useSeniorProfileHook from '@pages/seniorProfile/hooks/useSeniorProfileQuery';
 import { dayOfWeekTimeList } from '@pages/seniorProfile/types';
 import { deleteProfileField } from '@pages/seniorProfile/utils/deleteProfileField';
@@ -18,12 +19,7 @@ const dummy = {
 };
 
 interface preViewPropType {
-  nickname?: string;
-  company?: string;
-  field?: string;
-  position?: string;
-  detailPosition?: string;
-  level?: string;
+  seniorId: string;
 
   career: string;
   award: string;
@@ -34,7 +30,8 @@ interface preViewPropType {
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const PreView = ({ career, award, catchphrase, story, preferredTimeList, setStep }: preViewPropType) => {
+const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeList, setStep }: preViewPropType) => {
+  const { data: cardData, error, isLoading } = useSeniorCardQuery(seniorId);
   const mutation = useSeniorProfileHook();
   const handleRegisterClick = () => {
     mutation.mutate(
