@@ -14,6 +14,7 @@ import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import { useNavigate } from 'react-router-dom';
 import Banner from './Banner';
+import { postAppointment } from '../apis/postAppointment';
 
 const SelectJuniorPromiseSection = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
@@ -40,6 +41,9 @@ const SelectJuniorPromiseSection = () => {
 
   // 몇 번째 버튼이 눌렸니~
   const [btnId, setBtnId] = useState(0);
+
+  // 선택한 고민 리스트
+  const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
 
   // onToggle 함수 정의
   const handleToggle = (button: string) => {
@@ -68,8 +72,39 @@ const SelectJuniorPromiseSection = () => {
     setIsAnyWorrySelected(isSelected);
   };
 
+  // 작성할래요 인풋 값 가져오기
+  const [inputVal, setInputVal] = useState<string>('');
+
+  const handlePostAppointment = () => {
+    console.log('post 요청 보냄');
+    postAppointment({
+      seniorId: 33,
+      topic: selectedButtons,
+      personalTopic: inputVal,
+      TimeList: [
+        {
+          date: '2024-08-09',
+          startTime: '11:00',
+          endTime: '14:30',
+        },
+        {
+          date: '2024-08-10',
+          startTime: '12:00',
+          endTime: '18:30',
+        },
+        {
+          date: '202-08-11',
+          startTime: '09:00',
+          endTime: '21:30',
+        },
+      ],
+    });
+  };
+
+  // 버튼 클릭시 실행 함수
   const handleSubmit = (isAllSelected: boolean) => {
     setIsSubmitCicked(true);
+    handlePostAppointment();
     isAllSelected && handleModalOpen(true);
   };
 
@@ -115,9 +150,17 @@ const SelectJuniorPromiseSection = () => {
         )}
         {isModalClicked && <JuniorPromiseComplete senior={'도리2'} />}
         {activeButton === '선택할래요' ? (
-          <SelectJuniorWorryButton handleCheckWorrySelected={handleCheckWorrySelected} />
+          <SelectJuniorWorryButton
+            selectedButtons={selectedButtons}
+            setSelectedButtons={setSelectedButtons}
+            handleCheckWorrySelected={handleCheckWorrySelected}
+          />
         ) : (
-          <SelectJuniorWorryTextBoxWrapper setIsTextareaFilled={setIsTextareaFilled} />
+          <SelectJuniorWorryTextBoxWrapper
+            inputVal={inputVal}
+            setInputVal={setInputVal}
+            setIsTextareaFilled={setIsTextareaFilled}
+          />
         )}
         <CalendarBottomSheet
           selectedTime={selectedTime}

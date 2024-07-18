@@ -7,13 +7,15 @@ import { WORRY_SELECTION_BUTTON } from '../constants/constants';
 interface SelectJuniorWorryButtonProps {
   // eslint-disable-next-line no-unused-vars
   handleCheckWorrySelected: (isSelected: boolean) => void;
+  selectedButtons: string[];
+  setSelectedButtons: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const SelectJuniorWorryButton: React.FC<SelectJuniorWorryButtonProps> = ({ handleCheckWorrySelected }) => {
   const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
 
   const handleButtonClick = (title: string) => {
-    setSelectedButtons((prevSelectedButtons) =>
+    setSelectedButtons((prevSelectedButtons: string[]) =>
       prevSelectedButtons.includes(title)
         ? prevSelectedButtons.filter((buttonTitle) => buttonTitle !== title)
         : [...prevSelectedButtons, title],
