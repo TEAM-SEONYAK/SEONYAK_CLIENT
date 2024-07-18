@@ -15,8 +15,7 @@ import { SuccessImg } from '@assets/images';
 
 const Step이메일입력 = () => {
   const navigate = useNavigate();
-  // const { univName } = useLocation().state;
-  const univName = '숭실대학교';
+  const { univName } = useLocation().state;
 
   const handleClickLink = () => {
     navigate('/juniorOnboarding/6');

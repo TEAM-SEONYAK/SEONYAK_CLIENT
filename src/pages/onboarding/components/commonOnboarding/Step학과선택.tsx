@@ -5,15 +5,15 @@ import MajorChip from '@pages/onboarding/components/MajorChip';
 import { useEffect, useState } from 'react';
 import SearchBox from '../SearchBox';
 import { FullBtn } from '@components/commons/FullButton';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useSearchDeptQuery from '@pages/onboarding/hooks/useSearchDeptQuery';
 import { DeptType } from '@pages/onboarding/type';
 
 const Step학과선택 = () => {
-  const ROLE = 'SENIOR'; // 임시
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/6');
+    if (pathname.includes('senior')) navigate('/seniorOnboarding/6');
     else alert('온보딩 끝!');
   };
 

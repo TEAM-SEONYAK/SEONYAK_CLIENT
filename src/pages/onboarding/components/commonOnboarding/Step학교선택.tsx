@@ -4,14 +4,14 @@ import { useState } from 'react';
 import SearchBox from '../SearchBox';
 import { FullBtn } from '@components/commons/FullButton';
 import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useSearchUnivQuery from '@pages/onboarding/hooks/useSearchUnivQuery';
 
 const Step학교선택 = () => {
-  const ROLE = 'SENIOR'; // 임시
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (ROLE === 'SENIOR') {
+    if (pathname.includes('senior')) {
       navigate('/seniorOnboarding/4');
     } else {
       navigate('/juniorOnboarding/5', { state: { univName: selectedUniv } });

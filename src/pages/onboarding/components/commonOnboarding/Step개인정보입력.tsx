@@ -6,13 +6,13 @@ import { ChangeEvent, useMemo, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Step개인정보입력 = () => {
-  const ROLE = 'SENIOR'; // 임시
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const handleClickLink = () => {
-    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
+    navigate(pathname.includes('senior') ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
   };
 
   const [nickname, setNickname] = useState('');

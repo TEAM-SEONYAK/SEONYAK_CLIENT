@@ -3,13 +3,13 @@ import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
 import { 약관_LIST } from '@pages/onboarding/constants';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Step약관동의 = () => {
-  const ROLE = 'SENIOR'; // 임시
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const handleClickLink = () => {
-    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/2' : '/juniorOnboarding/2');
+    navigate(pathname.includes('senior') ? '/seniorOnboarding/2' : '/juniorOnboarding/2');
   };
 
   const [agreement, setAgreement] = useState(Array(5).fill(false));

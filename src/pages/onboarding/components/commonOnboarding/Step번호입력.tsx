@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { formatPhone } from '@pages/onboarding/utils/formatPhone';
 import WarnDescription from '@components/commons/WarnDescription';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { usePhoneVerify, usePhoneVerifycode } from '@pages/onboarding/hooks/usePhoneQuery';
 import { BtnCloseModal, BtnModalTitle } from '@components/commons/modal/BtnModal';
 import { WarningImg } from '@assets/svgs';
@@ -15,10 +15,10 @@ import { 이미_사용중인_전화번호_에러코드 } from '@pages/onboarding
 import { SuccessImg } from '@assets/images';
 
 const Step번호입력 = () => {
-  const ROLE = 'SENIOR'; // 임시
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (ROLE === 'SENIOR') alert('온보딩 끝!');
+    if (navigate(pathname.includes('senior')) alert('온보딩 끝!');
     else navigate('/juniorOnboarding/4');
   };
 
