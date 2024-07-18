@@ -29,12 +29,17 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
 
   // 서버에서 온 date값에서 달, 일 추출
   const { month, day } = extractMonthAndDay(profileCardData?.date + '');
+  // console.log(profileCardData?.date);
 
   // 선배가 보는 후배 상담 내용
   const getTopicDescription = (chosenTopic: string[] | undefined) => {
     const topicLength = chosenTopic?.length;
 
-    return topicLength ? `${chosenTopic[0]} 외 ${topicLength - 1}건` : '직접 작성했어요';
+    return topicLength
+      ? topicLength === 1
+        ? `${chosenTopic[0]}`
+        : `${chosenTopic[0]} 외 ${topicLength - 1}건`
+      : '직접 작성했어요';
   };
 
   // 상세 페이지 라우팅

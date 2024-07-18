@@ -5,14 +5,11 @@ import styled from '@emotion/styled';
 import PromiseTap from './components/PromiseTap';
 import RecentCard from './components/RecentCard';
 import Title from './components/Title';
-import { SENIOR_DATA, JUNIOR_DATA } from './constants/constants';
 import { useGetPromiseList } from './hooks/queries';
-import { useState, useEffect } from 'react';
 
 const PromiseListPage = () => {
   // 유저가 선배일 경우
   const userRole = 'SENIOR';
-  // const promiseData = userRole === 'SENIOR' ? SENIOR_DATA : JUNIOR_DATA;
 
   const { myNickname, pending, scheduled, past, isLoading } = useGetPromiseList();
 
