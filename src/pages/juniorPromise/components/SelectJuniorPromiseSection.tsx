@@ -80,8 +80,8 @@ const SelectJuniorPromiseSection = () => {
       postAppointment({
         // 선배 ID 받아와야함
         seniorId: 30,
-        topic: selectedButtons,
-        personalTopic: inputVal,
+        topic: activeButton === '선택할래요' ? selectedButtons : [],
+        personalTopic: activeButton === '선택할래요' ? '' : inputVal,
         timeList: [
           {
             date: selectedTime[0].clickedDay,
