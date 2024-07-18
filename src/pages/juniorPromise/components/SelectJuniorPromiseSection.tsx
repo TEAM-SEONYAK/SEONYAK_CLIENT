@@ -24,6 +24,7 @@ const SelectJuniorPromiseSection = () => {
   const [isTextareaFilled, setIsTextareaFilled] = useState(false);
   const [, setUnfilledFields] = useState<number[]>([]);
   const navigate = useNavigate();
+
   // 약속 신청하기 눌렸는지 확인
   const [isSubmitClicked, setIsSubmitCicked] = useState(false);
   // 적용할래요 눌렀는지 확인

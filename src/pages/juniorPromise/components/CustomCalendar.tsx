@@ -19,9 +19,21 @@ interface CustomCalendarPropType {
   btnId: number;
   setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
+  preferredTimeList: any;
 }
 
-const CustomCalendar = ({ btnId, setSelectedTime, selectedTime }: CustomCalendarPropType) => {
+const CustomCalendar = ({ btnId, setSelectedTime, selectedTime, preferredTimeList }: CustomCalendarPropType) => {
+  const dayOfWeekMap: { [key: number]: string } = {
+    0: '일',
+    1: '월',
+    2: '화',
+    3: '수',
+    4: '목',
+    5: '금',
+    6: '토',
+  };
+  const preferredDaysofWeek = Object.keys(preferredTimeList);
+
   const [, onChange] = useState<Value>(getTomorrow());
 
   const handleDateClick = (date: string) => {
@@ -37,7 +49,16 @@ const CustomCalendar = ({ btnId, setSelectedTime, selectedTime }: CustomCalendar
 
       // 이미 선택된 날짜를 비활성화
       const formattedDate = formatCalDateToString(date);
-      return selectedTime.some((item) => item.clickedDay === formattedDate);
+      if (selectedTime.some((item) => item.clickedDay === formattedDate)) {
+        return true;
+      }
+
+      // 요일을 확인하여 preferredDaysofWeek에 없는 요일을 비활성화
+      const dayOfWeek = date.getDay();
+      const dayOfWeekStr = dayOfWeekMap[dayOfWeek];
+      if (!preferredDaysofWeek.includes(dayOfWeekStr)) {
+        return true;
+      }
     }
     return false;
   };
@@ -74,7 +95,8 @@ const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`
 
 const CalendarContainer = styled.div`
   width: 100vw;
-  height: 36.5rem;
+  /* height: 39.5rem; */
+  height: auto;
   padding: 1.5rem 3.3rem 2rem;
   border-radius: 16px 16px 0 0;
 
@@ -91,7 +113,7 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__navigation {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     ${({ theme }) => theme.fonts.Head1_SB_20};
   }
 
@@ -138,9 +160,9 @@ const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__navigation button:disabled {
-    background: none;
+    background: none !important;
 
-    color: ${({ theme }) => theme.colors.grayScaleDG};
+    color: ${({ theme }) => theme.colors.grayScaleDG} !important;
   }
 
   .react-calendar__tile--active:enabled:hover,
@@ -166,6 +188,10 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__month-view__days__day--weekend {
     ${({ theme }) => theme.fonts.Title2_M_16};
     color: ${({ theme }) => theme.colors.grayScaleBG};
+
+    &:disabled {
+      color: ${({ theme }) => theme.colors.grayScaleLG2};
+    }
   }
 
   .react-calendar__month-view__weekdays abbr {
@@ -176,5 +202,14 @@ const StyledCalendar = styled(Calendar)`
     color: ${({ theme }) => theme.colors.grayScaleLG2} !important;
 
     cursor: not-allowed;
+  }
+
+  .react-calendar__month-view__days__day {
+    ${({ theme }) => theme.fonts.Title2_M_16};
+    color: ${({ theme }) => theme.colors.grayScaleBG};
+
+    &:disabled {
+      color: ${({ theme }) => theme.colors.grayScaleLG2};
+    }
   }
 `;
