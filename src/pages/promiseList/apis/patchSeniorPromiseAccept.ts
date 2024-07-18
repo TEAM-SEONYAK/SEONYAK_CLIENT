@@ -20,7 +20,7 @@ export const patchSeniorAccept = async ({ appointmentId, googleMeetLink, timeLis
       googleMeetLink,
       timeList,
     });
-    console.log(response);
+    // console.log(response);
     return response;
   } catch (error) {
     console.error('선배 약속 수락 에러:', error);
