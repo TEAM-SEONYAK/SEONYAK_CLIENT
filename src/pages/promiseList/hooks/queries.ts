@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { getGoogleMeetLink } from '../apis/getGoogleMeetLink';
+import { getPromiseList } from '../apis/getPromiseList';
 import { useEffect } from 'react';
 
 export const QUERY_KEY_PROMISE_LIST = {
   getGoogleMeetLink: getGoogleMeetLink,
+  getPromiseList: getPromiseList,
 };
 
 export const useGetGoogleMeetLink = (
@@ -29,4 +31,18 @@ export const useGetGoogleMeetLink = (
   console.log(data);
 
   return { data, isSuccess };
+};
+
+export const useGetPromiseList = () => {
+  const { data, isSuccess, isLoading } = useQuery({
+    queryKey: [QUERY_KEY_PROMISE_LIST.getPromiseList],
+    queryFn: getPromiseList,
+  });
+
+  const myNickname = data && data.myNickname;
+  const pending = data && data.pending;
+  const scheduled = data && data.scheduled;
+  const past = data && data.past;
+
+  return { myNickname, pending, scheduled, past, isSuccess, isLoading };
 };
