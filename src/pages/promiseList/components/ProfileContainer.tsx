@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ProfileChip from './ProfileChip';
 import { profileCardDataType } from '../types/type';
 import { extractMonthAndDay } from '../utils/extractMonthAndDay';
+import { ComingSoonModalImg, GhostImg } from '@assets/svgs';
 
 interface ProfileContainerPropType {
   userRole: string;
@@ -14,6 +15,7 @@ interface ProfileContainerPropType {
   profileCardData?: profileCardDataType;
   isarrow: string;
   myNickname: string;
+  googleMeetLink?: string;
   detail?: string;
 }
 
@@ -35,7 +37,11 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
   const getTopicDescription = (chosenTopic: string[] | undefined) => {
     const topicLength = chosenTopic?.length;
 
-    return topicLength ? `${chosenTopic[0]} 외 ${topicLength - 1}건` : '직접 작성했어요';
+    return topicLength
+      ? topicLength === 1
+        ? `${chosenTopic[0]}`
+        : `${chosenTopic[0]} 외 ${topicLength - 1}건`
+      : '직접 작성했어요';
   };
 
   // 상세 페이지 라우팅
@@ -143,7 +149,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         text="아직 준비중인 기능이에요"
         showModal={isReviewClicked}
         handleShowModal={ShowReviewClickedModal}>
-        <TestImg />
+        <ComingSoonModalImg />
       </AutoCloseModal>
     </ReviewWrapper>
   );
@@ -286,10 +292,4 @@ const RejectedChip = styled.div`
 
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Caption2_SB_12};
-`;
-
-const TestImg = styled.div`
-  width: 27rem;
-  height: 17.2rem;
-  background-color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;

@@ -47,3 +47,5 @@ export { default as WarningImg } from './img_warning.svg?react';
 export { default as ImgPromiseCompleteIc } from './img_promise_complete.svg?react';
 export { default as ModalAcceptImg } from './img_modal_accept.svg?react';
 export { default as ModalRejectImg } from './img_modal_reject.svg?react';
+export { default as ComingSoonModalImg } from './comingSoonModalImg.svg?react';
+export { default as GhostImg } from './ghost.svg?react';
