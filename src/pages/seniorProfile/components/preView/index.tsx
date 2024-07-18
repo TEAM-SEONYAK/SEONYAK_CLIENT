@@ -96,11 +96,3 @@ const Meta2 = styled.p`
 const Description = styled.p`
   ${({ theme }) => theme.fonts.Body1_M_14};
 `;
-
-const Loading = styled.div`
-  padding-top: 3rem;
-
-  text-align: center;
-
-  ${({ theme }) => theme.fonts.Title1_SB_16};
-`;
