@@ -2,16 +2,13 @@ import { ModalCheckIc } from '@assets/svgs';
 import { FullBtn } from '@components/commons/FullButton';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
 import styled from '@emotion/styled';
+import useOCRBizQuery from '@pages/onboarding/hooks/useOCRBizQuery';
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Step명함인증 = () => {
+  const mutation = useOCRBizQuery();
   const navigate = useNavigate();
-  const handleClickLink = () => {
-    navigate('/seniorOnboarding/8');
-  };
-
-  const [imageFile, setImageFile] = useState('');
   const [isOpen, setOpen] = useState(false);
   const handleSetOpen = (type: boolean) => {
     setOpen(type);
@@ -23,8 +20,13 @@ const Step명함인증 = () => {
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
-    // file을 multipart/form-data 로 통신
-    handleClickLink();
+    mutation.mutate(file, {
+      onSuccess: (res) => {
+        navigate('/seniorOnboarding/8', {
+          state: res.data.data,
+        });
+      },
+    });
   };
 
   return (
