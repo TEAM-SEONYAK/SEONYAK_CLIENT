@@ -18,7 +18,7 @@ export const patchSeniorReject = async ({
       rejectReason,
       rejectDetail,
     });
-    console.log(response);
+    // console.log(response);
     return response;
   } catch (error) {
     console.error('선배 약속 거절 에러:', error);

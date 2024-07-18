@@ -15,8 +15,10 @@ const PromiseDetailPageJunior = () => {
   const location = useLocation();
   const tap = location.state.tap;
   const myNickname = location.state.myNickname;
+  const appointmentId = location.state.appointmentId;
 
-  const { juniorInfo, seniorInfo, timeList1, topic, personalTopic, isSuccess, isLoading } = useGetPromiseDetail(60);
+  const { juniorInfo, seniorInfo, timeList1, topic, personalTopic, isSuccess, isLoading } =
+    useGetPromiseDetail(appointmentId);
 
   const countdown = useCountdown(timeList1?.date, timeList1?.startTime);
 

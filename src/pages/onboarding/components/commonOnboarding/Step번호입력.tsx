@@ -46,7 +46,6 @@ const Step번호입력 = () => {
   const [verificationCode, setVerificationCode] = useState('');
 
   const [isDoneModalOpen, setIsDoneModalOpen] = useState(false);
-  const [isAlreadyPhone, setIsAlreadyPhone] = useState(false);
   const [isAlreadyModalOpen, setIsAlreadyModalOpen] = useState(false);
 
   const TIME = 180 * 1000;
@@ -135,10 +134,6 @@ const Step번호입력 = () => {
         },
       },
     );
-
-    if (isAlreadyPhone) setIsAlreadyModalOpen(true);
-    else {
-    }
   };
 
   return (
