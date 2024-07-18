@@ -66,13 +66,3 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Head1_B_20};
 `;
-
-const Img = styled.div`
-  position: fixed;
-  bottom: 12.7rem;
-
-  width: 33.1rem;
-  height: 32.1rem;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleLG2};
-`;
