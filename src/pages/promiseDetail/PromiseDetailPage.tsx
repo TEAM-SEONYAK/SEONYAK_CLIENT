@@ -36,7 +36,7 @@ const PromiseDetail = () => {
   // 서버 전달용 날짜, 시작시간, 끝시간 저장 state
   const [serverTimeList, setServerTimeList] = useState({ date: '', startTime: '', endTime: '' });
   // 받아온 구글밋 링크 저장
-  const [googleMeet, setGoogleMeet] = useState('');
+  const [, setGoogleMeet] = useState('');
 
   const handleModalOpen = (type: boolean) => {
     setIsModalOpen(type);
