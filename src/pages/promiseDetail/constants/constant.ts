@@ -9,8 +9,8 @@ export const SENIOR_RESPONSE = {
   personalTopic: '',
   timeList: [
     {
-      date: '2024.07.20',
-      startTime: '12:00',
+      date: '2024.07.18',
+      startTime: '07:23',
       endTime: '12:30',
     },
     {

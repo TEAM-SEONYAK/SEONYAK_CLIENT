@@ -1,43 +1,32 @@
-import { postGoogleMeetLink } from '../apis/postGoogleMeetLink';
-import { patchSeniorAccept, patchSeniorAcceptRequestType } from '../apis/patchSeniorPromiseAccept';
-import { useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { getGoogleMeetLink } from '../apis/getGoogleMeetLink';
+import { useEffect } from 'react';
 
-export const QUERY_KEY_PROMISE_DETAIL = {
-  postGoogleMeetLink: postGoogleMeetLink,
-  patchSeniorAccept: patchSeniorAccept,
+export const QUERY_KEY_PROMISE_LIST = {
+  getGoogleMeetLink: getGoogleMeetLink,
 };
 
-// 구글밋 링크 받기
-export const usePostGoogleMeetLink = (onSuccessCallback?: (data: string) => void) => {
-  const { mutate, data } = useMutation({
-    mutationKey: [QUERY_KEY_PROMISE_DETAIL.postGoogleMeetLink],
-    mutationFn: postGoogleMeetLink,
-    onSuccess: (data) => {
-      if (onSuccessCallback) {
-        onSuccessCallback(data);
-      }
-    },
+export const useGetGoogleMeetLink = (
+  appointmentId: number,
+  isEnterBtnClicked: boolean,
+  onSuccessCallback?: (link: string) => void,
+) => {
+  const { data, isSuccess } = useQuery({
+    queryKey: [QUERY_KEY_PROMISE_LIST.getGoogleMeetLink, appointmentId, isEnterBtnClicked],
+    queryFn: () => getGoogleMeetLink(appointmentId),
+    enabled: !!isEnterBtnClicked,
   });
 
-  return { mutate, data };
-};
-
-// 선배 약속 수락
-export const usePatchSeniorAccept = (onSuccessCallback?: () => void) => {
-  const { mutate, data } = useMutation({
-    mutationKey: [QUERY_KEY_PROMISE_DETAIL.patchSeniorAccept],
-    mutationFn: ({ appointmentId, googleMeetLink, timeList }: patchSeniorAcceptRequestType) =>
-      patchSeniorAccept({ appointmentId, googleMeetLink, timeList }),
-    onSuccess: () => {
-      if (onSuccessCallback) {
-        onSuccessCallback();
+  useEffect(() => {
+    if (isSuccess && data) {
+      const googleMeetLink = data;
+      if (onSuccessCallback && googleMeetLink) {
+        onSuccessCallback(googleMeetLink);
       }
-    },
-    onError: (error) => {
-      // 에러페이지 나오면 연결필요
-      console.error('Error in mutation:', error);
-    },
-  });
+    }
+  }, [isSuccess, data]);
 
-  return { mutate, data };
+  console.log(data);
+
+  return { data, isSuccess };
 };

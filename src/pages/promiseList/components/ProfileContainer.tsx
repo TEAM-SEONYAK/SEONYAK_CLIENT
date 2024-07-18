@@ -14,6 +14,7 @@ interface ProfileContainerPropType {
   profileCardData?: profileCardDataType;
   isarrow: string;
   myNickname: string;
+  googleMeetLink?: string;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {

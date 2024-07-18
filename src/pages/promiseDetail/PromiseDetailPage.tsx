@@ -11,7 +11,9 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SENIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
 import { formatDate } from './utils/formatDate';
-import { usePostGoogleMeetLink, usePatchSeniorAccept } from '@pages/promiseList/hooks/queries';
+import { usePatchSeniorReject } from './hooks/queries';
+import { useGetGoogleMeetLink } from '@pages/promiseList/hooks/queries';
+import { usePostGoogleMeetLink, usePatchSeniorAccept } from './hooks/queries';
 
 const PromiseDetail = () => {
   const location = useLocation();
@@ -81,6 +83,28 @@ const PromiseDetail = () => {
       endTime: endTime,
     }));
   };
+
+  // 선배 약속 거절
+  const { mutate: patchSeniorReject } = usePatchSeniorReject(() => handleModalOpen(true));
+  const handleRejectBtn = () => {
+    patchSeniorReject({
+      appointmentId: 73,
+      rejectReason: rejectReason,
+      rejectDetail: rejectDetail,
+    });
+  };
+
+  // 구글밋 링크 받기
+  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
+  const [googleMeetLink, setGoogleMeetLink] = useState('');
+
+  const handleClickEnterBtn = (link: string) => {
+    setGoogleMeetLink(link);
+    window.open(link, '_blank');
+  };
+
+  // appointmentId로 바꿔야 함 !!
+  useGetGoogleMeetLink(68, isEnterBtnClicked, handleClickEnterBtn);
 
   const handleBottomSheetOpen = () => {
     setIsBottomSheetOpen(true);
@@ -213,7 +237,7 @@ const PromiseDetail = () => {
                 {/* 구글밋 입장 연결 필요 */}
                 <FullBtn
                   onClick={() => {
-                    console.log('hi');
+                    setIsEnterBtnClicked(true);
                   }}
                   text={diff <= 0 ? '지금 입장하기' : `약속 시간까지 ${diffText} 남았어요`}
                   isActive={diff <= 0}
@@ -227,7 +251,7 @@ const PromiseDetail = () => {
             <FullBtn
               text="거절하기"
               isActive={rejectReason !== DEFAULT_REJECT_TEXT}
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => handleRejectBtn()}
             />
             <BtnBackground />
           </>
