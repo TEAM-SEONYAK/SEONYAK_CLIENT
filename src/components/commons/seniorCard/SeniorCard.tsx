@@ -7,7 +7,7 @@ interface seniorListPropType {
   field: string;
   position: string;
   detailPosition: string;
-  level: number;
+  level: string;
   variant?: 'default' | 'secondary';
 }
 
@@ -17,7 +17,7 @@ interface CompanyProps {
 
 export const SeniorCard = (props: seniorListPropType) => {
   const { nickname, company, field, position, detailPosition, level, variant = 'default' } = props;
-  const levelName = getLevelName(level + '');
+  const levelName = getLevelName(level);
   const randomColor = Math.floor(Math.random() * 3);
   return (
     <SeniorCardWrapper $isSmall={variant === 'secondary'}>

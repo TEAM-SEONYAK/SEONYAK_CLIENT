@@ -54,6 +54,15 @@ export interface TimePropType extends funnelComponentPropType {
   isWarning: boolean;
 }
 
+export interface SeniorCardType {
+  nickname: string;
+  company: string;
+  field: string;
+  position: string;
+  detailPosition: string;
+  level: string;
+}
+
 export const seniorProfileInitial: seniorProfileRegisterType = {
   catchphrase: '',
   career: '',

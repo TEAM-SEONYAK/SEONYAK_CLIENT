@@ -43,6 +43,7 @@ const SeniorProfilePage = () => {
             catchphrase={profile.catchphrase}
             story={profile.story}
             preferredTimeList={weekToDay(profile.isDayOfWeek, profile.preferredTimeList)}
+            seniorId={33 + ''}
           />
         );
       case 7:

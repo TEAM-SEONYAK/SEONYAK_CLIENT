@@ -9,15 +9,6 @@ import useSeniorProfileHook from '@pages/seniorProfile/hooks/useSeniorProfileQue
 import { dayOfWeekTimeList } from '@pages/seniorProfile/types';
 import { deleteProfileField } from '@pages/seniorProfile/utils/deleteProfileField';
 
-const dummy = {
-  nickname: '도리야끼다요',
-  company: '비바리퍼블리카 (토스)',
-  field: '예체능 계열',
-  position: '디자인',
-  detailPosition: '프로덕트그래픽 디자이너',
-  level: '1',
-};
-
 interface preViewPropType {
   seniorId: string;
 
@@ -31,7 +22,7 @@ interface preViewPropType {
 }
 
 const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeList, setStep }: preViewPropType) => {
-  const { data: cardData, error, isLoading } = useSeniorCardQuery(seniorId);
+  const { data: cardData } = useSeniorCardQuery(seniorId);
   const mutation = useSeniorProfileHook();
   const handleRegisterClick = () => {
     mutation.mutate(
@@ -49,16 +40,18 @@ const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeLis
       },
     );
   };
+
+  console.log({ cardData });
   return (
     <>
       <Wrapper>
         <SeniorCard
-          nickname={dummy.nickname}
-          company={dummy.company}
-          field={dummy.field}
-          position={dummy.position}
-          detailPosition={dummy.detailPosition}
-          level={+dummy.level}
+          nickname={cardData?.nickname + ''}
+          company={cardData?.company + ''}
+          field={cardData?.field + ''}
+          position={cardData?.position + ''}
+          detailPosition={cardData?.detailPosition + ''}
+          level={cardData?.level + ''}
         />
         <ProfileSummary description1="미제공" description2={1} description3="미제공" />
         <Meta>선배의 이력 · 수상</Meta>
