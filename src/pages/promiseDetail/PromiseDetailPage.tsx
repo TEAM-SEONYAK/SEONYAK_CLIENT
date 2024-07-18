@@ -13,6 +13,7 @@ import { REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants/constant';
 import { formatDate } from './utils/formatDate';
 import { useGetPromiseDetail } from './hooks/queries';
 import { extractMonthAndDay } from '@pages/promiseList/utils/extractMonthAndDay';
+import { ModalRejectImg, ModalAcceptImg } from '@assets/svgs';
 
 const PromiseDetail = () => {
   const location = useLocation();
@@ -212,11 +213,11 @@ const PromiseDetail = () => {
       </Wrapper>
       {viewType === 'DECLINE' ? (
         <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
-          <DeclineImg />
+          <ModalRejectImg />
         </AutoCloseModal>
       ) : (
         <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
-          <DeclineImg />
+          <ModalAcceptImg />
         </AutoCloseModal>
       )}
 

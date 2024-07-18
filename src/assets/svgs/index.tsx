@@ -45,3 +45,5 @@ export { default as SbhbHomeProfile2Img } from './img_sbhbhome_profile2.svg?reac
 export { default as HbHomeMainIc } from './img_hbhome_main.svg?react';
 export { default as WarningImg } from './img_warning.svg?react';
 export { default as ImgPromiseCompleteIc } from './img_promise_complete.svg?react';
+export { default as ModalAcceptImg } from './img_modal_accept.svg?react';
+export { default as ModalRejectImg } from './img_modal_reject.svg?react';
