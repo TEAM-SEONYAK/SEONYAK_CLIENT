@@ -73,7 +73,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
   return (
     <ReviewWrapper $tap={tap}>
       <Wrapper $tap={tap} onClick={() => handleClickProfileContainer(tap, userRole)}>
-        <SbhbHomeProfile1Icon />
+        <ProfileImg src={profileCardData?.image} alt="프로필 이미지"/>
         <InfoContainer>
           <NameContainer>
             <Name>
@@ -291,4 +291,10 @@ const RejectedChip = styled.div`
 
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Caption2_SB_12};
+`;
+
+const ProfileImg = styled.img`
+  width: 8.6rem;
+  height: 8.6rem;
+  border-radius: 100px;
 `;
