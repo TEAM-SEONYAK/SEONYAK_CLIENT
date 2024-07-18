@@ -1,10 +1,15 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import EachTimeButton from './EachTimeButton';
-import { splitTimeRange } from '../utils/changeFormat30Min';
+import { splitTimeRange, isAMTime } from '../utils/changeFormat30Min';
+
+interface TimeListType {
+  startTime: string;
+  endTime: string;
+}
 
 interface TimeListPropType {
-  timeList: any;
+  timeList: TimeListType[];
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
   setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
   btnId: number;
@@ -16,28 +21,50 @@ const TimeList = ({ selectedTime, setSelectedTime, btnId, timeList }: TimeListPr
   };
 
   const splitTimeList = timeList && timeList.flatMap(({ startTime, endTime }) => splitTimeRange(startTime, endTime));
-  console.log(splitTimeList);
+
+  const morningTimeList = splitTimeList && splitTimeList.filter(({ startTime }) => isAMTime(startTime));
+  const afternoonTimeList = splitTimeList && splitTimeList.filter(({ startTime }) => !isAMTime(startTime));
 
   return (
     <Wrapper>
       <Layout>
-        <Label>오전</Label>
-        <EachTimeButtonContainer>
-          {splitTimeList &&
-            splitTimeList.map(({ startTime, endTime }) => (
-              <EachTimeButton
-                startTime={startTime}
-                endTime={endTime}
-                isActive={selectedTime[btnId].selectedTime === `${startTime}-${endTime}`}
-                onClick={() => handleButtonClick(`${startTime}-${endTime}`)}
-              />
-            ))}
-        </EachTimeButtonContainer>
+        {morningTimeList && morningTimeList.length !== 0 && (
+          <>
+            <Label>오전</Label>
+            <EachTimeButtonContainer>
+              {morningTimeList &&
+                morningTimeList.map(({ startTime, endTime }, idx: number) => (
+                  <EachTimeButton
+                    key={startTime + idx}
+                    startTime={startTime}
+                    endTime={endTime}
+                    isActive={selectedTime[btnId].selectedTime === `${startTime}-${endTime}`}
+                    onClick={() => handleButtonClick(`${startTime}-${endTime}`)}
+                  />
+                ))}
+            </EachTimeButtonContainer>
+          </>
+        )}
       </Layout>
 
       <Layout>
-        <Label>오후</Label>
-       
+        {afternoonTimeList && afternoonTimeList.length !== 0 && (
+          <>
+            <Label>오후</Label>
+            <EachTimeButtonContainer>
+              {afternoonTimeList &&
+                afternoonTimeList.map(({ startTime, endTime }, idx: number) => (
+                  <EachTimeButton
+                    key={startTime + idx}
+                    startTime={startTime}
+                    endTime={endTime}
+                    isActive={selectedTime[btnId].selectedTime === `${startTime}-${endTime}`}
+                    onClick={() => handleButtonClick(`${startTime}-${endTime}`)}
+                  />
+                ))}
+            </EachTimeButtonContainer>
+          </>
+        )}
       </Layout>
     </Wrapper>
   );
@@ -51,7 +78,6 @@ const Wrapper = styled.div`
   flex-grow: 1;
 
   padding-bottom: 14.4rem;
-  padding-left: 1.3rem;
 `;
 
 const Layout = styled.div`
@@ -69,4 +95,5 @@ const Label = styled.div`
 const EachTimeButtonContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-left: 1.5rem;
 `;

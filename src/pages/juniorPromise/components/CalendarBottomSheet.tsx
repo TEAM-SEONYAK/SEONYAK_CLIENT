@@ -25,6 +25,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
 }) => {
   // 선배 아이디로 연결 필요
   const { data: preferredTimeList, isLoading, isError } = useSeniorTimeQuery(31);
+  // console.log(preferredTimeList);
 
   // 로딩 중 또는 에러 발생 시 처리
   if (isLoading) {
@@ -76,6 +77,7 @@ export default CalendarBottomSheet;
 
 const Scroll = styled.div`
   overflow-y: scroll;
+  margin-bottom: 3rem;
 `;
 
 const Background = styled.div<{ $isCalendarOpen: boolean }>`

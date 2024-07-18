@@ -24,12 +24,12 @@ interface CustomCalendarPropType {
 
 const CustomCalendar = ({ btnId, setSelectedTime, selectedTime, preferredTimeList }: CustomCalendarPropType) => {
   const dayOfWeekMap: { [key: number]: string } = {
-    0: '일', 
+    0: '일',
     1: '월',
     2: '화',
     3: '수',
-    4: '목', 
-    5: '금', 
+    4: '목',
+    5: '금',
     6: '토',
   };
   const preferredDaysofWeek = Object.keys(preferredTimeList);
@@ -95,7 +95,8 @@ const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`
 
 const CalendarContainer = styled.div`
   width: 100vw;
-  height: 36.5rem;
+  /* height: 39.5rem; */
+  height: auto;
   padding: 1.5rem 3.3rem 2rem;
   border-radius: 16px 16px 0 0;
 

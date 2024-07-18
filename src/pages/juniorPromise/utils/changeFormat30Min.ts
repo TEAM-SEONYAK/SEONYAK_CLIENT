@@ -13,3 +13,8 @@ export function splitTimeRange(startTime: string, endTime: string) {
 
   return timeSlots;
 }
+
+export function isAMTime(timeString: string) {
+  const [hours] = timeString.split(':').map(Number);
+  return hours < 12;
+}
