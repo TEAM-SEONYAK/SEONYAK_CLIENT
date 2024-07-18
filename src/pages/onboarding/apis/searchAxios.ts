@@ -1,15 +1,15 @@
 import { axios } from '@utils/apis';
 
-export const univNameAxios = async (univName: string) => {
-  return await axios.get('/v1/search/univ', {
+export const univNameAxios = (univName: string) => {
+  return axios.get('/v1/search/univ', {
     params: {
       univName,
     },
   });
 };
 
-export const departmentAxios = async (univName: string, deptName: string) => {
-  return await axios.get('/v1/search/dept', {
+export const departmentAxios = (univName: string, deptName: string) => {
+  return axios.get('/v1/search/dept', {
     params: {
       univName,
       deptName,
