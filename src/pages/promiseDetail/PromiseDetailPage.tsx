@@ -27,10 +27,11 @@ const PromiseDetail = () => {
 
   const tap = location.state.tap;
   const myNickname = location.state.myNickname;
+  const appointmentId = location.state.appointmentId;
   const userRole = 'SENIOR';
 
   const { juniorInfo, seniorInfo, timeList1, timeList2, timeList3, topic, personalTopic, isSuccess, isLoading } =
-    useGetPromiseDetail(63);
+    useGetPromiseDetail(appointmentId);
 
   // 기본뷰 / 거절뷰
   const [viewType, setViewType] = useState('DEFAULT');
@@ -60,7 +61,7 @@ const PromiseDetail = () => {
   const handleSuccessCallback = (link: string) => {
     setGoogleMeet(link);
     patchSeniorAccept({
-      appointmentId: 69,
+      appointmentId: appointmentId,
       googleMeetLink: link,
       timeList: [
         {
@@ -105,15 +106,14 @@ const PromiseDetail = () => {
 
   // 구글밋 링크 받기
   const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
-  const [googleMeetLink, setGoogleMeetLink] = useState('');
+  const [, setGoogleMeetLink] = useState('');
 
   const handleClickEnterBtn = (link: string) => {
     setGoogleMeetLink(link);
     window.open(link, '_blank');
   };
 
-  // appointmentId로 바꿔야 함 !!
-  useGetGoogleMeetLink(68, isEnterBtnClicked, handleClickEnterBtn);
+  useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
 
   const handleBottomSheetOpen = () => {
     setIsBottomSheetOpen(true);
@@ -186,7 +186,7 @@ const PromiseDetail = () => {
             </Title>
             {viewType === 'DEFAULT' ? (
               <ContentContainer>
-                {topic.length ? (
+                {topic && topic.length ? (
                   topic.map((el: string, idx: number) => <Content key={idx + el}>{el}</Content>)
                 ) : (
                   <WrittenContent>{personalTopic}</WrittenContent>

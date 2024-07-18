@@ -48,25 +48,24 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
   const handleClickProfileContainer = (tap: string, userRole: string) => {
     if (userRole === 'SENIOR' && tap === 'pending') {
       navigate('/promiseDetail', {
-        state: { tap: 'pending', myNickname: myNickname },
+        state: { tap: 'pending', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
     if (userRole === 'JUNIOR' && tap === 'pending') {
       navigate('./promiseDetailJunior', {
-        state: { tap: 'pending', myNickname: myNickname },
+        state: { tap: 'pending', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
     // 진이 뷰 연결 필요
     if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
-      console.log('first');
       navigate('./promiseDetail', {
-        state: { tap: 'scheduled', myNickname: myNickname },
+        state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
     // 진이 뷰 연결 필요
     if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
       navigate('./promiseDetailJunior', {
-        state: { tap: 'scheduled', myNickname: myNickname },
+        state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
   };
