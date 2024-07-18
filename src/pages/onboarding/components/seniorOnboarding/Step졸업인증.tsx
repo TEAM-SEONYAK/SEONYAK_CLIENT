@@ -5,25 +5,41 @@ import { ChangeEvent, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import { useNavigate } from 'react-router-dom';
+import useOCRUnivQuery from '@pages/onboarding/hooks/useOCRUnivQuery';
 
 const Step졸업인증 = () => {
-  const navigate = useNavigate();
-  const handleClickLink = () => {
-    navigate('/seniorOnboarding/7');
-  };
-
-  const [isNextActive, setIsNextActive] = useState(true);
-  const DEFAULT_TEXT = '파일 첨부하기';
+  const DEFAULT_TEXT = '졸업증명서를 첨부해 주세요';
   const [isError, setError] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
-  const [fileName, setFileName] = useState(DEFAULT_TEXT);
+  const [file, setFile] = useState<File | null>(null);
+  const mutation = useOCRUnivQuery();
+  const navigate = useNavigate();
+
+  const handleClickLink = () => {
+    if (!file) return;
+    mutation.mutate(file, {
+      onSuccess: () => {
+        handleSetSuccess(true);
+        setTimeout(() => {
+          navigate('/seniorOnboarding/7');
+        }, 2000);
+      },
+      onError: () => {
+        setError(true);
+      },
+    });
+  };
+
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    setFileName(e.target.files[0].name);
+    setError(false);
+    setFile(e.target.files[0]);
   };
+
   const handleSetSuccess = (type: boolean) => {
     setSuccess(type);
   };
+
   return (
     <>
       <Wrapper>
@@ -32,7 +48,7 @@ const Step졸업인증 = () => {
             label="졸업증명서"
             type="file"
             onChange={handleChangeFile}
-            text={fileName}
+            text={file ? file.name : DEFAULT_TEXT}
             placeholder={DEFAULT_TEXT}
             isError={isError}>
             <InnerButton text="첨부파일" />
@@ -43,9 +59,8 @@ const Step졸업인증 = () => {
             <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50MB)</Caption>
           )}
         </TextBox>
-        <FullBtn text="텍스트" isActive={fileName !== DEFAULT_TEXT} onClick={handleClickLink} />
       </Wrapper>
-      <FullBtn onClick={handleClickLink} isActive={isNextActive} />
+      <FullBtn text="인증하기" onClick={handleClickLink} isActive={!!file} />
       <ModalWrapper>
         <AutoCloseModal text="인증에 성공했어요" showModal={isSuccess} handleShowModal={handleSetSuccess}>
           <Dummy />
