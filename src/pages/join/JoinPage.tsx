@@ -49,11 +49,8 @@ const SubTitle = styled.p`
   margin-bottom: 36.589rem;
 
   color: ${({ theme }) => theme.colors.grayScaleBG};
-  font-style: normal;
-  font-size: 1.5rem;
-  font-weight: 600;
   text-align: center;
-  line-height: 2.1rem;
+  ${({ theme }) => theme.fonts.Title1_SB_16};
   white-space: pre-wrap;
 `;
 
