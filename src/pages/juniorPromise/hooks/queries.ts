@@ -11,7 +11,5 @@ export const useSeniorTimeQuery = (seniorId: number) => {
     queryFn: () => getSeniorTimeAxios(seniorId),
   });
 
-  console.log(data, isSuccess, isLoading);
-
   return { data, isSuccess, isLoading };
 };

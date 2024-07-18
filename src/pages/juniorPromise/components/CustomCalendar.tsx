@@ -19,9 +19,21 @@ interface CustomCalendarPropType {
   btnId: number;
   setSelectedTime: React.Dispatch<React.SetStateAction<{ id: number; selectedTime: string; clickedDay: string }[]>>;
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
+  preferredTimeList: any;
 }
 
-const CustomCalendar = ({ btnId, setSelectedTime, selectedTime }: CustomCalendarPropType) => {
+const CustomCalendar = ({ btnId, setSelectedTime, selectedTime, preferredTimeList }: CustomCalendarPropType) => {
+  const dayOfWeekMap: { [key: number]: string } = {
+    0: '일', 
+    1: '월',
+    2: '화',
+    3: '수',
+    4: '목', 
+    5: '금', 
+    6: '토',
+  };
+  const preferredDaysofWeek = Object.keys(preferredTimeList);
+
   const [, onChange] = useState<Value>(getTomorrow());
 
   const handleDateClick = (date: string) => {
@@ -37,7 +49,16 @@ const CustomCalendar = ({ btnId, setSelectedTime, selectedTime }: CustomCalendar
 
       // 이미 선택된 날짜를 비활성화
       const formattedDate = formatCalDateToString(date);
-      return selectedTime.some((item) => item.clickedDay === formattedDate);
+      if (selectedTime.some((item) => item.clickedDay === formattedDate)) {
+        return true;
+      }
+
+      // 요일을 확인하여 preferredDaysofWeek에 없는 요일을 비활성화
+      const dayOfWeek = date.getDay();
+      const dayOfWeekStr = dayOfWeekMap[dayOfWeek];
+      if (!preferredDaysofWeek.includes(dayOfWeekStr)) {
+        return true;
+      }
     }
     return false;
   };

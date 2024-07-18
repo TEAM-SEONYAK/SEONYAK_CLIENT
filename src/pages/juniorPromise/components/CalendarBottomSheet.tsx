@@ -3,6 +3,8 @@ import React from 'react';
 import CalendarBottomBar from './CalendarBottomBar';
 import CustomCalendar from './CustomCalendar';
 import TimeList from './TimeList';
+import { useSeniorTimeQuery } from '../hooks/queries';
+import { getDayOfWeek } from '../utils/getDay';
 
 interface BottomSheetPropType {
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
@@ -21,6 +23,18 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
   btnId,
   handleCheckAllSelected,
 }) => {
+  // 선배 아이디로 연결 필요
+  const { data: preferredTimeList, isLoading, isError } = useSeniorTimeQuery(31);
+
+  // 로딩 중 또는 에러 발생 시 처리
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError || !preferredTimeList) {
+    return <div>Error loading data</div>;
+  }
+
   return (
     <>
       <Background
@@ -31,9 +45,20 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
       />
       <BottomSheetWrapper $isCalendarOpen={isCalendarOpen}>
         <Scroll>
-          <CustomCalendar btnId={btnId} selectedTime={selectedTime} setSelectedTime={setSelectedTime} />
+          <CustomCalendar
+            btnId={btnId}
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime}
+            preferredTimeList={preferredTimeList && preferredTimeList}
+          />
           <GrayLine />
-          <TimeList selectedTime={selectedTime} setSelectedTime={setSelectedTime} btnId={btnId} />
+          <TimeList
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime}
+            btnId={btnId}
+            // 해당 요일의 가능 시간대 가져오기
+            timeList={preferredTimeList && preferredTimeList[getDayOfWeek(selectedTime[btnId].clickedDay)]}
+          />
         </Scroll>
         <CalendarBottomBar
           selectedTime={selectedTime}
