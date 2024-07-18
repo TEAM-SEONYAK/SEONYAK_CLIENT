@@ -5,6 +5,8 @@ import ProfileChip from './ProfileChip';
 import ProfileContainer from './ProfileContainer';
 import PromiseTimerBtn from './PromiseTimerBtn';
 import { profileCardDataType } from '../types/type';
+import { useGetGoogleMeetLink } from '../hooks/queries';
+import { useState } from 'react';
 
 interface RecentCardPropType {
   userRole: string;
@@ -16,6 +18,18 @@ interface RecentCardPropType {
 const RecentCard = (props: RecentCardPropType) => {
   const { userRole, recentAppointment, appointmentNum, nickname } = props;
   const { diffText, diff, dDayDiff } = useCountdown(recentAppointment?.date, recentAppointment?.startTime);
+  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
+  const [googleMeetLink, setGoogleMeetLink] = useState('');
+
+  const handleClickEnterBtn = (link: string) => {
+    setGoogleMeetLink(link);
+    window.open(link, '_blank');
+  };
+
+  console.log(googleMeetLink);
+
+  // appointmentId로 바꿔야 함 !!
+  useGetGoogleMeetLink(68, isEnterBtnClicked, handleClickEnterBtn);
 
   return (
     <Wrapper $userRole={userRole}>
@@ -36,7 +50,12 @@ const RecentCard = (props: RecentCardPropType) => {
             isarrow="true"
             myNickname={nickname}
           />
-          <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="recent" />
+          <PromiseTimerBtn
+            isActive={diff <= 0}
+            diff={diffText}
+            page="recent"
+            onClick={() => setIsEnterBtnClicked(true)}
+          />
         </>
       ) : (
         <EmptyImg />

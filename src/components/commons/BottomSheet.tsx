@@ -45,7 +45,7 @@ const BottomSheetWrapper = styled.form<{ $isSheetOpen: boolean }>`
   flex-direction: column;
   position: fixed;
   bottom: 0;
-  z-index: 4;
+  z-index: 13;
 
   width: 100%;
   height: auto;

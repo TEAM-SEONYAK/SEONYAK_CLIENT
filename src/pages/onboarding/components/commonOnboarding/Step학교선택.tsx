@@ -5,6 +5,7 @@ import SearchBox from '../SearchBox';
 import { FullBtn } from '@components/commons/FullButton';
 import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
 import { useNavigate } from 'react-router-dom';
+import useSearchUnivQuery from '@pages/onboarding/hooks/useSearchUnivQuery';
 
 const Step학교선택 = () => {
   const ROLE = 'SENIOR'; // 임시
@@ -46,8 +47,8 @@ interface Sheet학교선택PropType {
 }
 
 const Sheet학교선택 = ({ handleSelectUniv, handleClose }: Sheet학교선택PropType) => {
-  const dummy = ['서울여자대학교', '서울여자대학교 특수치료전문대학원', '서울여성대학교'];
-  const search = '서울여';
+  const [searchValue, setSearchValue] = useState('');
+  const list: string[] = useSearchUnivQuery(searchValue);
 
   const handleListClick = (data: string) => {
     handleSelectUniv(data);
@@ -55,14 +56,20 @@ const Sheet학교선택 = ({ handleSelectUniv, handleClose }: Sheet학교선택P
   };
   return (
     <SheetWrapper>
-      <SearchBox placeholder="학교명을 입력해 주세요" />
+      <SearchBox
+        placeholder="학교명을 입력해 주세요"
+        searchValue={searchValue}
+        handleSearchValue={(selectedValue: string) => setSearchValue(selectedValue)}
+        autoFocus
+      />
       <Content>
-        {dummy.map((d) => (
-          <ListWrapper key={d} onClick={() => handleListClick(d)}>
-            <ListBold key={d + 'idx'}>{search}</ListBold>
-            <List key={d}>{excludeCommonPart({ common: search, str: d })}</List>
-          </ListWrapper>
-        ))}
+        {list &&
+          list.map((d) => (
+            <ListWrapper key={d} onClick={() => handleListClick(d)}>
+              <ListBold key={d + 'idx'}>{searchValue}</ListBold>
+              <List key={d}>{excludeCommonPart({ common: searchValue, str: d })}</List>
+            </ListWrapper>
+          ))}
       </Content>
     </SheetWrapper>
   );

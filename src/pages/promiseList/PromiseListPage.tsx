@@ -1,37 +1,36 @@
-import { TempLogoIc, AlarmIc } from '@assets/svgs';
+import { HeaderLogoIc, AlarmIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import styled from '@emotion/styled';
 import PromiseTap from './components/PromiseTap';
 import RecentCard from './components/RecentCard';
 import Title from './components/Title';
-import { SENIOR_DATA, JUNIOR_DATA } from './constants/constants';
+import { useGetPromiseList } from './hooks/queries';
 
 const PromiseListPage = () => {
   // 유저가 선배일 경우
-  const userRole = 'SENIOR';
-  const promiseData = userRole === 'SENIOR' ? SENIOR_DATA : JUNIOR_DATA;
+  const userRole = 'JUNIOR';
+
+  const { myNickname, pending, scheduled, past, isLoading } = useGetPromiseList();
+
+  if (isLoading) {
+    return <></>;
+  }
 
   return (
     <>
-      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} bgColor="gray" />
+      <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="gray" />
       <Wrapper>
         <RecentLayout>
-          <Title nickname={promiseData.myNickname} userRole={userRole} count={promiseData.scheduled.length} />
+          <Title nickname={myNickname} userRole={userRole} count={scheduled.length} />
           <RecentCard
             userRole={userRole}
-            nickname={promiseData.myNickname}
-            recentAppointment={promiseData.scheduled && promiseData.scheduled[0]}
-            appointmentNum={promiseData.scheduled.length}
+            nickname={myNickname}
+            recentAppointment={scheduled && scheduled[0]}
+            appointmentNum={scheduled.length}
           />
         </RecentLayout>
-        <PromiseTap
-          myNickname={promiseData.myNickname}
-          userRole={userRole}
-          pending={promiseData.pending}
-          scheduled={promiseData.scheduled}
-          past={promiseData.past}
-        />
+        <PromiseTap myNickname={myNickname} userRole={userRole} pending={pending} scheduled={scheduled} past={past} />
         <Nav />
       </Wrapper>
     </>

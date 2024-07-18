@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import SearchBox from '../SearchBox';
 import { FullBtn } from '@components/commons/FullButton';
 import { useNavigate } from 'react-router-dom';
+import useSearchDeptQuery from '@pages/onboarding/hooks/useSearchDeptQuery';
+import { DeptType } from '@pages/onboarding/type';
 
 const Step학과선택 = () => {
   const ROLE = 'SENIOR'; // 임시
@@ -42,7 +44,8 @@ const Step학과선택 = () => {
     }
   }, [selectedMajors]);
 
-  const dummyMajor = ['사회과학', '윤서진~나 사랑해 윤서진~나 좋아', '보고싶어', '안녕하세요'];
+  const list: DeptType[] = useSearchDeptQuery('이화여자대학교', searchValue);
+
   return (
     <Wrapper>
       {selectedMajors.length > 0 && (
@@ -58,17 +61,35 @@ const Step학과선택 = () => {
         </>
       )}
       <SearchBox placeholder="학과명을 입력해 주세요" searchValue={searchValue} handleSearchValue={handleSearchValue} />
-      <SearchListWrapper>
-        {dummyMajor.map((m) => (
-          <SearchList key={m} handleSelectMajors={handleSelectMajors} majorName={m} selectedMajors={selectedMajors} />
-        ))}
-      </SearchListWrapper>
+      <Container>
+        <SearchListWrapper>
+          {list &&
+            list.map(({ deptName }) => (
+              <SearchList
+                key={deptName}
+                handleSelectMajors={handleSelectMajors}
+                majorName={deptName}
+                selectedMajors={selectedMajors}
+              />
+            ))}
+        </SearchListWrapper>
+      </Container>
       <FullBtn isActive={selectedMajors.length > 0} onClick={handleClickLink} />
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
+const Container = styled.div`
+  overflow: scroll;
+
+  height: calc(100vh - 30rem);
+  padding-bottom: 9.7rem;
+`;
+const Wrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+
+  height: 100dvh;
   padding-top: 2rem;
 `;
 
@@ -86,9 +107,6 @@ const WarnWrapper = styled.section`
 `;
 
 const SearchListWrapper = styled.article`
-  overflow-y: scroll;
-
-  height: 22.1rem;
   padding: 0.5rem 1rem;
 `;
 
