@@ -6,11 +6,15 @@ export const QUERY_KEY_PROMISE_DETAIL = {
 };
 
 export const useGetPromiseList = () => {
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isLoading } = useQuery({
     queryKey: [QUERY_KEY_PROMISE_DETAIL.getPromiseList],
-    queryFn: () => getPromiseList(),
+    queryFn: getPromiseList,
   });
 
-  console.log(data);
-  return { data, isSuccess };
+  const myNickname = data && data.myNickname;
+  const pending = data && data.pending;
+  const scheduled = data && data.scheduled;
+  const past = data && data.past;
+
+  return { myNickname, pending, scheduled, past, isSuccess, isLoading };
 };
