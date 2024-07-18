@@ -41,7 +41,6 @@ const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeLis
     );
   };
 
-  console.log({ cardData });
   return (
     <>
       <Wrapper>

@@ -52,7 +52,7 @@ const SeniorProfilePage = () => {
         return null;
     }
   };
-  console.log({ profile });
+
   return (
     <div>
       {step > 1 && step < 7 && (
