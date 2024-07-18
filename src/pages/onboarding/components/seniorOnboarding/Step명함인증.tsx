@@ -25,33 +25,33 @@ const Step명함인증 = () => {
     const file = e.target.files[0];
     mutation.mutate(file, {
       onSuccess: (res) => {
-        navigate('/seniorOnboarding/8');
         setInfo(res.data.data);
       },
     });
   };
 
-  const VerificationDone = () => (
-    <>
-      <TextBox label="회사명">
-        <InputBox label="회사명" placeholder="회사명을 입력해주세요" value={info.company} />
-      </TextBox>
-      <TextBox label="전화번호">
-        <InputBox label="전화번호" placeholder="연락처를 입력해주세요" value={info.phoneNumber} />
-        <Caption>{`회사명과 전화번호를 확인해 주세요`}</Caption>
-      </TextBox>
-      <BottomCaption>테스트</BottomCaption>
-      <ButtonWrapper>
-        <BlackButton>
-          <input type="file" accept="image/*" capture="environment" onChange={handleChangeFile} />
-          다시찍기
-        </BlackButton>
-        <BlueButton type="button" onClick={() => navigate('/seniorOnboarding/8')}>
-          다음으로
-        </BlueButton>
-      </ButtonWrapper>
-    </>
-  );
+  const VerificationDone = () =>
+    info && (
+      <>
+        <TextBox label="회사명">
+          <InputBox label="회사명" placeholder="회사명을 입력해주세요" value={info.company} disabled />
+        </TextBox>
+        <TextBox label="전화번호">
+          <InputBox label="전화번호" placeholder="연락처를 입력해주세요" value={info.phoneNumber} disabled />
+          <Caption>{`회사명과 전화번호를 확인해 주세요`}</Caption>
+        </TextBox>
+        <BottomCaption>테스트</BottomCaption>
+        <ButtonWrapper>
+          <BlackButton>
+            <input type="file" accept="image/*" capture="environment" onChange={handleChangeFile} />
+            다시찍기
+          </BlackButton>
+          <BlueButton type="button" onClick={() => navigate('/seniorOnboarding/8')}>
+            다음으로
+          </BlueButton>
+        </ButtonWrapper>
+      </>
+    );
 
   return !!info ? (
     <VerificationDone />
