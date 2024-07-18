@@ -18,7 +18,7 @@ interface ProfileContainerPropType {
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  const { userRole, profileCardData, tap, isarrow, myNickname, googleMeetLink } = props;
+  const { userRole, profileCardData, tap, isarrow, myNickname } = props;
   const navigate = useNavigate();
 
   // 리뷰 모달 띄우기 용

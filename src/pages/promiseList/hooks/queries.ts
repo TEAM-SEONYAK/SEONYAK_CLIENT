@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getGoogleMeetLink } from '../apis/getGoogleMeetLink';
 import { useEffect } from 'react';
 
-export const QUERY_KEY_PROMISE_DETAIL = {
+export const QUERY_KEY_PROMISE_LIST = {
   getGoogleMeetLink: getGoogleMeetLink,
 };
 
@@ -12,7 +12,7 @@ export const useGetGoogleMeetLink = (
   onSuccessCallback?: (link: string) => void,
 ) => {
   const { data, isSuccess } = useQuery({
-    queryKey: [QUERY_KEY_PROMISE_DETAIL.getGoogleMeetLink, appointmentId, isEnterBtnClicked],
+    queryKey: [QUERY_KEY_PROMISE_LIST.getGoogleMeetLink, appointmentId, isEnterBtnClicked],
     queryFn: () => getGoogleMeetLink(appointmentId),
     enabled: !!isEnterBtnClicked,
   });

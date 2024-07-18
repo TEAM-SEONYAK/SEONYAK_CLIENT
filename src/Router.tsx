@@ -17,7 +17,6 @@ import Step명함인증 from '@pages/onboarding/components/seniorOnboarding/Step
 import Step직무선택 from '@pages/onboarding/components/seniorOnboarding/Step직무선택';
 import Step재직기간 from '@pages/onboarding/components/seniorOnboarding/Step재직기간';
 import Step번호입력 from '@pages/onboarding/components/commonOnboarding/Step번호입력';
-import Step인증완료 from '@pages/onboarding/components/seniorOnboarding/Step인증완료';
 import Step이메일입력 from '@pages/onboarding/components/juniorOnboarding/Step이메일입력';
 import Layout from '@pages/onboarding/components/Layout';
 
@@ -80,18 +79,14 @@ const router = createBrowserRouter([
           },
           {
             path: '8',
-            element: <Step인증완료 />,
-          },
-          {
-            path: '9',
             element: <Step직무선택 />,
           },
           {
-            path: '10',
+            path: '9',
             element: <Step재직기간 />,
           },
           {
-            path: '11',
+            path: '10',
             element: <Step번호입력 />,
           },
         ],

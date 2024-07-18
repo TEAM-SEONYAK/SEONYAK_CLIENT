@@ -13,6 +13,7 @@ import { SENIOR_RESPONSE, REJECT_REASON, DEFAULT_REJECT_TEXT } from './constants
 import { formatDate } from './utils/formatDate';
 import { usePatchSeniorReject } from './hooks/queries';
 import { useGetGoogleMeetLink } from '@pages/promiseList/hooks/queries';
+import { usePostGoogleMeetLink, usePatchSeniorAccept } from './hooks/queries';
 
 const PromiseDetail = () => {
   const location = useLocation();
@@ -21,10 +22,6 @@ const PromiseDetail = () => {
   const tap = location.state.tap;
   const myNickname = location.state.myNickname;
   const userRole = 'SENIOR';
-
-  const handleModalOpen = (type: boolean) => {
-    setIsModalOpen(type);
-  };
 
   // 기본뷰 / 거절뷰
   const [viewType, setViewType] = useState('DEFAULT');
@@ -38,6 +35,54 @@ const PromiseDetail = () => {
   const [rejectReason, setRejectReason] = useState(DEFAULT_REJECT_TEXT);
   // 작성한 거절사유 저장
   const [rejectDetail, setRejectDetail] = useState('');
+  // 서버 전달용 날짜, 시작시간, 끝시간 저장 state
+  const [serverTimeList, setServerTimeList] = useState({ date: '', startTime: '', endTime: '' });
+  // 받아온 구글밋 링크 저장
+  const [, setGoogleMeet] = useState('');
+
+  const handleModalOpen = (type: boolean) => {
+    setIsModalOpen(type);
+  };
+
+  // 선배 약속 수락
+  const { mutate: patchSeniorAccept } = usePatchSeniorAccept(() => handleModalOpen(true));
+
+  // 구글밋 링크 patch 콜백 함수
+  const handleSuccessCallback = (link: string) => {
+    setGoogleMeet(link);
+    patchSeniorAccept({
+      appointmentId: 69,
+      googleMeetLink: link,
+      timeList: [
+        {
+          date: serverTimeList.date,
+          startTime: serverTimeList.startTime,
+          endTime: serverTimeList.endTime,
+        },
+      ],
+    });
+  };
+
+  // 구글밋 링크 받아오기(post) 후 약속 수락 patch
+  const { mutate: postGoogleMeetLink } = usePostGoogleMeetLink((link) => {
+    handleSuccessCallback(link);
+  });
+
+  // 수락하기 버튼 누를 때
+  const handleAppointmentApprove = () => {
+    postGoogleMeetLink();
+  };
+
+  // 선택값 저장 함수
+  const handleClickTimeBox = (idx: number, date: string, startTime: string, endTime: string) => {
+    setSelectTime(idx);
+    setServerTimeList((prev) => ({
+      ...prev,
+      date: date,
+      startTime: startTime,
+      endTime: endTime,
+    }));
+  };
 
   // 선배 약속 거절
   const { mutate: patchSeniorReject } = usePatchSeniorReject(() => handleModalOpen(true));
@@ -60,11 +105,6 @@ const PromiseDetail = () => {
 
   // appointmentId로 바꿔야 함 !!
   useGetGoogleMeetLink(68, isEnterBtnClicked, handleClickEnterBtn);
-
-  // 선택값 저장 함수
-  const handleClickTimeBox = (idx: number) => {
-    setSelectTime(idx);
-  };
 
   const handleBottomSheetOpen = () => {
     setIsBottomSheetOpen(true);
@@ -157,7 +197,7 @@ const PromiseDetail = () => {
                 {SENIOR_RESPONSE.timeList.map((el, idx) => (
                   <Time
                     key={el.date + idx + el.startTime}
-                    onClick={() => handleClickTimeBox(idx)}
+                    onClick={() => handleClickTimeBox(idx, el.date, el.startTime, el.endTime)}
                     $isActive={selectTime === idx}>
                     {formatDate(el.date)} {el.startTime} - {el.endTime}
                     <ButtonCheckIcon isactive={(selectTime === idx).toString()} />
@@ -185,7 +225,7 @@ const PromiseDetail = () => {
                   type="button"
                   disabled={selectTime === null}
                   $isActive={selectTime !== null}
-                  onClick={() => setIsModalOpen(true)}>
+                  onClick={handleAppointmentApprove}>
                   수락하기
                 </AcceptBtn>
               </BtnWrapper>
@@ -218,15 +258,14 @@ const PromiseDetail = () => {
         )}
       </Wrapper>
       {viewType === 'DECLINE' ? (
-        <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+        <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/">
           <DeclineImg />
         </AutoCloseModal>
       ) : (
-        <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+        <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/">
           <DeclineImg />
         </AutoCloseModal>
       )}
-
       <BottomSheet
         btnActive={rejectReason}
         isSheetOpen={isBottomSheetOpen}
@@ -257,19 +296,20 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3rem 1.765rem 0 2.035rem;
 
   width: 100vw;
   height: 100%;
   margin-top: 4.4rem;
+  padding: 3rem 1.765rem 0 2.035rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
-  border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
 const Layout = styled.div<{ $viewType: string }>`
   display: flex;
   flex-direction: column;
+
   width: 100%;
   margin-bottom: ${({ $viewType }) => ($viewType === 'DEFAULT' ? '11.6rem' : '0')};
 `;
@@ -278,6 +318,7 @@ const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
   margin-bottom: 3rem;
 `;
 
@@ -296,19 +337,25 @@ const Content = styled.div`
   width: 100%;
   padding: 1.1rem 0 1.1rem 1.5rem;
   border-radius: 8px;
+
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
   color: ${({ theme }) => theme.colors.grayScaleBG};
   ${({ theme }) => theme.fonts.Body1_M_14}
 `;
 
 const DeclineContent = styled.div`
   position: relative;
+
   width: 100%;
   padding: 1.1rem 0 1.1rem 1.5rem;
   height: 4.4rem;
   border-radius: 8px;
+
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
   color: ${({ theme }) => theme.colors.grayScaleMG2};
+
   ${({ theme }) => theme.fonts.Body1_M_14}
   cursor: pointer;
 `;
@@ -321,13 +368,18 @@ const ArrowDownMgIcon = styled(ArrowDownMgIc)`
 
 const Time = styled.div<{ $isActive: boolean }>`
   width: 100%;
+
   display: flex;
   justify-content: space-between;
+
   padding: 1.1rem 1.5rem;
   border-radius: 8px;
+
   background-color: ${({ theme, $isActive }) =>
     $isActive ? theme.colors.transparentBlue_5 : theme.colors.grayScaleLG1};
+
   color: ${({ theme, $isActive }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleBG)};
+
   ${({ theme }) => theme.fonts.Body1_M_14};
   cursor: pointer;
 
@@ -342,7 +394,9 @@ const ButtonCheckIcon = styled(ButtonCheckIc)<{ isactive: string }>`
 const WrittenContent = styled.div`
   padding: 1rem 1.5rem;
   border-radius: 8px;
+
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
   color: ${({ theme }) => theme.colors.grayScaleBG};
   ${({ theme }) => theme.fonts.Body1_M_14};
 `;
@@ -355,62 +409,76 @@ const TimeContainer = styled.div`
 const DeclineText = styled.p`
   width: 100%;
   height: 4.4rem;
+
   white-space: pre-wrap;
   color: ${({ theme }) => theme.colors.grayScaleDG};
   ${({ theme }) => theme.fonts.Body1_M_14}
 `;
 
 const Description = styled.span`
-  margin: 0.4rem 0 1rem 0;
+  margin: 0.4rem 0 1rem;
+
   color: ${({ theme }) => theme.colors.grayScaleMG2};
   ${({ theme }) => theme.fonts.Body1_M_14};
 `;
 
 const BtnWrapper = styled.div`
-  position: fixed;
-  z-index: 2;
-  bottom: 0;
-  width: 100%;
-  padding: 0 2.035rem 0 1.965rem;
   display: flex;
   gap: 1rem;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+
+  width: 100%;
   margin-bottom: 3.977rem;
+  padding: 0 2.035rem 0 1.965rem;
 `;
 
 const DeclineBtn = styled.button`
   z-index: 2;
+
   border-radius: 5px;
   width: 10.6rem;
   height: 5.6rem;
+
   background-color: ${({ theme }) => theme.colors.grayScaleBG};
+
   color: ${({ theme }) => theme.colors.grayScaleWhite};
+
   ${({ theme }) => theme.fonts.Head2_SB_18}
   cursor: pointer;
 `;
 
 const AcceptBtn = styled.button<{ $isActive: boolean }>`
   z-index: 2;
+
   border-radius: 5px;
   width: 21.9rem;
   height: 5.6rem;
+
   background-color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleMG2)};
+
   color: ${({ theme }) => theme.colors.grayScaleWhite};
+
   cursor: ${({ $isActive }) => ($isActive ? 'pointer' : 'default')};
   ${({ theme }) => theme.fonts.Head2_SB_18};
 `;
 
 const BtnBackground = styled.div`
-  width: 100%;
-  height: 6.1rem;
-  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
-  z-index: 1;
   position: fixed;
   bottom: 0;
+  z-index: 1;
+
+  width: 100%;
+  height: 6.1rem;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const DeclineImg = styled.div`
   width: 27rem;
   height: 17.1rem;
+
   background-color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;
 
@@ -418,6 +486,7 @@ const BottomSheetLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
   margin-bottom: 2.5rem;
 `;
 
@@ -432,8 +501,10 @@ const DeclineReasonWrapper = styled.div`
 `;
 
 const DeclineReason = styled.div<{ $isActive: boolean }>`
-  padding: 1rem 0 1rem 0;
+  padding: 1rem 0;
+
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
+
   color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleDG)};
   ${({ theme }) => theme.fonts.Title2_M_16};
 `;
