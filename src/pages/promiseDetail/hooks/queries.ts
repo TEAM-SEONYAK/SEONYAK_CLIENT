@@ -20,18 +20,18 @@ export const useGetPromiseDetail = (appointmentId: number) => {
   const topic = data && data.topic;
   const personalTopic = data && data.personalTopic;
 
-  console.log(
-    appointmentStatus,
-    juniorInfo,
-    seniorInfo,
-    timeList1,
-    timeList2,
-    timeList3,
-    topic,
-    personalTopic,
-    isSuccess,
-    isLoading,
-  );
+  // console.log(
+  //   appointmentStatus,
+  //   juniorInfo,
+  //   seniorInfo,
+  //   timeList1,
+  //   timeList2,
+  //   timeList3,
+  //   topic,
+  //   personalTopic,
+  //   isSuccess,
+  //   isLoading,
+  // );
 
   return {
     appointmentStatus,

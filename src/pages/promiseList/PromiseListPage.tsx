@@ -13,9 +13,6 @@ const PromiseListPage = () => {
   const userRole = 'JUNIOR';
   const promiseData = userRole === 'SENIOR' ? SENIOR_DATA : JUNIOR_DATA;
 
-  // const { juniorInfo, seniorInfo, timeList1, timeList2, timeList3, topic, personalTopic, isSuccess, isLoading } =
-  //   useGetPromiseDetail(60);
-
   return (
     <>
       <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="gray" />

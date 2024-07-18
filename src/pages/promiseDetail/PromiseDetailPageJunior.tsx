@@ -16,8 +16,7 @@ const PromiseDetailPageJunior = () => {
   const tap = location.state.tap;
   const myNickname = location.state.myNickname;
 
-  const { juniorInfo, seniorInfo, timeList1, timeList2, timeList3, topic, personalTopic, isSuccess, isLoading } =
-    useGetPromiseDetail(60);
+  const { juniorInfo, seniorInfo, timeList1, topic, personalTopic, isSuccess, isLoading } = useGetPromiseDetail(60);
 
   const countdown = useCountdown(timeList1?.date, timeList1?.startTime);
 
@@ -46,6 +45,7 @@ const PromiseDetailPageJunior = () => {
                 tap="default"
                 profileCardData={seniorInfo}
                 isarrow="false"
+                detail="detail"
               />
             </PromiseDiv>
           </TitleContainer>
