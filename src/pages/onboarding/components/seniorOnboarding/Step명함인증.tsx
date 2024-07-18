@@ -107,13 +107,6 @@ const Wrapper = styled.section`
 
   padding-top: 2rem;
 `;
-const Image = styled.div`
-  width: 100%;
-  height: 16.5rem;
-  border-radius: 8px;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleDG};
-`;
 
 const Caption = styled.p`
   color: ${({ theme }) => theme.colors.grayScaleDG};
