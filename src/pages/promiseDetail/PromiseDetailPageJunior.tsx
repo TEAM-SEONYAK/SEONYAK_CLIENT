@@ -48,6 +48,7 @@ const PromiseDetailPageJunior = () => {
       {isDetailClicked ? (
         <>
           <Header LeftSvg={ArrowLeftIc} title="내가 보낸 약속" />
+          <Divider />
           <PreView variant="secondary" seniorId={clickedSeniorId + ''} />
         </>
       ) : (
@@ -183,4 +184,12 @@ const BtnBackground = styled.div`
   z-index: 2;
   position: fixed;
   bottom: 0;
+`;
+
+const Divider = styled.hr`
+  width: 100vw;
+  margin-top: 5rem;
+  height: 0.1rem;
+  border: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
+  margin-bottom: 3.2rem;
 `;

@@ -79,7 +79,7 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
   if (isSecondTimeListLoading) return;
   return (
     <>
-      <Wrapper>
+      <Wrapper $variant={variant}>
         {cardData && (
           <SeniorCard
             nickname={cardData.nickname}
@@ -108,7 +108,7 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
 
 export default PreView;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ $variant: string }>`
   overflow-y: scroll;
 
   padding: 0 2rem 12.6rem;
