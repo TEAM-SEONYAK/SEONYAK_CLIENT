@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProfileContainer from './ProfileContainer';
 import { PROMISE_TAP } from '../constants/constants';
 import { profileCardDataType } from '../types/type';
@@ -47,9 +47,10 @@ const PromiseTap = (props: PromiseTapPropType) => {
       {getTapContent(tap).length ? (
         <ProfileWrapper>
           {tap === 'past' &&
-            past.map((profileData) =>
+            past.map((profileData, idx) =>
               profileData.appointmentStatus === 'REJECTED' ? (
                 <ProfileContainer
+                  key={profileData.appointmentId + idx}
                   myNickname={myNickname}
                   userRole={userRole}
                   tap="rejected"
@@ -58,6 +59,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
                 />
               ) : (
                 <ProfileContainer
+                  key={profileData.appointmentId + idx}
                   myNickname={myNickname}
                   userRole={userRole}
                   tap="past"

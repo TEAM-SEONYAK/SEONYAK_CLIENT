@@ -6,15 +6,16 @@ import { getPromiseDetail } from '../apis/getPromiseDetail';
 import { QUERY_KEY_PROMISE_LIST } from '@pages/promiseList/hooks/queries';
 
 export const QUERY_KEY_PROMISE_DETAIL = {
-  patchSeniorReject: 'patchSeniorReject',
-  postGoogleMeetLink: 'postGoogleMeetLink',
-  patchSeniorAccept: 'patchSeniorAccept',
-  getPromiseDetail: 'getPromiseDetail',
+  patchSeniorReject: patchSeniorReject,
+  postGoogleMeetLink: postGoogleMeetLink,
+  patchSeniorAccept: patchSeniorAccept,
+  getPromiseDetail: getPromiseDetail,
 };
 
 // 선배 약속 거절
 export const usePatchSeniorReject = (onSuccessCallback?: () => void) => {
   const queryClient = useQueryClient();
+
   const { mutate, data } = useMutation({
     mutationKey: [QUERY_KEY_PROMISE_DETAIL.patchSeniorReject],
     mutationFn: ({ appointmentId, rejectReason, rejectDetail }: patchSeniorRejectRequestType) =>
@@ -59,6 +60,7 @@ export const usePatchSeniorAccept = (onSuccessCallback?: () => void) => {
       patchSeniorAccept({ appointmentId, googleMeetLink, timeList }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_PROMISE_LIST.getPromiseList] });
+
       if (onSuccessCallback) {
         onSuccessCallback();
       }
