@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 const SignupPage = () => {
   const role = useLocation().state.role;
-  const { login } = useGoogleLoginHook(role);
+  const { login } = useGoogleLoginHook({ role });
 
   return (
     <>
