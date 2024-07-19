@@ -17,10 +17,11 @@ interface ProfileContainerPropType {
   myNickname: string;
   googleMeetLink?: string;
   detail?: string;
+  handleSetIsDetailClicked?: (type: boolean, id: number) => void;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  const { userRole, profileCardData, tap, isarrow, myNickname, detail } = props;
+  const { userRole, profileCardData, tap, isarrow, myNickname, detail, handleSetIsDetailClicked } = props;
   const navigate = useNavigate();
 
   // 리뷰 모달 띄우기 용
@@ -56,24 +57,30 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         state: { tap: 'pending', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
-    // 진이 뷰 연결 필요
+
     if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
       navigate('./promiseDetail', {
         state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
-    // 진이 뷰 연결 필요
+
     if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
       navigate('./promiseDetailJunior', {
         state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
+    }
+
+    // 실제 선배 아이디로 연결 필요
+    if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default') && detail === 'detail') {
+      // const id = profileCardData.seniorId
+      handleSetIsDetailClicked && handleSetIsDetailClicked(true, 24);
     }
   };
 
   return (
     <ReviewWrapper $tap={tap}>
       <Wrapper $tap={tap} onClick={() => handleClickProfileContainer(tap, userRole)}>
-        <ProfileImg src={profileCardData?.image} alt="프로필 이미지"/>
+        <ProfileImg src={profileCardData?.image} alt="프로필 이미지" />
         <InfoContainer>
           <NameContainer>
             <Name>

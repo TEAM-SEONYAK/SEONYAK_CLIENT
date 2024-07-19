@@ -6,12 +6,22 @@ import PromiseTap from './components/PromiseTap';
 import RecentCard from './components/RecentCard';
 import Title from './components/Title';
 import { useGetPromiseList } from './hooks/queries';
+import { useState } from 'react';
+import { ArrowLeftIc } from '@assets/svgs';
+import PreView from '@pages/seniorProfile/components/preView';
 
 const PromiseListPage = () => {
   // 유저가 선배일 경우
   const userRole = 'JUNIOR';
+  const [isDetailClicked, setIsDetailClicked] = useState(false);
+  const [clickedSeniorId, setClickedSeniorId] = useState(0);
 
   const { myNickname, pending, scheduled, past, isLoading } = useGetPromiseList();
+
+  const handleSetIsDetailClicked = (type: boolean, id: number) => {
+    setIsDetailClicked(type);
+    setClickedSeniorId(id);
+  };
 
   if (isLoading) {
     return <></>;
@@ -19,20 +29,36 @@ const PromiseListPage = () => {
 
   return (
     <>
-      <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="gray" />
-      <Wrapper>
-        <RecentLayout>
-          <Title nickname={myNickname} userRole={userRole} count={scheduled.length} />
-          <RecentCard
-            userRole={userRole}
-            nickname={myNickname}
-            recentAppointment={scheduled && scheduled[0]}
-            appointmentNum={scheduled.length}
-          />
-        </RecentLayout>
-        <PromiseTap myNickname={myNickname} userRole={userRole} pending={pending} scheduled={scheduled} past={past} />
-        <Nav />
-      </Wrapper>
+      {isDetailClicked ? (
+        <>
+        <Header LeftSvg={ArrowLeftIc} title='내가 보낸 약속'/>
+          {/* <PreView /> */}
+        </>
+      ) : (
+        <>
+          <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="gray" />
+          <Wrapper>
+            <RecentLayout>
+              <Title nickname={myNickname} userRole={userRole} count={scheduled.length} />
+              <RecentCard
+                userRole={userRole}
+                nickname={myNickname}
+                recentAppointment={scheduled && scheduled[0]}
+                appointmentNum={scheduled.length}
+                handleSetIsDetailClicked={handleSetIsDetailClicked}
+              />
+            </RecentLayout>
+            <PromiseTap
+              myNickname={myNickname}
+              userRole={userRole}
+              pending={pending}
+              scheduled={scheduled}
+              past={past}
+            />
+            <Nav />
+          </Wrapper>
+        </>
+      )}
     </>
   );
 };

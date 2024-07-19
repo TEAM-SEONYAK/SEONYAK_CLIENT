@@ -13,10 +13,11 @@ interface RecentCardPropType {
   recentAppointment?: profileCardDataType;
   appointmentNum: number;
   nickname: string;
+  handleSetIsDetailClicked: (type: boolean, id: number) => void;
 }
 
 const RecentCard = (props: RecentCardPropType) => {
-  const { userRole, recentAppointment, appointmentNum, nickname } = props;
+  const { userRole, recentAppointment, appointmentNum, nickname, handleSetIsDetailClicked } = props;
   const { diffText, diff, dDayDiff } = useCountdown(recentAppointment?.date, recentAppointment?.startTime);
   const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
   const [, setGoogleMeetLink] = useState('');
@@ -46,6 +47,8 @@ const RecentCard = (props: RecentCardPropType) => {
             profileCardData={recentAppointment}
             isarrow="true"
             myNickname={nickname}
+            detail="detail"
+            handleSetIsDetailClicked={handleSetIsDetailClicked}
           />
           <PromiseTimerBtn
             isActive={diff <= 0}
