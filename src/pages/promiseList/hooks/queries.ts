@@ -4,8 +4,8 @@ import { getPromiseList } from '../apis/getPromiseList';
 import { useEffect } from 'react';
 
 export const QUERY_KEY_PROMISE_LIST = {
-  getGoogleMeetLink: getGoogleMeetLink,
-  getPromiseList: getPromiseList,
+  getGoogleMeetLink: 'getGoogleMeetLink',
+  getPromiseList: 'getPromiseList',
 };
 
 export const useGetGoogleMeetLink = (
