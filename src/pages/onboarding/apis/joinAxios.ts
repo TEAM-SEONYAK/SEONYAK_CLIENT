@@ -1,8 +1,12 @@
 import { authAxios } from '@utils/apis';
-import { JoinRequesetType } from '../type';
+import { JoinPropType, JoinRequesetType } from '../type';
 
-export const joinAxios = (requestBody: JoinRequesetType) => {
+export const joinAxios = (requestBody: JoinPropType) => {
+  const request: JoinRequesetType = {
+    ...requestBody,
+    isSubscribed: requestBody.isSubscribed[4],
+  };
   return authAxios.patch('/v1/auth/join', {
-    requestBody,
+    request,
   });
 };

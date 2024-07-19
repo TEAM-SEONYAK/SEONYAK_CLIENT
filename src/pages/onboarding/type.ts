@@ -8,6 +8,21 @@ export interface BizInfoType {
   phoneNumber: string;
 }
 
+export interface JoinPropType {
+  userType: number;
+  isSubscribed: boolean[];
+  nickname: string;
+  image: string;
+  phoneNumber: string;
+  univName: string;
+  field: string;
+  departmentList: string[];
+  businessCard?: string;
+  company?: string;
+  position?: string;
+  detailPosition?: string;
+  level?: string;
+}
 export interface JoinRequesetType {
   userType: number;
   isSubscribed: boolean;
@@ -25,6 +40,6 @@ export interface JoinRequesetType {
 }
 
 export interface JoinContextType {
-  data: JoinRequesetType;
-  setData: React.Dispatch<React.SetStateAction<JoinRequesetType>>;
+  data: JoinPropType;
+  setData: React.Dispatch<React.SetStateAction<JoinPropType>>;
 }

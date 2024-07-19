@@ -7,7 +7,7 @@ import { JUNIOR_ONBOARDING_STEPS, ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } f
 import convertToGroupStep from '../utils/convertToGroupStep';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { JoinRequesetType } from '../type';
+import { JoinPropType } from '../type';
 
 const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
   const location = useLocation();
@@ -17,9 +17,9 @@ const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
   const { title, description } = onboardingStep[step ? step - 1 : 0];
   const GROUP_STEP = convertToGroupStep(userRole, step);
 
-  const [data, setData] = useState<JoinRequesetType>({
+  const [data, setData] = useState<JoinPropType>({
     userType: userRole === 'SENIOR' ? 1 : 2,
-    isSubscribed: false,
+    isSubscribed: Array(5).fill(false),
     nickname: '',
     image: '',
     phoneNumber: '',

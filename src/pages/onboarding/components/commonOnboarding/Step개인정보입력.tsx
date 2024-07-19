@@ -10,7 +10,7 @@ import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { JoinContextType } from '@pages/onboarding/type';
 
 const Step개인정보입력 = () => {
-  const { setData } = useOutletContext<JoinContextType>();
+  const { data, setData } = useOutletContext<JoinContextType>();
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
