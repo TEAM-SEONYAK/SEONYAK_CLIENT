@@ -1,4 +1,4 @@
-import { dayOfWeekTimeList, dayType, preferredTimeListType, preferredTimeType } from '@pages/seniorProfile/types';
+import { dayOfWeekTimeList, dayType, preferredTimeListType, preferredTimeType, weekendType } from '@pages/seniorProfile/types';
 
 export const weekToDay = (isDayOfWeek: boolean, preferredTimeList: preferredTimeListType): dayOfWeekTimeList => {
   if (isDayOfWeek) return preferredTimeList['dayOfWeek'];
@@ -18,10 +18,10 @@ export const weekToDay = (isDayOfWeek: boolean, preferredTimeList: preferredTime
     주말: ['토', '일'],
   };
 
-  ['주중', '주말'].forEach((weekType) => {
+  (['주중', '주말'] as weekendType[]).forEach((weekType) => {
     preferredTimeList.weekend[weekType].forEach((item: preferredTimeType) => {
-      weekToDayList[weekType].forEach((요일: dayType) => {
-        ret[요일].push(item);
+      weekToDayList[weekType].forEach((요일: string) => {
+        ret[요일 as dayType].push(item);
       });
     });
   });

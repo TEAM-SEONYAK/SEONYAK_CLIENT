@@ -19,7 +19,7 @@ const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
             field="예체능 계열"
             position="디자인"
             detailPosition="프로덕트그래픽 디자이너"
-            level={1}
+            level="1"
             variant="secondary"
           />
           <SeniorCard
@@ -28,7 +28,7 @@ const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
             field="예체능 계열"
             position="디자인"
             detailPosition="프로덕트그래픽 디자이너"
-            level={1}
+            level="1"
             variant="secondary"
           />
           <SeniorCard
@@ -37,7 +37,7 @@ const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
             field="예체능 계열"
             position="디자인"
             detailPosition="프로덕트그래픽 디자이너"
-            level={1}
+            level="1"
             variant="secondary"
           />
         </CardContainer>

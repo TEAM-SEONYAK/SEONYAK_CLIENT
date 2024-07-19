@@ -10,11 +10,10 @@ interface BtnCloseModalPropType {
   children?: React.ReactNode;
   btnText?: string;
   handleBtnClick?: () => void;
-  onClicked?: () => void;
 }
 
 export const BtnCloseModal = (props: BtnCloseModalPropType) => {
-  const { title, isModalOpen, handleModalOpen, children, btnText, onClicked, handleBtnClick } = props;
+  const { title, isModalOpen, handleModalOpen, children, btnText, handleBtnClick } = props;
 
   const handleModalClose = () => {
     handleModalOpen(false);

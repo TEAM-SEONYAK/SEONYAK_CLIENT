@@ -1,15 +1,14 @@
 import styled from '@emotion/styled';
-import { getLevelName } from '../../../utils/getLevelName';
-
+import { getLevelName } from '@utils/getLevelName';
 interface seniorListPropType {
   nickname: string;
   company: string;
   field: string;
   position: string;
   detailPosition: string;
-  level: string;
-  image?: string;
+  level: number;
   variant?: 'default' | 'secondary';
+  image: string;
 }
 
 interface CompanyProps {
@@ -17,26 +16,26 @@ interface CompanyProps {
 }
 
 export const SeniorCard = (props: seniorListPropType) => {
-  const { nickname, company, field, position, detailPosition, level, variant = 'default', image } = props;
-  const levelName = getLevelName(level);
+  const { nickname, company, field, position, detailPosition, level, variant, image = 'default' } = props;
+  const levelName = getLevelName(level + '');
   const randomColor = Math.floor(Math.random() * 3);
   return (
     <SeniorCardWrapper $isSmall={variant === 'secondary'}>
+      <SeniorImg src={image} $isSmall={variant === 'secondary'} />
+
       <SeniorCardLayout>
         <Nickname>{nickname}</Nickname>
         <SeniorInfo>
           <Company $randomColor={randomColor}>{company}</Company>
-          <SeniorImg $isSmall={variant === 'secondary'} src={image} alt="프로필 사진" />
           <Field>{field}</Field>
         </SeniorInfo>
         <SeniorJob>
-          <Position>{position}</Position>
+          {position}
           <Divider />
-          <DetailPosition>{detailPosition}</DetailPosition>
-        </SeniorJob>
-        <Level>
+          {detailPosition}
+          <Divider />
           {levelName} ({level})
-        </Level>
+        </SeniorJob>
       </SeniorCardLayout>
     </SeniorCardWrapper>
   );
@@ -60,6 +59,8 @@ const SeniorImg = styled.img<{ $isSmall: boolean }>`
   width: ${({ $isSmall }) => ($isSmall ? '8.8rem' : '11.4rem')};
   height: ${({ $isSmall }) => ($isSmall ? '8.8rem' : '11.4rem')};
   border-radius: 112.82px;
+
+  background: ${({ theme }) => theme.colors.Blue};
 `;
 
 const SeniorCardLayout = styled.div`
@@ -135,13 +136,15 @@ const Field = styled.p`
 
 const SeniorJob = styled.div`
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  word-break: break-all;
+
   align-items: center;
 
-  width: 19.2rem;
-  margin-top: 0.5rem;
-`;
-const Position = styled.p`
+  width: 22rem;
+  margin-top: 0.3rem;
+
   ${({ theme }) => theme.fonts.Body1_M_14}
   color: ${({ theme }) => theme.colors.grayScaleDG};
 `;
@@ -149,16 +152,7 @@ const Position = styled.p`
 const Divider = styled.div`
   width: 0.1rem;
   height: 1.4rem;
+  margin: 0 0.5rem;
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
-`;
-
-const DetailPosition = styled.p`
-  color: ${({ theme }) => theme.colors.grayScaleDG};
-  ${({ theme }) => theme.fonts.Body1_M_14};
-`;
-
-const Level = styled.p`
-  ${({ theme }) => theme.fonts.Body1_M_14};
-  color: ${({ theme }) => theme.colors.grayScaleDG};
 `;
