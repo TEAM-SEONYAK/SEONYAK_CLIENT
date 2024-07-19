@@ -9,7 +9,7 @@ export interface BizInfoType {
 }
 
 export interface JoinRequesetType {
-  role: string;
+  userType: string;
   isSubscribed: boolean;
   nickname: string;
   image: string;

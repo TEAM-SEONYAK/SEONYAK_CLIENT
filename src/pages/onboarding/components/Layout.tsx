@@ -18,7 +18,7 @@ const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
   const GROUP_STEP = convertToGroupStep(userRole, step);
 
   const [data, setData] = useState<JoinRequesetType>({
-    role: userRole,
+    userType: userRole,
     isSubscribed: false,
     nickname: '',
     image: '',
