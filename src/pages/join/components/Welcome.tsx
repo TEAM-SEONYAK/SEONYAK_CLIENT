@@ -32,7 +32,7 @@ const Welcome = () => {
 const Container = styled.div`
   position: absolute;
   top: 15rem;
-  z-index: 2;
+  z-index: 3;
 
   width: 35rem;
   height: 35rem;
@@ -44,10 +44,9 @@ const Wrapper = styled.div`
   align-items: center;
   position: fixed;
   bottom: 0;
+  z-index: 3;
 
   width: 100%;
   height: 100%;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 export default Welcome;
