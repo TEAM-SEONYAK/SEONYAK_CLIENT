@@ -76,11 +76,14 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
       (tap === 'scheduled' || tap === 'default' || tap === 'pending') &&
       detail === 'detail'
     ) {
-      const id = profileCardData?.seniorId;
-      handleSetIsDetailClicked && handleSetIsDetailClicked(true, id);
+      const id = profileCardData && profileCardData?.seniorId;
+      console.log(profileCardData?.seniorId);
+      console.log(id);
+      handleSetIsDetailClicked && handleSetIsDetailClicked(true, 22);
     }
   };
 
+  console.log(profileCardData);
   return (
     <ReviewWrapper $tap={tap}>
       <Wrapper $tap={tap} onClick={() => handleClickProfileContainer(tap, userRole)}>

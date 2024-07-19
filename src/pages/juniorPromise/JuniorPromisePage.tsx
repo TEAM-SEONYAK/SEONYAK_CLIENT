@@ -7,6 +7,7 @@ import { BottomSheet } from '@pages/juniorPromise/components/BottomSheetBg';
 import { useState } from 'react';
 import { SeniorListBackground } from './components/SeniorListBackground';
 import seniorProfileQueries from '../../hooks/seniorProfileQueries';
+import PreView from '@pages/seniorProfile/components/preView';
 
 const JuniorPromisePage = () => {
   // 필터 버튼
@@ -100,6 +101,17 @@ const JuniorPromisePage = () => {
   // 쿼리 사용하여 데이터 가져오기
   const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
 
+  const seniorList = data?.data.seniorList || [];
+
+  const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
+  const [seniorId, setSeniorId] = useState(0);
+  const handleSeniorCardClicked = (type: boolean, id: number) => {
+    setIsSeniorCardClicked(type);
+    setSeniorId(id);
+  };
+
+  console.log(isSeniorCardClicked, seniorId);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -108,60 +120,66 @@ const JuniorPromisePage = () => {
     return <div>Error occurred</div>;
   }
 
-  const seniorList = data?.data.seniorList || [];
-
   return (
-    <Wrapper>
-      <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
-      <HbHomeMainIcon />
-      <Title>반가워요 도리님,고민을 해결해볼까요?</Title>
+    <>
+      {isSeniorCardClicked ? (
+        <PreView variant="secondary" seniorId={seniorId + ''} />
+      ) : (
+        <Wrapper>
+          <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
+          <HbHomeMainIcon />
+          <Title>반가워요 도리님,고민을 해결해볼까요?</Title>
 
-      <SeniorListBackground
-        handleFilterActiveBtn={handleFilterActiveBtn}
-        handleReset={handleReset}
-        positionChipNum={positionChipNum}
-        chipFieldName={chipFieldName}
-        deleteFieldList={deleteFieldList}
-        handleChipField={handleChipField}
-        chipPositionName={chipPositionName}
-        deletePositionList={deletePositionList}
-        handleChipPosition={handleChipPosition}
-        $chipFieldName={chipFieldName}
-        $chipPositionName={chipPositionName}>
-        <SeniorListWrapper>
-          {seniorList?.map((list) => (
-            <SeniorCard
-              key={list.seniorId}
-              nickname={list.nickname}
-              company={list.company}
-              image={list.image}
-              field={list.field}
-              position={list.position}
-              detailPosition={list.detailPosition}
-              level={list.level}
-              variant="secondary"
-            />
-          ))}
-        </SeniorListWrapper>
-        <Nav />
-      </SeniorListBackground>
+          <SeniorListBackground
+            handleFilterActiveBtn={handleFilterActiveBtn}
+            handleReset={handleReset}
+            positionChipNum={positionChipNum}
+            chipFieldName={chipFieldName}
+            deleteFieldList={deleteFieldList}
+            handleChipField={handleChipField}
+            chipPositionName={chipPositionName}
+            deletePositionList={deletePositionList}
+            handleChipPosition={handleChipPosition}
+            $chipFieldName={chipFieldName}
+            $chipPositionName={chipPositionName}>
+            <SeniorListWrapper>
+              {seniorList?.map((list) => (
+                <SeniorCard
+                  key={list.seniorId}
+                  nickname={list.nickname}
+                  company={list.company}
+                  image={list.image}
+                  field={list.field}
+                  position={list.position}
+                  detailPosition={list.detailPosition}
+                  level={list.level}
+                  variant="secondary"
+                  seniorId={list.seniorId}
+                  handleSeniorCardClicked={handleSeniorCardClicked}
+                />
+              ))}
+            </SeniorListWrapper>
+            <Nav />
+          </SeniorListBackground>
 
-      <BottomSheet
-        filterActiveBtn={filterActiveBtn}
-        handleFilterActiveBtn={handleFilterActiveBtn}
-        handleCloseBottomSheet={handleCloseBottomSheet}
-        isBottomSheetOpen={isBottomSheetOpen}
-        handleChipField={handleChipField}
-        handleChipPosition={handleChipPosition}
-        selectedPosition={selectedPosition}
-        selectedField={selectedField}
-        handleReset={handleReset}
-        chipFieldName={chipFieldName}
-        pushFieldList={pushFieldList}
-        chipPositionName={chipPositionName}
-        pushPositionList={pushPositionList}
-      />
-    </Wrapper>
+          <BottomSheet
+            filterActiveBtn={filterActiveBtn}
+            handleFilterActiveBtn={handleFilterActiveBtn}
+            handleCloseBottomSheet={handleCloseBottomSheet}
+            isBottomSheetOpen={isBottomSheetOpen}
+            handleChipField={handleChipField}
+            handleChipPosition={handleChipPosition}
+            selectedPosition={selectedPosition}
+            selectedField={selectedField}
+            handleReset={handleReset}
+            chipFieldName={chipFieldName}
+            pushFieldList={pushFieldList}
+            chipPositionName={chipPositionName}
+            pushPositionList={pushPositionList}
+          />
+        </Wrapper>
+      )}
+    </>
   );
 };
 
