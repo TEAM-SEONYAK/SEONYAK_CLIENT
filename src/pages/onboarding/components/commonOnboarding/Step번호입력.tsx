@@ -6,22 +6,22 @@ import styled from '@emotion/styled';
 import { formatPhone } from '@pages/onboarding/utils/formatPhone';
 import WarnDescription from '@components/commons/WarnDescription';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { usePhoneVerify, usePhoneVerifycode } from '@pages/onboarding/hooks/usePhoneQuery';
 import { BtnCloseModal, BtnModalTitle } from '@components/commons/modal/BtnModal';
 import { WarningImg } from '@assets/svgs';
 import axios from 'axios';
 import { 이미_사용중인_전화번호_에러코드 } from '@pages/onboarding/constants';
 import { SuccessImg } from '@assets/images';
+import { JoinContextType } from '@pages/onboarding/type';
+import useJoinQuery from '@pages/onboarding/hooks/useJoinQuery';
 
 const Step번호입력 = () => {
-  const ROLE = 'SENIOR'; // 임시
-  const navigate = useNavigate();
-  const handleClickLink = () => {
-    if (ROLE === 'SENIOR') alert('온보딩 끝!');
-    else navigate('/juniorOnboarding/4');
-  };
+  const { data, setData } = useOutletContext<JoinContextType>();
+  const mutate = useJoinQuery();
 
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const verifyMutation = usePhoneVerify();
   const verifycodeMutation = usePhoneVerifycode();
 
@@ -79,6 +79,10 @@ const Step번호입력 = () => {
         setNumError(false);
         setIsActive(true);
         setTimeLeft(TIME);
+        setData((prev) => ({
+          ...prev,
+          phoneNumber: phoneNumber,
+        }));
       },
       onError: () => {
         setNumError(true);
@@ -107,6 +111,19 @@ const Step번호입력 = () => {
 
   const handleShowAlreadyModal = (type: boolean) => {
     setIsAlreadyModalOpen(type);
+  };
+
+  const handleClickLink = () => {
+    mutate.mutate(data, {
+      onSuccess: (res) => {
+        console.log(res);
+        if (pathname.includes('senior')) alert('온보딩 끝!');
+        else navigate('/juniorOnboarding/4');
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+    });
   };
 
   const handleClickButton = () => {
