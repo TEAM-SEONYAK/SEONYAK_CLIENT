@@ -216,7 +216,7 @@ const PageBottomBar = styled.div`
   align-items: center;
   position: fixed;
   bottom: 0;
-  left: 0;
+  margin-left: -2rem;
 
   width: 100%;
   height: 9.4rem;
