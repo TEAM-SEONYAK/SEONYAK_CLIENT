@@ -116,20 +116,18 @@ const Step번호입력 = () => {
 
   const handleClickLink = () => {
     if (pathname.includes('senior')) {
-      mutate.mutate(
-        {
-          ...data,
-          isSubscribed: data.isSubscribed[4],
+      mutate.mutate(data, {
+        onSuccess: (res) => {
+          console.log(res.data.data);
+          navigate('/seniorProfile', {
+            seniorId: res.data.data.seniorId,
+            nickname: data.nickname,
+          });
         },
-        {
-          onSuccess: () => {
-            navigate('/seniorProfile');
-          },
-          onError: (err) => {
-            console.log(err);
-          },
+        onError: (err) => {
+          console.log(err);
         },
-      );
+      });
     } else navigate('/juniorOnboarding/4');
   };
 

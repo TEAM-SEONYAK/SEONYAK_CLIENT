@@ -9,11 +9,11 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { JoinContextType } from '@pages/onboarding/type';
 
 const Step직무선택 = () => {
-  const { setData } = useOutletContext<JoinContextType>();
+  const { data, setData } = useOutletContext<JoinContextType>();
   const navigate = useNavigate();
 
-  const [detailJob, setDetailJob] = useState('');
-  const [selectedJob, setSelectedJob] = useState<string>('');
+  const [detailJob, setDetailJob] = useState(data.detailPosition || '');
+  const [selectedJob, setSelectedJob] = useState(data.position || '');
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const handleSheetClose = () => setIsOpenSheet(false);
   const handleSelectJob = (selectedValue: string) => {

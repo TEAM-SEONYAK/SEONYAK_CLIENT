@@ -43,7 +43,6 @@ const Step학과선택 = () => {
       mutate.mutate(
         {
           ...data,
-          isSubscribed: data.isSubscribed[4],
           departmentList: selectedMajors,
         },
         {
