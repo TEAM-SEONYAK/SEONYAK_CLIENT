@@ -10,6 +10,7 @@ import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
 import SelectJuniorPromiseSection from './components/SelectJuniorPromiseSection';
+import Loading from '@components/commons/Loading';
 
 const JuniorPromisePage = () => {
   // 필터 버튼
@@ -124,7 +125,7 @@ const JuniorPromisePage = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (isError) {

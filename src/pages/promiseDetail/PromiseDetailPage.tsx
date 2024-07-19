@@ -20,6 +20,7 @@ import {
 } from './hooks/queries';
 import { extractMonthAndDay } from '@pages/promiseList/utils/extractMonthAndDay';
 import { ModalRejectImg, ModalAcceptImg } from '@assets/svgs';
+import Loading from '@components/commons/Loading';
 
 const PromiseDetail = () => {
   const location = useLocation();
@@ -137,7 +138,7 @@ const PromiseDetail = () => {
   const dateInfo = extractMonthAndDay(timeList1?.date + '');
 
   if (isLoading) {
-    return <div>Loading...</div>; // 로딩 중일 때 표시
+    return <Loading />; // 로딩 중일 때 표시
   }
 
   if (!isSuccess || !timeList1) {

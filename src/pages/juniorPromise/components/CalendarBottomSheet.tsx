@@ -5,6 +5,7 @@ import CustomCalendar from './CustomCalendar';
 import TimeList from './TimeList';
 import { useSeniorTimeQuery } from '../hooks/queries';
 import { getDayOfWeek } from '../utils/getDay';
+import Loading from '@components/commons/Loading';
 
 interface BottomSheetPropType {
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
@@ -30,7 +31,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
 
   // 로딩 중 또는 에러 발생 시 처리
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (isError || !preferredTimeList) {
@@ -78,6 +79,7 @@ export default CalendarBottomSheet;
 
 const Scroll = styled.div`
   overflow-y: scroll;
+
   margin-bottom: 3rem;
 `;
 
