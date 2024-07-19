@@ -1,5 +1,5 @@
 // 선배 선호 시간대 GET
-import { authAxios, testAuthAxios } from '@utils/apis';
+import { testAuthAxios } from '@utils/apis';
 
 export const getSeniorTimeAxios = async (seniorId: number) => {
   try {

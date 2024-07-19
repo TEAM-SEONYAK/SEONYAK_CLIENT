@@ -1,4 +1,4 @@
-import { CardArrowRightGrayIc, ClockIc, SbhbHomeProfile1Img } from '@assets/svgs';
+import { CardArrowRightGrayIc, ClockIc } from '@assets/svgs';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import styled from '@emotion/styled';
 import { getLevelName } from '@utils/getLevelName';
@@ -73,7 +73,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
   return (
     <ReviewWrapper $tap={tap}>
       <Wrapper $tap={tap} onClick={() => handleClickProfileContainer(tap, userRole)}>
-        <ProfileImg src={profileCardData?.image} alt="프로필 이미지"/>
+        <ProfileImg src={profileCardData?.image} alt="프로필 이미지" />
         <InfoContainer>
           <NameContainer>
             <Name>
@@ -186,10 +186,6 @@ const Wrapper = styled.div<{ $tap: string }>`
   }
 `;
 
-const SbhbHomeProfile1Icon = styled(SbhbHomeProfile1Img)`
-  border-radius: 100px;
-`;
-
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -230,6 +226,7 @@ const Divider = styled.div`
 const Description = styled.div<{ $colorType: string }>`
   width: 19rem;
   height: 2.2rem;
+
   color: ${({ theme, $colorType }) =>
     $colorType === 'grayScaleDG' ? theme.colors.grayScaleDG : theme.colors.grayScaleMG2};
   ${({ theme }) => theme.fonts.Body1_M_14};
