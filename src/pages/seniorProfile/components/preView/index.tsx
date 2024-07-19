@@ -1,34 +1,50 @@
 import { FullBtn } from '@components/commons/FullButton';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
+import { useSeniorTimeQuery } from '@pages/juniorPromise/hooks/queries';
 import ImgTextBox from '@pages/seniorProfile/components/preView/ImgTextBox';
 import ProfileSummary from '@pages/seniorProfile/components/preView/ProfileSummary';
+import Review from '@pages/seniorProfile/components/preView/Review';
 import TimeTable from '@pages/seniorProfile/components/preView/TimeTable';
+import { useGetSeniorProfileQuery } from '@pages/seniorProfile/hooks/useGetSeniorProfileQuery';
 import { useSeniorCardQuery } from '@pages/seniorProfile/hooks/useSeniorCardQuery';
 import useSeniorProfileHook from '@pages/seniorProfile/hooks/useSeniorProfileQuery';
-import { dayOfWeekTimeList } from '@pages/seniorProfile/types';
+import { dayOfWeekTimeList, seniorProfileRegisterType } from '@pages/seniorProfile/types';
 import { deleteProfileField } from '@pages/seniorProfile/utils/deleteProfileField';
+import { weekToDay } from '@pages/seniorProfile/utils/weekToDay';
 import { useNavigate } from 'react-router-dom';
 
 interface preViewPropType {
   seniorId: string;
 
-  career: string;
-  award: string;
-  catchphrase: string;
-  story: string;
+  profile?: seniorProfileRegisterType;
+  setStep?: React.Dispatch<React.SetStateAction<number>>;
 
-  preferredTimeList: dayOfWeekTimeList;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
+  variant?: 'default' | 'secondary';
 }
 
-const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeList, setStep }: preViewPropType) => {
-  const { data: cardData, error, isLoading } = useSeniorCardQuery(seniorId);
+const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPropType) => {
+  const { data: cardData, error: cardDataError, isLoading: isCardDataLoading } = useSeniorCardQuery(seniorId);
+  const {
+    data: profileData,
+    error: profileDataError,
+    isLoading: isProfileDataLoading,
+  } = useGetSeniorProfileQuery(seniorId);
+  const {
+    data: secondaryPreferredTimeList,
+    isError: secondTimeListError,
+    isLoading: isSecondTimeListLoading,
+  } = useSeniorTimeQuery(+seniorId);
   const navigate = useNavigate();
-  if (error || (!isLoading && !cardData)) {
-    navigate('/error');
-    return null;
-  }
+  const isRegister = variant === 'default';
+
+  const career = (isRegister ? profile?.career : profileData?.career) + '';
+  const award = (isRegister ? profile?.award : profileData?.award) + '';
+  const catchphrase = (isRegister ? profile?.catchphrase : profileData?.catchphrase) + '';
+  const story = (isRegister ? profile?.story : profileData?.story) + '';
+  const preferredTimeList = (
+    isRegister ? profile && weekToDay(profile.isDayOfWeek, profile.preferredTimeList) : secondaryPreferredTimeList
+  ) as dayOfWeekTimeList;
 
   const mutation = useSeniorProfileHook();
   const handleRegisterClick = () => {
@@ -42,14 +58,28 @@ const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeLis
       },
       {
         onSuccess: () => {
-          setStep((prev) => prev + 1);
+          setStep && setStep((prev) => prev + 1);
         },
       },
     );
   };
+
+  if (
+    cardDataError ||
+    profileDataError ||
+    secondTimeListError ||
+    (!isCardDataLoading && !cardData) ||
+    (!isRegister && !isProfileDataLoading && !profileData) ||
+    (!isRegister && !isSecondTimeListLoading && !secondaryPreferredTimeList)
+  ) {
+    navigate('/error');
+    return null;
+  }
+
+  if (isSecondTimeListLoading) return;
   return (
     <>
-      <Wrapper>
+      <Wrapper $isRegister={isRegister}>
         {cardData && (
           <SeniorCard
             nickname={cardData.nickname}
@@ -58,6 +88,7 @@ const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeLis
             position={cardData.position}
             detailPosition={cardData.detailPosition}
             level={cardData.level}
+            image={cardData.image}
           />
         )}
         <ProfileSummary description1="미제공" description2={1} description3="미제공" />
@@ -66,20 +97,21 @@ const PreView = ({ seniorId, career, award, catchphrase, story, preferredTimeLis
         <ImgTextBox variant="award" text={award} />
         <Meta2>{catchphrase}</Meta2>
         <Description>{story}</Description>
+        {!isRegister && <Review />}
         <Meta2>선배의 타임 테이블</Meta2>
         <TimeTable preferredTime={preferredTimeList} />
       </Wrapper>
-      <FullBtn text="프로필 등록하기" onClick={handleRegisterClick} isActive />
+      {isRegister && <FullBtn text="프로필 등록하기" onClick={handleRegisterClick} isActive />}
     </>
   );
 };
 
 export default PreView;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ $isRegister: boolean }>`
   overflow-y: scroll;
 
-  padding: 0 2rem 12.6rem;
+  padding: 0 2rem ${({ $isRegister }) => ($isRegister ? '12.6rem' : '8.2rem')};
 `;
 
 const Meta = styled.p`
@@ -91,16 +123,10 @@ const Meta2 = styled.p`
   width: 19.9rem;
   padding: 3.6rem 0 1.2rem;
   ${({ theme }) => theme.fonts.Title1_SB_16};
+
+  word-break: auto-phrase;
 `;
 
 const Description = styled.p`
   ${({ theme }) => theme.fonts.Body1_M_14};
-`;
-
-const Loading = styled.div`
-  padding-top: 3rem;
-
-  text-align: center;
-
-  ${({ theme }) => theme.fonts.Title1_SB_16};
 `;
