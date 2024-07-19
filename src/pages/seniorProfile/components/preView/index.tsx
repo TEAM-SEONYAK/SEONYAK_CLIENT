@@ -79,7 +79,7 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
   if (isSecondTimeListLoading) return;
   return (
     <>
-      <Wrapper>
+      <Wrapper $isRegister={isRegister}>
         {cardData && (
           <SeniorCard
             nickname={cardData.nickname}
@@ -108,10 +108,10 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
 
 export default PreView;
 
-const Wrapper = styled.div`
-  overflow-y: scroll;
+const Wrapper = styled.div<{ $isRegister: boolean }>`
+  overflow-y: auto;
 
-  padding: 0 2rem 12.6rem;
+  padding: 0 2rem ${({ $isRegister }) => ($isRegister ? '12.6rem' : '8.2rem')};
 `;
 
 const Meta = styled.p`
@@ -123,6 +123,8 @@ const Meta2 = styled.p`
   width: 19.9rem;
   padding: 3.6rem 0 1.2rem;
   ${({ theme }) => theme.fonts.Title1_SB_16};
+
+  word-break: auto-phrase;
 `;
 
 const Description = styled.p`

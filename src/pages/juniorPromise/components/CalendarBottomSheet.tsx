@@ -13,6 +13,7 @@ interface BottomSheetPropType {
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   btnId: number;
   handleCheckAllSelected: () => void;
+  seniorId: number;
 }
 
 const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
@@ -22,9 +23,10 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
   setSelectedTime,
   btnId,
   handleCheckAllSelected,
+  seniorId,
 }) => {
   // 선배 아이디로 연결 필요
-  const { data: preferredTimeList, isLoading, isError } = useSeniorTimeQuery(33);
+  const { data: preferredTimeList, isLoading, isError } = useSeniorTimeQuery(seniorId);
 
   // 로딩 중 또는 에러 발생 시 처리
   if (isLoading) {
@@ -34,8 +36,6 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
   if (isError || !preferredTimeList) {
     return <div>Error loading data</div>;
   }
-
-  console.log(preferredTimeList);
 
   return (
     <>

@@ -3,10 +3,10 @@ import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 interface SeniorNamePropType {
-  senior: string;
+  seniorNickname: string;
 }
 
-const JuniorPromiseComplete = ({ senior = '도리' }: SeniorNamePropType) => {
+const JuniorPromiseComplete = ({ seniorNickname }: SeniorNamePropType) => {
   const navigate = useNavigate();
 
   const handleMyPromise = () => {
@@ -20,7 +20,7 @@ const JuniorPromiseComplete = ({ senior = '도리' }: SeniorNamePropType) => {
   return (
     <Wrapper>
       <Title>
-        {senior} 선배님과의
+        {seniorNickname} 선배님과의
         <br /> 약속 신청이 완료됐어요!
       </Title>
       <ImgPromiseCompleteIc />

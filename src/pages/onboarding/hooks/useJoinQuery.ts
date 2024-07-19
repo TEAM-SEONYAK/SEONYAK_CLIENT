@@ -5,6 +5,9 @@ import { JoinRequesetType } from '../type';
 const useJoinQuery = () => {
   const mutation = useMutation({
     mutationFn: (requestBody: JoinRequesetType) => joinAxios(requestBody),
+    onSuccess: (data) => {
+      localStorage.setItem('role', data.data.userType);
+    },
     onError: (error) => {
       console.log('join patch Error: ', error);
     },
