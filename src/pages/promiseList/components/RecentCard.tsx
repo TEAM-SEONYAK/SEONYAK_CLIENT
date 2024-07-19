@@ -28,6 +28,12 @@ const RecentCard = (props: RecentCardPropType) => {
 
   useGetGoogleMeetLink(recentAppointment?.appointmentId, isEnterBtnClicked, handleClickEnterBtn);
 
+  const handleClickUserGuide = () => {
+    userRole === 'SENIOR'
+      ? window.open('https://cumbersome-cactus-843.notion.site/c5f4f494d3ee41c6836a9f4828a7bde6?pvs=4', '_blank')
+      : window.open('https://cumbersome-cactus-843.notion.site/d394be50d2b44a03878debd0e19bdb2f?pvs=4', '_blank');
+  };
+
   return (
     <Wrapper $userRole={userRole}>
       <RecentNav>
@@ -35,7 +41,7 @@ const RecentCard = (props: RecentCardPropType) => {
           <ProfileChip type="promiseNum" content={appointmentNum ? '가장 가까운 약속' : '약속 없음'} />
           <ProfileChip type="dDay" content={dDayDiff === 0 ? 'D-DAY' : ` D-${dDayDiff}`} />
         </RecentDayWrapper>
-        <ProfileChip type="userGuide" content="선약 이용방법 보기" />
+        <ProfileChip type="userGuide" content="선약 이용방법 보기" onClick={handleClickUserGuide} />
       </RecentNav>
       <DashedDivider />
       {appointmentNum ? (
