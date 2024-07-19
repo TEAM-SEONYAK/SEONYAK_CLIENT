@@ -97,7 +97,7 @@ const PromiseDetail = () => {
   const { mutate: patchSeniorReject } = usePatchSeniorReject(() => handleModalOpen(true));
   const handleRejectBtn = () => {
     patchSeniorReject({
-      appointmentId: 73,
+      appointmentId: appointmentId,
       rejectReason: rejectReason,
       rejectDetail: rejectDetail,
     });
@@ -279,11 +279,11 @@ const PromiseDetail = () => {
         )}
       </Wrapper>
       {viewType === 'DECLINE' ? (
-        <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+        <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/">
           <ModalRejectImg />
         </AutoCloseModal>
       ) : (
-        <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+        <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/">
           <ModalAcceptImg />
         </AutoCloseModal>
       )}
