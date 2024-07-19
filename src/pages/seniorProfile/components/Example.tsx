@@ -9,18 +9,24 @@ import { SENIOR_PROFILE_STEPS } from '@pages/seniorProfile/constants';
 import { useSeniorCardQuery } from '@pages/seniorProfile/hooks/useSeniorCardQuery';
 import { Meta } from '@pages/seniorProfile/SeniorProfilePage';
 import { useState } from 'react';
+import Loading from '@components/commons/Loading';
+import { useNavigate } from 'react-router-dom';
 
 const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
+  const navigate = useNavigate();
   const [seniorId, setSeniorId] = useState(0);
-  const { data: data1 } = useSeniorCardQuery('24');
-  const { data: data2 } = useSeniorCardQuery('25');
-  const { data: data3 } = useSeniorCardQuery('26');
+  const { data: data1, isLoading: isLoading1, isError: isError1 } = useSeniorCardQuery('24');
+  const { data: data2, isLoading: isLoading2, isError: isError2 } = useSeniorCardQuery('25');
+  const { data: data3, isLoading: isLoading3, isError: isError3 } = useSeniorCardQuery('26');
 
   const dummayData = [data1, data2, data3];
 
   const handleCardClick = (seniorId: number) => {
     setSeniorId(seniorId);
   };
+
+  if (isError1 || isError2 || isError3) navigate('/error');
+  if (isLoading1 || isLoading2 || isLoading3) return <Loading />;
 
   return (
     <>
