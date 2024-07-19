@@ -210,6 +210,9 @@ const Wrapper = styled.div`
 
 const HbHomeMainIcon = styled(HbHomeMainIc)`
   position: relative;
+
+  width: 100%;
+  height: 100%;
 `;
 
 const Title = styled.p`
