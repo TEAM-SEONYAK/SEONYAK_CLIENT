@@ -109,7 +109,7 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
 export default PreView;
 
 const Wrapper = styled.div<{ $variant: string }>`
-  overflow-y: scroll;
+  overflow-y: auto;
 
   padding: 0 2rem 12.6rem;
 `;
