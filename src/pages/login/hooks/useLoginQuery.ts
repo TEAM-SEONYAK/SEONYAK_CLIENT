@@ -26,7 +26,6 @@ const useGoogleLoginHook = ({ role, variant = 'signup' }: useGoogleLoginPropType
     },
     onError: (error) => {
       console.error('login post Error: ', error);
-      navigate('/error');
     },
   });
 
@@ -37,7 +36,6 @@ const useGoogleLoginHook = ({ role, variant = 'signup' }: useGoogleLoginPropType
     },
     onError: (error) => {
       console.log('Login Failed:', error);
-      navigate('/error');
     },
     flow: 'auth-code',
   });
