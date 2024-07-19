@@ -18,7 +18,7 @@ const Step번호입력 = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const handleClickLink = () => {
-    if (navigate(pathname.includes('senior')) alert('온보딩 끝!');
+    if (pathname.includes('senior')) alert('온보딩 끝!');
     else navigate('/juniorOnboarding/4');
   };
 
@@ -46,6 +46,7 @@ const Step번호입력 = () => {
   const [verificationCode, setVerificationCode] = useState('');
 
   const [isDoneModalOpen, setIsDoneModalOpen] = useState(false);
+  const [isAlreadyPhone, setIsAlreadyPhone] = useState(false);
   const [isAlreadyModalOpen, setIsAlreadyModalOpen] = useState(false);
 
   const TIME = 180 * 1000;
@@ -134,6 +135,10 @@ const Step번호입력 = () => {
         },
       },
     );
+
+    if (isAlreadyPhone) setIsAlreadyModalOpen(true);
+    else {
+    }
   };
 
   return (
