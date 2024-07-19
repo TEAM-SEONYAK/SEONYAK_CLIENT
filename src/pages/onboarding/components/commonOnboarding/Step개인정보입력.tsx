@@ -2,11 +2,12 @@ import { StartProfile1Img, StartProfile2Img } from '@assets/images';
 import { CameraIc } from '@assets/svgs';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
-import { ChangeEvent, useMemo, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
 import { useNavigate } from 'react-router-dom';
+import { useProfileQuery } from '@pages/onboarding/hooks/useProfileImgQuery';
 
 const Step개인정보입력 = () => {
   const ROLE = 'SENIOR'; // 임시
@@ -24,16 +25,19 @@ const Step개인정보입력 = () => {
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
 
+  const profileMutation = useProfileQuery();
+
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setImageFile(reader.result as string);
+      setImageFile(URL.createObjectURL(file));
+      profileMutation.mutate(file);
     };
   };
-  // 임시 변수 (서버 통신 응답)
+
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
 
@@ -42,6 +46,7 @@ const Step개인정보입력 = () => {
       setIsNicknameValid(false);
     }
   };
+
   const handleCheckNickname = () => {
     mutation.mutate(nickname, {
       onSuccess: () => {
