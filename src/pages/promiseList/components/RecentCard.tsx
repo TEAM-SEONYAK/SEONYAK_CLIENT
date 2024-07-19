@@ -24,6 +24,7 @@ const RecentCard = (props: RecentCardPropType) => {
   const handleClickEnterBtn = (link: string) => {
     setGoogleMeetLink(link);
     window.open(link, '_blank');
+    setIsEnterBtnClicked(false);
   };
 
   useGetGoogleMeetLink(recentAppointment?.appointmentId, isEnterBtnClicked, handleClickEnterBtn);
@@ -54,7 +55,7 @@ const RecentCard = (props: RecentCardPropType) => {
             myNickname={nickname}
           />
           <PromiseTimerBtn
-            isActive={diff <= 0}
+            isActive={diff !== undefined && diff <= 0}
             diff={diffText}
             page="recent"
             onClick={() => setIsEnterBtnClicked(true)}

@@ -78,7 +78,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
 export default CalendarBottomSheet;
 
 const Scroll = styled.div`
-  overflow-y: scroll;
+  overflow-y: auto;
 
   margin-bottom: 3rem;
 `;
@@ -87,7 +87,7 @@ const Background = styled.div<{ $isCalendarOpen: boolean }>`
   display: ${({ $isCalendarOpen }) => ($isCalendarOpen ? 'flex' : 'none')};
   position: fixed;
   top: 0;
-  left: 0;
+  margin-left: -2rem;
   z-index: 2;
 
   width: 100%;
@@ -102,8 +102,8 @@ const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
   position: fixed;
   top: 5rem;
   bottom: 0;
-  left: 0;
   z-index: 4;
+  margin-left: -2rem;
 
   height: 100vh;
   border-radius: 16px 16px 0 0;

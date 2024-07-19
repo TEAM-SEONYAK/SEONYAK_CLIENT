@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { joinAxios } from '../apis/joinAxios';
-import { JoinRequesetType } from '../type';
+import { JoinPropType } from '../type';
 
 const useJoinQuery = () => {
   const mutation = useMutation({
-    mutationFn: (requestBody: JoinRequesetType) => joinAxios(requestBody),
+    mutationFn: (requestBody: JoinPropType) => joinAxios(requestBody),
     onSuccess: (data) => {
       localStorage.setItem('role', data.data.userType);
     },

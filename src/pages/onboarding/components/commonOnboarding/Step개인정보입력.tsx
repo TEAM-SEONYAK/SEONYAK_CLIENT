@@ -6,22 +6,25 @@ import { ChangeEvent, useMemo, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
+import { useProfileQuery } from '@pages/onboarding/hooks/useProfileImgQuery';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { JoinContextType } from '@pages/onboarding/type';
 
 const Step개인정보입력 = () => {
-  const { setData } = useOutletContext<JoinContextType>();
+  const { data, setData } = useOutletContext<JoinContextType>();
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState(data.nickname);
   const mutation = useNicknameValid();
   const [isNicknameError, setNicknameError] = useState(false);
   const [isNicknameValid, setIsNicknameValid] = useState(false);
 
-  const [imageFile, setImageFile] = useState('');
+  const [imageFile, setImageFile] = useState(data.image);
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
+
+  const profileMutation = useProfileQuery();
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -29,7 +32,8 @@ const Step개인정보입력 = () => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setImageFile(reader.result as string);
+      setImageFile(URL.createObjectURL(file));
+      profileMutation.mutate(file);
     };
   };
 
@@ -41,6 +45,7 @@ const Step개인정보입력 = () => {
       setIsNicknameValid(false);
     }
   };
+
   const handleCheckNickname = () => {
     mutation.mutate(nickname, {
       onSuccess: () => {
@@ -56,7 +61,7 @@ const Step개인정보입력 = () => {
   const handleClickLink = () => {
     setData((prev) => ({
       ...prev,
-      image: 'dump',
+      image: imageFile,
       nickname: nickname,
     }));
     navigate(pathname.includes('senior') ? '/seniorOnboarding/3' : '/juniorOnboarding/3');

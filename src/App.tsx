@@ -2,12 +2,12 @@ import { Global, ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect } from 'react';
 
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import globalStyle from './styles/globalStyle';
 import theme from './styles/theme';
 
 const App = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const setScreenSize = () => {
     // vh 관련
@@ -29,9 +29,10 @@ const App = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (!localStorage.getItem('accessToken')) navigate('/join');
-  }, []);
+  // useEffect(() => {
+  //   if (!localStorage.getItem('accessToken')) navigate('/join');
+  // }, []);
+  //
 
   return (
     <Wrapper>
