@@ -9,7 +9,7 @@ export const QUERY_KEY_PROMISE_LIST = {
 };
 
 export const useGetGoogleMeetLink = (
-  appointmentId: number,
+  appointmentId: number | undefined,
   isEnterBtnClicked: boolean,
   onSuccessCallback?: (link: string) => void,
 ) => {

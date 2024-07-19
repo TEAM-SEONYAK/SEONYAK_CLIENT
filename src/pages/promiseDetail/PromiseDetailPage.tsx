@@ -112,10 +112,6 @@ const PromiseDetail = () => {
     window.open(link, '_blank');
   };
 
-  console.log(appointmentId);
-  console.log(isEnterBtnClicked);
-  console.log(handleClickEnterBtn);
-
   useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
 
   const handleBottomSheetOpen = () => {

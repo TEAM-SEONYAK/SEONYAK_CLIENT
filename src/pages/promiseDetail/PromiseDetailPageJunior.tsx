@@ -201,17 +201,6 @@ const BtnWrapper = styled.div`
   padding: 0 2.035rem 0 1.965rem;
 `;
 
-const BtnBackground = styled.div`
-  position: fixed;
-  bottom: 0;
-  z-index: 2;
-
-  width: 100%;
-  height: 6.1rem;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
-`;
-
 const Divider = styled.hr`
   width: 100vw;
   margin-top: 5rem;

@@ -1,4 +1,4 @@
-import { HeaderLogoIc, AlarmIc, HbHomeMainIc, ArrowLeftIc } from '@assets/svgs';
+import { HeaderLogoIc, AlarmIc, ArrowLeftIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import { SeniorCard } from '@components/commons/SeniorCard';
@@ -139,7 +139,12 @@ const JuniorPromisePage = () => {
         <SelectJuniorPromiseSection seniorId={seniorId} seniorNickname={seniorNickname} />
       ) : isSeniorCardClicked ? (
         <>
-          <Header LeftSvg={ArrowLeftIc} />
+          <Header
+            LeftSvg={ArrowLeftIc}
+            onClickLeft={() => {
+              setIsSeniorCardClicked(false);
+            }}
+          />
           <PreView variant="secondary" seniorId={seniorId + ''} />
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
@@ -210,10 +215,6 @@ const Wrapper = styled.div`
   min-height: calc(var(--vh, 1vh) * 100 - 44px);
 
   background-color: ${({ theme }) => theme.colors.grayScaleWG};
-`;
-
-const HbHomeMainIcon = styled(HbHomeMainIc)`
-  position: relative;
 `;
 
 const Title = styled.p`
