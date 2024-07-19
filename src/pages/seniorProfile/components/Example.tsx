@@ -1,9 +1,9 @@
+import styled from '@emotion/styled';
 import { ArrowLeftIc } from '@assets/svgs';
 import LogoIc from '@assets/svgs/ic_main_logo.svg?react';
 import { FullBtn } from '@components/commons/FullButton';
 import { Header } from '@components/commons/Header';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
-import styled from '@emotion/styled';
 import PreView from '@pages/seniorProfile/components/preView';
 import { SENIOR_PROFILE_STEPS } from '@pages/seniorProfile/constants';
 import { useSeniorCardQuery } from '@pages/seniorProfile/hooks/useSeniorCardQuery';
@@ -13,11 +13,8 @@ import { useState } from 'react';
 const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
   const [seniorId, setSeniorId] = useState(0);
   const { data: data1 } = useSeniorCardQuery('24');
-  // const { data: data1, error: error1, isLoading: isLoading1 } = useSeniorCardQuery('24');
   const { data: data2 } = useSeniorCardQuery('25');
-  // const { data: data2, error: error2, isLoading: isLoading2 } = useSeniorCardQuery('25');
   const { data: data3 } = useSeniorCardQuery('26');
-  // const { data: data3, error: error3, isLoading: isLoading3 } = useSeniorCardQuery('26');
 
   const dummayData = [data1, data2, data3];
 
@@ -37,9 +34,9 @@ const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
           <Wrapper>
             <LogoIcon />
             <Meta>{SENIOR_PROFILE_STEPS[1].meta}</Meta>
-            <CardContainer>
+            <SeniorListWrapper>
               {dummayData.map((d, idx) => (
-                <div onClick={() => handleCardClick(idx + 24)}>
+                <CardWrapper key={idx} onClick={() => handleCardClick(idx + 24)}>
                   <SeniorCard
                     nickname={d?.nickname + ''}
                     company={d?.company + ''}
@@ -48,10 +45,11 @@ const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
                     detailPosition={d?.detailPosition + ''}
                     level={d?.level + ''}
                     variant="secondary"
+                    image="/image"
                   />
-                </div>
+                </CardWrapper>
               ))}
-            </CardContainer>
+            </SeniorListWrapper>
           </Wrapper>
           <FullBtn
             text="다음으로"
@@ -80,10 +78,21 @@ const LogoIcon = styled(LogoIc)`
   margin-bottom: 2.2rem;
 `;
 
-const CardContainer = styled.section`
+const SeniorListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  align-items: center;
 
-  padding: 3rem 0 0;
+  width: 100%;
+  height: 100%;
+  margin-top: 3.4rem;
+`;
+
+const CardWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
 `;
