@@ -8,9 +8,12 @@ import { FullBtn } from '@components/commons/FullButton';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import useSearchDeptQuery from '@pages/onboarding/hooks/useSearchDeptQuery';
 import { DeptType, JoinContextType } from '@pages/onboarding/type';
+import useJoinQuery from '@pages/onboarding/hooks/useJoinQuery';
 
 const Step학과선택 = () => {
-  const { setData } = useOutletContext<JoinContextType>();
+  const { data, setData } = useOutletContext<JoinContextType>();
+  const mutate = useJoinQuery();
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -34,8 +37,26 @@ const Step학과선택 = () => {
       ...prev,
       departmentList: selectedMajors,
     }));
-    if (pathname.includes('senior')) navigate('/seniorOnboarding/6');
-    else alert('온보딩 끝!');
+    if (pathname.includes('senior')) {
+      navigate('/seniorOnboarding/6');
+    } else {
+      mutate.mutate(
+        {
+          ...data,
+          departmentList: selectedMajors,
+        },
+        {
+          onSuccess: (res) => {
+            console.log(res);
+            alert('온보딩 끝!');
+          },
+          onError: (err) => {
+            console.log(err);
+          },
+        },
+      );
+      alert('온보딩 끝!');
+    }
   };
 
   useEffect(() => {
