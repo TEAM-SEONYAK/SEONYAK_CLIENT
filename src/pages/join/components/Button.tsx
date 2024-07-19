@@ -25,7 +25,7 @@ export default JoinButton;
 const Wrapper = styled.div`
   display: flex;
   gap: 1.5rem;
-  z-index: 2;
+  z-index: 4;
 `;
 
 const Button = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
