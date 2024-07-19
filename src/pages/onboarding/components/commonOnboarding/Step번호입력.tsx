@@ -6,22 +6,20 @@ import styled from '@emotion/styled';
 import { formatPhone } from '@pages/onboarding/utils/formatPhone';
 import WarnDescription from '@components/commons/WarnDescription';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { usePhoneVerify, usePhoneVerifycode } from '@pages/onboarding/hooks/usePhoneQuery';
 import { BtnCloseModal, BtnModalTitle } from '@components/commons/modal/BtnModal';
 import { WarningImg } from '@assets/svgs';
 import axios from 'axios';
 import { 이미_사용중인_전화번호_에러코드 } from '@pages/onboarding/constants';
 import { SuccessImg } from '@assets/images';
+import { JoinContextType } from '@pages/onboarding/type';
 
 const Step번호입력 = () => {
+  const { setData } = useOutletContext<JoinContextType>();
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const handleClickLink = () => {
-    if (pathname.includes('senior')) alert('온보딩 끝!');
-    else navigate('/juniorOnboarding/4');
-  };
-
   const verifyMutation = usePhoneVerify();
   const verifycodeMutation = usePhoneVerifycode();
 
@@ -107,6 +105,15 @@ const Step번호입력 = () => {
 
   const handleShowAlreadyModal = (type: boolean) => {
     setIsAlreadyModalOpen(type);
+  };
+
+  const handleClickLink = () => {
+    setData((prev) => ({
+      ...prev,
+      phoneNumber: phoneNumber,
+    }));
+    if (pathname.includes('senior')) alert('온보딩 끝!');
+    else navigate('/juniorOnboarding/4');
   };
 
   const handleClickButton = () => {
