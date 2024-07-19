@@ -41,13 +41,16 @@ const PromiseDetailPageJunior = () => {
   }
 
   const { diffText, diff } = countdown;
-  console.log(clickedSeniorId);
+
+  const handleClickBackArrow = () => {
+    setIsDetailClicked(false);
+  };
 
   return (
     <>
       {isDetailClicked ? (
         <>
-          <Header LeftSvg={ArrowLeftIc} title="내가 보낸 약속" />
+          <Header LeftSvg={ArrowLeftIc} title="내가 보낸 약속" onClickLeft={handleClickBackArrow} />
           <Divider />
           <PreView variant="secondary" seniorId={clickedSeniorId + ''} />
         </>
