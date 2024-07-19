@@ -47,9 +47,8 @@ const Step학과선택 = () => {
           departmentList: selectedMajors,
         },
         {
-          onSuccess: (res) => {
-            console.log(res);
-            alert('온보딩 끝!');
+          onSuccess: () => {
+            navigate('/juniorOnboardingComplete');
           },
           onError: (err) => {
             console.log(err);
