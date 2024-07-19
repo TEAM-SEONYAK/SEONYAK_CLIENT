@@ -134,11 +134,11 @@ const router = createBrowserRouter([
             path: '7',
             element: <Step학과선택 />,
           },
+          {
+            path: 'complete',
+            element: <StepComplete />,
+          },
         ],
-      },
-      {
-        path: 'juniorOnboardingComplete',
-        element: <StepComplete />,
       },
       {
         path: 'seniorProfile',
