@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 
 const Step약관동의 = () => {
-  const { data, setData } = useOutletContext<JoinContextType>();
+  const { setData } = useOutletContext<JoinContextType>();
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -23,6 +23,13 @@ const Step약관동의 = () => {
       else setAgreement(Array(5).fill(true));
     } else {
       setAgreement((prev) => agreement.with(id, !prev[id]));
+    }
+
+    if (id === 4) {
+      setData((prev) => ({
+        ...prev,
+        isSubscribed: !prev.isSubscribed,
+      }));
     }
   };
 
