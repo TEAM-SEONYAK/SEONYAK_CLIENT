@@ -42,6 +42,7 @@ const Step명함인증 = () => {
 
     cardmutation.mutate(file, {
       onSuccess: (res) => {
+        console.log(res);
       },
       onError: (error) => {
         console.error('명함 이미지 업로드 실패:', error);
