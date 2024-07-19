@@ -8,6 +8,7 @@ interface seniorListPropType {
   position: string;
   detailPosition: string;
   level: string;
+  image?: string;
   variant?: 'default' | 'secondary';
 }
 
@@ -16,7 +17,7 @@ interface CompanyProps {
 }
 
 export const SeniorCard = (props: seniorListPropType) => {
-  const { nickname, company, field, position, detailPosition, level, variant = 'default' } = props;
+  const { nickname, company, field, position, detailPosition, level, variant = 'default', image } = props;
   const levelName = getLevelName(level);
   const randomColor = Math.floor(Math.random() * 3);
   return (
@@ -25,7 +26,7 @@ export const SeniorCard = (props: seniorListPropType) => {
         <Nickname>{nickname}</Nickname>
         <SeniorInfo>
           <Company $randomColor={randomColor}>{company}</Company>
-          <SeniorImg $isSmall={variant === 'secondary'}>{image}</SeniorImg>
+          <SeniorImg $isSmall={variant === 'secondary'} src={image} />
           <Field>{field}</Field>
         </SeniorInfo>
         <SeniorJob>

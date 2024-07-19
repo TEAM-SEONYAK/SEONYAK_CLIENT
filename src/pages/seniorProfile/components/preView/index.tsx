@@ -1,6 +1,7 @@
 import { FullBtn } from '@components/commons/FullButton';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
+import { useSeniorTimeQuery } from '@pages/juniorPromise/hooks/queries';
 import ImgTextBox from '@pages/seniorProfile/components/preView/ImgTextBox';
 import ProfileSummary from '@pages/seniorProfile/components/preView/ProfileSummary';
 import Review from '@pages/seniorProfile/components/preView/Review';
@@ -23,16 +24,19 @@ interface preViewPropType {
 }
 
 const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPropType) => {
-  const { data: cardData, error, isLoading } = useSeniorCardQuery(seniorId);
-  const { data: profileData } = useGetSeniorProfileQuery(seniorId);
-
+  const { data: cardData, error: cardDataError, isLoading: isCardDataLoading } = useSeniorCardQuery(seniorId);
+  const {
+    data: profileData,
+    error: profileDataError,
+    isLoading: isProfileDataLoading,
+  } = useGetSeniorProfileQuery(seniorId);
+  const {
+    data: secondaryPreferredTimeList,
+    isError: secondTimeListError,
+    isLoading: isSecondTimeListLoading,
+  } = useSeniorTimeQuery(+seniorId);
+  console.log({ secondaryPreferredTimeList });
   const navigate = useNavigate();
-
-  if (error || (!isLoading && !cardData)) {
-    navigate('/error');
-    return null;
-  }
-
   const isRegister = variant === 'default';
 
   const career = (isRegister ? profile?.career : profileData?.career) + '';
@@ -40,7 +44,7 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
   const catchphrase = (isRegister ? profile?.catchphrase : profileData?.catchphrase) + '';
   const story = (isRegister ? profile?.story : profileData?.story) + '';
   const preferredTimeList = (
-    isRegister ? profile && weekToDay(profile.isDayOfWeek, profile.preferredTimeList) : null
+    isRegister ? profile && weekToDay(profile.isDayOfWeek, profile.preferredTimeList) : secondaryPreferredTimeList
   ) as dayOfWeekTimeList;
 
   const mutation = useSeniorProfileHook();
@@ -60,6 +64,20 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
       },
     );
   };
+
+  if (
+    cardDataError ||
+    profileDataError ||
+    secondTimeListError ||
+    (!isCardDataLoading && !cardData) ||
+    (!isRegister && !isProfileDataLoading && !profileData) ||
+    (!isRegister && !isSecondTimeListLoading && !secondaryPreferredTimeList)
+  ) {
+    navigate('/error');
+    return null;
+  }
+
+  if (isSecondTimeListLoading) return;
   return (
     <>
       <Wrapper>
@@ -71,6 +89,7 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
             position={cardData.position}
             detailPosition={cardData.detailPosition}
             level={cardData.level}
+            image={''}
           />
         )}
         <ProfileSummary description1="미제공" description2={1} description3="미제공" />
