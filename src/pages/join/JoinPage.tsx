@@ -53,7 +53,7 @@ const JoinPage = () => {
       </Wrapper>
       <SeniorBtn onClick={handleSenior} />
       <JuniorBtn onClick={handleJunior} />
-      <NextBtn onClick={handleNext} />
+      <DemoNextBtn onClick={handleNext} />
     </>
   );
 };
@@ -84,7 +84,7 @@ const JuniorBtn = styled.div`
   background-color: red;
 `;
 
-const NextBtn = styled.div`
+export const DemoNextBtn = styled.div`
   position: absolute;
   right: 35%;
   bottom: 50%;
