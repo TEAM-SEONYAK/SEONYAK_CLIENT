@@ -35,7 +35,6 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
     isError: secondTimeListError,
     isLoading: isSecondTimeListLoading,
   } = useSeniorTimeQuery(+seniorId);
-  console.log({ secondaryPreferredTimeList });
   const navigate = useNavigate();
   const isRegister = variant === 'default';
 
