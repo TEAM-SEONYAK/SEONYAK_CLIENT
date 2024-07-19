@@ -445,6 +445,7 @@ const Description = styled.span`
 
 const BtnWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
   position: fixed;
   bottom: 0;
@@ -459,7 +460,8 @@ const DeclineBtn = styled.button`
   z-index: 2;
 
   border-radius: 5px;
-  width: 10.6rem;
+  /* width: 10.6rem; */
+  width: 30%;
   height: 5.6rem;
 
   background-color: ${({ theme }) => theme.colors.grayScaleBG};
@@ -474,7 +476,8 @@ const AcceptBtn = styled.button<{ $isActive: boolean }>`
   z-index: 2;
 
   border-radius: 5px;
-  width: 21.9rem;
+  /* width: 21.9rem; */
+  width: 70%;
   height: 5.6rem;
 
   background-color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleMG2)};
