@@ -5,6 +5,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { formatCalDateToString } from '../utils/formatCalDateToString';
 import { getTomorrow } from '../utils/getTomorrow';
+import { extractValidKeys } from '../utils/getSeniorValidWeekOfDay';
 
 interface CalendarTileProperties {
   date: Date;
@@ -32,7 +33,8 @@ const CustomCalendar = ({ btnId, setSelectedTime, selectedTime, preferredTimeLis
     5: '금',
     6: '토',
   };
-  const preferredDaysofWeek = Object.keys(preferredTimeList);
+  const preferredDaysofWeek = extractValidKeys(preferredTimeList);
+  console.log(preferredDaysofWeek);
 
   const [, onChange] = useState<Value>(getTomorrow());
 
