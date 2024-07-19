@@ -120,8 +120,10 @@ const Step번호입력 = () => {
         onSuccess: (res) => {
           console.log(res.data.data);
           navigate('/seniorProfile', {
-            seniorId: res.data.data.seniorId,
-            nickname: data.nickname,
+            state: {
+              seniorId: res.data.data.seniorId,
+              nickname: data.nickname,
+            },
           });
         },
         onError: (err) => {

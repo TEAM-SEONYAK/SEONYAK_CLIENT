@@ -23,7 +23,7 @@ const Step이메일입력 = () => {
 
   const verifyMutation = useUnivVerify();
   const verifycodeMutation = useUnivVerifycode();
-
+  console.log({ verifycodeMutation });
   const [isEmailError, setIsEmailError] = useState(false);
   const [isValidCodeError, setIsValidCodeError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
