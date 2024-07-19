@@ -12,9 +12,12 @@ import { useState } from 'react';
 
 const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
   const [seniorId, setSeniorId] = useState(0);
-  const { data: data1, error: error1, isLoading: isLoading1 } = useSeniorCardQuery('24');
-  const { data: data2, error: error2, isLoading: isLoading2 } = useSeniorCardQuery('25');
-  const { data: data3, error: error3, isLoading: isLoading3 } = useSeniorCardQuery('26');
+  const { data: data1 } = useSeniorCardQuery('24');
+  // const { data: data1, error: error1, isLoading: isLoading1 } = useSeniorCardQuery('24');
+  const { data: data2 } = useSeniorCardQuery('25');
+  // const { data: data2, error: error2, isLoading: isLoading2 } = useSeniorCardQuery('25');
+  const { data: data3 } = useSeniorCardQuery('26');
+  // const { data: data3, error: error3, isLoading: isLoading3 } = useSeniorCardQuery('26');
 
   const dummayData = [data1, data2, data3];
 
