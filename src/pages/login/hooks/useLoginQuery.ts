@@ -40,7 +40,7 @@ const useGoogleLoginHook = ({ role, variant = 'signup' }: useGoogleLoginPropType
       navigate('/error');
     },
     flow: 'auth-code',
-    redirect_uri: 'http://localhost:8082/'
+    redirect_uri: 'seonyak.com'
   });
 
   return { login, mutation };
