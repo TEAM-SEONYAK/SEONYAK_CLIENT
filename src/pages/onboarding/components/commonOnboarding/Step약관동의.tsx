@@ -2,10 +2,13 @@ import { ArrowRightIc, CheckItemIc } from '@assets/svgs';
 import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
 import { 약관_LIST } from '@pages/onboarding/constants';
+import { JoinContextType } from '@pages/onboarding/type';
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 
 const Step약관동의 = () => {
+  const { data, setData } = useOutletContext<JoinContextType>();
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const handleClickLink = () => {
