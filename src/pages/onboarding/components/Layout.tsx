@@ -12,7 +12,7 @@ const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
   const navigate = useNavigate();
   const step = +location.pathname.slice(18);
   const onboardingStep = userRole === 'SENIOR' ? SENIOR_ONBOARDING_STEPS : JUNIOR_ONBOARDING_STEPS;
-  const { title, description } = onboardingStep[step - 1];
+  const { title, description } = onboardingStep[step ? step - 1 : 0];
   const GROUP_STEP = convertToGroupStep(userRole, step);
 
   return (
