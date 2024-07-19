@@ -259,6 +259,7 @@ const PromiseDetail = () => {
                   onClick={() => {
                     setIsEnterBtnClicked(true);
                   }}
+                  marginLeft={-2}
                   text={diff <= 0 ? '지금 입장하기' : `약속 시간까지 ${diffText} 남았어요`}
                   isActive={diff <= 0}
                 />
