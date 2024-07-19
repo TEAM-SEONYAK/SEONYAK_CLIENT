@@ -39,7 +39,7 @@ const RecentCard = (props: RecentCardPropType) => {
       <RecentNav>
         <RecentDayWrapper>
           <ProfileChip type="promiseNum" content={appointmentNum ? '가장 가까운 약속' : '약속 없음'} />
-          <ProfileChip type="dDay" content={dDayDiff === 0 ? 'D-DAY' : ` D-${dDayDiff}`} />
+          {appointmentNum !== 0 && <ProfileChip type="dDay" content={dDayDiff === 0 ? 'D-DAY' : ` D-${dDayDiff}`} />}
         </RecentDayWrapper>
         <ProfileChip type="userGuide" content="선약 이용방법 보기" onClick={handleClickUserGuide} />
       </RecentNav>
