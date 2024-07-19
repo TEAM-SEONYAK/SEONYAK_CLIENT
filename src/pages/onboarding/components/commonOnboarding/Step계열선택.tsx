@@ -7,15 +7,20 @@ import { useState } from 'react';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 
 const Step계열선택 = () => {
-  const { setData } = useOutletContext<JoinContextType>();
+  const { data, setData } = useOutletContext<JoinContextType>();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [selectedField, setSelectedField] = useState('');
+  const [selectedField, setSelectedField] = useState(data.field);
   const handleClickLink = () => {
     setData((prev) => ({
       ...prev,
       field: selectedField,
     }));
+    if (pathname.includes('senior')) {
+      navigate('seniorOnboarding/5');
+    } else {
+      navigate('/juniorOnboarding/7');
+    }
     navigate(pathname.includes('senior') ? '/seniorOnboarding/5' : '/juniorOnboarding/7');
   };
 

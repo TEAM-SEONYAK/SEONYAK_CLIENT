@@ -18,7 +18,7 @@ const Step학과선택 = () => {
   const navigate = useNavigate();
 
   const [searchValue, setSearchValue] = useState('');
-  const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
+  const [selectedMajors, setSelectedMajors] = useState<string[]>(data.departmentList);
   const [isExceed, setIsExceed] = useState(false);
   const handleSearchValue = (searchedValue: string) => {
     setSearchValue(searchedValue);
@@ -68,7 +68,7 @@ const Step학과선택 = () => {
     }
   }, [selectedMajors]);
 
-  const list: DeptType[] = useSearchDeptQuery('이화여자대학교', searchValue);
+  const list: DeptType[] = useSearchDeptQuery(data.univName, searchValue);
 
   return (
     <Wrapper>

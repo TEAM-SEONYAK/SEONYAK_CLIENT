@@ -9,12 +9,12 @@ import useSearchUnivQuery from '@pages/onboarding/hooks/useSearchUnivQuery';
 import { JoinContextType } from '@pages/onboarding/type';
 
 const Step학교선택 = () => {
-  const { setData } = useOutletContext<JoinContextType>();
+  const { data, setData } = useOutletContext<JoinContextType>();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const [isOpenSheet, setIsOpenSheet] = useState(false);
-  const [selectedUniv, setSelectedUniv] = useState('');
+  const [selectedUniv, setSelectedUniv] = useState(data.univName);
   const handleOpenSheet = () => setIsOpenSheet(true);
   const handleCloseSheet = () => setIsOpenSheet(false);
   const handleSelectUniv = (selectValue: string) => {

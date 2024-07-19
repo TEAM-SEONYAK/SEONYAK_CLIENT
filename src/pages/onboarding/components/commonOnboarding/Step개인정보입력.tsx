@@ -14,12 +14,12 @@ const Step개인정보입력 = () => {
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState(data.nickname);
   const mutation = useNicknameValid();
   const [isNicknameError, setNicknameError] = useState(false);
   const [isNicknameValid, setIsNicknameValid] = useState(false);
 
-  const [imageFile, setImageFile] = useState('');
+  const [imageFile, setImageFile] = useState(data.image);
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
 
@@ -56,7 +56,7 @@ const Step개인정보입력 = () => {
   const handleClickLink = () => {
     setData((prev) => ({
       ...prev,
-      image: 'https://example.com/profile.jpg',
+      image: imageFile,
       nickname: nickname,
     }));
     navigate(pathname.includes('senior') ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
