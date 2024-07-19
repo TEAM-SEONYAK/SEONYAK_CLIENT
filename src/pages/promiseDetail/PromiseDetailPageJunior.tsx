@@ -8,6 +8,8 @@ import PromiseTimerBtn from '@pages/promiseList/components/PromiseTimerBtn';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useGetPromiseDetail } from './hooks/queries';
 import useCountdown from '@hooks/useCountDown';
+import { useState } from 'react';
+import PreView from '@pages/seniorProfile/components/preView';
 
 const PromiseDetailPageJunior = () => {
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
@@ -16,6 +18,14 @@ const PromiseDetailPageJunior = () => {
   const tap = location.state.tap;
   const myNickname = location.state.myNickname;
   const appointmentId = location.state.appointmentId;
+
+  const [isDetailClicked, setIsDetailClicked] = useState(false);
+  const [clickedSeniorId, setClickedSeniorId] = useState(0);
+
+  const handleSetIsDetailClicked = (type: boolean, id: number) => {
+    setIsDetailClicked(type);
+    setClickedSeniorId(id);
+  };
 
   const { juniorInfo, seniorInfo, timeList1, topic, personalTopic, isSuccess, isLoading } =
     useGetPromiseDetail(appointmentId);
@@ -31,53 +41,63 @@ const PromiseDetailPageJunior = () => {
   }
 
   const { diffText, diff } = countdown;
+  console.log(clickedSeniorId);
 
   return (
     <>
-      <Header LeftSvg={ArrowLeftIc} title="자세히 보기" onClickLeft={() => navigate('/')} />
-      <Wrapper>
-        <Layout>
-          {/* 여기 진이 뷰랑 연결 필요 */}
-          <TitleContainer>
-            <Title>{seniorInfo.nickname} 선배님의 프로필</Title>
-            <PromiseDiv>
-              <ProfileContainer
-                myNickname={myNickname}
-                userRole="JUNIOR"
-                tap="default"
-                profileCardData={seniorInfo}
-                isarrow="false"
-                detail="detail"
-              />
-            </PromiseDiv>
-          </TitleContainer>
+      {isDetailClicked ? (
+        <>
+          <Header LeftSvg={ArrowLeftIc} title="내가 보낸 약속" />
+          <PreView variant="secondary" seniorId={clickedSeniorId + ''} />
+        </>
+      ) : (
+        <>
+          <Header LeftSvg={ArrowLeftIc} title="자세히 보기" onClickLeft={() => navigate('/')} />
+          <Wrapper>
+            <Layout>
+              <TitleContainer>
+                <Title>{seniorInfo.nickname} 선배님의 프로필</Title>
+                <PromiseDiv>
+                  <ProfileContainer
+                    myNickname={myNickname}
+                    userRole="JUNIOR"
+                    tap="default"
+                    profileCardData={seniorInfo}
+                    isarrow="false"
+                    detail="detail"
+                    handleSetIsDetailClicked={handleSetIsDetailClicked}
+                  />
+                </PromiseDiv>
+              </TitleContainer>
 
-          <TitleContainer>
-            <Title>나의 정보</Title>
-            <Content>
-              {juniorInfo.univName} {juniorInfo.field} {juniorInfo.department}
-            </Content>
-          </TitleContainer>
+              <TitleContainer>
+                <Title>나의 정보</Title>
+                <Content>
+                  {juniorInfo.univName} {juniorInfo.field} {juniorInfo.department}
+                </Content>
+              </TitleContainer>
 
-          <TitleContainer>
-            <Title>{seniorInfo.nickname} 선배님과 상담하고 싶은 내용</Title>
-            {topic[0] !== '' ? (
-              topic.map((el: string, idx: number) => <Content key={idx + el}>{el}</Content>)
-            ) : (
-              <WrittenContent>{personalTopic}</WrittenContent>
-            )}
-          </TitleContainer>
-        </Layout>
-        <BtnWrapper>
-          {tap === 'pending' ? (
-            <FullBtn text="이미 신청한 선약은 취소할 수 없어요" isActive={false} />
-          ) : (
-            <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="detail" />
-          )}
+              <TitleContainer>
+                <Title>{seniorInfo.nickname} 선배님과 상담하고 싶은 내용</Title>
+                {topic[0] !== '' ? (
+                  topic.map((el: string, idx: number) => <Content key={idx + el}>{el}</Content>)
+                ) : (
+                  <WrittenContent>{personalTopic}</WrittenContent>
+                )}
+              </TitleContainer>
+            </Layout>
+            <BtnWrapper>
+              {tap === 'pending' ? (
+                <FullBtn text="이미 신청한 선약은 취소할 수 없어요" isActive={false} />
+              ) : (
+                <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="detail" />
+              )}
 
-          <BtnBackground />
-        </BtnWrapper>
-      </Wrapper>
+              <BtnBackground />
+            </BtnWrapper>
+          </Wrapper>
+        </>
+      )}
     </>
   );
 };

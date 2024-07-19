@@ -71,7 +71,11 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
     }
 
     // 실제 선배 아이디로 연결 필요
-    if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default') && detail === 'detail') {
+    if (
+      userRole === 'JUNIOR' &&
+      (tap === 'scheduled' || tap === 'default' || tap === 'pending') &&
+      detail === 'detail'
+    ) {
       // const id = profileCardData.seniorId
       handleSetIsDetailClicked && handleSetIsDetailClicked(true, 24);
     }
