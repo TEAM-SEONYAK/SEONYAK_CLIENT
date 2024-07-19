@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Lottie from 'lottie-web';
 import styled from '@emotion/styled';
-import FinalJson from '../../assets/lottie/final.json';
+import SpinnerJson from '../../assets/lottie/spinner.json';
 
-const GetTreasureLottie = () => {
+const Loading = () => {
   //lottie
   const likecontainer = useRef<HTMLDivElement>(null!);
   useEffect(() => {
-    console.log(FinalJson);
+    console.log(SpinnerJson);
 
     if (likecontainer.current !== null) {
       const animation = Lottie.loadAnimation({
@@ -15,7 +15,7 @@ const GetTreasureLottie = () => {
         renderer: 'svg',
         loop: false,
         autoplay: true,
-        animationData: FinalJson,
+        animationData: SpinnerJson,
       });
 
       return () => {
@@ -40,4 +40,4 @@ const NoMore = styled.div`
   margin: 0 auto;
 `;
 
-export default GetTreasureLottie;
+export default Loading;
