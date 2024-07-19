@@ -13,7 +13,7 @@ const Loading = () => {
       const animation = Lottie.loadAnimation({
         container: likecontainer.current,
         renderer: 'svg',
-        loop: false,
+        loop: true,
         autoplay: true,
         animationData: SpinnerJson,
       });
@@ -25,19 +25,32 @@ const Loading = () => {
   }, []);
 
   return (
-    <div>
+    <Wrapper>
       <NoMore ref={likecontainer}></NoMore>
-    </div>
+    </Wrapper>
   );
 };
 
 const NoMore = styled.div`
   position: absolute;
-  z-index: 1000;
+  top: 40%;
+  z-index: 10;
+
+  width: 12rem;
+  height: 12rem;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
 
   width: 100%;
   height: 100%;
-  margin: 0 auto;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 export default Loading;
