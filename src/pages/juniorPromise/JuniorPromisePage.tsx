@@ -11,6 +11,7 @@ import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
 import SelectJuniorPromiseSection from './components/SelectJuniorPromiseSection';
 import Loading from '@components/commons/Loading';
+import { HbHomeMainSvg } from '@assets/svgs';
 
 const JuniorPromisePage = () => {
   // 필터 버튼
@@ -145,7 +146,10 @@ const JuniorPromisePage = () => {
       ) : (
         <Wrapper>
           <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
-          <HbHomeMainIcon />
+          <Background>
+            <HbHomeMainSvgIcon />
+          </Background>
+
           <Title>반가워요 {myNickname}님,고민을 해결해볼까요?</Title>
 
           <SeniorListBackground
@@ -234,4 +238,17 @@ const SeniorListWrapper = styled.div`
   height: 100%;
   margin-bottom: 9.8rem;
   padding: 0.8rem 2rem;
+`;
+
+const Background = styled.div`
+  position: relative;
+  height: 18.7rem;
+  width: 100vw;
+  background: linear-gradient(151deg, #cce7ff 17.85%, #b8b1ff 163.57%);
+`;
+
+const HbHomeMainSvgIcon = styled(HbHomeMainSvg)`
+  position: absolute;
+  right: 0;
+  bottom: 0;
 `;

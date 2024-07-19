@@ -6,7 +6,8 @@ import ProfileContainer from './ProfileContainer';
 import PromiseTimerBtn from './PromiseTimerBtn';
 import { profileCardDataType } from '../types/type';
 import { useGetGoogleMeetLink } from '../hooks/queries';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { HbHomeMainSvg } from '@assets/svgs';
 
 interface RecentCardPropType {
   userRole: string;
