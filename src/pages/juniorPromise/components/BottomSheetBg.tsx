@@ -138,7 +138,7 @@ const TitleLayout = styled.header`
 `;
 
 const Content = styled.div`
-  overflow: scroll;
+  overflow: auto;
 
   height: 35.2rem;
 `;
