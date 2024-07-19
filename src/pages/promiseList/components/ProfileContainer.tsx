@@ -76,8 +76,8 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
       (tap === 'scheduled' || tap === 'default' || tap === 'pending') &&
       detail === 'detail'
     ) {
-      // const id = profileCardData.seniorId
-      handleSetIsDetailClicked && handleSetIsDetailClicked(true, 24);
+      const id = profileCardData?.seniorId;
+      handleSetIsDetailClicked && handleSetIsDetailClicked(true, id);
     }
   };
 
