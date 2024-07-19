@@ -8,6 +8,7 @@ import PromiseTimerBtn from '@pages/promiseList/components/PromiseTimerBtn';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useGetPromiseDetail } from './hooks/queries';
 import useCountdown from '@hooks/useCountDown';
+import Loading from '@components/commons/Loading';
 
 const PromiseDetailPageJunior = () => {
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
@@ -23,7 +24,7 @@ const PromiseDetailPageJunior = () => {
   const countdown = useCountdown(timeList1?.date, timeList1?.startTime);
 
   if (isLoading) {
-    return <div>Loading...</div>; // 로딩 중일 때 표시
+    return <Loading />; // 로딩 중일 때 표시
   }
 
   if (!isSuccess || !timeList1) {
@@ -87,24 +88,25 @@ export default PromiseDetailPageJunior;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 3rem;
   justify-content: center;
   align-items: center;
-  padding: 3rem 1.974rem 0 2.026rem;
-  gap: 3rem;
 
   width: 100vw;
   height: 100%;
   margin-top: 4.4rem;
+  padding: 3rem 1.974rem 0 2.026rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
-  border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 3rem;
+
+  width: 100%;
   margin-bottom: 11.6rem;
 `;
 
@@ -121,9 +123,10 @@ const Title = styled.h2`
 
 const PromiseDiv = styled.div`
   width: 100%;
-  border-radius: 8px;
   padding: 1rem 0 1rem 1.209rem;
   border: 1px solid ${({ theme }) => theme.colors.grayScaleLG1};
+  border-radius: 8px;
+
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
@@ -131,7 +134,9 @@ const Content = styled.div`
   width: 100%;
   padding: 1.1rem 0 1.1rem 1.5rem;
   border-radius: 8px;
+
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
   color: ${({ theme }) => theme.colors.grayScaleBG};
   ${({ theme }) => theme.fonts.Body1_M_14}
 `;
@@ -139,28 +144,33 @@ const Content = styled.div`
 const WrittenContent = styled.div`
   padding: 1rem 1.5rem;
   border-radius: 8px;
+
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
   color: ${({ theme }) => theme.colors.grayScaleBG};
   ${({ theme }) => theme.fonts.Body1_M_14};
   white-space: pre-line;
 `;
 
 const BtnWrapper = styled.div`
-  position: fixed;
-  z-index: 3;
-  bottom: 0;
-  width: 100%;
-  padding: 0 2.035rem 0 1.965rem;
   display: flex;
   gap: 1rem;
+  position: fixed;
+  bottom: 0;
+  z-index: 3;
+
+  width: 100%;
   margin-bottom: 3.977rem;
+  padding: 0 2.035rem 0 1.965rem;
 `;
 
 const BtnBackground = styled.div`
-  width: 100%;
-  height: 6.1rem;
-  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
-  z-index: 2;
   position: fixed;
   bottom: 0;
+  z-index: 2;
+
+  width: 100%;
+  height: 6.1rem;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;

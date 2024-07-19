@@ -7,6 +7,7 @@ import { BottomSheet } from '@pages/juniorPromise/components/BottomSheetBg';
 import { useState } from 'react';
 import { SeniorListBackground } from './components/SeniorListBackground';
 import seniorProfileQueries from '../../hooks/seniorProfileQueries';
+import Loading from '@components/commons/Loading';
 
 const JuniorPromisePage = () => {
   // 필터 버튼
@@ -101,7 +102,7 @@ const JuniorPromisePage = () => {
   const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (isError) {
