@@ -6,15 +6,14 @@ import { ChangeEvent, useMemo, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
+import { JoinContextType } from '@pages/onboarding/type';
 
 const Step개인정보입력 = () => {
-  const ROLE = 'SENIOR'; // 임시
-  const navigate = useNavigate();
-  const handleClickLink = () => {
-    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
-  };
+  const { setData } = useOutletContext<JoinContextType>();
 
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [nickname, setNickname] = useState('');
   const mutation = useNicknameValid();
   const [isNicknameError, setNicknameError] = useState(false);
@@ -33,7 +32,7 @@ const Step개인정보입력 = () => {
       setImageFile(reader.result as string);
     };
   };
-  // 임시 변수 (서버 통신 응답)
+
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
 
@@ -52,6 +51,15 @@ const Step개인정보입력 = () => {
         setIsNicknameValid(false);
       },
     });
+  };
+
+  const handleClickLink = () => {
+    setData((prev) => ({
+      ...prev,
+      image: 'dump',
+      nickname: nickname,
+    }));
+    navigate(pathname.includes('senior') ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
   };
 
   return (

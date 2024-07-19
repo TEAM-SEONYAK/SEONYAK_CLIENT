@@ -6,11 +6,11 @@ import { useLocation } from 'react-router-dom';
 
 const SignupPage = () => {
   const role = useLocation().state.role;
-  const { login } = useGoogleLoginHook();
+  const { login } = useGoogleLoginHook({ role });
 
   return (
     <>
-      {role === 'senior' ? <OnboardingBackgroundSBIc /> : <OnboardingBackgroundHBIc />}
+      {role === 'SENIOR' ? <OnboardingBackgroundSBIc /> : <OnboardingBackgroundHBIc />}
       <BtnContainer onClick={() => login()}>
         <GoogleLogoIcon />
         <Text>구글로 시작하기</Text>

@@ -5,11 +5,12 @@ import { BtnCloseModal } from '@components/commons/modal/BtnModal';
 import styled from '@emotion/styled';
 import useOCRBizQuery from '@pages/onboarding/hooks/useOCRBizQuery';
 import { ChangeEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { InputBox, TextBox } from '../TextBox';
-import { BizInfoType } from '@pages/onboarding/type';
+import { BizInfoType, JoinContextType } from '@pages/onboarding/type';
 
 const Step명함인증 = () => {
+  const { setData } = useOutletContext<JoinContextType>();
   const mutation = useOCRBizQuery();
   const navigate = useNavigate();
   const [isOpen, setOpen] = useState(false);
@@ -31,6 +32,14 @@ const Step명함인증 = () => {
     });
   };
 
+  const handleClickLink = () => {
+    setData((prev) => ({
+      ...prev,
+      company: info?.company,
+    }));
+    navigate('/seniorOnboarding/8');
+  };
+
   const VerificationDone = () =>
     info && (
       <DoneWrapper>
@@ -50,7 +59,7 @@ const Step명함인증 = () => {
             <input type="file" accept="image/*" capture="environment" onChange={handleChangeFile} />
             다시찍기
           </BlackButton>
-          <BlueButton type="button" onClick={() => navigate('/seniorOnboarding/8')}>
+          <BlueButton type="button" onClick={handleClickLink}>
             다음으로
           </BlueButton>
         </ButtonWrapper>

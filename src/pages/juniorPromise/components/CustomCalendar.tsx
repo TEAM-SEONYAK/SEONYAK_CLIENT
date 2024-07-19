@@ -34,7 +34,6 @@ const CustomCalendar = ({ btnId, setSelectedTime, selectedTime, preferredTimeLis
     6: '토',
   };
   const preferredDaysofWeek = extractValidKeys(preferredTimeList);
-  console.log(preferredDaysofWeek);
 
   const [, onChange] = useState<Value>(getTomorrow());
 

@@ -5,17 +5,14 @@ import MajorChip from '@pages/onboarding/components/MajorChip';
 import { useEffect, useState } from 'react';
 import SearchBox from '../SearchBox';
 import { FullBtn } from '@components/commons/FullButton';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import useSearchDeptQuery from '@pages/onboarding/hooks/useSearchDeptQuery';
-import { DeptType } from '@pages/onboarding/type';
+import { DeptType, JoinContextType } from '@pages/onboarding/type';
 
 const Step학과선택 = () => {
-  const ROLE = 'SENIOR'; // 임시
+  const { setData } = useOutletContext<JoinContextType>();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
-  const handleClickLink = () => {
-    if (ROLE === 'SENIOR') navigate('/seniorOnboarding/6');
-    else alert('온보딩 끝!');
-  };
 
   const [searchValue, setSearchValue] = useState('');
   const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
@@ -25,14 +22,20 @@ const Step학과선택 = () => {
   };
 
   const handleSelectMajors = (selectedValue: string) => {
-    // setSelectedMajors((prev) =>
-    //   prev?.includes(selectedValue) ? prev.filter((detail) => detail !== selectedValue) : [...prev, selectedValue],
-    // );
     setSelectedMajors([selectedValue]);
   };
 
   const handleChipClose = (deleteMajor: string) => {
     setSelectedMajors((prev) => prev.filter((p) => p !== deleteMajor));
+  };
+
+  const handleClickLink = () => {
+    setData((prev) => ({
+      ...prev,
+      departmentList: selectedMajors,
+    }));
+    if (pathname.includes('senior')) navigate('/seniorOnboarding/6');
+    else alert('온보딩 끝!');
   };
 
   useEffect(() => {
