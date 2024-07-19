@@ -4,7 +4,7 @@ export const loginAxios = (authorizationCode: string | undefined) => {
   return axios.post(
     '/v1/auth/login',
     {
-      redirectUri: 'seonyak.com',
+      redirectUri: 'www.seonyak.com',
       socialType: 'GOOGLE',
     },
     {
