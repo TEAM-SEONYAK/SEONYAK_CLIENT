@@ -78,7 +78,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
 export default CalendarBottomSheet;
 
 const Scroll = styled.div`
-  overflow-y: scroll;
+  overflow-y: auto;
 
   margin-bottom: 3rem;
 `;
