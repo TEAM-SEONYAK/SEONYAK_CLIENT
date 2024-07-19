@@ -171,7 +171,7 @@ const DoneWrapper = styled.section`
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 1rem;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   z-index: 9;
@@ -215,7 +215,7 @@ const BlueButton = styled.button`
 `;
 
 const BottomCaption = styled.p`
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
 
