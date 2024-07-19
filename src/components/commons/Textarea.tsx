@@ -8,10 +8,12 @@ interface InputPropType {
   height: number;
   inputVal: string;
   handleInputVal: (val: string) => void;
+
+  variant?: 'default' | 'secondary';
 }
 
 const Textarea = (props: InputPropType) => {
-  const { placeholder, wordLimit, height, inputVal, handleInputVal } = props;
+  const { placeholder, wordLimit, height, inputVal, handleInputVal, variant = 'default' } = props;
 
   const handleChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     handleInputVal(e.currentTarget.value);
@@ -23,10 +25,11 @@ const Textarea = (props: InputPropType) => {
         <TextareaContainer
           placeholder={placeholder}
           onChange={handleChangeTextarea}
-          $isValid={inputVal.length <= wordLimit}
-          $height={height}
           maxLength={wordLimit}
           value={inputVal}
+          $isValid={inputVal.length <= wordLimit}
+          $height={height}
+          $isSmallFont={variant === 'secondary'}
         />
         <WordLimitContainer>
           <Word $isLimit={inputVal.length <= wordLimit}>{inputVal.length}</Word>
@@ -51,7 +54,7 @@ const TextareaLayout = styled.div`
   position: relative;
 `;
 
-const TextareaContainer = styled.textarea<{ $isValid: boolean; $height: number }>`
+const TextareaContainer = styled.textarea<{ $isValid: boolean; $height: number; $isSmallFont: boolean }>`
   overflow: hidden;
 
   width: 100%;
@@ -61,7 +64,7 @@ const TextareaContainer = styled.textarea<{ $isValid: boolean; $height: number }
   border-radius: 8px;
 
   background-color: ${({ $isValid, theme }) => ($isValid ? theme.colors.grayScaleLG1 : theme.colors.transparentRed_3)};
-  ${({ theme }) => theme.fonts.Title2_M_16}
+  ${({ theme, $isSmallFont }) => ($isSmallFont ? theme.fonts.Body1_M_14 : theme.fonts.Title2_M_16)}
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.grayScaleMG2};

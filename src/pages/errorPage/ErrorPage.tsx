@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 const ErrorPage = () => {
   const navigate = useNavigate();
+  const role = localStorage.getItem('role');
+  const navPath = role === 'SENIOR' ? '/' : '/juniorPromise';
   return (
     <Wrapper>
       <WarningImgIcon />
       <Meta>오류가 발생했어요</Meta>
-      <Description onClick={() => navigate('/')}>홈으로</Description>
+      <Description onClick={() => navigate(navPath)}>홈으로</Description>
     </Wrapper>
   );
 };
