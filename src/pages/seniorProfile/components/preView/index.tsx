@@ -67,8 +67,8 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
 
   if (
     cardDataError ||
-    profileDataError ||
-    secondTimeListError ||
+    (!isRegister && profileDataError) ||
+    (!isRegister && secondTimeListError) ||
     (!isCardDataLoading && !cardData) ||
     (!isRegister && !isProfileDataLoading && !profileData) ||
     (!isRegister && !isSecondTimeListLoading && !secondaryPreferredTimeList)
