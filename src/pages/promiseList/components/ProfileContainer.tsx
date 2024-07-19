@@ -77,13 +77,12 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
       detail === 'detail'
     ) {
       const id = profileCardData && profileCardData?.seniorId;
-      console.log(profileCardData?.seniorId);
-      console.log(id);
-      handleSetIsDetailClicked && handleSetIsDetailClicked(true, 22);
+      if (handleSetIsDetailClicked && id !== undefined) {
+        handleSetIsDetailClicked(true, id);
+      }
     }
   };
 
-  console.log(profileCardData);
   return (
     <ReviewWrapper $tap={tap}>
       <Wrapper $tap={tap} onClick={() => handleClickProfileContainer(tap, userRole)}>

@@ -104,7 +104,6 @@ const JuniorPromisePage = () => {
   const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
 
   const seniorList = data?.data.seniorList || [];
-  console.log(data?.data);
   // 내 닉네임 가져오기
   const myNickname = data?.data.myNickname;
 
