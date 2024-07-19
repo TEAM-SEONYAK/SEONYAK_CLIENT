@@ -68,6 +68,8 @@ const Wrapper = styled.ul`
   flex-direction: column;
 
   padding-top: 1.3rem;
+
+  color: ${({ theme }) => theme.colors.grayScaleBG};
 `;
 
 const ItemWrapper = styled.button`
@@ -77,6 +79,8 @@ const ItemWrapper = styled.button`
 
   width: 100%;
   height: 3.8rem;
+
+  color: ${({ theme }) => theme.colors.grayScaleBG};
 `;
 
 const ItemLeftWrapper = styled.div`
