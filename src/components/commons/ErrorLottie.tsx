@@ -1,36 +1,43 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Lottie from 'lottie-web';
+import styled from '@emotion/styled';
+import FinalJson from '../../assets/lottie/final.json';
 
-// Lottie 컴포넌트 정의
-const LottieComponent = ({ animationData, ...restProps }) => {
-  // Lottie 애니메이션 컨테이너에 대한 ref
-  const animationContainer = useRef(null);
-  const [animationInstance, setAnimationInstance] = useState(null);
-
-  // Lottie 애니메이션 로드 및 초기화
+const GetTreasureLottie = () => {
+  //lottie
+  const likecontainer = useRef<HTMLDivElement>(null!);
   useEffect(() => {
-    // Lottie 애니메이션 옵션 설정
-    const animationOptions = {
-      container: animationContainer.current,
-      renderer: 'svg',
-      animationData: animationData,
-      rendererSettings: {
-        preserveAspectRatio: 'xMidYMid slice',
-      },
-    };
+    console.log(FinalJson);
 
-    // Lottie 애니메이션 로드
-    const animation = Lottie.loadAnimation(animationOptions);
-    // Lottie 애니메이션 상태 업데이트
-    setAnimationInstance(animation);
+    if (likecontainer.current !== null) {
+      const animation = Lottie.loadAnimation({
+        container: likecontainer.current,
+        renderer: 'svg',
+        loop: false,
+        autoplay: true,
+        animationData: FinalJson,
+      });
 
-    //  컴포넌트 unmount 시 애니메이션 제거
-    return () => {
-      animation.destroy();
-    };
-  }, [animationData]);
+      return () => {
+        animation.destroy();
+      };
+    }
+  }, []);
 
-  return <div ref={animationContainer} {...restProps} />;
+  return (
+    <div>
+      <NoMore ref={likecontainer}></NoMore>
+    </div>
+  );
 };
 
-export default LottieComponent;
+const NoMore = styled.div`
+  position: absolute;
+  z-index: 1000;
+
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+`;
+
+export default GetTreasureLottie;
