@@ -32,8 +32,9 @@ export const FullBtn = (props: FullBtnPropType) => {
 const Wrapper = styled.div<{ $isTransparent: boolean; $paddingBottom?: number; $marginLeft?: number }>`
   display: flex;
   justify-content: center;
-  position: fixed;
+  position: absolute;
   bottom: 0;
+  left: 0;
   z-index: 9;
   margin-left: ${({ $marginLeft }) => $marginLeft}rem;
 

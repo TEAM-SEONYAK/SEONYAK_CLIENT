@@ -217,6 +217,13 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grayScaleWG};
 `;
 
+const HbHomeMainIcon = styled(HbHomeMainIc)`
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+`;
+
 const Title = styled.p`
   position: absolute;
   top: 6rem;
