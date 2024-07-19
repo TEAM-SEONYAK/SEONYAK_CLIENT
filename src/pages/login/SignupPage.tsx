@@ -10,7 +10,7 @@ const SignupPage = () => {
 
   return (
     <>
-      {role === 'SENIOR' ? <OnboardingBackgroundSBIc /> : <OnboardingBackgroundHBIc />}
+      {role === 'SENIOR' ? <OnboardingBackgroundSBIcon /> : <OnboardingBackgroundHBIcon />}
       <BtnContainer onClick={() => login()}>
         <GoogleLogoIcon />
         <Text>구글로 시작하기</Text>
@@ -50,4 +50,14 @@ const GoogleLogoIcon = styled(GoogleLogoIc)`
   width: 33px;
   height: 33px;
   margin: 10px;
+`;
+
+const OnboardingBackgroundSBIcon = styled(OnboardingBackgroundSBIc)`
+  width: 100vw;
+  height: 100dvh;
+`;
+
+const OnboardingBackgroundHBIcon = styled(OnboardingBackgroundHBIc)`
+  width: 100vw;
+  height: 100dvh;
 `;
