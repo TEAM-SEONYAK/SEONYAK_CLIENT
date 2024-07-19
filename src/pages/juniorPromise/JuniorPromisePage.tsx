@@ -1,4 +1,4 @@
-import { HeaderLogoIc, AlarmIc, HbHomeMainIc } from '@assets/svgs';
+import { HeaderLogoIc, AlarmIc, ArrowLeftIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import { SeniorCard } from '@components/commons/SeniorCard';
@@ -10,6 +10,8 @@ import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
 import SelectJuniorPromiseSection from './components/SelectJuniorPromiseSection';
+import Loading from '@components/commons/Loading';
+import { HbHomeMainSvg } from '@assets/svgs';
 
 const JuniorPromisePage = () => {
   // 필터 버튼
@@ -21,10 +23,12 @@ const JuniorPromisePage = () => {
   const handleFilterActiveBtn = (btnText: string) => {
     setFilterActiveBtn(btnText);
     setIsBottomSheetOpen(true);
+    document.body.style.overflow = 'hidden';
   };
   // 바텀시트 닫기
   const handleCloseBottomSheet = () => {
     setIsBottomSheetOpen(false);
+    document.body.style.overflow = 'auto';
   };
 
   // 바텀시트 내 직무 칩
@@ -122,7 +126,7 @@ const JuniorPromisePage = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (isError) {
@@ -135,13 +139,22 @@ const JuniorPromisePage = () => {
         <SelectJuniorPromiseSection seniorId={seniorId} seniorNickname={seniorNickname} />
       ) : isSeniorCardClicked ? (
         <>
+          <Header
+            LeftSvg={ArrowLeftIc}
+            onClickLeft={() => {
+              setIsSeniorCardClicked(false);
+            }}
+          />
           <PreView variant="secondary" seniorId={seniorId + ''} />
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
       ) : (
         <Wrapper>
           <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
-          <HbHomeMainIcon />
+          <Background>
+            <HbHomeMainSvgIcon />
+          </Background>
+
           <Title>반가워요 {myNickname}님,고민을 해결해볼까요?</Title>
 
           <SeniorListBackground
@@ -204,10 +217,6 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grayScaleWG};
 `;
 
-const HbHomeMainIcon = styled(HbHomeMainIc)`
-  position: relative;
-`;
-
 const Title = styled.p`
   position: absolute;
   top: 6rem;
@@ -230,4 +239,17 @@ const SeniorListWrapper = styled.div`
   height: 100%;
   margin-bottom: 9.8rem;
   padding: 0.8rem 2rem;
+`;
+
+const Background = styled.div`
+  position: relative;
+  height: 18.7rem;
+  width: 100vw;
+  background: linear-gradient(151deg, #cce7ff 17.85%, #b8b1ff 163.57%);
+`;
+
+const HbHomeMainSvgIcon = styled(HbHomeMainSvg)`
+  position: absolute;
+  right: 0;
+  bottom: 0;
 `;

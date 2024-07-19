@@ -7,6 +7,7 @@ interface FullBtnPropType {
   onInactiveClick?: () => void;
   isTransparent?: boolean;
   paddingBottom?: number;
+  marginLeft?: number;
 }
 
 export const FullBtn = (props: FullBtnPropType) => {
@@ -17,9 +18,10 @@ export const FullBtn = (props: FullBtnPropType) => {
     onInactiveClick,
     isTransparent = false,
     paddingBottom = 3.8,
+    marginLeft = 0,
   } = props;
   return (
-    <Wrapper $isTransparent={isTransparent} $paddingBottom={paddingBottom}>
+    <Wrapper $isTransparent={isTransparent} $paddingBottom={paddingBottom} $marginLeft={marginLeft}>
       <FullBtnContainer type="button" $isActive={isActive} onClick={isActive ? onClick : onInactiveClick}>
         {text}
       </FullBtnContainer>
@@ -27,12 +29,13 @@ export const FullBtn = (props: FullBtnPropType) => {
   );
 };
 
-const Wrapper = styled.div<{ $isTransparent: boolean; $paddingBottom?: number }>`
+const Wrapper = styled.div<{ $isTransparent: boolean; $paddingBottom?: number; $marginLeft?: number }>`
   display: flex;
   justify-content: center;
   position: fixed;
   bottom: 0;
   z-index: 9;
+  margin-left: ${({ $marginLeft }) => $marginLeft}rem;
 
   width: 100%;
   padding: 0 2rem 3.8rem;

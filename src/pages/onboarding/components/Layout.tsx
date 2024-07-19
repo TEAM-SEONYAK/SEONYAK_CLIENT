@@ -6,14 +6,27 @@ import ProgressBar from '../../../components/commons/ProgressBar';
 import { JUNIOR_ONBOARDING_STEPS, ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } from '../constants';
 import convertToGroupStep from '../utils/convertToGroupStep';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { JoinPropType } from '../type';
 
 const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const step = +location.pathname.slice(18);
   const onboardingStep = userRole === 'SENIOR' ? SENIOR_ONBOARDING_STEPS : JUNIOR_ONBOARDING_STEPS;
-  const { title, description } = onboardingStep[step - 1];
+  const { title, description } = onboardingStep[step ? step - 1 : 0];
   const GROUP_STEP = convertToGroupStep(userRole, step);
+
+  const [data, setData] = useState<JoinPropType>({
+    userType: userRole === 'SENIOR' ? 1 : 2,
+    isSubscribed: Array(5).fill(false),
+    nickname: '',
+    image: '',
+    phoneNumber: '',
+    univName: '',
+    field: '',
+    departmentList: [],
+  });
 
   return (
     <Wrapper>
@@ -23,7 +36,7 @@ const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
         <TitleBox title={title} description={description} />
       </MetaContainer>
       <Content>
-        <Outlet />
+        <Outlet context={{ data, setData }} />
       </Content>
       <ButtonBg />
     </Wrapper>

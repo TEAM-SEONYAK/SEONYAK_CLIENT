@@ -297,4 +297,9 @@ const DefaultProfileIcon = styled(DefaultProfileIc)`
 | <li>[스크롤바 안보이게하기, 스크롤 영역지정](https://www.notion.so/3158feb2c7b84f15ab578a1996200ff7?pvs=21)</li> |
 | <li>[선택적으로 props 받기](https://www.notion.so/props-9ee1a39940f44edfb5c7137c398257e3?pvs=21)</li></ul> |
 | 🪄 선배들의 아티클 | 
-| ---------------------- |
+| -----------------|
+| <ul><li> https://jini77u.notion.site/React-Query-useQueries-useInfiniteQuery-1ffff58af1b240a39a07136b74cd6ffb?pvs=25 </li> | 
+|<li>https://yarimu.notion.site/React-Query-ba5e471314154696a72400c98483aad6</li>|
+|<li> https://jnary.notion.site/2e33b9b68ff04a169d7323095a9b0560 </li> |
+|<li> https://trail-hound-61f.notion.site/URL-0328aabfe0c7468783c519ea8cc7abe1 </li> |
+|<li> https://velog.io/@lydiacho/Vercel-%EB%B0%B0%ED%8F%AC%EC%99%80-%EB%8F%84%EB%A9%94%EC%9D%B8-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0#%EB%B6%80%EB%A1%9D3--%EC%BB%A4%EC%8A%A4%ED%85%80-%EB%8F%84%EB%A9%94%EC%9D%B8-%EB%93%B1%EB%A1%9D-%EC%8B%9C-%EC%9C%A0%EC%9D%98%EC%82%AC%ED%95%AD </li></ul> |

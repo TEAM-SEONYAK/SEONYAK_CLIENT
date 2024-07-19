@@ -8,20 +8,20 @@ import { FullBtn } from '@components/commons/FullButton';
 import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
 import { useNavigate } from 'react-router-dom';
 import { useProfileQuery } from '@pages/onboarding/hooks/useProfileImgQuery';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
+import { JoinContextType } from '@pages/onboarding/type';
 
 const Step개인정보입력 = () => {
-  const ROLE = 'SENIOR'; // 임시
-  const navigate = useNavigate();
-  const handleClickLink = () => {
-    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
-  };
+  const { data, setData } = useOutletContext<JoinContextType>();
 
-  const [nickname, setNickname] = useState('');
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [nickname, setNickname] = useState(data.nickname);
   const mutation = useNicknameValid();
   const [isNicknameError, setNicknameError] = useState(false);
   const [isNicknameValid, setIsNicknameValid] = useState(false);
 
-  const [imageFile, setImageFile] = useState('');
+  const [imageFile, setImageFile] = useState(data.image);
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
 
@@ -57,6 +57,15 @@ const Step개인정보입력 = () => {
         setIsNicknameValid(false);
       },
     });
+  };
+
+  const handleClickLink = () => {
+    setData((prev) => ({
+      ...prev,
+      image: imageFile,
+      nickname: nickname,
+    }));
+    navigate(pathname.includes('senior') ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
   };
 
   return (

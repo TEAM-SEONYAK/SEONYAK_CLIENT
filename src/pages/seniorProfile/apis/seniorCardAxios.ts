@@ -1,7 +1,7 @@
-import { testAuthAxios } from "@utils/apis"
+import { authAxios } from "@utils/apis"
 
 export const seniorCardAxios = (seniorId: string) => {
-  return testAuthAxios.get(
+  return authAxios.get(
     `/v1/senior/card/${seniorId}`
   )
 }

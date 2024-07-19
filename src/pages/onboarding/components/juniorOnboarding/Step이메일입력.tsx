@@ -16,7 +16,6 @@ import { SuccessImg } from '@assets/images';
 const Step이메일입력 = () => {
   const navigate = useNavigate();
   const { univName } = useLocation().state;
-  // const univName = '숭실대학교';
 
   const handleClickLink = () => {
     navigate('/juniorOnboarding/6');
@@ -99,20 +98,21 @@ const Step이메일입력 = () => {
   };
 
   const handleClickButton = () => {
-    verifycodeMutation.mutate(
-      { email, univName, code },
-      {
-        onSuccess: () => {
-          setIsModalOpen(true);
-          setTimeout(() => {
-            handleClickLink();
-          }, 2000);
-        },
-        onError: () => {
-          setIsValidCodeError(true);
-        },
-      },
-    );
+    handleClickLink();
+    // verifycodeMutation.mutate(
+    //   { email, univName, code },
+    //   {
+    //     onSuccess: () => {
+    //       setIsModalOpen(true);
+    //       setTimeout(() => {
+    //         handleClickLink();
+    //       }, 2000);
+    //     },
+    //     onError: () => {
+    //       setIsValidCodeError(true);
+    //     },
+    //   },
+    // );
   };
 
   const handleShowAlreadyModal = (type: boolean) => {

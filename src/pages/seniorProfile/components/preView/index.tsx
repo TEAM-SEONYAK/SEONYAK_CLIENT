@@ -1,4 +1,5 @@
 import { FullBtn } from '@components/commons/FullButton';
+import Loading from '@components/commons/Loading';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
 import { useSeniorTimeQuery } from '@pages/juniorPromise/hooks/queries';
@@ -66,14 +67,17 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
 
   if (
     cardDataError ||
-    profileDataError ||
-    secondTimeListError ||
+    (!isRegister && profileDataError) ||
+    (!isRegister && secondTimeListError) ||
     (!isCardDataLoading && !cardData) ||
     (!isRegister && !isProfileDataLoading && !profileData) ||
     (!isRegister && !isSecondTimeListLoading && !secondaryPreferredTimeList)
   ) {
     navigate('/error');
     return null;
+  }
+  if (isCardDataLoading || isProfileDataLoading || isSecondTimeListLoading) {
+    return <Loading />;
   }
 
   if (isSecondTimeListLoading) return;
@@ -111,7 +115,8 @@ export default PreView;
 const Wrapper = styled.div<{ $isRegister: boolean }>`
   overflow-y: auto;
 
-  padding: 0 2rem ${({ $isRegister }) => ($isRegister ? '12.6rem' : '8.2rem')};
+  /* padding: 0 2rem ${({ $isRegister }) => ($isRegister ? '12.6rem' : '8.2rem')}; */
+  padding: ${({ $isRegister }) => ($isRegister ? '0' : '5rem')} 2rem 12.6rem;
 `;
 
 const Meta = styled.p`
