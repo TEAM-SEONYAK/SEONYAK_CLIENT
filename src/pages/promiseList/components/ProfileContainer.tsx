@@ -1,4 +1,4 @@
-import { CardArrowRightGrayIc, ClockIc, SbhbHomeProfile1Img } from '@assets/svgs';
+import { CardArrowRightGrayIc, ClockIc } from '@assets/svgs';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import styled from '@emotion/styled';
 import { getLevelName } from '@utils/getLevelName';
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ProfileChip from './ProfileChip';
 import { profileCardDataType } from '../types/type';
 import { extractMonthAndDay } from '../utils/extractMonthAndDay';
+import { ComingSoonImg } from '@assets/images';
 
 interface ProfileContainerPropType {
   userRole: string;
@@ -14,10 +15,13 @@ interface ProfileContainerPropType {
   profileCardData?: profileCardDataType;
   isarrow: string;
   myNickname: string;
+  googleMeetLink?: string;
+  detail?: string;
+  handleSetIsDetailClicked?: (type: boolean, id: number) => void;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  const { userRole, profileCardData, tap, isarrow, myNickname } = props;
+  const { userRole, profileCardData, tap, isarrow, myNickname, detail, handleSetIsDetailClicked } = props;
   const navigate = useNavigate();
 
   // 리뷰 모달 띄우기 용
@@ -34,37 +38,55 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
   const getTopicDescription = (chosenTopic: string[] | undefined) => {
     const topicLength = chosenTopic?.length;
 
-    return topicLength ? `${chosenTopic[0]} 외 ${topicLength - 1}건` : '직접 작성했어요';
+    return topicLength
+      ? topicLength === 1
+        ? `${chosenTopic[0]}`
+        : `${chosenTopic[0]} 외 ${topicLength - 1}건`
+      : '직접 작성했어요';
   };
 
   // 상세 페이지 라우팅
   const handleClickProfileContainer = (tap: string, userRole: string) => {
     if (userRole === 'SENIOR' && tap === 'pending') {
       navigate('/promiseDetail', {
-        state: { tap: 'pending', myNickname: myNickname },
+        state: { tap: 'pending', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
     if (userRole === 'JUNIOR' && tap === 'pending') {
       navigate('./promiseDetailJunior', {
-        state: { tap: 'pending', myNickname: myNickname },
+        state: { tap: 'pending', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
-    if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default')) {
+
+    if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
       navigate('./promiseDetail', {
-        state: { tap: 'scheduled', myNickname: myNickname },
+        state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
-    if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default')) {
+
+    if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
       navigate('./promiseDetailJunior', {
-        state: { tap: 'scheduled', myNickname: myNickname },
+        state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
+    }
+
+    // 실제 선배 아이디로 연결 필요
+    if (
+      userRole === 'JUNIOR' &&
+      (tap === 'scheduled' || tap === 'default' || tap === 'pending') &&
+      detail === 'detail'
+    ) {
+      const id = profileCardData && profileCardData?.seniorId;
+      if (handleSetIsDetailClicked && id !== undefined) {
+        handleSetIsDetailClicked(true, id);
+      }
     }
   };
 
   return (
     <ReviewWrapper $tap={tap}>
       <Wrapper $tap={tap} onClick={() => handleClickProfileContainer(tap, userRole)}>
-        <SbhbHomeProfile1Icon />
+        <ProfileImg src={profileCardData?.image} alt="프로필 이미지" />
         <InfoContainer>
           <NameContainer>
             <Name>
@@ -139,7 +161,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
         text="아직 준비중인 기능이에요"
         showModal={isReviewClicked}
         handleShowModal={ShowReviewClickedModal}>
-        <TestImg />
+        <img src={ComingSoonImg} alt="준비중인 기능 모달" />
       </AutoCloseModal>
     </ReviewWrapper>
   );
@@ -175,10 +197,6 @@ const Wrapper = styled.div<{ $tap: string }>`
   &:last-child {
     border-bottom: none;
   }
-`;
-
-const SbhbHomeProfile1Icon = styled(SbhbHomeProfile1Img)`
-  border-radius: 100px;
 `;
 
 const InfoContainer = styled.div`
@@ -221,6 +239,7 @@ const Divider = styled.div`
 const Description = styled.div<{ $colorType: string }>`
   width: 19rem;
   height: 2.2rem;
+
   color: ${({ theme, $colorType }) =>
     $colorType === 'grayScaleDG' ? theme.colors.grayScaleDG : theme.colors.grayScaleMG2};
   ${({ theme }) => theme.fonts.Body1_M_14};
@@ -284,8 +303,8 @@ const RejectedChip = styled.div`
   ${({ theme }) => theme.fonts.Caption2_SB_12};
 `;
 
-const TestImg = styled.div`
-  width: 27rem;
-  height: 17.2rem;
-  background-color: ${({ theme }) => theme.colors.grayScaleMG2};
+const ProfileImg = styled.img`
+  width: 8.6rem;
+  height: 8.6rem;
+  border-radius: 100px;
 `;

@@ -5,6 +5,8 @@ import ProfileChip from './ProfileChip';
 import ProfileContainer from './ProfileContainer';
 import PromiseTimerBtn from './PromiseTimerBtn';
 import { profileCardDataType } from '../types/type';
+import { useGetGoogleMeetLink } from '../hooks/queries';
+import { useState } from 'react';
 
 interface RecentCardPropType {
   userRole: string;
@@ -16,15 +18,30 @@ interface RecentCardPropType {
 const RecentCard = (props: RecentCardPropType) => {
   const { userRole, recentAppointment, appointmentNum, nickname } = props;
   const { diffText, diff, dDayDiff } = useCountdown(recentAppointment?.date, recentAppointment?.startTime);
+  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
+  const [, setGoogleMeetLink] = useState('');
+
+  const handleClickEnterBtn = (link: string) => {
+    setGoogleMeetLink(link);
+    window.open(link, '_blank');
+  };
+
+  useGetGoogleMeetLink(recentAppointment?.appointmentId, isEnterBtnClicked, handleClickEnterBtn);
+
+  const handleClickUserGuide = () => {
+    userRole === 'SENIOR'
+      ? window.open('https://cumbersome-cactus-843.notion.site/c5f4f494d3ee41c6836a9f4828a7bde6?pvs=4', '_blank')
+      : window.open('https://cumbersome-cactus-843.notion.site/d394be50d2b44a03878debd0e19bdb2f?pvs=4', '_blank');
+  };
 
   return (
     <Wrapper $userRole={userRole}>
       <RecentNav>
         <RecentDayWrapper>
           <ProfileChip type="promiseNum" content={appointmentNum ? '가장 가까운 약속' : '약속 없음'} />
-          <ProfileChip type="dDay" content={dDayDiff === 0 ? 'D-DAY' : ` D-${dDayDiff}`} />
+          {appointmentNum !== 0 && <ProfileChip type="dDay" content={dDayDiff === 0 ? 'D-DAY' : ` D-${dDayDiff}`} />}
         </RecentDayWrapper>
-        <ProfileChip type="userGuide" content="선약 이용방법 보기" />
+        <ProfileChip type="userGuide" content="선약 이용방법 보기" onClick={handleClickUserGuide} />
       </RecentNav>
       <DashedDivider />
       {appointmentNum ? (
@@ -36,7 +53,12 @@ const RecentCard = (props: RecentCardPropType) => {
             isarrow="true"
             myNickname={nickname}
           />
-          <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="recent" />
+          <PromiseTimerBtn
+            isActive={diff <= 0}
+            diff={diffText}
+            page="recent"
+            onClick={() => setIsEnterBtnClicked(true)}
+          />
         </>
       ) : (
         <EmptyImg />

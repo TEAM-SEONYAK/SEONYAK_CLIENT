@@ -16,8 +16,7 @@ export interface seniorProfileAPIType {
   career: string;
   award: string;
   story: string;
-  level: string;
-  nickname: string;
+  preferredTimeList: dayOfWeekTimeList;
 }
 
 export interface preferredTimeListType {
@@ -53,6 +52,25 @@ export type weekendType = '주말' | '주중';
 
 export interface TimePropType extends funnelComponentPropType {
   isWarning: boolean;
+}
+
+export interface SeniorCardAPIResType {
+  nickname: string;
+  company: string;
+  field: string;
+  position: string;
+  detailPosition: string;
+  level: string;
+  image: string;
+}
+
+export interface SeniorProfileAPIResType {
+  isAvailable: boolean;
+  level: string;
+  career: string;
+  award: string;
+  catchphrase: string;
+  story: string;
 }
 
 export const seniorProfileInitial: seniorProfileRegisterType = {

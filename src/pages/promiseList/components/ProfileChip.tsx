@@ -5,16 +5,17 @@ import { generateRandomBgColor, generateRandomColor } from '../utils/generateChi
 interface RecentChipPropType {
   type: string;
   content: string | undefined;
+  onClick?: () => void;
 }
 
 const ProfileChip = (props: RecentChipPropType) => {
-  const { type, content } = props;
+  const { type, content, onClick } = props;
   const [randomNum] = useState(Math.floor(Math.random() * 3));
 
   const randomBgColor = generateRandomBgColor(randomNum);
   const randomColor = generateRandomColor(randomNum);
   return (
-    <Wrapper $type={type} $randomBgColor={randomBgColor} $randomColor={randomColor}>
+    <Wrapper $type={type} $randomBgColor={randomBgColor} $randomColor={randomColor} onClick={onClick}>
       {content}
     </Wrapper>
   );

@@ -3,3 +3,6 @@
 
 export { default as StartProfile1Img } from './img_start_profile1.png';
 export { default as StartProfile2Img } from './img_start_profile2.png';
+export { default as NamecardImg } from './img_namecard.png';
+export { default as SuccessImg } from './img_success.png';
+export { default as ComingSoonImg } from './img_bfrelease.png';

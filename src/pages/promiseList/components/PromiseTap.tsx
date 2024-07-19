@@ -30,7 +30,6 @@ const PromiseTap = (props: PromiseTapPropType) => {
     }
   };
 
-  const content = getTapContent(tap);
   return (
     <Wrapper>
       <TapContainer>
@@ -45,31 +44,45 @@ const PromiseTap = (props: PromiseTapPropType) => {
           </TapText>
         ))}
       </TapContainer>
-      {content.length ? (
+      {getTapContent(tap).length ? (
         <ProfileWrapper>
-          {tap === 'past' && (
-            <>
+          {tap === 'past' &&
+            past.map((profileData) =>
+              profileData.appointmentStatus === 'REJECTED' ? (
+                <ProfileContainer
+                  myNickname={myNickname}
+                  userRole={userRole}
+                  tap="rejected"
+                  profileCardData={profileData}
+                  isarrow="ture"
+                />
+              ) : (
+                <ProfileContainer
+                  myNickname={myNickname}
+                  userRole={userRole}
+                  tap="past"
+                  profileCardData={profileData}
+                  isarrow="true"
+                />
+              ),
+            )}
+
+          {tap === 'scheduled' &&
+            scheduled.map((profileCardData, idx) => (
               <ProfileContainer
                 myNickname={myNickname}
+                key={profileCardData.appointmentId + idx}
                 userRole={userRole}
-                tap="past"
-                profileCardData={content[0]}
+                tap={tap}
+                profileCardData={profileCardData}
                 isarrow="true"
               />
+            ))}
+          {tap === 'pending' &&
+            pending.map((profileCardData, idx) => (
               <ProfileContainer
                 myNickname={myNickname}
-                userRole={userRole}
-                tap="rejected"
-                profileCardData={content[1]}
-                isarrow="ture"
-              />
-            </>
-          )}
-          {tap !== 'past' &&
-            content.map((profileCardData) => (
-              <ProfileContainer
-                myNickname={myNickname}
-                key={profileCardData.appointmentId}
+                key={profileCardData.appointmentId + idx}
                 userRole={userRole}
                 tap={tap}
                 profileCardData={profileCardData}

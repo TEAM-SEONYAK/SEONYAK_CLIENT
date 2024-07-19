@@ -2,17 +2,23 @@ import { CheckItemIc } from '@assets/svgs';
 import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
 import { 계열_LIST } from '@pages/onboarding/constants';
+import { JoinContextType } from '@pages/onboarding/type';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 
 const Step계열선택 = () => {
-  const ROLE = 'SENIOR'; // 임시
+  const { setData } = useOutletContext<JoinContextType>();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
+  const [selectedField, setSelectedField] = useState('');
   const handleClickLink = () => {
-    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/5' : '/juniorOnboarding/7');
+    setData((prev) => ({
+      ...prev,
+      field: selectedField,
+    }));
+    navigate(pathname.includes('senior') ? '/seniorOnboarding/5' : '/juniorOnboarding/7');
   };
 
-  const [selectedField, setSelectedField] = useState('');
   return (
     <>
       <Wrapper>

@@ -1,4 +1,5 @@
 export interface profileCardDataType {
+  seniorId?: number;
   appointmentId: number;
   appointmentStatus: string;
   nickname: string;

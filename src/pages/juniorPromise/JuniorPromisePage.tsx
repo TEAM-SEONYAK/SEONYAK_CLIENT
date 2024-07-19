@@ -1,14 +1,17 @@
-import { TempLogoIc, AlarmIc, HbHomeMainIc } from '@assets/svgs';
+import { HeaderLogoIc, AlarmIc, HbHomeMainIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
-import SeniorCard from '@components/commons/seniorCard/SeniorCard';
-import { SENIOR_LIST } from '@components/commons/seniorCard/seniorCardConstants';
+import { SeniorCard } from '@components/commons/SeniorCard';
 import styled from '@emotion/styled';
 import { BottomSheet } from '@pages/juniorPromise/components/BottomSheetBg';
 import { useState } from 'react';
 import { SeniorListBackground } from './components/SeniorListBackground';
+import seniorProfileQueries from '../../hooks/seniorProfileQueries';
+import PreView from '@pages/seniorProfile/components/preView';
+import { FullBtn } from '@components/commons/FullButton';
+import SelectJuniorPromiseSection from './components/SelectJuniorPromiseSection';
+
 const JuniorPromisePage = () => {
-  const { seniorList } = SENIOR_LIST;
   // 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
   // 바텀 시트 여는 동작
@@ -99,54 +102,100 @@ const JuniorPromisePage = () => {
     setChipPositionName((prev) => prev.filter((name) => name !== chipName));
   };
 
+  // 쿼리 사용하여 데이터 가져오기
+  const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
+
+  const seniorList = data?.data.seniorList || [];
+  // 내 닉네임 가져오기
+  const myNickname = data?.data.myNickname;
+
+  const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
+  const [isPromiseClicked, setIsPromisedClicked] = useState(false);
+  const [seniorId, setSeniorId] = useState(0);
+  const [seniorNickname, setSeniorNickname] = useState('');
+  const handleSeniorCardClicked = (type: boolean, id: number, name: string) => {
+    setIsSeniorCardClicked(type);
+    setSeniorId(id);
+    setSeniorNickname(name);
+  };
+
+  const handlePromiseClicked = () => {
+    setIsPromisedClicked(true);
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error occurred</div>;
+  }
+
   return (
-    <Wrapper>
-      <Header LeftSvg={TempLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
-      <HbHomeMainIcon />
-      <Title>반가워요 도리님,고민을 해결해볼까요?</Title>
-      <SeniorListBackground
-        handleFilterActiveBtn={handleFilterActiveBtn}
-        handleReset={handleReset}
-        positionChipNum={positionChipNum}
-        chipFieldName={chipFieldName}
-        deleteFieldList={deleteFieldList}
-        handleChipField={handleChipField}
-        chipPositionName={chipPositionName}
-        deletePositionList={deletePositionList}
-        handleChipPosition={handleChipPosition}
-        $chipFieldName={chipFieldName}
-        $chipPositionName={chipPositionName}>
-        <SeniorListWrapper>
-          {seniorList.map((list) => (
-            <SeniorCard
-              key={list.seniorId}
-              nickname={list.nickname}
-              company={list.company}
-              field={list.field}
-              position={list.position}
-              detailPosition={list.detailPosition}
-              level={list.level}
-            />
-          ))}
-        </SeniorListWrapper>
-        <Nav />
-      </SeniorListBackground>
-      <BottomSheet
-        filterActiveBtn={filterActiveBtn}
-        handleFilterActiveBtn={handleFilterActiveBtn}
-        handleCloseBottomSheet={handleCloseBottomSheet}
-        isBottomSheetOpen={isBottomSheetOpen}
-        handleChipField={handleChipField}
-        handleChipPosition={handleChipPosition}
-        selectedPosition={selectedPosition}
-        selectedField={selectedField}
-        handleReset={handleReset}
-        chipFieldName={chipFieldName}
-        pushFieldList={pushFieldList}
-        chipPositionName={chipPositionName}
-        pushPositionList={pushPositionList}
-      />
-    </Wrapper>
+    <>
+      {isPromiseClicked ? (
+        <SelectJuniorPromiseSection seniorId={seniorId} seniorNickname={seniorNickname} />
+      ) : isSeniorCardClicked ? (
+        <>
+          <PreView variant="secondary" seniorId={seniorId + ''} />
+          <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
+        </>
+      ) : (
+        <Wrapper>
+          <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
+          <HbHomeMainIcon />
+          <Title>반가워요 {myNickname}님,고민을 해결해볼까요?</Title>
+
+          <SeniorListBackground
+            handleFilterActiveBtn={handleFilterActiveBtn}
+            handleReset={handleReset}
+            positionChipNum={positionChipNum}
+            chipFieldName={chipFieldName}
+            deleteFieldList={deleteFieldList}
+            handleChipField={handleChipField}
+            chipPositionName={chipPositionName}
+            deletePositionList={deletePositionList}
+            handleChipPosition={handleChipPosition}
+            $chipFieldName={chipFieldName}
+            $chipPositionName={chipPositionName}>
+            <SeniorListWrapper>
+              {seniorList?.map((list) => (
+                <SeniorCard
+                  key={list.seniorId}
+                  nickname={list.nickname}
+                  company={list.company}
+                  image={list.image}
+                  field={list.field}
+                  position={list.position}
+                  detailPosition={list.detailPosition}
+                  level={list.level}
+                  variant="secondary"
+                  seniorId={list.seniorId}
+                  handleSeniorCardClicked={handleSeniorCardClicked}
+                />
+              ))}
+            </SeniorListWrapper>
+            <Nav />
+          </SeniorListBackground>
+
+          <BottomSheet
+            filterActiveBtn={filterActiveBtn}
+            handleFilterActiveBtn={handleFilterActiveBtn}
+            handleCloseBottomSheet={handleCloseBottomSheet}
+            isBottomSheetOpen={isBottomSheetOpen}
+            handleChipField={handleChipField}
+            handleChipPosition={handleChipPosition}
+            selectedPosition={selectedPosition}
+            selectedField={selectedField}
+            handleReset={handleReset}
+            chipFieldName={chipFieldName}
+            pushFieldList={pushFieldList}
+            chipPositionName={chipPositionName}
+            pushPositionList={pushPositionList}
+          />
+        </Wrapper>
+      )}
+    </>
   );
 };
 

@@ -58,6 +58,7 @@ const Wrapper = styled.div`
   align-items: center;
 
   width: 100%;
+  margin-bottom: 2rem;
 `;
 
 const TimeBtn = styled.div<{ $isActive: boolean; $isUnfilled: boolean }>`

@@ -2,19 +2,18 @@ import { StartProfile1Img, StartProfile2Img } from '@assets/images';
 import { CameraIc } from '@assets/svgs';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
+import { JoinContextType } from '@pages/onboarding/type';
 
 const Step개인정보입력 = () => {
-  const ROLE = 'SENIOR'; // 임시
-  const navigate = useNavigate();
-  const handleClickLink = () => {
-    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
-  };
+  const { setData } = useOutletContext<JoinContextType>();
 
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [nickname, setNickname] = useState('');
   const mutation = useNicknameValid();
   const [isNicknameError, setNicknameError] = useState(false);
@@ -22,7 +21,8 @@ const Step개인정보입력 = () => {
 
   const [imageFile, setImageFile] = useState('');
   const startImgArr = [StartProfile1Img, StartProfile2Img];
-  const startImg = startImgArr[Math.floor(Math.random() * 2)];
+  const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
+
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
@@ -32,7 +32,7 @@ const Step개인정보입력 = () => {
       setImageFile(reader.result as string);
     };
   };
-  // 임시 변수 (서버 통신 응답)
+
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
 
@@ -53,6 +53,15 @@ const Step개인정보입력 = () => {
     });
   };
 
+  const handleClickLink = () => {
+    setData((prev) => ({
+      ...prev,
+      image: 'dump',
+      nickname: nickname,
+    }));
+    navigate(pathname.includes('senior') ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
+  };
+
   return (
     <>
       <Wrapper>
@@ -70,21 +79,21 @@ const Step개인정보입력 = () => {
       <TextBox label="닉네임">
         <InputBox
           label="닉네임"
-          placeholder="닉네임을 입력해주세요"
+          placeholder="닉네임을 입력해 주세요"
           isError={isNicknameError}
           value={nickname}
           onChange={handleChangeInput}>
           <InnerButton text="중복확인" onClick={handleCheckNickname} />
         </InputBox>
         {isNicknameError ? (
-          <WarnDescription isShown={isNicknameError} warnText="닉네임 조건을 확인해주세요 !" />
+          <WarnDescription isShown={isNicknameError} warnText="닉네임이 조건을 충족하지 않아요." />
         ) : (
           <Caption isValid={isNicknameValid}>
             {isNicknameValid ? '사용 가능한 닉네임이에요' : '8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가'}
           </Caption>
         )}
       </TextBox>
-      <FullBtn onClick={handleClickLink} />
+      <FullBtn onClick={handleClickLink} isActive={isNicknameValid} />
     </>
   );
 };
