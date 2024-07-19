@@ -14,9 +14,11 @@ import axios from 'axios';
 import { 이미_사용중인_전화번호_에러코드 } from '@pages/onboarding/constants';
 import { SuccessImg } from '@assets/images';
 import { JoinContextType } from '@pages/onboarding/type';
+import useJoinQuery from '@pages/onboarding/hooks/useJoinQuery';
 
 const Step번호입력 = () => {
-  const { setData } = useOutletContext<JoinContextType>();
+  const { data, setData } = useOutletContext<JoinContextType>();
+  const mutate = useJoinQuery();
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -77,6 +79,10 @@ const Step번호입력 = () => {
         setNumError(false);
         setIsActive(true);
         setTimeLeft(TIME);
+        setData((prev) => ({
+          ...prev,
+          phoneNumber: phoneNumber,
+        }));
       },
       onError: () => {
         setNumError(true);
@@ -108,12 +114,16 @@ const Step번호입력 = () => {
   };
 
   const handleClickLink = () => {
-    setData((prev) => ({
-      ...prev,
-      phoneNumber: phoneNumber,
-    }));
-    if (pathname.includes('senior')) alert('온보딩 끝!');
-    else navigate('/juniorOnboarding/4');
+    mutate.mutate(data, {
+      onSuccess: (res) => {
+        console.log(res);
+        if (pathname.includes('senior')) alert('온보딩 끝!');
+        else navigate('/juniorOnboarding/4');
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+    });
   };
 
   const handleClickButton = () => {
