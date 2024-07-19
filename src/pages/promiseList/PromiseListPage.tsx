@@ -10,13 +10,12 @@ import Loading from '@components/commons/Loading';
 
 const PromiseListPage = () => {
   // 유저가 선배일 경우
-  const userRole = 'JUNIOR';
+  const userRole = localStorage.getItem('role') + '';
+  // const userRole = 'JUNIOR';
 
   const { myNickname, pending, scheduled, past, isLoading } = useGetPromiseList();
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <>
