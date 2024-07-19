@@ -7,15 +7,12 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 
 const Step약관동의 = () => {
-  const { setData } = useOutletContext<JoinContextType>();
+  const { data, setData } = useOutletContext<JoinContextType>();
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const handleClickLink = () => {
-    navigate(pathname.includes('senior') ? '/seniorOnboarding/2' : '/juniorOnboarding/2');
-  };
 
-  const [agreement, setAgreement] = useState(Array(5).fill(false));
+  const [agreement, setAgreement] = useState(data.isSubscribed);
 
   const handleClickCheck = (id: number | 'all') => {
     if (id === 'all') {
@@ -24,13 +21,13 @@ const Step약관동의 = () => {
     } else {
       setAgreement((prev) => agreement.with(id, !prev[id]));
     }
-
-    if (id === 4) {
-      setData((prev) => ({
-        ...prev,
-        isSubscribed: !prev.isSubscribed,
-      }));
-    }
+  };
+  const handleClickLink = () => {
+    setData((prev) => ({
+      ...prev,
+      isSubscribed: agreement,
+    }));
+    navigate(pathname.includes('senior') ? '/seniorOnboarding/2' : '/juniorOnboarding/2');
   };
 
   return (

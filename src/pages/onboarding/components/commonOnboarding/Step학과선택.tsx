@@ -8,14 +8,17 @@ import { FullBtn } from '@components/commons/FullButton';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import useSearchDeptQuery from '@pages/onboarding/hooks/useSearchDeptQuery';
 import { DeptType, JoinContextType } from '@pages/onboarding/type';
+import useJoinQuery from '@pages/onboarding/hooks/useJoinQuery';
 
 const Step학과선택 = () => {
-  const { setData } = useOutletContext<JoinContextType>();
+  const { data, setData } = useOutletContext<JoinContextType>();
+  const mutate = useJoinQuery();
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const [searchValue, setSearchValue] = useState('');
-  const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
+  const [selectedMajors, setSelectedMajors] = useState<string[]>(data.departmentList);
   const [isExceed, setIsExceed] = useState(false);
   const handleSearchValue = (searchedValue: string) => {
     setSearchValue(searchedValue);
@@ -34,8 +37,25 @@ const Step학과선택 = () => {
       ...prev,
       departmentList: selectedMajors,
     }));
-    if (pathname.includes('senior')) navigate('/seniorOnboarding/6');
-    else alert('온보딩 끝!');
+    if (pathname.includes('senior')) {
+      navigate('/seniorOnboarding/6');
+    } else {
+      mutate.mutate(
+        {
+          ...data,
+          departmentList: selectedMajors,
+        },
+        {
+          onSuccess: () => {
+            navigate('/juniorOnboardingComplete');
+          },
+          onError: (err) => {
+            console.log(err);
+          },
+        },
+      );
+      alert('온보딩 끝!');
+    }
   };
 
   useEffect(() => {
@@ -47,7 +67,7 @@ const Step학과선택 = () => {
     }
   }, [selectedMajors]);
 
-  const list: DeptType[] = useSearchDeptQuery('이화여자대학교', searchValue);
+  const list: DeptType[] = useSearchDeptQuery(data.univName, searchValue);
 
   return (
     <Wrapper>

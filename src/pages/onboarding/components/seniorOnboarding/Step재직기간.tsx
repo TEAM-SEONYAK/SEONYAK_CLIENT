@@ -5,11 +5,11 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { JoinContextType } from '@pages/onboarding/type';
 
 const Step재직기간 = () => {
-  const { setData } = useOutletContext<JoinContextType>();
+  const { data, setData } = useOutletContext<JoinContextType>();
   const navigate = useNavigate();
 
   const PLACEHOLDER = '연차를 선택해 주세요';
-  const [select, setSelect] = useState(PLACEHOLDER);
+  const [select, setSelect] = useState(data.level || PLACEHOLDER);
 
   const handleSetSelect = (value: string) => {
     setSelect(value);
@@ -19,7 +19,7 @@ const Step재직기간 = () => {
       ...prev,
       level: select,
     }));
-    navigate('/seniorOnboarding/11');
+    navigate('/seniorOnboarding/10');
   };
 
   return (

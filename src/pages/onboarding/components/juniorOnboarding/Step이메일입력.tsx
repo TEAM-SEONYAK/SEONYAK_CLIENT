@@ -98,20 +98,21 @@ const Step이메일입력 = () => {
   };
 
   const handleClickButton = () => {
-    verifycodeMutation.mutate(
-      { email, univName, code },
-      {
-        onSuccess: () => {
-          setIsModalOpen(true);
-          setTimeout(() => {
-            handleClickLink();
-          }, 2000);
-        },
-        onError: () => {
-          setIsValidCodeError(true);
-        },
-      },
-    );
+    handleClickLink();
+    // verifycodeMutation.mutate(
+    //   { email, univName, code },
+    //   {
+    //     onSuccess: () => {
+    //       setIsModalOpen(true);
+    //       setTimeout(() => {
+    //         handleClickLink();
+    //       }, 2000);
+    //     },
+    //     onError: () => {
+    //       setIsValidCodeError(true);
+    //     },
+    //   },
+    // );
   };
 
   const handleShowAlreadyModal = (type: boolean) => {

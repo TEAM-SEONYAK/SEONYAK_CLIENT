@@ -42,7 +42,7 @@ const Step번호입력 = () => {
     }));
   };
 
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
   const [verificationCode, setVerificationCode] = useState('');
 
   const [isDoneModalOpen, setIsDoneModalOpen] = useState(false);
@@ -82,6 +82,7 @@ const Step번호입력 = () => {
         setData((prev) => ({
           ...prev,
           phoneNumber: phoneNumber,
+          businessCard: 'https://example.com/business-card.jpg',
         }));
       },
       onError: () => {
@@ -114,16 +115,20 @@ const Step번호입력 = () => {
   };
 
   const handleClickLink = () => {
-    mutate.mutate(data, {
-      onSuccess: (res) => {
-        console.log(res);
-        if (pathname.includes('senior')) alert('온보딩 끝!');
-        else navigate('/juniorOnboarding/4');
-      },
-      onError: (err) => {
-        console.log(err);
-      },
-    });
+    if (pathname.includes('senior')) {
+      mutate.mutate(data, {
+        onSuccess: (res) => {
+          console.log(res.data.data);
+          navigate('/seniorProfile', {
+            seniorId: res.data.data.seniorId,
+            nickname: data.nickname,
+          });
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+      });
+    } else navigate('/juniorOnboarding/4');
   };
 
   const handleClickButton = () => {
