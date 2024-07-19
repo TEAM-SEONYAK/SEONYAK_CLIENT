@@ -38,7 +38,9 @@ const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
       ) : (
         <>
           <Wrapper>
-            <LogoIcon />
+            <IconContainer>
+              <LogoIcon />
+            </IconContainer>
             <Meta>{SENIOR_PROFILE_STEPS[1].meta}</Meta>
             <SeniorListWrapper>
               {dummayData.map((d, idx) => (
@@ -79,9 +81,12 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
 `;
 
+const IconContainer = styled.section`
+  padding-bottom: 2.2rem;
+`;
+
 const LogoIcon = styled(LogoIc)`
   width: 6.4rem;
-  margin-bottom: 2.2rem;
 `;
 
 const SeniorListWrapper = styled.div`
@@ -91,8 +96,7 @@ const SeniorListWrapper = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 100%;
-  margin-top: 3.4rem;
+  padding-top: 3.4rem;
 `;
 
 const CardWrapper = styled.div`

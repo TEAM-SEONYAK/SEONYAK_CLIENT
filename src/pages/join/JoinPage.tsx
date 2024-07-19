@@ -60,18 +60,18 @@ const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 2;
+  z-index: 4;
 
   margin-top: 1rem;
   margin-bottom: 35rem;
 `;
 const TitleContainer = styled.section`
   display: flex;
-  z-index: 2;
+  z-index: 4;
 `;
 
 const SubTitle = styled.p<{ $isHighlight: boolean }>`
-  z-index: 2;
+  z-index: 4;
 
   color: ${({ theme, $isHighlight }) => ($isHighlight ? theme.colors.Blue : theme.colors.grayScaleBG)};
   text-align: center;
@@ -82,7 +82,7 @@ const SubTitle = styled.p<{ $isHighlight: boolean }>`
 const SignupContainer = styled.section`
   display: flex;
   gap: 1rem;
-  z-index: 2;
+  z-index: 4;
 
   margin-top: 1rem;
   padding: 1.15rem 0;
