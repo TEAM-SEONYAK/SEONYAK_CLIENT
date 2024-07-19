@@ -89,7 +89,7 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
             position={cardData.position}
             detailPosition={cardData.detailPosition}
             level={cardData.level}
-            image={''}
+            image={cardData.image}
           />
         )}
         <ProfileSummary description1="미제공" description2={1} description3="미제공" />

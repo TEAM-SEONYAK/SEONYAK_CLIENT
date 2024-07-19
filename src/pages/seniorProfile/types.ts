@@ -61,6 +61,7 @@ export interface SeniorCardAPIResType {
   position: string;
   detailPosition: string;
   level: string;
+  image: string;
 }
 
 export interface SeniorProfileAPIResType {

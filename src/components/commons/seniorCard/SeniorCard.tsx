@@ -26,7 +26,7 @@ export const SeniorCard = (props: seniorListPropType) => {
         <Nickname>{nickname}</Nickname>
         <SeniorInfo>
           <Company $randomColor={randomColor}>{company}</Company>
-          <SeniorImg $isSmall={variant === 'secondary'} src={image} />
+          <SeniorImg $isSmall={variant === 'secondary'} src={image} alt="프로필 사진" />
           <Field>{field}</Field>
         </SeniorInfo>
         <SeniorJob>
