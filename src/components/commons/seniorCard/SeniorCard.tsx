@@ -23,20 +23,22 @@ export const SeniorCard = (props: seniorListPropType) => {
   return (
     <SeniorCardWrapper $isSmall={variant === 'secondary'}>
       <SeniorCardLayout>
-        <Nickname>{nickname}</Nickname>
-        <SeniorInfo>
-          <Company $randomColor={randomColor}>{company}</Company>
+        <SeniorImgWrapper>
           <SeniorImg $isSmall={variant === 'secondary'} src={image} alt="프로필 사진" />
-          <Field>{field}</Field>
-        </SeniorInfo>
-        <SeniorJob>
-          <Position>{position}</Position>
-          <Divider />
-          <DetailPosition>{detailPosition}</DetailPosition>
-        </SeniorJob>
-        <Level>
-          {levelName} ({level})
-        </Level>
+        </SeniorImgWrapper>
+        <SeniorContent>
+          <Nickname>{nickname}</Nickname>
+          <SeniorInfo>
+            <Company $randomColor={randomColor}>{company}</Company>
+            <Field>{field}</Field>
+          </SeniorInfo>
+          <SeniorJob>
+            {position}
+            <Divider />
+            {detailPosition}
+            {levelName} ({level})
+          </SeniorJob>
+        </SeniorContent>
       </SeniorCardLayout>
     </SeniorCardWrapper>
   );
@@ -46,25 +48,42 @@ export default SeniorCard;
 
 const SeniorCardWrapper = styled.div<{ $isSmall: boolean }>`
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+
+  width: 100%;
+  border-radius: 8px;
+
+  background: ${({ theme }) => theme.colors.grayScaleWhite};
+`;
+
+const SeniorCardLayout = styled.div`
+  display: flex;
   gap: 1.5rem;
   justify-content: center;
   align-items: center;
 
   width: 100%;
-  height: ${({ $isSmall }) => ($isSmall ? '12.6rem' : '14.2rem')};
-  border-radius: 8px;
-
-  background: ${({ theme }) => theme.colors.grayScaleWhite};
+  height: 12.6rem;
 `;
+
+const SeniorImgWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const SeniorImg = styled.img<{ $isSmall: boolean }>`
   width: ${({ $isSmall }) => ($isSmall ? '8.8rem' : '11.4rem')};
   height: ${({ $isSmall }) => ($isSmall ? '8.8rem' : '11.4rem')};
   border-radius: 112.82px;
 `;
 
-const SeniorCardLayout = styled.div`
+const SeniorContent = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
 `;
 
 const Nickname = styled.span`
@@ -74,10 +93,11 @@ const Nickname = styled.span`
 
 const SeniorInfo = styled.div`
   display: flex;
+  flex-direction: row;
   gap: 0.4rem;
-  align-items: center;
 
-  margin-top: 0.8rem;
+  width: 18rem;
+  margin-top: 0.3rem;
 `;
 
 const Company = styled.p<CompanyProps>`
@@ -86,7 +106,6 @@ const Company = styled.p<CompanyProps>`
   justify-content: center;
   align-items: center;
 
-  height: 2.5rem;
   padding: 0.4rem 0.6rem;
   border-radius: 6px;
 
@@ -120,7 +139,6 @@ const Company = styled.p<CompanyProps>`
 
 const Field = styled.p`
   display: flex;
-  gap: 1rem;
   justify-content: center;
   align-items: center;
 
@@ -135,30 +153,20 @@ const Field = styled.p`
 
 const SeniorJob = styled.div`
   display: flex;
-  gap: 1rem;
+  flex-flow: row wrap;
+  gap: 0.2rem;
   align-items: center;
 
-  width: 19.2rem;
-  margin-top: 0.5rem;
-`;
-const Position = styled.p`
-  ${({ theme }) => theme.fonts.Body1_M_14}
+  width: 21rem;
+
+  ${({ theme }) => theme.fonts.Body1_M_14};
   color: ${({ theme }) => theme.colors.grayScaleDG};
 `;
 
 const Divider = styled.div`
   width: 0.1rem;
   height: 1.4rem;
+  margin: 0.5rem;
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
-`;
-
-const DetailPosition = styled.p`
-  color: ${({ theme }) => theme.colors.grayScaleDG};
-  ${({ theme }) => theme.fonts.Body1_M_14};
-`;
-
-const Level = styled.p`
-  ${({ theme }) => theme.fonts.Body1_M_14};
-  color: ${({ theme }) => theme.colors.grayScaleDG};
 `;

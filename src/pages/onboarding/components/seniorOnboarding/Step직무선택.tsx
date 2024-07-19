@@ -5,20 +5,27 @@ import { FullBtn } from '@components/commons/FullButton';
 import { useState } from 'react';
 import { 세부직무_DESCRIPTION, 세부직무_LIST } from '@pages/onboarding/constants';
 import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
+import { JoinContextType } from '@pages/onboarding/type';
 
 const Step직무선택 = () => {
+  const { data, setData } = useOutletContext<JoinContextType>();
   const navigate = useNavigate();
-  const handleClickLink = () => {
-    navigate('/seniorOnboarding/10');
-  };
 
-  const [detailJob, setDetailJob] = useState('');
-  const [selectedJob, setSelectedJob] = useState<string>('');
+  const [detailJob, setDetailJob] = useState(data.detailPosition || '');
+  const [selectedJob, setSelectedJob] = useState(data.position || '');
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const handleSheetClose = () => setIsOpenSheet(false);
   const handleSelectJob = (selectedValue: string) => {
     setSelectedJob(selectedValue);
+  };
+  const handleClickLink = () => {
+    setData((prev) => ({
+      ...prev,
+      position: selectedJob,
+      detailPosition: detailJob,
+    }));
+    navigate('/seniorOnboarding/9');
   };
 
   return (

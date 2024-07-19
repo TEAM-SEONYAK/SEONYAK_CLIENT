@@ -34,7 +34,7 @@ const SeniorProfilePage = () => {
       case 5:
         return <TimeSelect profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 6:
-        return <PreView setStep={setStep} profile={profile} seniorId={33 + ''} />;
+        return <PreView setStep={setStep} profile={profile} seniorId={11 + ''} />;
       case 7:
         return <Complete />;
       default:

@@ -47,22 +47,26 @@ const PromiseTap = (props: PromiseTapPropType) => {
       {getTapContent(tap).length ? (
         <ProfileWrapper>
           {tap === 'past' &&
-            past.map((profileData) =>
+            past.map((profileData, idx) =>
               profileData.appointmentStatus === 'REJECTED' ? (
                 <ProfileContainer
+                  key={profileData.appointmentId + idx}
                   myNickname={myNickname}
                   userRole={userRole}
                   tap="rejected"
                   profileCardData={profileData}
                   isarrow="ture"
+                  seniorId={profileData.seniorId}
                 />
               ) : (
                 <ProfileContainer
+                  key={profileData.appointmentId + idx}
                   myNickname={myNickname}
                   userRole={userRole}
                   tap="past"
                   profileCardData={profileData}
                   isarrow="true"
+                  seniorId={profileData.seniorId}
                 />
               ),
             )}
@@ -76,6 +80,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
                 tap={tap}
                 profileCardData={profileCardData}
                 isarrow="true"
+                seniorId={profileCardData.seniorId}
               />
             ))}
           {tap === 'pending' &&
@@ -87,6 +92,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
                 tap={tap}
                 profileCardData={profileCardData}
                 isarrow="true"
+                seniorId={profileCardData.seniorId}
               />
             ))}
         </ProfileWrapper>

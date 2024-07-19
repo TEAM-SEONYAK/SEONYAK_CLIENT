@@ -6,16 +6,16 @@ import PromiseTap from './components/PromiseTap';
 import RecentCard from './components/RecentCard';
 import Title from './components/Title';
 import { useGetPromiseList } from './hooks/queries';
+import Loading from '@components/commons/Loading';
 
 const PromiseListPage = () => {
   // 유저가 선배일 경우
-  const userRole = 'SENIOR';
+  const userRole = localStorage.getItem('role') + '';
+  // const userRole = 'JUNIOR';
 
   const { myNickname, pending, scheduled, past, isLoading } = useGetPromiseList();
 
-  if (isLoading) {
-    return <></>;
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <>

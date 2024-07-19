@@ -4,8 +4,8 @@ import { getPromiseList } from '../apis/getPromiseList';
 import { useEffect } from 'react';
 
 export const QUERY_KEY_PROMISE_LIST = {
-  getGoogleMeetLink: getGoogleMeetLink,
-  getPromiseList: getPromiseList,
+  getGoogleMeetLink: 'getGoogleMeetLink',
+  getPromiseList: 'getPromiseList',
 };
 
 export const useGetGoogleMeetLink = (
@@ -16,7 +16,7 @@ export const useGetGoogleMeetLink = (
   const { data, isSuccess } = useQuery({
     queryKey: [QUERY_KEY_PROMISE_LIST.getGoogleMeetLink, appointmentId, isEnterBtnClicked],
     queryFn: () => getGoogleMeetLink(appointmentId as number),
-    enabled: !!appointmentId && isEnterBtnClicked,
+    enabled: !!isEnterBtnClicked && appointmentId !== undefined,
   });
 
   useEffect(() => {

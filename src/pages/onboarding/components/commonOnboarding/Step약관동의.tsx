@@ -2,17 +2,17 @@ import { ArrowRightIc, CheckItemIc } from '@assets/svgs';
 import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
 import { 약관_LIST } from '@pages/onboarding/constants';
+import { JoinContextType } from '@pages/onboarding/type';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 
 const Step약관동의 = () => {
-  const ROLE = 'SENIOR'; // 임시
-  const navigate = useNavigate();
-  const handleClickLink = () => {
-    navigate(ROLE === 'SENIOR' ? '/seniorOnboarding/2' : '/juniorOnboarding/2');
-  };
+  const { data, setData } = useOutletContext<JoinContextType>();
 
-  const [agreement, setAgreement] = useState(Array(5).fill(false));
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const [agreement, setAgreement] = useState(data.isSubscribed);
 
   const handleClickCheck = (id: number | 'all') => {
     if (id === 'all') {
@@ -21,6 +21,13 @@ const Step약관동의 = () => {
     } else {
       setAgreement((prev) => agreement.with(id, !prev[id]));
     }
+  };
+  const handleClickLink = () => {
+    setData((prev) => ({
+      ...prev,
+      isSubscribed: agreement,
+    }));
+    navigate(pathname.includes('senior') ? '/seniorOnboarding/2' : '/juniorOnboarding/2');
   };
 
   return (

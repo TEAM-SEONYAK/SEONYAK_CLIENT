@@ -17,11 +17,12 @@ interface ProfileContainerPropType {
   myNickname: string;
   googleMeetLink?: string;
   detail?: string;
-  handleSetIsDetailClicked?: (type: boolean, id: number) => void;
+  handleSetIsDetailClicked?: (type: boolean) => void;
+  seniorId?: number;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  const { userRole, profileCardData, tap, isarrow, myNickname, detail, handleSetIsDetailClicked } = props;
+  const { userRole, profileCardData, tap, isarrow, myNickname, detail, handleSetIsDetailClicked, seniorId } = props;
   const navigate = useNavigate();
 
   // 리뷰 모달 띄우기 용
@@ -54,7 +55,12 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
     }
     if (userRole === 'JUNIOR' && tap === 'pending') {
       navigate('./promiseDetailJunior', {
-        state: { tap: 'pending', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
+        state: {
+          tap: 'pending',
+          myNickname: myNickname,
+          appointmentId: profileCardData?.appointmentId,
+          seniorId: seniorId,
+        },
       });
     }
 
@@ -66,7 +72,12 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
 
     if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
       navigate('./promiseDetailJunior', {
-        state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
+        state: {
+          tap: 'scheduled',
+          myNickname: myNickname,
+          appointmentId: profileCardData?.appointmentId,
+          seniorId: seniorId,
+        },
       });
     }
 
@@ -76,10 +87,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
       (tap === 'scheduled' || tap === 'default' || tap === 'pending') &&
       detail === 'detail'
     ) {
-      const id = profileCardData && profileCardData?.seniorId;
-      if (handleSetIsDetailClicked && id !== undefined) {
-        handleSetIsDetailClicked(true, id);
-      }
+      handleSetIsDetailClicked && handleSetIsDetailClicked(true);
     }
   };
 

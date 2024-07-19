@@ -20,6 +20,7 @@ import {
 } from './hooks/queries';
 import { extractMonthAndDay } from '@pages/promiseList/utils/extractMonthAndDay';
 import { ModalRejectImg, ModalAcceptImg } from '@assets/svgs';
+import Loading from '@components/commons/Loading';
 
 const PromiseDetail = () => {
   const location = useLocation();
@@ -96,7 +97,7 @@ const PromiseDetail = () => {
   const { mutate: patchSeniorReject } = usePatchSeniorReject(() => handleModalOpen(true));
   const handleRejectBtn = () => {
     patchSeniorReject({
-      appointmentId: 73,
+      appointmentId: appointmentId,
       rejectReason: rejectReason,
       rejectDetail: rejectDetail,
     });
@@ -137,7 +138,7 @@ const PromiseDetail = () => {
   const dateInfo = extractMonthAndDay(timeList1?.date + '');
 
   if (isLoading) {
-    return <div>Loading...</div>; // 로딩 중일 때 표시
+    return <Loading />; // 로딩 중일 때 표시
   }
 
   if (!isSuccess || !timeList1) {
@@ -258,11 +259,11 @@ const PromiseDetail = () => {
                   onClick={() => {
                     setIsEnterBtnClicked(true);
                   }}
-                  text={diff <= 0 ? '지금 입장하기' : `약속 시간까지 ${diffText} 남았어요`}
-                  isActive={diff <= 0}
+                  marginLeft={-2}
+                  text={diff === undefined ? '-' : diff <= 0 ? '지금 입장하기' : `약속시간까지 ${diffText} 남았어요`}
+                  isActive={diff !== undefined && diff <= 0}
                 />
               </BtnWrapper>
-              <BtnBackground />
             </>
           )
         ) : (
@@ -277,11 +278,11 @@ const PromiseDetail = () => {
         )}
       </Wrapper>
       {viewType === 'DECLINE' ? (
-        <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+        <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/">
           <ModalRejectImg />
         </AutoCloseModal>
       ) : (
-        <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen}>
+        <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/">
           <ModalAcceptImg />
         </AutoCloseModal>
       )}
@@ -443,6 +444,7 @@ const Description = styled.span`
 
 const BtnWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
   position: fixed;
   bottom: 0;
@@ -457,7 +459,8 @@ const DeclineBtn = styled.button`
   z-index: 2;
 
   border-radius: 5px;
-  width: 10.6rem;
+  /* width: 10.6rem; */
+  width: 30%;
   height: 5.6rem;
 
   background-color: ${({ theme }) => theme.colors.grayScaleBG};
@@ -472,7 +475,8 @@ const AcceptBtn = styled.button<{ $isActive: boolean }>`
   z-index: 2;
 
   border-radius: 5px;
-  width: 21.9rem;
+  /* width: 21.9rem; */
+  width: 70%;
   height: 5.6rem;
 
   background-color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleMG2)};
