@@ -123,6 +123,8 @@ const Meta2 = styled.p`
   width: 19.9rem;
   padding: 3.6rem 0 1.2rem;
   ${({ theme }) => theme.fonts.Title1_SB_16};
+
+  word-break: auto-phrase;
 `;
 
 const Description = styled.p`

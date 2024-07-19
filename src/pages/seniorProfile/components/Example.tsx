@@ -1,53 +1,63 @@
+import { ArrowLeftIc } from '@assets/svgs';
 import LogoIc from '@assets/svgs/ic_main_logo.svg?react';
 import { FullBtn } from '@components/commons/FullButton';
+import { Header } from '@components/commons/Header';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
+import PreView from '@pages/seniorProfile/components/preView';
 import { SENIOR_PROFILE_STEPS } from '@pages/seniorProfile/constants';
+import { useSeniorCardQuery } from '@pages/seniorProfile/hooks/useSeniorCardQuery';
 import { Meta } from '@pages/seniorProfile/SeniorProfilePage';
+import { useState } from 'react';
 
-// eslint-disable-next-line no-undef
 const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
+  const [seniorId, setSeniorId] = useState(0);
+  const { data: data1, error: error1, isLoading: isLoading1 } = useSeniorCardQuery('24');
+  const { data: data2, error: error2, isLoading: isLoading2 } = useSeniorCardQuery('25');
+  const { data: data3, error: error3, isLoading: isLoading3 } = useSeniorCardQuery('26');
+
+  const dummayData = [data1, data2, data3];
+
+  const handleCardClick = (seniorId: number) => {
+    setSeniorId(seniorId);
+  };
+
   return (
     <>
-      <Wrapper>
-        <LogoIcon />
-        <Meta>{SENIOR_PROFILE_STEPS[1].meta}</Meta>
-        <CardContainer>
-          <SeniorCard
-            nickname="도리야끼다요"
-            company="비바리퍼블리카 (토스)"
-            field="예체능 계열"
-            position="디자인"
-            detailPosition="프로덕트그래픽 디자이너"
-            level="1"
-            variant="secondary"
+      {seniorId ? (
+        <>
+          <Header LeftSvg={ArrowLeftIc} onClickLeft={() => setSeniorId(0)} />
+          <PreView seniorId={seniorId + ''} variant="secondary" />
+        </>
+      ) : (
+        <>
+          <Wrapper>
+            <LogoIcon />
+            <Meta>{SENIOR_PROFILE_STEPS[1].meta}</Meta>
+            <CardContainer>
+              {dummayData.map((d, idx) => (
+                <div onClick={() => handleCardClick(idx + 24)}>
+                  <SeniorCard
+                    nickname={d?.nickname + ''}
+                    company={d?.company + ''}
+                    field={d?.field + ''}
+                    position={d?.position + ''}
+                    detailPosition={d?.detailPosition + ''}
+                    level={d?.level + ''}
+                    variant="secondary"
+                  />
+                </div>
+              ))}
+            </CardContainer>
+          </Wrapper>
+          <FullBtn
+            text="다음으로"
+            onClick={() => setStep && setStep((prev) => prev + 1)}
+            isActive={true}
+            isTransparent={true}
           />
-          <SeniorCard
-            nickname="도리야끼다요"
-            company="비바리퍼블리카 (토스)"
-            field="예체능 계열"
-            position="디자인"
-            detailPosition="프로덕트그래픽 디자이너"
-            level="1"
-            variant="secondary"
-          />
-          <SeniorCard
-            nickname="도리야끼다요"
-            company="비바리퍼블리카 (토스)"
-            field="예체능 계열"
-            position="디자인"
-            detailPosition="프로덕트그래픽 디자이너"
-            level="1"
-            variant="secondary"
-          />
-        </CardContainer>
-      </Wrapper>
-      <FullBtn
-        text="다음으로"
-        onClick={() => setStep && setStep((prev) => prev + 1)}
-        isActive={true}
-        isTransparent={true}
-      />
+        </>
+      )}
     </>
   );
 };
