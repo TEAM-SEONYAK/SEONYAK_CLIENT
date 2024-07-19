@@ -9,20 +9,19 @@ export const QUERY_KEY_PROMISE_LIST = {
 };
 
 export const useGetGoogleMeetLink = (
-  appointmentId: number | undefined,
+  appointmentId: number,
   isEnterBtnClicked: boolean,
   onSuccessCallback?: (link: string) => void,
 ) => {
   const { data, isSuccess } = useQuery({
     queryKey: [QUERY_KEY_PROMISE_LIST.getGoogleMeetLink, appointmentId, isEnterBtnClicked],
     queryFn: () => getGoogleMeetLink(appointmentId as number),
-    enabled: !!appointmentId && isEnterBtnClicked,
+    enabled: !!isEnterBtnClicked && appointmentId !== undefined,
   });
 
   useEffect(() => {
     if (isSuccess && data) {
       const googleMeetLink = data;
-      console.log(googleMeetLink);
       if (onSuccessCallback && googleMeetLink) {
         onSuccessCallback(googleMeetLink);
       }

@@ -24,6 +24,7 @@ const RecentCard = (props: RecentCardPropType) => {
   const handleClickEnterBtn = (link: string) => {
     setGoogleMeetLink(link);
     window.open(link, '_blank');
+    setIsEnterBtnClicked(false);
   };
 
   useGetGoogleMeetLink(recentAppointment?.appointmentId, isEnterBtnClicked, handleClickEnterBtn);

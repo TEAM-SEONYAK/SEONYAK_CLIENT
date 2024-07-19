@@ -11,6 +11,7 @@ import useCountdown from '@hooks/useCountDown';
 import { useState } from 'react';
 import PreView from '@pages/seniorProfile/components/preView';
 import Loading from '@components/commons/Loading';
+import { useGetGoogleMeetLink } from '@pages/promiseList/hooks/queries';
 
 const PromiseDetailPageJunior = () => {
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
@@ -22,6 +23,15 @@ const PromiseDetailPageJunior = () => {
   const seniorId = location.state.seniorId;
 
   const [isDetailClicked, setIsDetailClicked] = useState(false);
+  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
+  const [, setGoogleMeetLink] = useState('');
+
+  const handleClickEnterBtn = (link: string) => {
+    setGoogleMeetLink(link);
+    window.open(link, '_blank');
+  };
+
+  useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
 
   const handleSetIsDetailClicked = (type: boolean) => {
     setIsDetailClicked(type);
@@ -93,12 +103,15 @@ const PromiseDetailPageJunior = () => {
             </Layout>
             <BtnWrapper>
               {tap === 'pending' ? (
-                <FullBtn text="이미 신청한 선약은 취소할 수 없어요" isActive={false} />
+                <FullBtn text="이미 신청한 선약은 취소할 수 없어요" isActive={false} marginLeft={-2} />
               ) : (
-                <PromiseTimerBtn isActive={diff !== undefined && diff <= 0} diff={diffText} page="detail" />
+                <PromiseTimerBtn
+                  isActive={diff !== undefined && diff <= 0}
+                  diff={diffText}
+                  page="detail"
+                  onClick={() => setIsEnterBtnClicked(true)}
+                />
               )}
-
-              <BtnBackground />
             </BtnWrapper>
           </Wrapper>
         </>

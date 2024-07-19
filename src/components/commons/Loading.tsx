@@ -7,8 +7,6 @@ const Loading = () => {
   //lottie
   const likecontainer = useRef<HTMLDivElement>(null!);
   useEffect(() => {
-    console.log(SpinnerJson);
-
     if (likecontainer.current !== null) {
       const animation = Lottie.loadAnimation({
         container: likecontainer.current,

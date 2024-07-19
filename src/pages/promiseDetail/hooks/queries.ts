@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { patchSeniorAccept, patchSeniorAcceptRequestType } from '../apis/patchSeniorPromiseAccept';
 import { postGoogleMeetLink } from '../apis/postGoogleMeetLink';
 import { getPromiseDetail } from '../apis/getPromiseDetail';
+import { useNavigate } from 'react-router-dom';
 import { QUERY_KEY_PROMISE_LIST } from '@pages/promiseList/hooks/queries';
 
 export const QUERY_KEY_PROMISE_DETAIL = {
@@ -16,6 +17,7 @@ export const QUERY_KEY_PROMISE_DETAIL = {
 export const usePatchSeniorReject = (onSuccessCallback?: () => void) => {
   const queryClient = useQueryClient();
 
+  const navigate = useNavigate();
   const { mutate, data } = useMutation({
     mutationKey: [QUERY_KEY_PROMISE_DETAIL.patchSeniorReject],
     mutationFn: ({ appointmentId, rejectReason, rejectDetail }: patchSeniorRejectRequestType) =>
@@ -27,8 +29,8 @@ export const usePatchSeniorReject = (onSuccessCallback?: () => void) => {
       }
     },
     onError: (error) => {
-      // 에러페이지 나오면 연결 필요
       console.log('Error in mutation:', error);
+      navigate('/error');
     },
   });
 
@@ -52,6 +54,7 @@ export const usePostGoogleMeetLink = (onSuccessCallback?: (data: string) => void
 
 // 선배 약속 수락
 export const usePatchSeniorAccept = (onSuccessCallback?: () => void) => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const { mutate, data } = useMutation({
@@ -66,7 +69,7 @@ export const usePatchSeniorAccept = (onSuccessCallback?: () => void) => {
       }
     },
     onError: (error) => {
-      // 에러페이지 나오면 연결필요
+      navigate('/error');
       console.error('Error in mutation:', error);
     },
   });
