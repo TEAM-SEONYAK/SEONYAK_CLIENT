@@ -1,4 +1,5 @@
 import { FullBtn } from '@components/commons/FullButton';
+import Loading from '@components/commons/Loading';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
 import { useSeniorTimeQuery } from '@pages/juniorPromise/hooks/queries';
@@ -74,6 +75,9 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
   ) {
     navigate('/error');
     return null;
+  }
+  if (isCardDataLoading || isProfileDataLoading || isSecondTimeListLoading) {
+    return <Loading />;
   }
 
   if (isSecondTimeListLoading) return;
