@@ -31,7 +31,8 @@ const Loading = () => {
 
 const NoMore = styled.div`
   position: absolute;
-  top: 40%;
+  top: 35%;
+  left: 30%;
   z-index: 10;
 
   width: 12rem;
@@ -40,8 +41,6 @@ const NoMore = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
   position: fixed;
   bottom: 0;
 
