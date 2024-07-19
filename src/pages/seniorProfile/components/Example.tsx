@@ -15,9 +15,9 @@ import { useNavigate } from 'react-router-dom';
 const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
   const navigate = useNavigate();
   const [seniorId, setSeniorId] = useState(0);
-  const { data: data1, isLoading: isLoading1, isError: isError1 } = useSeniorCardQuery('24');
-  const { data: data2, isLoading: isLoading2, isError: isError2 } = useSeniorCardQuery('25');
-  const { data: data3, isLoading: isLoading3, isError: isError3 } = useSeniorCardQuery('26');
+  const { data: data1, isLoading: isLoading1, isError: isError1 } = useSeniorCardQuery('1');
+  const { data: data2, isLoading: isLoading2, isError: isError2 } = useSeniorCardQuery('2');
+  const { data: data3, isLoading: isLoading3, isError: isError3 } = useSeniorCardQuery('3');
 
   const dummayData = [data1, data2, data3];
 
@@ -42,7 +42,7 @@ const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
             <Meta>{SENIOR_PROFILE_STEPS[1].meta}</Meta>
             <SeniorListWrapper>
               {dummayData.map((d, idx) => (
-                <CardWrapper key={idx} onClick={() => handleCardClick(idx + 24)}>
+                <CardWrapper key={idx} onClick={() => handleCardClick(idx + 1)}>
                   <SeniorCard
                     nickname={d?.nickname + ''}
                     company={d?.company + ''}
@@ -51,7 +51,7 @@ const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
                     detailPosition={d?.detailPosition + ''}
                     level={d?.level + ''}
                     variant="secondary"
-                    image="/image"
+                    image={d?.image}
                   />
                 </CardWrapper>
               ))}
