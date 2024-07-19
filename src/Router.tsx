@@ -21,6 +21,7 @@ import Step이메일입력 from '@pages/onboarding/components/juniorOnboarding/S
 import Layout from '@pages/onboarding/components/Layout';
 import JoinPage from '@pages/join/JoinPage';
 import ErrorPage from '@pages/errorPage/ErrorPage';
+import StepComplete from '@pages/onboarding/components/juniorOnboarding/StepComplete';
 
 const router = createBrowserRouter([
   {
@@ -134,6 +135,10 @@ const router = createBrowserRouter([
             element: <Step학과선택 />,
           },
         ],
+      },
+      {
+        path: 'juniorOnboardingComplete',
+        element: <StepComplete />,
       },
       {
         path: 'seniorProfile',
