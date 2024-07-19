@@ -109,7 +109,7 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
 export default PreView;
 
 const Wrapper = styled.div<{ $isRegister: boolean }>`
-  overflow-y: scroll;
+  overflow-y: auto;
 
   padding: 0 2rem ${({ $isRegister }) => ($isRegister ? '12.6rem' : '8.2rem')};
 `;

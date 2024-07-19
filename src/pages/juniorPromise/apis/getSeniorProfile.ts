@@ -15,6 +15,7 @@ interface seniorProfile {
 export interface GetSeniorProfileResponse {
   code: string;
   data: {
+    myNickname: string;
     seniorList: seniorProfile[];
   };
 }
