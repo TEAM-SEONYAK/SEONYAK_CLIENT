@@ -1,6 +1,10 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 
-function calculateTimeLeft(date: string, startTime: string) {
+function calculateTimeLeft(date?: string, startTime?: string) {
+  if (!date || !startTime) {
+    return { diffText: '', diff: undefined, dDayDiff: undefined };
+  }
+
   const formattedDate = date.replace(/\./g, '-');
   const targetDateTime = new Date(`${formattedDate}T${startTime}`);
   const currentDate = new Date();
@@ -20,8 +24,8 @@ function calculateTimeLeft(date: string, startTime: string) {
 }
 
 function useCountdown(date?: string, startTime?: string) {
-  const calculate = useCallback(() => calculateTimeLeft(date || '', startTime || ''), [date, startTime]);
-  const [timeLeft, setTimeLeft] = useState(calculate);
+  const calculate = useCallback(() => calculateTimeLeft(date, startTime), [date, startTime]);
+  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(date, startTime));
 
   useEffect(() => {
     const timer = setInterval(() => {

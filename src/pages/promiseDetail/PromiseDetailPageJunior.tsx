@@ -11,6 +11,7 @@ import useCountdown from '@hooks/useCountDown';
 import { useState } from 'react';
 import PreView from '@pages/seniorProfile/components/preView';
 import Loading from '@components/commons/Loading';
+import { useGetGoogleMeetLink } from '@pages/promiseList/hooks/queries';
 
 const PromiseDetailPageJunior = () => {
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
@@ -19,13 +20,21 @@ const PromiseDetailPageJunior = () => {
   const tap = location.state.tap;
   const myNickname = location.state.myNickname;
   const appointmentId = location.state.appointmentId;
+  const seniorId = location.state.seniorId;
 
   const [isDetailClicked, setIsDetailClicked] = useState(false);
-  const [clickedSeniorId, setClickedSeniorId] = useState(0);
+  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
+  const [, setGoogleMeetLink] = useState('');
 
-  const handleSetIsDetailClicked = (type: boolean, id: number) => {
+  const handleClickEnterBtn = (link: string) => {
+    setGoogleMeetLink(link);
+    window.open(link, '_blank');
+  };
+
+  useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
+
+  const handleSetIsDetailClicked = (type: boolean) => {
     setIsDetailClicked(type);
-    setClickedSeniorId(id);
   };
 
   const { juniorInfo, seniorInfo, timeList1, topic, personalTopic, isSuccess, isLoading } =
@@ -53,7 +62,7 @@ const PromiseDetailPageJunior = () => {
         <>
           <Header LeftSvg={ArrowLeftIc} title="내가 보낸 약속" onClickLeft={handleClickBackArrow} />
           <Divider />
-          <PreView variant="secondary" seniorId={clickedSeniorId + ''} />
+          <PreView variant="secondary" seniorId={seniorId} />
         </>
       ) : (
         <>
@@ -71,6 +80,7 @@ const PromiseDetailPageJunior = () => {
                     isarrow="false"
                     detail="detail"
                     handleSetIsDetailClicked={handleSetIsDetailClicked}
+                    seniorId={seniorId}
                   />
                 </PromiseDiv>
               </TitleContainer>
@@ -93,12 +103,15 @@ const PromiseDetailPageJunior = () => {
             </Layout>
             <BtnWrapper>
               {tap === 'pending' ? (
-                <FullBtn text="이미 신청한 선약은 취소할 수 없어요" isActive={false} />
+                <FullBtn text="이미 신청한 선약은 취소할 수 없어요" isActive={false} marginLeft={-2} />
               ) : (
-                <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="detail" />
+                <PromiseTimerBtn
+                  isActive={diff !== undefined && diff <= 0}
+                  diff={diffText}
+                  page="detail"
+                  onClick={() => setIsEnterBtnClicked(true)}
+                />
               )}
-
-              <BtnBackground />
             </BtnWrapper>
           </Wrapper>
         </>
@@ -186,17 +199,6 @@ const BtnWrapper = styled.div`
   width: 100%;
   margin-bottom: 3.977rem;
   padding: 0 2.035rem 0 1.965rem;
-`;
-
-const BtnBackground = styled.div`
-  position: fixed;
-  bottom: 0;
-  z-index: 2;
-
-  width: 100%;
-  height: 6.1rem;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const Divider = styled.hr`

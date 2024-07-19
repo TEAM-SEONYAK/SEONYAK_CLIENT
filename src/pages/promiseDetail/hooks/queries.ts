@@ -1,9 +1,10 @@
 import { patchSeniorReject, patchSeniorRejectRequestType } from '../apis/patchSeniorReject';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { patchSeniorAccept, patchSeniorAcceptRequestType } from '../apis/patchSeniorPromiseAccept';
 import { postGoogleMeetLink } from '../apis/postGoogleMeetLink';
 import { getPromiseDetail } from '../apis/getPromiseDetail';
 import { useNavigate } from 'react-router-dom';
+import { QUERY_KEY_PROMISE_LIST } from '@pages/promiseList/hooks/queries';
 
 export const QUERY_KEY_PROMISE_DETAIL = {
   patchSeniorReject: patchSeniorReject,
@@ -14,12 +15,15 @@ export const QUERY_KEY_PROMISE_DETAIL = {
 
 // 선배 약속 거절
 export const usePatchSeniorReject = (onSuccessCallback?: () => void) => {
+  const queryClient = useQueryClient();
+
   const navigate = useNavigate();
   const { mutate, data } = useMutation({
     mutationKey: [QUERY_KEY_PROMISE_DETAIL.patchSeniorReject],
     mutationFn: ({ appointmentId, rejectReason, rejectDetail }: patchSeniorRejectRequestType) =>
       patchSeniorReject({ appointmentId, rejectReason, rejectDetail }),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_PROMISE_LIST.getPromiseList] });
       if (onSuccessCallback) {
         onSuccessCallback();
       }
@@ -51,11 +55,15 @@ export const usePostGoogleMeetLink = (onSuccessCallback?: (data: string) => void
 // 선배 약속 수락
 export const usePatchSeniorAccept = (onSuccessCallback?: () => void) => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const { mutate, data } = useMutation({
     mutationKey: [QUERY_KEY_PROMISE_DETAIL.patchSeniorAccept],
     mutationFn: ({ appointmentId, googleMeetLink, timeList }: patchSeniorAcceptRequestType) =>
       patchSeniorAccept({ appointmentId, googleMeetLink, timeList }),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_PROMISE_LIST.getPromiseList] });
+
       if (onSuccessCallback) {
         onSuccessCallback();
       }
