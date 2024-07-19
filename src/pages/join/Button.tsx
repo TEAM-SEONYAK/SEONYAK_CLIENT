@@ -4,10 +4,18 @@ import { useNavigate } from 'react-router-dom';
 
 const JoinButton = () => {
   const navigate = useNavigate();
+  const handleSeniorClick = () => {
+    navigate('/signup', { state: { role: 'SENIOR' } });
+  };
+
+  const handleJuniorClick = () => {
+    navigate('/signup', { state: { role: 'JUNIOR' } });
+  };
+
   return (
     <Wrapper>
-      <Button onClick={() => navigate('/signup', { state: { role: 'senior' } })}>선배로 시작하기</Button>
-      <Button onClick={() => navigate('/signup', { state: { role: 'junior' } })}>후배로 시작하기</Button>
+      <Button onClick={handleSeniorClick}>선배로 시작하기</Button>
+      <Button onClick={handleJuniorClick}>후배로 시작하기</Button>
     </Wrapper>
   );
 };

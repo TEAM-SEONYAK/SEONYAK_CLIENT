@@ -4,19 +4,14 @@ import { useState } from 'react';
 import SearchBox from '../SearchBox';
 import { FullBtn } from '@components/commons/FullButton';
 import FullBottomSheet from '@pages/onboarding/components/FullBottomSheet';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import useSearchUnivQuery from '@pages/onboarding/hooks/useSearchUnivQuery';
+import { JoinContextType } from '@pages/onboarding/type';
 
 const Step학교선택 = () => {
-  const ROLE = 'SENIOR'; // 임시
+  const { setData } = useOutletContext<JoinContextType>();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
-  const handleClickLink = () => {
-    if (ROLE === 'SENIOR') {
-      navigate('/seniorOnboarding/4');
-    } else {
-      navigate('/juniorOnboarding/5', { state: { univName: selectedUniv } });
-    }
-  };
 
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const [selectedUniv, setSelectedUniv] = useState('');
@@ -25,6 +20,18 @@ const Step학교선택 = () => {
   const handleSelectUniv = (selectValue: string) => {
     setSelectedUniv(selectValue);
   };
+  const handleClickLink = () => {
+    setData((prev) => ({
+      ...prev,
+      univName: selectedUniv,
+    }));
+    if (pathname.includes('senior')) {
+      navigate('/seniorOnboarding/4');
+    } else {
+      navigate('/juniorOnboarding/5', { state: { univName: selectedUniv } });
+    }
+  };
+
   return (
     <Wrapper>
       <SearchBox placeholder="학교명을 입력해 주세요" handleInputClick={handleOpenSheet} searchValue={selectedUniv} />
