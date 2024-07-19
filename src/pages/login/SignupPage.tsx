@@ -2,10 +2,11 @@ import { GoogleLogoIc, OnboardingBackgroundHBIc, OnboardingBackgroundSBIc } from
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import useGoogleLoginHook from './hooks/useLoginQuery';
+import { useLocation } from 'react-router-dom';
 
 const SignupPage = () => {
-  const role = localStorage.getItem('role');
-  const { login } = useGoogleLoginHook();
+  const role = useLocation().state.role;
+  const { login } = useGoogleLoginHook(role);
 
   return (
     <>

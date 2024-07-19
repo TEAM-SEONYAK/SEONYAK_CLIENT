@@ -4,7 +4,7 @@ import JoinButton from '@pages/join/Button';
 import useGoogleLoginHook from '@pages/login/hooks/useLoginQuery';
 
 const JoinPage = () => {
-  const { login } = useGoogleLoginHook();
+  const { login } = useGoogleLoginHook('SENIOR');
 
   const subTitle = `막막한 진로고민 해결을 위한\n선배와의 특별한 약속`;
   return (

@@ -5,13 +5,11 @@ import { useNavigate } from 'react-router-dom';
 const JoinButton = () => {
   const navigate = useNavigate();
   const handleSeniorClick = () => {
-    localStorage.setItem('role', 'SENIOR');
-    navigate('/signup');
+    navigate('/signup', { state: { role: 'SENIOR' } });
   };
 
   const handleJuniorClick = () => {
-    localStorage.setItem('role', 'JUNIOR');
-    navigate('/signup');
+    navigate('/signup', { state: { role: 'JUNIOR' } });
   };
 
   return (

@@ -2,11 +2,13 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { useMutation } from '@tanstack/react-query';
 import { loginAxios } from '../apis/loginAxios';
 
-const useGoogleLoginHook = () => {
+const useGoogleLoginHook = (role: string) => {
   const mutation = useMutation({
     mutationFn: (authorizationCode: string) => loginAxios(authorizationCode),
     onSuccess: (data) => {
       localStorage.setItem('accessToken', data.data.data.accessToken);
+      const responseRole = data.data.role;
+      responseRole ? localStorage.setItem('role', responseRole) : localStorage.setItem('role', role);
     },
     onError: (error) => {
       console.error('login post Error: ', error);
