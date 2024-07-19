@@ -25,7 +25,7 @@ const Step직무선택 = () => {
       position: selectedJob,
       detailPosition: detailJob,
     }));
-    navigate('/seniorOnboarding/10');
+    navigate('/seniorOnboarding/9');
   };
 
   return (

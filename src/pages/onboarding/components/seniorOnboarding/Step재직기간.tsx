@@ -19,7 +19,7 @@ const Step재직기간 = () => {
       ...prev,
       level: select,
     }));
-    navigate('/seniorOnboarding/11');
+    navigate('/seniorOnboarding/10');
   };
 
   return (

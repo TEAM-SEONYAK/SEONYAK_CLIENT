@@ -56,7 +56,7 @@ const Step개인정보입력 = () => {
   const handleClickLink = () => {
     setData((prev) => ({
       ...prev,
-      image: 'dump',
+      image: 'https://example.com/profile.jpg',
       nickname: nickname,
     }));
     navigate(pathname.includes('senior') ? '/seniorOnboarding/3' : '/juniorOnboarding/3');

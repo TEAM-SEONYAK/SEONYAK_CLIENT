@@ -11,9 +11,6 @@ const Step약관동의 = () => {
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const handleClickLink = () => {
-    navigate(pathname.includes('senior') ? '/seniorOnboarding/2' : '/juniorOnboarding/2');
-  };
 
   const [agreement, setAgreement] = useState(Array(5).fill(false));
 
@@ -24,13 +21,13 @@ const Step약관동의 = () => {
     } else {
       setAgreement((prev) => agreement.with(id, !prev[id]));
     }
-
-    if (id === 4) {
-      setData((prev) => ({
-        ...prev,
-        isSubscribed: !prev.isSubscribed,
-      }));
-    }
+  };
+  const handleClickLink = () => {
+    setData((prev) => ({
+      ...prev,
+      isSubscribed: agreement[4],
+    }));
+    navigate(pathname.includes('senior') ? '/seniorOnboarding/2' : '/juniorOnboarding/2');
   };
 
   return (
