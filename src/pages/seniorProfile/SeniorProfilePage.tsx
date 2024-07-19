@@ -4,7 +4,6 @@ import Complete from '@pages/seniorProfile/components/Complete';
 import Init from '@pages/seniorProfile/components/Init';
 import PreView from '@pages/seniorProfile/components/preView/index';
 import { seniorProfileRegisterType, seniorProfileInitial } from '@pages/seniorProfile/types';
-import { weekToDay } from '@pages/seniorProfile/utils/weekToDay';
 import { useState } from 'react';
 import Career from './components/Career';
 import Example from './components/Example';
@@ -35,16 +34,7 @@ const SeniorProfilePage = () => {
       case 5:
         return <TimeSelect profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 6:
-        return (
-          <PreView
-            setStep={setStep}
-            career={profile.career}
-            award={profile.award}
-            catchphrase={profile.catchphrase}
-            story={profile.story}
-            preferredTimeList={weekToDay(profile.isDayOfWeek, profile.preferredTimeList)}
-          />
-        );
+        return <PreView setStep={setStep} profile={profile} seniorId={33 + ''} />;
       case 7:
         return <Complete />;
       default:
@@ -54,7 +44,7 @@ const SeniorProfilePage = () => {
 
   return (
     <div>
-      {step > 1 && step < 8 && (
+      {step > 1 && step < 7 && (
         <>
           <Header
             title={step == 2 ? '' : '프로필 등록'}

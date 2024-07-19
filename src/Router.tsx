@@ -20,6 +20,7 @@ import Step번호입력 from '@pages/onboarding/components/commonOnboarding/Step
 import Step이메일입력 from '@pages/onboarding/components/juniorOnboarding/Step이메일입력';
 import Layout from '@pages/onboarding/components/Layout';
 import JoinPage from '@pages/join/JoinPage';
+import ErrorPage from '@pages/errorPage/ErrorPage';
 
 const router = createBrowserRouter([
   {
@@ -141,6 +142,10 @@ const router = createBrowserRouter([
       {
         path: 'juniorPromise',
         element: <JuniorPromisePage />,
+      },
+      {
+        path: 'error',
+        element: <ErrorPage />,
       },
     ],
   },
