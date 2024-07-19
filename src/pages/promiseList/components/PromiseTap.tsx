@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ProfileContainer from './ProfileContainer';
 import { PROMISE_TAP } from '../constants/constants';
 import { profileCardDataType } from '../types/type';
@@ -56,6 +56,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
                   tap="rejected"
                   profileCardData={profileData}
                   isarrow="ture"
+                  seniorId={profileData.seniorId}
                 />
               ) : (
                 <ProfileContainer
@@ -65,6 +66,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
                   tap="past"
                   profileCardData={profileData}
                   isarrow="true"
+                  seniorId={profileData.seniorId}
                 />
               ),
             )}
@@ -78,6 +80,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
                 tap={tap}
                 profileCardData={profileCardData}
                 isarrow="true"
+                seniorId={profileCardData.seniorId}
               />
             ))}
           {tap === 'pending' &&
@@ -89,6 +92,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
                 tap={tap}
                 profileCardData={profileCardData}
                 isarrow="true"
+                seniorId={profileCardData.seniorId}
               />
             ))}
         </ProfileWrapper>

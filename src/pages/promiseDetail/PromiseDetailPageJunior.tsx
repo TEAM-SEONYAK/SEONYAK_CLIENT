@@ -19,13 +19,12 @@ const PromiseDetailPageJunior = () => {
   const tap = location.state.tap;
   const myNickname = location.state.myNickname;
   const appointmentId = location.state.appointmentId;
+  const seniorId = location.state.seniorId;
 
   const [isDetailClicked, setIsDetailClicked] = useState(false);
-  const [clickedSeniorId, setClickedSeniorId] = useState(0);
 
-  const handleSetIsDetailClicked = (type: boolean, id: number) => {
+  const handleSetIsDetailClicked = (type: boolean) => {
     setIsDetailClicked(type);
-    setClickedSeniorId(id);
   };
 
   const { juniorInfo, seniorInfo, timeList1, topic, personalTopic, isSuccess, isLoading } =
@@ -53,7 +52,7 @@ const PromiseDetailPageJunior = () => {
         <>
           <Header LeftSvg={ArrowLeftIc} title="내가 보낸 약속" onClickLeft={handleClickBackArrow} />
           <Divider />
-          <PreView variant="secondary" seniorId={clickedSeniorId + ''} />
+          <PreView variant="secondary" seniorId={seniorId} />
         </>
       ) : (
         <>
@@ -71,6 +70,7 @@ const PromiseDetailPageJunior = () => {
                     isarrow="false"
                     detail="detail"
                     handleSetIsDetailClicked={handleSetIsDetailClicked}
+                    seniorId={seniorId}
                   />
                 </PromiseDiv>
               </TitleContainer>
@@ -95,7 +95,7 @@ const PromiseDetailPageJunior = () => {
               {tap === 'pending' ? (
                 <FullBtn text="이미 신청한 선약은 취소할 수 없어요" isActive={false} />
               ) : (
-                <PromiseTimerBtn isActive={diff <= 0} diff={diffText} page="detail" />
+                <PromiseTimerBtn isActive={diff !== undefined && diff <= 0} diff={diffText} page="detail" />
               )}
 
               <BtnBackground />

@@ -22,6 +22,7 @@ export const useGetGoogleMeetLink = (
   useEffect(() => {
     if (isSuccess && data) {
       const googleMeetLink = data;
+      console.log(googleMeetLink);
       if (onSuccessCallback && googleMeetLink) {
         onSuccessCallback(googleMeetLink);
       }

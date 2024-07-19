@@ -54,7 +54,7 @@ const RecentCard = (props: RecentCardPropType) => {
             myNickname={nickname}
           />
           <PromiseTimerBtn
-            isActive={diff <= 0}
+            isActive={diff !== undefined && diff <= 0}
             diff={diffText}
             page="recent"
             onClick={() => setIsEnterBtnClicked(true)}
