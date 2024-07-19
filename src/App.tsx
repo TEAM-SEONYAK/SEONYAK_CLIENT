@@ -7,7 +7,7 @@ import globalStyle from './styles/globalStyle';
 import theme from './styles/theme';
 
 const App = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const setScreenSize = () => {
     // vh 관련
