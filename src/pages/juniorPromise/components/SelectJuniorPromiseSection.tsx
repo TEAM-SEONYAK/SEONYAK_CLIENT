@@ -52,10 +52,6 @@ const SelectJuniorPromiseSection = () => {
     setIsModalOpen(bool);
   };
 
-  const handleModalClicked = () => {
-    setIsModalClicked(true);
-  };
-
   // 모든 일정 선택했는지 확인
   const handleCheckAllSelected = () => {
     const unfilled = selectedTime
@@ -142,7 +138,6 @@ const SelectJuniorPromiseSection = () => {
         />
         {isModalOpen && (
           <BtnCloseModal
-            onClicked={handleModalClicked}
             title={'약속 잡기 전 주의해주세요'}
             isModalOpen={isModalOpen}
             handleModalOpen={handleModalOpen}

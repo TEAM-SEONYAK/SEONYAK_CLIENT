@@ -140,6 +140,7 @@ const JuniorPromisePage = () => {
               detailPosition={list.detailPosition}
               level={list.level}
               variant="secondary"
+              seniorId={list.seniorId}
             />
           ))}
         </SeniorListWrapper>

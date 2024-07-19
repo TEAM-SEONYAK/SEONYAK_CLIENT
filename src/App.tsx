@@ -32,8 +32,8 @@ const App = () => {
     <Wrapper>
       <ThemeProvider theme={theme}>
         <Global styles={globalStyle} />
-        {/* <Outlet /> */}
-        <SelectJuniorPromiseSection />
+        <Outlet />
+        {/* <SelectJuniorPromiseSection /> */}
       </ThemeProvider>
     </Wrapper>
   );
