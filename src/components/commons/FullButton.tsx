@@ -32,6 +32,7 @@ const Wrapper = styled.div<{ $isTransparent: boolean; $paddingBottom?: number }>
   justify-content: center;
   position: fixed;
   bottom: 0;
+  left: 0;
   z-index: 9;
 
   width: 100%;
