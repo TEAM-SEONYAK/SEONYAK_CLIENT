@@ -104,9 +104,9 @@ const JuniorPromisePage = () => {
   const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
 
   const seniorList = data?.data.seniorList || [];
+  console.log(data?.data);
   // 내 닉네임 가져오기
-  // const myNickname = data?.data.nickName
-  const myNickname = '도리서진';
+  const myNickname = data?.data.myNickname;
 
   const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
   const [isPromiseClicked, setIsPromisedClicked] = useState(false);
