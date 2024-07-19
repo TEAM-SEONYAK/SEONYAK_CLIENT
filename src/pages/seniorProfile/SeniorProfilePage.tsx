@@ -4,7 +4,6 @@ import Complete from '@pages/seniorProfile/components/Complete';
 import Init from '@pages/seniorProfile/components/Init';
 import PreView from '@pages/seniorProfile/components/preView/index';
 import { seniorProfileRegisterType, seniorProfileInitial } from '@pages/seniorProfile/types';
-import { weekToDay } from '@pages/seniorProfile/utils/weekToDay';
 import { useState } from 'react';
 import Career from './components/Career';
 import Example from './components/Example';
