@@ -9,7 +9,7 @@ interface seniorListPropType {
   level: number;
   variant?: 'default' | 'secondary';
   image: string;
-  handleSeniorCardClicked?: (type: boolean, id: number) => void;
+  handleSeniorCardClicked?: (type: boolean, id: number, nickname: string) => void;
   seniorId: number;
 }
 
@@ -35,7 +35,7 @@ export const SeniorCard = (props: seniorListPropType) => {
   return (
     <SeniorCardWrapper
       $isSmall={variant === 'secondary'}
-      onClick={() => handleSeniorCardClicked && handleSeniorCardClicked(true, seniorId)}>
+      onClick={() => handleSeniorCardClicked && handleSeniorCardClicked(true, seniorId, nickname)}>
       <SeniorImg src={image} $isSmall={variant === 'secondary'} />
 
       <SeniorCardLayout>

@@ -26,7 +26,6 @@ const PromiseDetailPageJunior = () => {
     setIsDetailClicked(type);
     setClickedSeniorId(id);
   };
-  console.log(clickedSeniorId);
 
   const { juniorInfo, seniorInfo, timeList1, topic, personalTopic, isSuccess, isLoading } =
     useGetPromiseDetail(appointmentId);

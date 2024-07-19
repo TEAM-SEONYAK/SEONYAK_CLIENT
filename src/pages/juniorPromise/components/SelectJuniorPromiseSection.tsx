@@ -16,7 +16,12 @@ import { useNavigate } from 'react-router-dom';
 import Banner from './Banner';
 import { usePostAppointment } from '../hooks/queries';
 
-const SelectJuniorPromiseSection = () => {
+interface SelectJuniorPromiseSectionPropType {
+  seniorId: number;
+  seniorNickname: string;
+}
+
+const SelectJuniorPromiseSection = ({ seniorId, seniorNickname }: SelectJuniorPromiseSectionPropType) => {
   const [activeButton, setActiveButton] = useState('선택할래요');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAllSelected, setIsAllSelected] = useState(false);
@@ -75,8 +80,7 @@ const SelectJuniorPromiseSection = () => {
   const handlePostAppointment = () => {
     if (isAllSelected) {
       postAppointment({
-        // 선배 ID 받아와야함
-        seniorId: 30,
+        seniorId: seniorId,
         topic: activeButton === '선택할래요' ? selectedButtons : [],
         personalTopic: activeButton === '선택할래요' ? '' : inputVal,
         timeList: [
@@ -118,7 +122,7 @@ const SelectJuniorPromiseSection = () => {
     <>
       <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate('/')} title={'약속 신청하기'} />
       <Wrapper>
-        <Banner senior={'도리 선배'} />
+        <Banner senior={`${seniorNickname} 선배`} />
         <ImgHbpromiseIcon />
         <GrayLine1 />
         <TimeSelectionTitleWrapper />
@@ -146,7 +150,7 @@ const SelectJuniorPromiseSection = () => {
             <CheckModalContent />
           </BtnCloseModal>
         )}
-        {isModalClicked && <JuniorPromiseComplete senior={'도리2'} />}
+        {isModalClicked && <JuniorPromiseComplete seniorNickname={seniorNickname} />}
         {activeButton === '선택할래요' ? (
           <SelectJuniorWorryButton
             selectedButtons={selectedButtons}
@@ -167,6 +171,7 @@ const SelectJuniorPromiseSection = () => {
           setIsCalendarOpen={setIsCalendarOpen}
           btnId={btnId}
           handleCheckAllSelected={handleCheckAllSelected}
+          seniorId={seniorId}
         />
         <PageBottomBar>
           <CostWrapper>

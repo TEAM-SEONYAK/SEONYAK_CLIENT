@@ -8,6 +8,8 @@ import { useState } from 'react';
 import { SeniorListBackground } from './components/SeniorListBackground';
 import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 import PreView from '@pages/seniorProfile/components/preView';
+import { FullBtn } from '@components/commons/FullButton';
+import SelectJuniorPromiseSection from './components/SelectJuniorPromiseSection';
 
 const JuniorPromisePage = () => {
   // 필터 버튼
@@ -102,15 +104,23 @@ const JuniorPromisePage = () => {
   const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
 
   const seniorList = data?.data.seniorList || [];
+  // 내 닉네임 가져오기
+  // const myNickname = data?.data.nickName
+  const myNickname = '도리서진';
 
   const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
+  const [isPromiseClicked, setIsPromisedClicked] = useState(false);
   const [seniorId, setSeniorId] = useState(0);
-  const handleSeniorCardClicked = (type: boolean, id: number) => {
+  const [seniorNickname, setSeniorNickname] = useState('');
+  const handleSeniorCardClicked = (type: boolean, id: number, name: string) => {
     setIsSeniorCardClicked(type);
     setSeniorId(id);
+    setSeniorNickname(name);
   };
 
-  console.log(isSeniorCardClicked, seniorId);
+  const handlePromiseClicked = () => {
+    setIsPromisedClicked(true);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -122,13 +132,18 @@ const JuniorPromisePage = () => {
 
   return (
     <>
-      {isSeniorCardClicked ? (
-        <PreView variant="secondary" seniorId={seniorId + ''} />
+      {isPromiseClicked ? (
+        <SelectJuniorPromiseSection seniorId={seniorId} seniorNickname={seniorNickname} />
+      ) : isSeniorCardClicked ? (
+        <>
+          <PreView variant="secondary" seniorId={seniorId + ''} />
+          <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
+        </>
       ) : (
         <Wrapper>
           <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
           <HbHomeMainIcon />
-          <Title>반가워요 도리님,고민을 해결해볼까요?</Title>
+          <Title>반가워요 {myNickname}님,고민을 해결해볼까요?</Title>
 
           <SeniorListBackground
             handleFilterActiveBtn={handleFilterActiveBtn}
