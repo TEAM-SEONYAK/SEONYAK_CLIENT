@@ -29,7 +29,7 @@ const PromiseDetailPageJunior = () => {
   const seniorId = location.state.seniorId;
 
   const [isDetailClicked, setIsDetailClicked] = useState(false);
-  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
+  const [isEnterBtnClicked] = useState(false);
   const [, setGoogleMeetLink] = useState('');
 
   const handleClickEnterBtn = (link: string) => {
