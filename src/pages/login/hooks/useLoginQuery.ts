@@ -1,7 +1,6 @@
-import { useGoogleLogin } from '@react-oauth/google';
 import { useMutation } from '@tanstack/react-query';
-import { loginAxios } from '../apis/loginAxios';
 import { useNavigate } from 'react-router-dom';
+import { loginAxios } from '../apis/loginAxios';
 
 interface useGoogleLoginPropType {
   role?: string;
@@ -9,7 +8,7 @@ interface useGoogleLoginPropType {
 }
 const useGoogleLoginHook = ({ role, variant = 'signup' }: useGoogleLoginPropType) => {
   const navigate = useNavigate();
-  const mutation = useMutation({
+  const { mutate } = useMutation({
     mutationFn: (authorizationCode: string) => loginAxios(authorizationCode),
     onSuccess: (data) => {
       localStorage.setItem('accessToken', data.data.data.accessToken);
@@ -30,21 +29,9 @@ const useGoogleLoginHook = ({ role, variant = 'signup' }: useGoogleLoginPropType
     },
   });
 
-  const login = useGoogleLogin({
-    onSuccess: (response) => {
-      const authorizationCode = response.code;
-      mutation.mutate(authorizationCode);
-      console.log({ authorizationCode });
-    },
-    onError: (error) => {
-      console.log('Login Failed:', error);
-      navigate('/error');
-    },
-    flow: 'auth-code',
-    redirect_uri: import.meta.env.VITE_APP_REDIRECT_URI
-  });
 
-  return { login, mutation };
+
+  return { mutate };
 };
 
 export default useGoogleLoginHook;

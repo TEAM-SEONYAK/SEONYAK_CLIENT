@@ -5,7 +5,7 @@ import Welcome from '@pages/join/components/Welcome';
 import useGoogleLoginHook from '@pages/login/hooks/useLoginQuery';
 
 const JoinPage = () => {
-  const { login } = useGoogleLoginHook({ variant: 'login' });
+  const { mutate } = useGoogleLoginHook({ variant: 'login' });
 
   return (
     <>
@@ -23,7 +23,7 @@ const JoinPage = () => {
         <JoinButton />
         <SignupContainer>
           <QuestionText>이미 아이디가 있으신가요?</QuestionText>
-          <SignupContent onClick={() => login()}>
+          <SignupContent onClick={() => mutate()}>
             <SignupText>로그인 하기</SignupText>
             <Underline />
           </SignupContent>
