@@ -68,8 +68,6 @@ const SeniorBtn = styled.div`
 
   width: 5rem;
   height: 5rem;
-
-  background-color: red;
 `;
 
 const JuniorBtn = styled.div`
@@ -80,8 +78,6 @@ const JuniorBtn = styled.div`
 
   width: 5rem;
   height: 5rem;
-
-  background-color: red;
 `;
 
 export const DemoNextBtn = styled.div`
@@ -92,8 +88,6 @@ export const DemoNextBtn = styled.div`
 
   width: 10rem;
   height: 5rem;
-
-  background-color: red;
 `;
 
 const Wrapper = styled.div`
