@@ -29,11 +29,6 @@ const App = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (!localStorage.getItem('accessToken')) navigate('/join');
-  // }, []);
-  //
-
   return (
     <Wrapper>
       <ThemeProvider theme={theme}>

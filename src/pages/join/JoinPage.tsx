@@ -3,9 +3,31 @@ import styled from '@emotion/styled';
 import JoinButton from '@pages/join/components/Button';
 import Welcome from '@pages/join/components/Welcome';
 import useGoogleLoginHook from '@pages/login/hooks/useLoginQuery';
+import { useNavigate } from 'react-router-dom';
 
 const JoinPage = () => {
   const { login } = useGoogleLoginHook({ variant: 'login' });
+  const navigate = useNavigate();
+  const handleSenior = () => {
+    localStorage.setItem('role', 'SENIOR');
+    localStorage.setItem(
+      'accessToken',
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MjEzODYwOTgsImV4cCI6MTc4MTg2NjA5OCwibWVtYmVySWQiOjF9.akUlaIos348cj7o57GMOjd5dWp2LE0R0Vk3IoZaP3X73dbGRkMkTCDGPMcTh_5JJUVyHtk6qO1tmLkMSYoViig',
+    );
+  };
+
+  const handleJunior = () => {
+    localStorage.setItem('role', 'JUNIOR');
+    localStorage.setItem(
+      'accessToken',
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MjEzODYyNTgsImV4cCI6MTc4MTg2NjI1OCwibWVtYmVySWQiOjJ9.YTtOIDAgg-qZhuiwA4ZxXeyKBpV6UU1XsSAlxNy1sr_2P1Hl7iL94b0EoR1zxuJfUlcgBH8oY0UZ4kj1VzNGyg',
+    );
+  };
+
+  const handleNext = () => {
+    const role = localStorage.getItem('role');
+    role === 'SENIOR' ? navigate('/') : role === 'JUNIOR' && navigate('/juniorPromise');
+  };
 
   return (
     <>
@@ -29,11 +51,44 @@ const JoinPage = () => {
           </SignupContent>
         </SignupContainer>
       </Wrapper>
+      <SeniorBtn onClick={handleSenior} />
+      <JuniorBtn onClick={handleJunior} />
+      <DemoNextBtn onClick={handleNext} />
     </>
   );
 };
 
 export default JoinPage;
+
+const SeniorBtn = styled.div`
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+  z-index: 10;
+
+  width: 5rem;
+  height: 5rem;
+`;
+
+const JuniorBtn = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 50%;
+  z-index: 10;
+
+  width: 5rem;
+  height: 5rem;
+`;
+
+export const DemoNextBtn = styled.div`
+  position: absolute;
+  right: 35%;
+  bottom: 50%;
+  z-index: 10;
+
+  width: 10rem;
+  height: 5rem;
+`;
 
 const Wrapper = styled.div`
   display: flex;

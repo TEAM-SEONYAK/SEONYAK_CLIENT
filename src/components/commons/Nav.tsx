@@ -9,7 +9,7 @@ const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [userRole] = useState<UserRole>('SENIOR');
+  const [userRole] = useState<UserRole>('JUNIOR');
   const [currNav, setCurrNav] = useState(location.pathname);
 
   useEffect(() => {
