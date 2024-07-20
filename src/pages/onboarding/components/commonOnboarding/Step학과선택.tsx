@@ -71,32 +71,38 @@ const Step학과선택 = () => {
 
   return (
     <Wrapper>
-      {selectedMajors.length > 0 && (
-        <>
-          <ChipWrapper>
-            {selectedMajors.slice(0, 1).map((sm) => (
-              <MajorChip key={sm} major={sm} handleClose={handleChipClose} />
-            ))}
-          </ChipWrapper>
-          <WarnWrapper>
-            <WarnDescription isShown={isExceed} warnText="학과는 최대 1개 선택할 수 있어요." />
-          </WarnWrapper>
-        </>
-      )}
-      <SearchBox placeholder="학과명을 입력해 주세요" searchValue={searchValue} handleSearchValue={handleSearchValue} />
-      <Container>
-        <SearchListWrapper>
-          {list &&
-            list.map(({ deptName }) => (
-              <SearchList
-                key={deptName}
-                handleSelectMajors={handleSelectMajors}
-                majorName={deptName}
-                selectedMajors={selectedMajors}
-              />
-            ))}
-        </SearchListWrapper>
-      </Container>
+      <div style={{ padding: '0 2rem' }}>
+        {selectedMajors.length > 0 && (
+          <>
+            <ChipWrapper>
+              {selectedMajors.slice(0, 1).map((sm) => (
+                <MajorChip key={sm} major={sm} handleClose={handleChipClose} />
+              ))}
+            </ChipWrapper>
+            <WarnWrapper>
+              <WarnDescription isShown={isExceed} warnText="학과는 최대 1개 선택할 수 있어요." />
+            </WarnWrapper>
+          </>
+        )}
+        <SearchBox
+          placeholder="학과명을 입력해 주세요"
+          searchValue={searchValue}
+          handleSearchValue={handleSearchValue}
+        />
+        <Container>
+          <SearchListWrapper>
+            {list &&
+              list.map(({ deptName }) => (
+                <SearchList
+                  key={deptName}
+                  handleSelectMajors={handleSelectMajors}
+                  majorName={deptName}
+                  selectedMajors={selectedMajors}
+                />
+              ))}
+          </SearchListWrapper>
+        </Container>
+      </div>
       <FullBtn isActive={selectedMajors.length > 0} onClick={handleClickLink} />
     </Wrapper>
   );

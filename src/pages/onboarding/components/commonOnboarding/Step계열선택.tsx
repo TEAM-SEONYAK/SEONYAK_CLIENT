@@ -26,14 +26,16 @@ const Step계열선택 = () => {
 
   return (
     <>
-      <Wrapper>
-        {계열_LIST.map((el) => (
-          <ItemWrapper key={el} onClick={() => setSelectedField(el)}>
-            <Text>{el}</Text>
-            <CheckItemIcon isactive={(selectedField === el) + ''} />
-          </ItemWrapper>
-        ))}
-      </Wrapper>
+      <div style={{ padding: '0 2rem' }}>
+        <Wrapper>
+          {계열_LIST.map((el) => (
+            <ItemWrapper key={el} onClick={() => setSelectedField(el)}>
+              <Text>{el}</Text>
+              <CheckItemIcon isactive={(selectedField === el) + ''} />
+            </ItemWrapper>
+          ))}
+        </Wrapper>
+      </div>
       <FullBtn isActive={selectedField !== ''} onClick={handleClickLink} />
     </>
   );

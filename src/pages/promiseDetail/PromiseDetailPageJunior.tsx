@@ -21,6 +21,7 @@ const PromiseDetailPageJunior = () => {
   const myNickname = location.state.myNickname;
   const appointmentId = location.state.appointmentId;
   const seniorId = location.state.seniorId;
+  console.log(location.state);
 
   const [isDetailClicked, setIsDetailClicked] = useState(false);
   const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
@@ -203,8 +204,8 @@ const BtnWrapper = styled.div`
 
 const Divider = styled.hr`
   width: 100vw;
-  margin-top: 5rem;
   height: 0.1rem;
-  border: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
+  margin-top: 5rem;
   margin-bottom: 3.2rem;
+  border: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 `;

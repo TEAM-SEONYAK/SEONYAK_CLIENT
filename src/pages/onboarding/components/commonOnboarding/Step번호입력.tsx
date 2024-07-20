@@ -162,37 +162,42 @@ const Step번호입력 = () => {
 
   return (
     <Wrapper>
-      <TextBox label="">
-        <>
-          <InputBox
-            label="폰번호"
-            placeholder="전화번호를 입력해 주세요"
-            value={phoneNumber}
-            onChange={handleChangePhone}
-            isError={isError.isNumError}>
-            <InnerButton onClick={handleClickSend} text={isActive ? '재전송' : '인증번호 전송'} />
-          </InputBox>
-          {isError.isNumError && (
-            <WarnDescription isShown={isError.isNumError} warnText="올바른 휴대전화 번호 형식을 입력해주세요." />
-          )}
-        </>
-        {isActive && (
+      <div style={{ padding: '0 2rem' }}>
+        <TextBox label="">
           <>
             <InputBox
-              label="인증번호"
-              placeholder="전송된 4자리 코드를 입력해 주세요"
-              value={verificationCode}
-              onChange={handleChangeVerifycode}
-              maxLength={4}
-              isError={isError.isValidCodeError}>
-              <Timer>
-                {minutes} : {seconds}
-              </Timer>
+              label="폰번호"
+              placeholder="전화번호를 입력해 주세요"
+              value={phoneNumber}
+              onChange={handleChangePhone}
+              isError={isError.isNumError}>
+              <InnerButton onClick={handleClickSend} text={isActive ? '재전송' : '인증번호 전송'} />
             </InputBox>
-            <WarnDescription isShown={isError.isValidCodeError} warnText="코드가 틀렸어요. 다시 한번 확인해 주세요." />
+            {isError.isNumError && (
+              <WarnDescription isShown={isError.isNumError} warnText="올바른 휴대전화 번호 형식을 입력해주세요." />
+            )}
           </>
-        )}
-      </TextBox>
+          {isActive && (
+            <>
+              <InputBox
+                label="인증번호"
+                placeholder="전송된 4자리 코드를 입력해 주세요"
+                value={verificationCode}
+                onChange={handleChangeVerifycode}
+                maxLength={4}
+                isError={isError.isValidCodeError}>
+                <Timer>
+                  {minutes} : {seconds}
+                </Timer>
+              </InputBox>
+              <WarnDescription
+                isShown={isError.isValidCodeError}
+                warnText="코드가 틀렸어요. 다시 한번 확인해 주세요."
+              />
+            </>
+          )}
+        </TextBox>
+      </div>
       <FullBtn
         text="인증 확인"
         isActive={timeLeft > 0 && verificationCode.length == 4 && !isError.isValidCodeError}

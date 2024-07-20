@@ -121,37 +121,39 @@ const Step이메일입력 = () => {
 
   return (
     <Wrapper>
-      <TextBox label="">
-        <>
-          <InputBox
-            label="학교메일"
-            placeholder="메일 주소를 입력해 주세요"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            isError={isEmailError}>
-            <InnerButton onClick={handleClickSend} text={isActive ? '재전송' : '인증번호 전송'} />
-          </InputBox>
-          {isEmailError && <WarnDescription isShown={isEmailError} warnText="유효하지 않은 메일이에요." />}
-        </>
-        {isActive && (
+      <div style={{ padding: '0 2rem' }}>
+        <TextBox label="">
           <>
             <InputBox
-              label="인증번호"
-              placeholder="전송된 4자리 코드를 입력해 주세요"
-              value={code}
-              onChange={handleChangeCode}
-              maxLength={4}
-              isError={isValidCodeError}>
-              <Timer>
-                {minutes} : {seconds}
-              </Timer>
+              label="학교메일"
+              placeholder="메일 주소를 입력해 주세요"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              isError={isEmailError}>
+              <InnerButton onClick={handleClickSend} text={isActive ? '재전송' : '인증번호 전송'} />
             </InputBox>
-            {isValidCodeError && (
-              <WarnDescription isShown={isValidCodeError} warnText="코드가 틀렸어요. 다시 한번 확인해 주세요." />
-            )}
+            {isEmailError && <WarnDescription isShown={isEmailError} warnText="유효하지 않은 메일이에요." />}
           </>
-        )}
-      </TextBox>
+          {isActive && (
+            <>
+              <InputBox
+                label="인증번호"
+                placeholder="전송된 4자리 코드를 입력해 주세요"
+                value={code}
+                onChange={handleChangeCode}
+                maxLength={4}
+                isError={isValidCodeError}>
+                <Timer>
+                  {minutes} : {seconds}
+                </Timer>
+              </InputBox>
+              {isValidCodeError && (
+                <WarnDescription isShown={isValidCodeError} warnText="코드가 틀렸어요. 다시 한번 확인해 주세요." />
+              )}
+            </>
+          )}
+        </TextBox>
+      </div>
       <FullBtn text="인증 확인" isActive={code.length == 4 && !isValidCodeError} onClick={handleClickButton} />
       <AutoCloseModal text="인증에 성공했어요" showModal={isModalOpen} handleShowModal={handleShowModal}>
         <Img src={SuccessImg} alt="" />

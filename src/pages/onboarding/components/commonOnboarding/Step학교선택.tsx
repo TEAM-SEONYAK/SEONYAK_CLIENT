@@ -34,12 +34,14 @@ const Step학교선택 = () => {
 
   return (
     <Wrapper>
-      <SearchBox placeholder="학교명을 입력해 주세요" handleInputClick={handleOpenSheet} searchValue={selectedUniv} />
-      {isOpenSheet && (
-        <FullBottomSheet handleClose={handleCloseSheet} isSheetOpen={isOpenSheet}>
-          <Sheet학교선택 handleSelectUniv={handleSelectUniv} handleClose={handleCloseSheet} />
-        </FullBottomSheet>
-      )}
+      <div style={{ padding: '0 2rem' }}>
+        <SearchBox placeholder="학교명을 입력해 주세요" handleInputClick={handleOpenSheet} searchValue={selectedUniv} />
+        {isOpenSheet && (
+          <FullBottomSheet handleClose={handleCloseSheet} isSheetOpen={isOpenSheet}>
+            <Sheet학교선택 handleSelectUniv={handleSelectUniv} handleClose={handleCloseSheet} />
+          </FullBottomSheet>
+        )}
+      </div>
       <FullBtn isActive={selectedUniv !== ''} onClick={handleClickLink} />
     </Wrapper>
   );

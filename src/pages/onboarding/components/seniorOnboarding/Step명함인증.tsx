@@ -61,13 +61,15 @@ const Step명함인증 = () => {
   const VerificationDone = () =>
     info && (
       <DoneWrapper>
-        <TextBox label="회사명">
-          <InputBox label="회사명" placeholder="회사명을 입력해주세요" value={info.company} disabled />
-        </TextBox>
-        <TextBox label="전화번호">
-          <InputBox label="전화번호" placeholder="연락처를 입력해주세요" value={info.phoneNumber} disabled />
-          <Caption>{`회사명과 전화번호를 확인해 주세요`}</Caption>
-        </TextBox>
+        <div style={{ padding: '0 2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <TextBox label="회사명">
+            <InputBox label="회사명" placeholder="회사명을 입력해주세요" value={info.company} disabled />
+          </TextBox>
+          <TextBox label="전화번호">
+            <InputBox label="전화번호" placeholder="연락처를 입력해주세요" value={info.phoneNumber} disabled />
+            <Caption>{`회사명과 전화번호를 확인해 주세요`}</Caption>
+          </TextBox>
+        </div>
         <BottomCaption>
           현재 입력된 정보가 잘못되어 있어도 괜찮아요 !<br />
           이후 인증 절차(전화번호)와 마이페이지(회사명)에서 수정이 가능해요
@@ -89,8 +91,10 @@ const Step명함인증 = () => {
   ) : (
     <>
       <Wrapper>
-        <img src={NamecardImg} alt="" />
-        <Caption>재직 사실 확인을 위해 명함 촬영이 필요해요</Caption>
+        <div style={{ padding: '0 2rem' }}>
+          <img src={NamecardImg} alt="" />
+          <Caption>재직 사실 확인을 위해 명함 촬영이 필요해요</Caption>
+        </div>
         <FullBtn text="명함 촬영하기" isActive onClick={handleClickPhoto} />
       </Wrapper>
       <BtnCloseModal title="명함 촬영 전 주의해 주세요" isModalOpen={isOpen} handleModalOpen={handleSetOpen}>
@@ -133,6 +137,10 @@ const Wrapper = styled.section`
   gap: 0.5rem;
 
   padding-top: 2rem;
+
+  & img {
+    width: 100%;
+  }
 `;
 
 const Caption = styled.p`

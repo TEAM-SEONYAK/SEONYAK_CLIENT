@@ -24,7 +24,9 @@ const Step재직기간 = () => {
 
   return (
     <>
-      <SelectBox select={select} onSetSelect={handleSetSelect} placeholder={PLACEHOLDER} />
+      <div style={{ padding: '0 2rem' }}>
+        <SelectBox select={select} onSetSelect={handleSetSelect} placeholder={PLACEHOLDER} />
+      </div>
       <FullBtn isActive={select !== PLACEHOLDER} onClick={handleClickLink} />
     </>
   );

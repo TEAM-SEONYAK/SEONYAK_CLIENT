@@ -44,22 +44,24 @@ const Step졸업인증 = () => {
   return (
     <>
       <Wrapper>
-        <TextBox label="졸업증명서">
-          <InputBox
-            label="졸업증명서"
-            type="file"
-            onChange={handleChangeFile}
-            text={file ? file.name : DEFAULT_TEXT}
-            placeholder={DEFAULT_TEXT}
-            isError={isError}>
-            <InnerButton text="첨부파일" />
-          </InputBox>
-          {isError ? (
-            <WarnDescription isShown={isError} warnText="인증에 실패했어요. 학교명이 잘 보이는 지 확인해 주세요." />
-          ) : (
-            <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50MB)</Caption>
-          )}
-        </TextBox>
+        <div style={{ padding: '0 2rem' }}>
+          <TextBox label="졸업증명서">
+            <InputBox
+              label="졸업증명서"
+              type="file"
+              onChange={handleChangeFile}
+              text={file ? file.name : DEFAULT_TEXT}
+              placeholder={DEFAULT_TEXT}
+              isError={isError}>
+              <InnerButton text="첨부파일" />
+            </InputBox>
+            {isError ? (
+              <WarnDescription isShown={isError} warnText="인증에 실패했어요. 학교명이 잘 보이는 지 확인해 주세요." />
+            ) : (
+              <Caption>JPEG, JPG, PNG, PDF 형식만 첨부 가능해요 (최대 50MB)</Caption>
+            )}
+          </TextBox>
+        </div>
       </Wrapper>
       <FullBtn text="인증하기" onClick={handleClickLink} isActive={!!file} />
       <ModalWrapper>

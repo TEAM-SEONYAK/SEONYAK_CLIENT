@@ -62,7 +62,7 @@ const MetaContainer = styled.header`
 `;
 
 const Content = styled.section`
-  padding: 0 2rem;
+  padding: 0;
 `;
 
 const ButtonBg = styled.footer`

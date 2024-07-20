@@ -69,35 +69,37 @@ const Step개인정보입력 = () => {
 
   return (
     <>
-      <Wrapper>
-        <SubTitle>프로필 사진</SubTitle>
-        <ImageInputWrapper>
-          <ImageInputLabel>
-            <ImgCircle>
-              <img src={imageFile ? imageFile : startImg} alt="프로필 이미지" />
-              <input type="file" accept="image/*" onChange={(e) => handleChangeImage(e)} />
-            </ImgCircle>
-            <CameraIc />
-          </ImageInputLabel>
-        </ImageInputWrapper>
-      </Wrapper>
-      <TextBox label="닉네임">
-        <InputBox
-          label="닉네임"
-          placeholder="닉네임을 입력해 주세요"
-          isError={isNicknameError}
-          value={nickname}
-          onChange={handleChangeInput}>
-          <InnerButton text="중복확인" onClick={handleCheckNickname} />
-        </InputBox>
-        {isNicknameError ? (
-          <WarnDescription isShown={isNicknameError} warnText="닉네임이 조건을 충족하지 않아요." />
-        ) : (
-          <Caption isValid={isNicknameValid}>
-            {isNicknameValid ? '사용 가능한 닉네임이에요' : '8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가'}
-          </Caption>
-        )}
-      </TextBox>
+      <div style={{ padding: '0 2rem' }}>
+        <Wrapper>
+          <SubTitle>프로필 사진</SubTitle>
+          <ImageInputWrapper>
+            <ImageInputLabel>
+              <ImgCircle>
+                <img src={imageFile ? imageFile : startImg} alt="프로필 이미지" />
+                <input type="file" accept="image/*" onChange={(e) => handleChangeImage(e)} />
+              </ImgCircle>
+              <CameraIc />
+            </ImageInputLabel>
+          </ImageInputWrapper>
+        </Wrapper>
+        <TextBox label="닉네임">
+          <InputBox
+            label="닉네임"
+            placeholder="닉네임을 입력해 주세요"
+            isError={isNicknameError}
+            value={nickname}
+            onChange={handleChangeInput}>
+            <InnerButton text="중복확인" onClick={handleCheckNickname} />
+          </InputBox>
+          {isNicknameError ? (
+            <WarnDescription isShown={isNicknameError} warnText="닉네임이 조건을 충족하지 않아요." />
+          ) : (
+            <Caption isValid={isNicknameValid}>
+              {isNicknameValid ? '사용 가능한 닉네임이에요' : '8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가'}
+            </Caption>
+          )}
+        </TextBox>
+      </div>
       <FullBtn onClick={handleClickLink} isActive={isNicknameValid} />
     </>
   );

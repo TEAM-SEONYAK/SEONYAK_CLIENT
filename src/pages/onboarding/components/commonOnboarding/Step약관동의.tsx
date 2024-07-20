@@ -32,30 +32,32 @@ const Step약관동의 = () => {
 
   return (
     <Wrapper>
-      <ItemWrapper type="button" onClick={() => handleClickCheck('all')}>
-        <ItemLeftWrapper>
-          <IconWrapper $isChecked={!agreement.some((v) => !v)}>
-            <CheckItemIc />
-          </IconWrapper>
-          <Item>전체 동의</Item>
-        </ItemLeftWrapper>
-      </ItemWrapper>
-      <Line />
-      {약관_LIST.map(({ text, link }, idx) => (
-        <li key={text}>
-          <ItemWrapper type="button" onClick={() => handleClickCheck(idx)}>
-            <ItemLeftWrapper>
-              <IconWrapper $isChecked={agreement[idx]}>
-                <CheckItemIc />
-              </IconWrapper>
-              <Item>{text}</Item>
-            </ItemLeftWrapper>
-            <Link to={link ? link : ''} target="_blank" onClick={(e) => link || e.preventDefault()}>
-              {idx < 2 && <ArrowRightIc />}
-            </Link>
-          </ItemWrapper>
-        </li>
-      ))}
+      <div style={{ padding: '0 2rem' }}>
+        <ItemWrapper type="button" onClick={() => handleClickCheck('all')}>
+          <ItemLeftWrapper>
+            <IconWrapper $isChecked={!agreement.some((v) => !v)}>
+              <CheckItemIc />
+            </IconWrapper>
+            <Item>전체 동의</Item>
+          </ItemLeftWrapper>
+        </ItemWrapper>
+        <Line />
+        {약관_LIST.map(({ text, link }, idx) => (
+          <li key={text}>
+            <ItemWrapper type="button" onClick={() => handleClickCheck(idx)}>
+              <ItemLeftWrapper>
+                <IconWrapper $isChecked={agreement[idx]}>
+                  <CheckItemIc />
+                </IconWrapper>
+                <Item>{text}</Item>
+              </ItemLeftWrapper>
+              <Link to={link ? link : ''} target="_blank" onClick={(e) => link || e.preventDefault()}>
+                {idx < 2 && <ArrowRightIc />}
+              </Link>
+            </ItemWrapper>
+          </li>
+        ))}
+      </div>
       <FullBtn isActive={agreement[0] && agreement[1] && agreement[2] && agreement[3]} onClick={handleClickLink} />
     </Wrapper>
   );
