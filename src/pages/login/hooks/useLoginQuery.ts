@@ -31,10 +31,10 @@ const useGoogleLoginHook = ({ role, variant = 'signup' }: useGoogleLoginPropType
   });
 };
 
-export const login = useGoogleLogin({
+export const googleLogin = (role?: string) => useGoogleLogin({
   onSuccess: (response) => {
     const authorizationCode = response.code;
-    useGoogleLoginHook({}).mutate(authorizationCode);
+    useGoogleLoginHook({ role }).mutate(authorizationCode);
   },
   onError: (error) => {
     console.log('Login Failed:', error);

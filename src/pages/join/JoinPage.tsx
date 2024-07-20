@@ -2,7 +2,7 @@ import { BigMainLogoIc, OnboardingGradIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import JoinButton from '@pages/join/components/Button';
 import Welcome from '@pages/join/components/Welcome';
-import useGoogleLoginHook from '@pages/login/hooks/useLoginQuery';
+// import useGoogleLoginHook from '@pages/login/hooks/useLoginQuery';
 
 const JoinPage = () => {
   const { mutate } = useGoogleLoginHook({ variant: 'login' });
