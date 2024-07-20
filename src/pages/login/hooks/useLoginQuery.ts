@@ -41,7 +41,7 @@ const useGoogleLoginHook = ({ role, variant = 'signup' }: useGoogleLoginPropType
       navigate('/error');
     },
     flow: 'auth-code',
-    redirect_uri: 'https://seonyak.com'
+    redirect_uri: import.meta.env.VITE_APP_REDIRECT_URI
   });
 
   return { login, mutation };
