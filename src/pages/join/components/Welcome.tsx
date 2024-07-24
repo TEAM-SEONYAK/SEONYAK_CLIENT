@@ -6,7 +6,6 @@ import WelcomeJson from '@assets/lottie/welcome.json';
 const Welcome = () => {
   const likecontainer = useRef<HTMLDivElement>(null!);
   useEffect(() => {
-    console.log({ WelcomeJson });
     if (likecontainer.current !== null) {
       const animation = Lottie.loadAnimation({
         container: likecontainer.current,
