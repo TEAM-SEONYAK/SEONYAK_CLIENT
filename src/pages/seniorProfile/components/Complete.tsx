@@ -1,8 +1,17 @@
 import { ProfileCompleteIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { SENIOR_PROFILE_STEPS } from '@pages/seniorProfile/constants';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Complete = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/');
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <Wrapper>
       <Meta>{SENIOR_PROFILE_STEPS[7].meta}</Meta>

@@ -31,16 +31,16 @@ const useGoogleLoginHook = ({ role, variant = 'signup' }: useGoogleLoginPropType
   });
 
   const login = useGoogleLogin({
-    onSuccess: (response) => {
-      const authorizationCode = response.code;
-      mutation.mutate(authorizationCode);
+    onSuccess: () => {
+      // const authorizationCode = response.code;
+      // mutation.mutate(authorizationCode);
     },
     onError: (error) => {
       console.log('Login Failed:', error);
       navigate('/error');
     },
     flow: 'auth-code',
-    redirect_uri: 'https://seonyak.com/login/oauth2/code/google'
+    redirect_uri: import.meta.env.VITE_APP_REDIRECT_URI
   });
 
   return { login, mutation };
