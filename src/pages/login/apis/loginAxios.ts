@@ -5,7 +5,7 @@ export const loginAxios = (authorizationCode: string) => {
   return axios.post(
     '/v1/auth/login',
     {
-      redirectUri: 'http://localhost:5173/login/oauth2/code/google',
+      redirectUri: 'http://localhost:5173/auth/google',
       socialType: 'GOOGLE',
     },
     {
@@ -14,17 +14,4 @@ export const loginAxios = (authorizationCode: string) => {
       },
     },
   );
-  // console.log(response);
-  // return axios.post(
-  //   '/v1/auth/login',
-  //   {
-  //     redirectUri: 'http://localhost:5173/login/oauth2/code/google',
-  //     socialType: 'GOOGLE',
-  //   },
-  //   {
-  //     params: {
-  //       authorizationCode,
-  //     },
-  //   },
-  // );
 };

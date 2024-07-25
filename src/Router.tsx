@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         element: <SignupPage />,
       },
       {
-        path: 'login/oauth2/code/google',
+        path: 'auth/google',
         element: <LoginCallback />,
       },
       {
