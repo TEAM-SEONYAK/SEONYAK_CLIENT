@@ -5,7 +5,7 @@ export const loginAxios = (authorizationCode: string) => {
   return axios.post(
     '/v1/auth/login',
     {
-      redirectUri: 'http://localhost:5173/auth/google',
+      redirectUri: import.meta.env.VITE_APP_GOOGLE_AUTH_REDIRECT_URI,
       socialType: 'GOOGLE',
     },
     {
