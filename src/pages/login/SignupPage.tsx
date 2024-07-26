@@ -6,12 +6,11 @@ import googleLogin from './utils/googleLogin';
 
 const SignupPage = () => {
   const role = useLocation().state.role;
-  localStorage.setItem('role', role);
 
   return (
     <>
       {role === 'SENIOR' ? <OnboardingBackgroundSBIcon /> : <OnboardingBackgroundHBIcon />}
-      <BtnContainer onClick={() => googleLogin()}>
+      <BtnContainer onClick={() => googleLogin(role)}>
         <GoogleLogoIcon />
         <Text>구글로 시작하기</Text>
       </BtnContainer>

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 interface useGoogleLoginPropType {
   role?: string;
 }
-const useGoogleLoginMutation = ({ role = 'SENIOR' }: useGoogleLoginPropType) => {
+const useGoogleLoginMutation = ({ role }: useGoogleLoginPropType) => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: (authorizationCode: string) => loginAxios(authorizationCode),
@@ -18,10 +18,13 @@ const useGoogleLoginMutation = ({ role = 'SENIOR' }: useGoogleLoginPropType) => 
         console.log('🍀로그인');
         localStorage.setItem('role', responseRole);
         navigate('/');
-      } else {
+      } else if (role) {
         // 회원가입
         console.log('🥰회원가입');
         navigate(role === 'SENIOR' ? '/seniorOnboarding' : '/juniorOnboarding');
+      } else {
+        // 로그인인데, role 정보를 서버에서 받지 못한 상황
+        console.error('🔴 로그인 과정에서 Role 정보를 서버에서 받지 못했어요.');
       }
     },
     onError: (error) => {
