@@ -1,7 +1,6 @@
 import { axios } from '@utils/apis';
 
 export const loginAxios = (authorizationCode: string) => {
-  console.log('🚀 login post 쐈어용 ~ ');
   return axios.post(
     '/v1/auth/login',
     {

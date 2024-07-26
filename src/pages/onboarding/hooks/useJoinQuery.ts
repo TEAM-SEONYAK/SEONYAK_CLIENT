@@ -9,7 +9,7 @@ const useJoinQuery = () => {
       localStorage.setItem('role', data.data.role);
     },
     onError: (error) => {
-      console.log('join patch Error: ', error);
+      console.log('🔴 join patch Error: ', error);
     },
   });
 
