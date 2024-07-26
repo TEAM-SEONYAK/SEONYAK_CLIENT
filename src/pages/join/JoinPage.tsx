@@ -2,11 +2,9 @@ import { BigMainLogoIc, OnboardingGradIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import JoinButton from '@pages/join/components/Button';
 import Welcome from '@pages/join/components/Welcome';
-import useGoogleLoginHook from '@pages/login/hooks/useLoginQuery';
+import googleLogin from '@pages/login/utils/googleLogin';
 
 const JoinPage = () => {
-  const { login } = useGoogleLoginHook({ variant: 'login' });
-
   return (
     <>
       <OnboardingGradIcon />
@@ -23,7 +21,7 @@ const JoinPage = () => {
         <JoinButton />
         <SignupContainer>
           <QuestionText>이미 아이디가 있으신가요?</QuestionText>
-          <SignupContent onClick={() => login()}>
+          <SignupContent onClick={() => googleLogin()}>
             <SignupText>로그인 하기</SignupText>
             <Underline />
           </SignupContent>
