@@ -4,26 +4,24 @@ import { useNavigate } from 'react-router-dom';
 
 interface useGoogleLoginPropType {
   role?: string;
-  variant?: 'signup' | 'login';
 }
-const useGoogleLoginMutation = ({ role = 'SENIOR', variant = 'signup' }: useGoogleLoginPropType) => {
+const useGoogleLoginMutation = ({ role = 'SENIOR' }: useGoogleLoginPropType) => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: (authorizationCode: string) => loginAxios(authorizationCode),
     onSuccess: (data) => {
-      console.log('🟢성공하셨어용~🟢');
       localStorage.setItem('accessToken', data.data.data.accessToken);
+
       const responseRole = data.data.data.role;
       if (responseRole) {
-        console.log('💕');
+        // 로그인 (이미 가입된 회원)
+        console.log('🍀로그인');
         localStorage.setItem('role', responseRole);
         navigate('/');
-      } else if (variant === 'login') {
-        console.log('🟡');
-        alert('가입되지 않은 회원입니다.');
       } else {
-        console.log('🔴', role);
-        role === 'SENIOR' ? navigate('/seniorOnboarding') : role === 'JUNIOR' && navigate('/juniorOnboarding');
+        // 회원가입
+        console.log('🥰회원가입');
+        navigate(role === 'SENIOR' ? '/seniorOnboarding' : '/juniorOnboarding');
       }
     },
     onError: (error) => {
