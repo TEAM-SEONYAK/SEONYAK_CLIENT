@@ -8,11 +8,7 @@ interface SelectJuniorWorryTextareaWrapperProps {
   setInputVal: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SelectJuniorWorryTextareaWrapper = ({
-  setIsTextareaFilled,
-  inputVal,
-  setInputVal,
-}: SelectJuniorWorryTextareaWrapperProps) => {
+const WorryTextarea = ({ setIsTextareaFilled, inputVal, setInputVal }: SelectJuniorWorryTextareaWrapperProps) => {
   useEffect(() => {
     setIsTextareaFilled(inputVal.length > 0);
   }, [inputVal, setIsTextareaFilled]);
@@ -36,4 +32,4 @@ const SelectJuniorWorryTextareaWrapper = ({
   );
 };
 
-export default SelectJuniorWorryTextareaWrapper;
+export default WorryTextarea;

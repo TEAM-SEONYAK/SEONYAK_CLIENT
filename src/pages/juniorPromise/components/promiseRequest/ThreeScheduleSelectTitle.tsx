@@ -3,7 +3,7 @@ import { SELECT_JUNIOR_TITLE } from '../../constants/constants';
 
 const titleDescription = SELECT_JUNIOR_TITLE[0];
 
-const TimeSelectionTitleWrapper = () => {
+const ThreeScheduleSelectTitle = () => {
   return (
     <Wrapper>
       <TimeSelectionTitle>{titleDescription.title}</TimeSelectionTitle>
@@ -12,7 +12,7 @@ const TimeSelectionTitleWrapper = () => {
   );
 };
 
-export default TimeSelectionTitleWrapper;
+export default ThreeScheduleSelectTitle;
 
 const TimeSelectionTitle = styled.h3`
   ${({ theme }) => theme.fonts.Head2_SB_18};

@@ -2,26 +2,26 @@ import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
 import CalendarBottomSheet from './CalendarBottomSheet';
-import SelectJuniorWorryButton from './SelectJuniorWorryButton';
-import SelectJuniorWorryTextBoxWrapper from './SelectJuniorWorryTextareaWrapper';
-import SelectJuniorWorryTitleWrapper from './SelectJuniorWorryTitleWrapper';
-import TimeSelectionButton from './TimeSelectionButton';
-import TimeSelectionTitleWrapper from './TimeSelectionTitleWrapper';
+import WorryButtons from './WorryButtons';
+import WorryTextarea from './WorryTextarea';
+import WorryTitle from './WorryTitle';
+import ThreeScheduleSelect from './ThreeScheduleSelect';
+import ThreeScheduleSelectTitle from './ThreeScheduleSelectTitle';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
 import CheckModalContent from './CheckModalContent';
-import JuniorPromiseComplete from './JuniorPromiseComplete';
+import RequestComplete from './RequestComplete';
 import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import { useNavigate } from 'react-router-dom';
 import Banner from './Banner';
 import { usePostAppointment } from '../../hooks/queries';
 
-interface SelectJuniorPromiseSectionPropType {
+interface PromiseRequestPagePropType {
   seniorId: number;
   seniorNickname: string;
 }
 
-const SelectJuniorPromiseSection = ({ seniorId, seniorNickname }: SelectJuniorPromiseSectionPropType) => {
+const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPagePropType) => {
   const [activeButton, setActiveButton] = useState('선택할래요');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAllSelected, setIsAllSelected] = useState(false);
@@ -125,15 +125,15 @@ const SelectJuniorPromiseSection = ({ seniorId, seniorNickname }: SelectJuniorPr
         <Banner senior={`${seniorNickname} 선배`} />
         <ImgHbpromiseIcon />
         <GrayLine1 />
-        <TimeSelectionTitleWrapper />
-        <TimeSelectionButton
+        <ThreeScheduleSelectTitle />
+        <ThreeScheduleSelect
           selectedTime={selectedTime}
           setIsCalendarOpen={setIsCalendarOpen}
           setBtnId={setBtnId}
           isSubmitClicked={isSubmitClicked}
         />
         <GrayLine2 />
-        <SelectJuniorWorryTitleWrapper />
+        <WorryTitle />
         <ToggleButton
           left="선택할래요"
           right="작성할래요"
@@ -150,19 +150,15 @@ const SelectJuniorPromiseSection = ({ seniorId, seniorNickname }: SelectJuniorPr
             <CheckModalContent />
           </BtnCloseModal>
         )}
-        {isModalClicked && <JuniorPromiseComplete seniorNickname={seniorNickname} />}
+        {isModalClicked && <RequestComplete seniorNickname={seniorNickname} />}
         {activeButton === '선택할래요' ? (
-          <SelectJuniorWorryButton
+          <WorryButtons
             selectedButtons={selectedButtons}
             setSelectedButtons={setSelectedButtons}
             handleCheckWorrySelected={handleCheckWorrySelected}
           />
         ) : (
-          <SelectJuniorWorryTextBoxWrapper
-            inputVal={inputVal}
-            setInputVal={setInputVal}
-            setIsTextareaFilled={setIsTextareaFilled}
-          />
+          <WorryTextarea inputVal={inputVal} setInputVal={setInputVal} setIsTextareaFilled={setIsTextareaFilled} />
         )}
         <CalendarBottomSheet
           selectedTime={selectedTime}
@@ -187,7 +183,7 @@ const SelectJuniorPromiseSection = ({ seniorId, seniorNickname }: SelectJuniorPr
   );
 };
 
-export default SelectJuniorPromiseSection;
+export default PromiseRequestPage;
 
 const ImgHbpromiseIcon = styled(ImgHbpromiseIc)`
   position: absolute;

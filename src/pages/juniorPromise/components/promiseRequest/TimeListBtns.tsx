@@ -8,7 +8,7 @@ interface EachButtonPropType {
   onClick: () => void;
 }
 
-const EachTimeButton: React.FC<EachButtonPropType> = ({ startTime, endTime, isActive, onClick }) => {
+const TimeListBtns: React.FC<EachButtonPropType> = ({ startTime, endTime, isActive, onClick }) => {
   return (
     <Wrapper $isActive={isActive} onClick={onClick}>
       {startTime} ~ {endTime}
@@ -16,7 +16,7 @@ const EachTimeButton: React.FC<EachButtonPropType> = ({ startTime, endTime, isAc
   );
 };
 
-export default EachTimeButton;
+export default TimeListBtns;
 
 const Wrapper = styled.div<{ $isActive: boolean }>`
   display: flex;
