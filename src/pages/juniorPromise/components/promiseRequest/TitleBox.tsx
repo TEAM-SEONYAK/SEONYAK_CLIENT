@@ -1,25 +1,29 @@
 import styled from '@emotion/styled';
-import { SELECT_JUNIOR_TITLE } from '../../constants/constants';
+import { SELECT_JUNIOR_TITLE } from '@pages/juniorPromise/constants/constants';
 
-const titleDescription = SELECT_JUNIOR_TITLE[1];
+interface TitleBoxProps {
+  num: number;
+}
 
-const SelectJuniorWorryTitle = () => {
+const TitleBox = ({ num }: TitleBoxProps) => {
+  const titleDescription = SELECT_JUNIOR_TITLE[num];
+
   return (
     <Wrapper>
       <Layout>
-        <TimeSelectionTitle>{titleDescription.title}</TimeSelectionTitle>
-        <TimeSelectionDescription>{titleDescription.description}</TimeSelectionDescription>
+        <Title>{titleDescription.title}</Title>
+        <Description>{titleDescription.description}</Description>
       </Layout>
     </Wrapper>
   );
 };
 
-export default SelectJuniorWorryTitle;
+export default TitleBox;
 
-const TimeSelectionTitle = styled.h3`
+const Title = styled.h3`
   ${({ theme }) => theme.fonts.Head2_SB_18};
 `;
-const TimeSelectionDescription = styled.span`
+const Description = styled.span`
   ${({ theme }) => theme.fonts.Body1_M_14};
   color: ${({ theme }) => theme.colors.grayScaleMG2};
 `;

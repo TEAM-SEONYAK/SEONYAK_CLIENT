@@ -4,9 +4,7 @@ import { useState, useEffect } from 'react';
 import CalendarBottomSheet from './CalendarBottomSheet';
 import WorryButtons from './WorryButtons';
 import WorryTextarea from './WorryTextarea';
-import WorryTitle from './WorryTitle';
 import ThreeScheduleSelect from './ThreeScheduleSelect';
-import ThreeScheduleSelectTitle from './ThreeScheduleSelectTitle';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
 import CheckModalContent from './CheckModalContent';
 import RequestComplete from './RequestComplete';
@@ -15,6 +13,7 @@ import { Header } from '@components/commons/Header';
 import { useNavigate } from 'react-router-dom';
 import Banner from './Banner';
 import { usePostAppointment } from '../../hooks/queries';
+import TitleBox from './TitleBox';
 
 interface PromiseRequestPagePropType {
   seniorId: number;
@@ -125,7 +124,7 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
         <Banner senior={`${seniorNickname} 선배`} />
         <ImgHbpromiseIcon />
         <GrayLine1 />
-        <ThreeScheduleSelectTitle />
+        <TitleBox num={0} />
         <ThreeScheduleSelect
           selectedTime={selectedTime}
           setIsCalendarOpen={setIsCalendarOpen}
@@ -133,7 +132,7 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
           isSubmitClicked={isSubmitClicked}
         />
         <GrayLine2 />
-        <WorryTitle />
+        <TitleBox num={1} />
         <ToggleButton
           left="선택할래요"
           right="작성할래요"
