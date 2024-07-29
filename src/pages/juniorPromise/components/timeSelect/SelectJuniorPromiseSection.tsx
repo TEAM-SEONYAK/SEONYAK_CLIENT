@@ -2,11 +2,11 @@ import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
 import CalendarBottomSheet from './CalendarBottomSheet';
-import SelectJuniorWorryButton from '../components/SelectJuniorWorryButton';
-import SelectJuniorWorryTextBoxWrapper from '../components/SelectJuniorWorryTextareaWrapper';
-import SelectJuniorWorryTitleWrapper from '../components/SelectJuniorWorryTitleWrapper';
-import TimeSelectionButton from '../components/TimeSelectionButton';
-import TimeSelectionTitleWrapper from '../components/TimeSelectionTitleWrapper';
+import SelectJuniorWorryButton from './SelectJuniorWorryButton';
+import SelectJuniorWorryTextBoxWrapper from './SelectJuniorWorryTextareaWrapper';
+import SelectJuniorWorryTitleWrapper from './SelectJuniorWorryTitleWrapper';
+import TimeSelectionButton from './TimeSelectionButton';
+import TimeSelectionTitleWrapper from './TimeSelectionTitleWrapper';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
 import CheckModalContent from './CheckModalContent';
 import JuniorPromiseComplete from './JuniorPromiseComplete';
@@ -14,7 +14,7 @@ import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import { useNavigate } from 'react-router-dom';
 import Banner from './Banner';
-import { usePostAppointment } from '../hooks/queries';
+import { usePostAppointment } from '../../hooks/queries';
 
 interface SelectJuniorPromiseSectionPropType {
   seniorId: number;
@@ -216,10 +216,10 @@ const PageBottomBar = styled.div`
   align-items: center;
   position: fixed;
   bottom: 0;
-  margin-left: -2rem;
 
   width: 100%;
   height: 9.4rem;
+  margin-left: -2rem;
   padding: 1.5rem 0 3rem;
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};

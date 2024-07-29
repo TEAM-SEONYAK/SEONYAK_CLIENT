@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { SELECT_JUNIOR_TITLE } from '../constants/constants';
+import { SELECT_JUNIOR_TITLE } from '../../constants/constants';
 
 const titleDescription = SELECT_JUNIOR_TITLE[0];
 

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { formatBtnDateToString } from '../utils/formatBtnDateToString';
-import { ButtonCheckIc } from '../../../assets/svgs';
-import { TIME_SELECTION_BUTTON } from '../constants/constants';
+import { formatBtnDateToString } from '../../utils/formatBtnDateToString';
+import { ButtonCheckIc } from '../../../../assets/svgs';
+import { TIME_SELECTION_BUTTON } from '../../constants/constants';
 import WarnDescription from '@components/commons/WarnDescription';
 
 interface TimeSelectionButtonProps {

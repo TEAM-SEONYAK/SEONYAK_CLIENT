@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import Textarea from '../../../components/commons/Textarea';
+import Textarea from '../../../../components/commons/Textarea';
 
 interface SelectJuniorWorryTextareaWrapperProps {
   // eslint-disable-next-line no-unused-vars

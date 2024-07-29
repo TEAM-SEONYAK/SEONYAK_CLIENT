@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import EachTimeButton from './EachTimeButton';
-import { splitTimeRange, isAMTime } from '../utils/changeFormat30Min';
+import { splitTimeRange, isAMTime } from '../../utils/changeFormat30Min';
 
 interface TimeListType {
   startTime: string;
@@ -95,5 +95,6 @@ const Label = styled.div`
 const EachTimeButtonContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+
   margin-left: 1.5rem;
 `;
