@@ -243,8 +243,10 @@ const SeniorListWrapper = styled.div`
 
 const Background = styled.div`
   position: relative;
-  height: 18.7rem;
+
   width: 100vw;
+  height: 18.7rem;
+
   background: linear-gradient(151deg, #cce7ff 17.85%, #b8b1ff 163.57%);
 `;
 
