@@ -63,11 +63,6 @@ const JuniorPromisePage = () => {
     setChipPositionName([]);
   };
 
-  // 선택된 직무 칩 수
-  // const getPositionTrueNum = (arrPosition: boolean[]) => {
-  //   return arrPosition.filter((n) => n).length;
-  // };
-  // const positionChipNum = getPositionTrueNum(arrPosition);
   // 칩으로 나갈 선택된 계열 이름 리스트
   const [chipFieldName, setChipFieldName] = useState<string[]>([]);
 
