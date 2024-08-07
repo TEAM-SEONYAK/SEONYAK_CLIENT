@@ -118,11 +118,12 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
   }, [selectedTime, isAnyWorrySelected, isTextareaFilled]);
 
   return (
-    <>
+    <Wrapper>
       <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate('/')} title={'약속 신청하기'} />
-      <Wrapper>
-        <Banner senior={`${seniorNickname} 선배`} />
-        <ImgHbpromiseIcon />
+      <Banner senior={`${seniorNickname} 선배`} />
+      <ImgHbpromiseIcon />
+
+      <Layout>
         <GrayLine1 />
         <TitleBox num={0} />
         <ThreeScheduleSelect
@@ -177,8 +178,8 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
             약속 신청하기
           </SubmitBtn>
         </PageBottomBar>
-      </Wrapper>
-    </>
+      </Layout>
+    </Wrapper>
   );
 };
 
@@ -186,6 +187,7 @@ export default PromiseRequestPage;
 
 const ImgHbpromiseIcon = styled(ImgHbpromiseIc)`
   position: absolute;
+  top: 5rem;
   right: 0;
 
   width: 15.6rem;
@@ -194,15 +196,26 @@ const ImgHbpromiseIcon = styled(ImgHbpromiseIc)`
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+`;
+
+const Layout = styled.div`
+  display: flex;
   flex-direction: column;
   gap: 2rem;
+  position: absolute;
+  top: 20rem;
   left: 0;
 
   width: 100%;
-  margin-top: 5rem;
-  margin-bottom: 3rem;
   padding: 0 2rem;
-  padding-bottom: 12.4rem;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const PageBottomBar = styled.div`
@@ -255,7 +268,7 @@ const Cost = styled.span`
 
 const GrayLine1 = styled.div`
   position: absolute;
-  top: 17.2rem;
+  top: -2rem;
   left: 0;
   z-index: 0;
 
@@ -267,7 +280,7 @@ const GrayLine1 = styled.div`
 
 const GrayLine2 = styled.div`
   position: absolute;
-  top: 49.9rem;
+  top: 28rem;
   left: 0;
   z-index: 0;
 

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Textarea from '../../../../components/commons/Textarea';
+import styled from '@emotion/styled';
 
 interface SelectJuniorWorryTextareaWrapperProps {
   // eslint-disable-next-line no-unused-vars
@@ -17,7 +18,7 @@ const WorryTextarea = ({ setIsTextareaFilled, inputVal, setInputVal }: SelectJun
     setInputVal(val);
   };
   return (
-    <>
+    <Wrapper>
       <Textarea
         placeholder={`안녕하세요 개발자가 되고 싶은 경영학 전공 학생입니다.
 1. 비전공자로서 개발자가 되기까지 얼마나 걸리셨나요?
@@ -28,8 +29,12 @@ const WorryTextarea = ({ setIsTextareaFilled, inputVal, setInputVal }: SelectJun
         inputVal={inputVal}
         handleInputVal={handleInputVal}
       />
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  margin-bottom: 17.4rem;
+`;
 
 export default WorryTextarea;

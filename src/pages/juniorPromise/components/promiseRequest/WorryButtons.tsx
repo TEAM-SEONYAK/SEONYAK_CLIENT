@@ -50,6 +50,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 1.2rem;
   align-items: center;
+
+  margin-bottom: 17.4rem;
 `;
 
 const Title2 = styled.span`
