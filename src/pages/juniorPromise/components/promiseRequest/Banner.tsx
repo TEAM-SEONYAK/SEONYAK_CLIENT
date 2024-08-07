@@ -5,8 +5,7 @@ interface SeniorProps {
   senior: string;
 }
 
-// 로그인 기능 붙여지면 선배 이름 가져오기 수정
-const Banner: React.FC<SeniorProps> = ({ senior = '도리 선배' }) => {
+const Banner: React.FC<SeniorProps> = ({ senior }) => {
   return (
     <Wrapper>
       <Text>
