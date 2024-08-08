@@ -4,10 +4,8 @@ import { JoinPropType, JoinRequesetType } from '../type';
 export const joinAxios = (requestBody: JoinPropType) => {
   const request: JoinRequesetType = {
     ...requestBody,
-    image: '',
+    image: 'https://example.com/business-card.jpg',
     isSubscribed: requestBody.isSubscribed[4],
   };
-  return authAxios.patch('/v1/auth/join', {
-    request,
-  });
+  return authAxios.patch('/v1/auth/join', request);
 };

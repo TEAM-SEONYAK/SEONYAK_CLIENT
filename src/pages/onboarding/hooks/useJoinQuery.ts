@@ -6,10 +6,10 @@ const useJoinQuery = () => {
   const mutation = useMutation({
     mutationFn: (requestBody: JoinPropType) => joinAxios(requestBody),
     onSuccess: (data) => {
-      localStorage.setItem('role', data.data.userType);
+      localStorage.setItem('role', data.data.role);
     },
     onError: (error) => {
-      console.log('join patch Error: ', error);
+      console.log('🔴 join patch Error: ', error);
     },
   });
 

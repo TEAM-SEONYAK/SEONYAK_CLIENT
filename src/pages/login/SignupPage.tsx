@@ -1,26 +1,19 @@
 import { GoogleLogoIc, OnboardingBackgroundHBIc, OnboardingBackgroundSBIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
-import useGoogleLoginHook from './hooks/useLoginQuery';
-import { DemoNextBtn } from '@pages/join/JoinPage';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import googleLogin from './utils/googleLogin';
 
 const SignupPage = () => {
-  const role = localStorage.getItem('role');
-  const { login } = useGoogleLoginHook({});
-  const navigate = useNavigate();
+  const role = useLocation().state.role;
 
-  const handleNextBtn = () => {
-    role === 'SENIOR' ? navigate('/seniorOnboarding') : role === 'JUNIOR' && navigate('/juniorOnboarding');
-  };
   return (
     <>
       {role === 'SENIOR' ? <OnboardingBackgroundSBIcon /> : <OnboardingBackgroundHBIcon />}
-      <BtnContainer onClick={() => login()}>
+      <BtnContainer onClick={() => googleLogin(role)}>
         <GoogleLogoIcon />
         <Text>구글로 시작하기</Text>
       </BtnContainer>
-      <DemoNextBtn onClick={handleNextBtn} />
     </>
   );
 };

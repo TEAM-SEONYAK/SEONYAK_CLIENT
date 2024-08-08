@@ -22,6 +22,7 @@ import Layout from '@pages/onboarding/components/Layout';
 import JoinPage from '@pages/join/JoinPage';
 import ErrorPage from '@pages/errorPage/ErrorPage';
 import StepComplete from '@pages/onboarding/components/juniorOnboarding/StepComplete';
+import LoginCallback from '@pages/login/LoginCallback';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: 'signup',
         element: <SignupPage />,
+      },
+      {
+        path: 'auth/google',
+        element: <LoginCallback />,
       },
       {
         path: 'seniorOnboarding',

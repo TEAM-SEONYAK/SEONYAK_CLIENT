@@ -9,7 +9,7 @@ export interface BizInfoType {
 }
 
 export interface JoinPropType {
-  userType: number;
+  role: 'SENIOR' | 'JUNIOR';
   isSubscribed: boolean[];
   nickname: string;
   image: string;
@@ -24,7 +24,7 @@ export interface JoinPropType {
   level?: string;
 }
 export interface JoinRequesetType {
-  userType: number;
+  role: 'SENIOR' | 'JUNIOR';
   isSubscribed: boolean;
   nickname: string;
   image: string;
