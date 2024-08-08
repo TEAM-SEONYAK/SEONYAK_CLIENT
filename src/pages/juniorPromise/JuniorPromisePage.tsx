@@ -9,7 +9,7 @@ import { SeniorListBackground } from './components/SeniorListBackground';
 import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
-import SelectJuniorPromiseSection from './components/SelectJuniorPromiseSection';
+import PromiseRequestPage from './components/promiseRequest/PromiseRequestPage';
 import Loading from '@components/commons/Loading';
 import { HbHomeMainSvg } from '@assets/svgs';
 
@@ -136,7 +136,7 @@ const JuniorPromisePage = () => {
   return (
     <>
       {isPromiseClicked ? (
-        <SelectJuniorPromiseSection seniorId={seniorId} seniorNickname={seniorNickname} />
+        <PromiseRequestPage seniorId={seniorId} seniorNickname={seniorNickname} />
       ) : isSeniorCardClicked ? (
         <>
           <Header

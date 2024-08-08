@@ -6,7 +6,7 @@ interface SeniorNamePropType {
   seniorNickname: string;
 }
 
-const JuniorPromiseComplete = ({ seniorNickname }: SeniorNamePropType) => {
+const RequestComplete = ({ seniorNickname }: SeniorNamePropType) => {
   const navigate = useNavigate();
 
   const handleMyPromise = () => {
@@ -30,7 +30,7 @@ const JuniorPromiseComplete = ({ seniorNickname }: SeniorNamePropType) => {
   );
 };
 
-export default JuniorPromiseComplete;
+export default RequestComplete;
 
 const Title = styled.div`
   ${({ theme }) => theme.fonts.Head1_B_20};

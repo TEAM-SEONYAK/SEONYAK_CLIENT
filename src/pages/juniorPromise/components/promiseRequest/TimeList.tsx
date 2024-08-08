@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import EachTimeButton from './EachTimeButton';
-import { splitTimeRange, isAMTime } from '../utils/changeFormat30Min';
+import TimeListBtns from './TimeListBtns';
+import { splitTimeRange, isAMTime } from '../../utils/changeFormat30Min';
 
 interface TimeListType {
   startTime: string;
@@ -34,7 +34,7 @@ const TimeList = ({ selectedTime, setSelectedTime, btnId, timeList }: TimeListPr
             <EachTimeButtonContainer>
               {morningTimeList &&
                 morningTimeList.map(({ startTime, endTime }, idx: number) => (
-                  <EachTimeButton
+                  <TimeListBtns
                     key={startTime + idx}
                     startTime={startTime}
                     endTime={endTime}
@@ -54,7 +54,7 @@ const TimeList = ({ selectedTime, setSelectedTime, btnId, timeList }: TimeListPr
             <EachTimeButtonContainer>
               {afternoonTimeList &&
                 afternoonTimeList.map(({ startTime, endTime }, idx: number) => (
-                  <EachTimeButton
+                  <TimeListBtns
                     key={startTime + idx}
                     startTime={startTime}
                     endTime={endTime}
@@ -95,5 +95,6 @@ const Label = styled.div`
 const EachTimeButtonContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+
   margin-left: 1.5rem;
 `;
