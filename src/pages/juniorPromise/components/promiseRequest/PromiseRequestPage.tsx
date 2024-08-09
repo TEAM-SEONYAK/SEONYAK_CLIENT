@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import CalendarBottomSheet from './CalendarBottomSheet';
 import WorryButtons from './WorryButtons';
 import WorryTextarea from './WorryTextarea';
-import ThreeScheduleSelect from './ThreeScheduleSelect';
+import ScheduleSelect from './ScheduleSelect';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
 import CheckModalContent from './CheckModalContent';
 import RequestComplete from './RequestComplete';
@@ -126,7 +126,7 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
       <Layout>
         <GrayLine1 />
         <TitleBox num={0} />
-        <ThreeScheduleSelect
+        <ScheduleSelect
           selectedTime={selectedTime}
           setIsCalendarOpen={setIsCalendarOpen}
           setBtnId={setBtnId}

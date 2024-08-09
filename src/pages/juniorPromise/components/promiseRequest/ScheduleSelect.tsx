@@ -4,19 +4,19 @@ import { ButtonCheckIc } from '../../../../assets/svgs';
 import { TIME_SELECTION_BUTTON } from '../../constants/constants';
 import WarnDescription from '@components/commons/WarnDescription';
 
-interface ThreeScheduleSelectProps {
+interface ScheduleSelectProps {
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setBtnId: React.Dispatch<React.SetStateAction<number>>;
   isSubmitClicked: boolean;
 }
 
-const ThreeScheduleSelect: React.FC<ThreeScheduleSelectProps> = ({
+const ScheduleSelect: React.FC<ScheduleSelectProps> = ({
   selectedTime,
   setIsCalendarOpen,
   setBtnId,
   isSubmitClicked,
-}: ThreeScheduleSelectProps) => {
+}: ScheduleSelectProps) => {
   const handleTimeSelectBtn = (btnId: number) => {
     setIsCalendarOpen(true);
     setBtnId(btnId);
@@ -48,7 +48,7 @@ const ThreeScheduleSelect: React.FC<ThreeScheduleSelectProps> = ({
   );
 };
 
-export default ThreeScheduleSelect;
+export default ScheduleSelect;
 
 const Wrapper = styled.div`
   display: flex;
