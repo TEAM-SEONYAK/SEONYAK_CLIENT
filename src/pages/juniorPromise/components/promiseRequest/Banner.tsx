@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
-import React from 'react';
 
 interface SeniorProps {
   senior: string;
 }
 
-const Banner: React.FC<SeniorProps> = ({ senior }) => {
+const Banner = ({ senior }: SeniorProps) => {
   return (
     <Wrapper>
       <Text>

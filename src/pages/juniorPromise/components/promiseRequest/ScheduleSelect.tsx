@@ -11,12 +11,7 @@ interface ScheduleSelectProps {
   isSubmitClicked: boolean;
 }
 
-const ScheduleSelect: React.FC<ScheduleSelectProps> = ({
-  selectedTime,
-  setIsCalendarOpen,
-  setBtnId,
-  isSubmitClicked,
-}: ScheduleSelectProps) => {
+const ScheduleSelect = ({ selectedTime, setIsCalendarOpen, setBtnId, isSubmitClicked }: ScheduleSelectProps) => {
   const handleTimeSelectBtn = (btnId: number) => {
     setIsCalendarOpen(true);
     setBtnId(btnId);

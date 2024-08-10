@@ -16,8 +16,7 @@ interface BottomSheetPropType {
   handleCheckAllSelected: () => void;
   seniorId: number;
 }
-
-const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
+const CalendarBottomSheet = ({
   isCalendarOpen,
   setIsCalendarOpen,
   selectedTime,
@@ -25,7 +24,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
   btnId,
   handleCheckAllSelected,
   seniorId,
-}) => {
+}: BottomSheetPropType) => {
   // 선배 아이디로 연결 필요
   const { data: preferredTimeList, isLoading, isError } = useSeniorTimeQuery(seniorId);
 

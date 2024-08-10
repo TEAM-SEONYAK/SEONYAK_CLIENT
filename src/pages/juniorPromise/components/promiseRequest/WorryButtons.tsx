@@ -10,11 +10,11 @@ interface SelectJuniorWorryButtonProps {
   setSelectedButtons: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const SelectJuniorWorryButton: React.FC<SelectJuniorWorryButtonProps> = ({
+const SelectJuniorWorryButton = ({
   handleCheckWorrySelected,
   selectedButtons,
   setSelectedButtons,
-}) => {
+}: SelectJuniorWorryButtonProps) => {
   const handleButtonClick = (title: string) => {
     setSelectedButtons((prevSelectedButtons: string[]) =>
       prevSelectedButtons.includes(title)
