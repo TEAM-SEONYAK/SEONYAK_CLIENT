@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { SELECT_JUNIOR_TITLE } from '@pages/juniorPromise/constants/constants';
+import { SELECT_JUNIOR_TITLE } from '@pages/juniorPromiseRequest/constants/constants';
 
 interface TitleBoxProps {
   num: number;

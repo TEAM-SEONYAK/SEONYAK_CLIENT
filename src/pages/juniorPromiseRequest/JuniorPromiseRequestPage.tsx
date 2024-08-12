@@ -1,26 +1,26 @@
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import CalendarBottomSheet from './CalendarBottomSheet';
-import WorryButtons from './WorryButtons';
-import WorryTextarea from './WorryTextarea';
-import ThreeScheduleSelect from './ThreeScheduleSelect';
+import CalendarBottomSheet from './components/CalendarBottomSheet';
+import WorryButtons from './components/WorryButtons';
+import WorryTextarea from './components/WorryTextarea';
+import ThreeScheduleSelect from './components/ScheduleSelect';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
-import CheckModalContent from './CheckModalContent';
-import RequestComplete from './RequestComplete';
+import CheckModalContent from './components/CheckModalContent';
+import RequestComplete from './components/RequestComplete';
 import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import { useNavigate } from 'react-router-dom';
-import Banner from './Banner';
-import { usePostAppointment } from '../../hooks/queries';
-import TitleBox from './TitleBox';
+import Banner from './components/Banner';
+import { usePostAppointment } from './hooks/queries';
+import TitleBox from './components/TitleBox';
 
-interface PromiseRequestPagePropType {
+interface JuniorPromiseRequestPagePropType {
   seniorId: number;
   seniorNickname: string;
 }
 
-const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPagePropType) => {
+const JuniorPromiseRequestPage = ({ seniorId, seniorNickname }: JuniorPromiseRequestPagePropType) => {
   const [activeButton, setActiveButton] = useState('선택할래요');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAllSelected, setIsAllSelected] = useState(false);
@@ -183,7 +183,7 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
   );
 };
 
-export default PromiseRequestPage;
+export default JuniorPromiseRequestPage;
 
 const ImgHbpromiseIcon = styled(ImgHbpromiseIc)`
   position: absolute;

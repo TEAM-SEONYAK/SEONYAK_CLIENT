@@ -3,8 +3,8 @@ import React from 'react';
 import CalendarBottomBar from './CalendarBottomBar';
 import CustomCalendar from './CustomCalendar';
 import TimeList from './TimeList';
-import { useSeniorTimeQuery } from '../../hooks/queries';
-import { getDayOfWeek } from '../../utils/getDay';
+import { useSeniorTimeQuery } from '../hooks/queries';
+import { getDayOfWeek } from '../utils/getDay';
 import Loading from '@components/commons/Loading';
 
 interface BottomSheetPropType {

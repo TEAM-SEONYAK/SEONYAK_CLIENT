@@ -9,11 +9,14 @@ import { SeniorListBackground } from './components/SeniorListBackground';
 import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
-import PromiseRequestPage from './components/promiseRequest/PromiseRequestPage';
+import JuniorPromiseRequestPage from '../juniorPromiseRequest/JuniorPromiseRequestPage';
 import Loading from '@components/commons/Loading';
 import { HbHomeMainSvg } from '@assets/svgs';
+import { useNavigate } from 'react-router-dom';
 
 const JuniorPromisePage = () => {
+  const navigate = useNavigate();
+
   // 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
   // 바텀 시트 여는 동작
@@ -136,7 +139,8 @@ const JuniorPromisePage = () => {
   return (
     <>
       {isPromiseClicked ? (
-        <PromiseRequestPage seniorId={seniorId} seniorNickname={seniorNickname} />
+        // 이거 대신 navigate 하도록 바꾸기.
+        <JuniorPromiseRequestPage seniorId={seniorId} seniorNickname={seniorNickname} />
       ) : isSeniorCardClicked ? (
         <>
           <Header

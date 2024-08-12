@@ -1,8 +1,8 @@
 import { ReloadIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
-import { formatCalDateToString } from '../../utils/formatCalDateToString';
-import { getTomorrow } from '../../utils/getTomorrow';
+import { formatCalDateToString } from '../utils/formatCalDateToString';
+import { getTomorrow } from '../utils/getTomorrow';
 
 interface CalendarBottomBarPropType {
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;

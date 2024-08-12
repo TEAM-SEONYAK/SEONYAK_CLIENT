@@ -22,6 +22,7 @@ import Layout from '@pages/onboarding/components/Layout';
 import JoinPage from '@pages/join/JoinPage';
 import ErrorPage from '@pages/errorPage/ErrorPage';
 import StepComplete from '@pages/onboarding/components/juniorOnboarding/StepComplete';
+import JuniorPromiseRequestPage from '@pages/juniorPromiseRequest/JuniorPromiseRequestPage';
 
 const router = createBrowserRouter([
   {
@@ -147,6 +148,10 @@ const router = createBrowserRouter([
       {
         path: 'juniorPromise',
         element: <JuniorPromisePage />,
+      },
+      {
+        path: 'juniorPromiseRequest',
+        element: <JuniorPromiseRequestPage />,
       },
       {
         path: 'error',

@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { formatCalDateToString } from '../../utils/formatCalDateToString';
-import { getTomorrow } from '../../utils/getTomorrow';
-import { extractValidKeys } from '../../utils/getSeniorValidWeekOfDay';
+import { formatCalDateToString } from '../utils/formatCalDateToString';
+import { getTomorrow } from '../utils/getTomorrow';
+import { extractValidKeys } from '../utils/getSeniorValidWeekOfDay';
 
 interface CalendarTileProperties {
   date: Date;
