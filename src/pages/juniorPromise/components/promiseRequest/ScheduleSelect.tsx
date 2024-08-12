@@ -1,22 +1,17 @@
 import styled from '@emotion/styled';
-import { formatBtnDateToString } from '../utils/formatBtnDateToString';
-import { ButtonCheckIc } from '../../../assets/svgs';
-import { TIME_SELECTION_BUTTON } from '../constants/constants';
+import { formatBtnDateToString } from '../../utils/formatBtnDateToString';
+import { ButtonCheckIc } from '../../../../assets/svgs';
+import { TIME_SELECTION_BUTTON } from '../../constants/constants';
 import WarnDescription from '@components/commons/WarnDescription';
 
-interface TimeSelectionButtonProps {
+interface ScheduleSelectProps {
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
   setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setBtnId: React.Dispatch<React.SetStateAction<number>>;
   isSubmitClicked: boolean;
 }
 
-const TimeSelectionButton: React.FC<TimeSelectionButtonProps> = ({
-  selectedTime,
-  setIsCalendarOpen,
-  setBtnId,
-  isSubmitClicked,
-}: TimeSelectionButtonProps) => {
+const ScheduleSelect = ({ selectedTime, setIsCalendarOpen, setBtnId, isSubmitClicked }: ScheduleSelectProps) => {
   const handleTimeSelectBtn = (btnId: number) => {
     setIsCalendarOpen(true);
     setBtnId(btnId);
@@ -48,7 +43,7 @@ const TimeSelectionButton: React.FC<TimeSelectionButtonProps> = ({
   );
 };
 
-export default TimeSelectionButton;
+export default ScheduleSelect;
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,7 +53,6 @@ const Wrapper = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-bottom: 2rem;
 `;
 
 const TimeBtn = styled.div<{ $isActive: boolean; $isUnfilled: boolean }>`

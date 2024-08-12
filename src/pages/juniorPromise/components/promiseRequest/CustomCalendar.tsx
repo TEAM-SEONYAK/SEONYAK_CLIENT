@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { formatCalDateToString } from '../utils/formatCalDateToString';
-import { getTomorrow } from '../utils/getTomorrow';
-import { extractValidKeys } from '../utils/getSeniorValidWeekOfDay';
+import { formatCalDateToString } from '../../utils/formatCalDateToString';
+import { getTomorrow } from '../../utils/getTomorrow';
+import { extractValidKeys } from '../../utils/getSeniorValidWeekOfDay';
 
 interface CalendarTileProperties {
   date: Date;
@@ -96,7 +96,6 @@ const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`
 
 const CalendarContainer = styled.div`
   width: 100vw;
-  /* height: 39.5rem; */
   height: auto;
   padding: 1.5rem 3.3rem 2rem;
   border-radius: 16px 16px 0 0;

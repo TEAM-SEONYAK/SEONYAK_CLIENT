@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import React from 'react';
 
 interface EachButtonPropType {
   startTime: string;
@@ -8,7 +7,7 @@ interface EachButtonPropType {
   onClick: () => void;
 }
 
-const EachTimeButton: React.FC<EachButtonPropType> = ({ startTime, endTime, isActive, onClick }) => {
+const TimeListBtns = ({ startTime, endTime, isActive, onClick }: EachButtonPropType) => {
   return (
     <Wrapper $isActive={isActive} onClick={onClick}>
       {startTime} ~ {endTime}
@@ -16,7 +15,7 @@ const EachTimeButton: React.FC<EachButtonPropType> = ({ startTime, endTime, isAc
   );
 };
 
-export default EachTimeButton;
+export default TimeListBtns;
 
 const Wrapper = styled.div<{ $isActive: boolean }>`
   display: flex;

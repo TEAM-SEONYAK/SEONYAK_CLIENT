@@ -1,8 +1,8 @@
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
-import { ButtonCheckIc } from '../../../assets/svgs';
-import { WORRY_SELECTION_BUTTON } from '../constants/constants';
+import { ButtonCheckIc } from '../../../../assets/svgs';
+import { WORRY_SELECTION_BUTTON } from '../../constants/constants';
 
 interface SelectJuniorWorryButtonProps {
   handleCheckWorrySelected: (isSelected: boolean) => void;
@@ -10,11 +10,11 @@ interface SelectJuniorWorryButtonProps {
   setSelectedButtons: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const SelectJuniorWorryButton: React.FC<SelectJuniorWorryButtonProps> = ({
+const SelectJuniorWorryButton = ({
   handleCheckWorrySelected,
   selectedButtons,
   setSelectedButtons,
-}) => {
+}: SelectJuniorWorryButtonProps) => {
   const handleButtonClick = (title: string) => {
     setSelectedButtons((prevSelectedButtons: string[]) =>
       prevSelectedButtons.includes(title)
@@ -50,6 +50,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 1.2rem;
   align-items: center;
+
+  margin-bottom: 17.4rem;
 `;
 
 const Title2 = styled.span`

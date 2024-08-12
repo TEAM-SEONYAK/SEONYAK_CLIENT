@@ -2,26 +2,26 @@ import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
 import CalendarBottomSheet from './CalendarBottomSheet';
-import SelectJuniorWorryButton from '../components/SelectJuniorWorryButton';
-import SelectJuniorWorryTextBoxWrapper from '../components/SelectJuniorWorryTextareaWrapper';
-import SelectJuniorWorryTitleWrapper from '../components/SelectJuniorWorryTitleWrapper';
-import TimeSelectionButton from '../components/TimeSelectionButton';
-import TimeSelectionTitleWrapper from '../components/TimeSelectionTitleWrapper';
+import WorryButtons from './WorryButtons';
+import WorryTextarea from './WorryTextarea';
+import ScheduleSelect from './ScheduleSelect';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
 import CheckModalContent from './CheckModalContent';
-import JuniorPromiseComplete from './JuniorPromiseComplete';
+import RequestComplete from './RequestComplete';
 import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import { useNavigate } from 'react-router-dom';
 import Banner from './Banner';
-import { usePostAppointment } from '../hooks/queries';
+import { usePostAppointment } from '../../hooks/queries';
+import TitleBox from '../../../../components/commons/TitleBox';
+import { SELECT_JUNIOR_TITLE } from '@pages/juniorPromise/constants/constants';
 
-interface SelectJuniorPromiseSectionPropType {
+interface PromiseRequestPagePropType {
   seniorId: number;
   seniorNickname: string;
 }
 
-const SelectJuniorPromiseSection = ({ seniorId, seniorNickname }: SelectJuniorPromiseSectionPropType) => {
+const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPagePropType) => {
   const [activeButton, setActiveButton] = useState('선택할래요');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAllSelected, setIsAllSelected] = useState(false);
@@ -119,21 +119,22 @@ const SelectJuniorPromiseSection = ({ seniorId, seniorNickname }: SelectJuniorPr
   }, [selectedTime, isAnyWorrySelected, isTextareaFilled]);
 
   return (
-    <>
+    <Wrapper>
       <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate('/')} title={'약속 신청하기'} />
-      <Wrapper>
-        <Banner senior={`${seniorNickname} 선배`} />
-        <ImgHbpromiseIcon />
+      <Banner senior={`${seniorNickname} 선배`} />
+      <ImgHbpromiseIcon />
+
+      <Layout>
         <GrayLine1 />
-        <TimeSelectionTitleWrapper />
-        <TimeSelectionButton
+        <TitleBox title={SELECT_JUNIOR_TITLE[0].title} description={SELECT_JUNIOR_TITLE[0].description} />
+        <ScheduleSelect
           selectedTime={selectedTime}
           setIsCalendarOpen={setIsCalendarOpen}
           setBtnId={setBtnId}
           isSubmitClicked={isSubmitClicked}
         />
         <GrayLine2 />
-        <SelectJuniorWorryTitleWrapper />
+        <TitleBox title={SELECT_JUNIOR_TITLE[1].title} description={SELECT_JUNIOR_TITLE[1].description} />
         <ToggleButton
           left="선택할래요"
           right="작성할래요"
@@ -150,19 +151,15 @@ const SelectJuniorPromiseSection = ({ seniorId, seniorNickname }: SelectJuniorPr
             <CheckModalContent />
           </BtnCloseModal>
         )}
-        {isModalClicked && <JuniorPromiseComplete seniorNickname={seniorNickname} />}
+        {isModalClicked && <RequestComplete seniorNickname={seniorNickname} />}
         {activeButton === '선택할래요' ? (
-          <SelectJuniorWorryButton
+          <WorryButtons
             selectedButtons={selectedButtons}
             setSelectedButtons={setSelectedButtons}
             handleCheckWorrySelected={handleCheckWorrySelected}
           />
         ) : (
-          <SelectJuniorWorryTextBoxWrapper
-            inputVal={inputVal}
-            setInputVal={setInputVal}
-            setIsTextareaFilled={setIsTextareaFilled}
-          />
+          <WorryTextarea inputVal={inputVal} setInputVal={setInputVal} setIsTextareaFilled={setIsTextareaFilled} />
         )}
         <CalendarBottomSheet
           selectedTime={selectedTime}
@@ -182,15 +179,16 @@ const SelectJuniorPromiseSection = ({ seniorId, seniorNickname }: SelectJuniorPr
             약속 신청하기
           </SubmitBtn>
         </PageBottomBar>
-      </Wrapper>
-    </>
+      </Layout>
+    </Wrapper>
   );
 };
 
-export default SelectJuniorPromiseSection;
+export default PromiseRequestPage;
 
 const ImgHbpromiseIcon = styled(ImgHbpromiseIc)`
   position: absolute;
+  top: 5rem;
   right: 0;
 
   width: 15.6rem;
@@ -199,15 +197,26 @@ const ImgHbpromiseIcon = styled(ImgHbpromiseIc)`
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+`;
+
+const Layout = styled.div`
+  display: flex;
   flex-direction: column;
   gap: 2rem;
+  position: absolute;
+  top: 20rem;
   left: 0;
 
   width: 100%;
-  margin-top: 5rem;
-  margin-bottom: 3rem;
   padding: 0 2rem;
-  padding-bottom: 12.4rem;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
 const PageBottomBar = styled.div`
@@ -216,10 +225,10 @@ const PageBottomBar = styled.div`
   align-items: center;
   position: fixed;
   bottom: 0;
-  margin-left: -2rem;
 
   width: 100%;
   height: 9.4rem;
+  margin-left: -2rem;
   padding: 1.5rem 0 3rem;
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
@@ -260,7 +269,7 @@ const Cost = styled.span`
 
 const GrayLine1 = styled.div`
   position: absolute;
-  top: 17.2rem;
+  top: -2rem;
   left: 0;
   z-index: 0;
 
@@ -272,7 +281,7 @@ const GrayLine1 = styled.div`
 
 const GrayLine2 = styled.div`
   position: absolute;
-  top: 49.9rem;
+  top: 28rem;
   left: 0;
   z-index: 0;
 

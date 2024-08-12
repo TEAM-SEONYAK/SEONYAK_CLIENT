@@ -3,8 +3,8 @@ import React from 'react';
 import CalendarBottomBar from './CalendarBottomBar';
 import CustomCalendar from './CustomCalendar';
 import TimeList from './TimeList';
-import { useSeniorTimeQuery } from '../hooks/queries';
-import { getDayOfWeek } from '../utils/getDay';
+import { useSeniorTimeQuery } from '../../hooks/queries';
+import { getDayOfWeek } from '../../utils/getDay';
 import Loading from '@components/commons/Loading';
 
 interface BottomSheetPropType {
@@ -16,8 +16,7 @@ interface BottomSheetPropType {
   handleCheckAllSelected: () => void;
   seniorId: number;
 }
-
-const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
+const CalendarBottomSheet = ({
   isCalendarOpen,
   setIsCalendarOpen,
   selectedTime,
@@ -25,7 +24,7 @@ const CalendarBottomSheet: React.FC<BottomSheetPropType> = ({
   btnId,
   handleCheckAllSelected,
   seniorId,
-}) => {
+}: BottomSheetPropType) => {
   // 선배 아이디로 연결 필요
   const { data: preferredTimeList, isLoading, isError } = useSeniorTimeQuery(seniorId);
 
@@ -87,11 +86,11 @@ const Background = styled.div<{ $isCalendarOpen: boolean }>`
   display: ${({ $isCalendarOpen }) => ($isCalendarOpen ? 'flex' : 'none')};
   position: fixed;
   top: 0;
-  margin-left: -2rem;
   z-index: 2;
 
   width: 100%;
   height: 100dvh;
+  margin-left: -2rem;
 
   background: ${({ theme }) => theme.colors.transparentBlack_65};
 `;
@@ -103,9 +102,9 @@ const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
   top: 5rem;
   bottom: 0;
   z-index: 4;
-  margin-left: -2rem;
 
   height: 100vh;
+  margin-left: -2rem;
   border-radius: 16px 16px 0 0;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
