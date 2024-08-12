@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import TimeListBtns from './TimeListBtns';
-import { splitTimeRange, isAMTime } from '../../utils/changeFormat30Min';
+import { splitTimeRange, isAMTime } from '../utils/changeFormat30Min';
 
 interface TimeListType {
   startTime: string;

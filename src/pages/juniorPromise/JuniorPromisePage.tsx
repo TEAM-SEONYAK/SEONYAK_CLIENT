@@ -9,9 +9,10 @@ import { SeniorListBackground } from './components/SeniorListBackground';
 import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
-import PromiseRequestPage from './components/promiseRequest/PromiseRequestPage';
+
 import Loading from '@components/commons/Loading';
 import { HbHomeMainSvg } from '@assets/svgs';
+import JuniorPromiseRequestPage from '@pages/juniorPromiseRequest/JuniorPromiseRequestPage';
 
 const JuniorPromisePage = () => {
   // 필터 버튼
@@ -136,7 +137,7 @@ const JuniorPromisePage = () => {
   return (
     <>
       {isPromiseClicked ? (
-        <PromiseRequestPage seniorId={seniorId} seniorNickname={seniorNickname} />
+        <JuniorPromiseRequestPage seniorId={seniorId} seniorNickname={seniorNickname} />
       ) : isSeniorCardClicked ? (
         <>
           <Header

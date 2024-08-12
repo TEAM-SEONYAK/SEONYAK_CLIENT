@@ -1,20 +1,20 @@
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import CalendarBottomSheet from './CalendarBottomSheet';
-import WorryButtons from './WorryButtons';
-import WorryTextarea from './WorryTextarea';
-import ScheduleSelect from './ScheduleSelect';
+import CalendarBottomSheet from './components/CalendarBottomSheet';
+import WorryButtons from './components/WorryButtons';
+import WorryTextarea from './components/WorryTextarea';
+import ScheduleSelect from './components/ScheduleSelect';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
-import CheckModalContent from './CheckModalContent';
-import RequestComplete from './RequestComplete';
+import CheckModalContent from './components/CheckModalContent';
+import RequestComplete from './components/RequestComplete';
 import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import { useNavigate } from 'react-router-dom';
-import Banner from './Banner';
-import { usePostAppointment } from '../../hooks/queries';
-import TitleBox from '../../../../components/commons/TitleBox';
-import { SELECT_JUNIOR_TITLE } from '@pages/juniorPromise/constants/constants';
+import Banner from './components/Banner';
+import { SELECT_JUNIOR_TITLE } from '@pages/juniorPromiseRequest/constants/constants';
+import { usePostAppointment } from './hooks/queries';
+import TitleBox from '@components/commons/TitleBox';
 
 interface PromiseRequestPagePropType {
   seniorId: number;
@@ -114,7 +114,7 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
   useEffect(() => {
     setIsAllSelected(
       selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
-        (isAnyWorrySelected || isTextareaFilled),
+        (isAnyWorrySelected || isTextareaFilled)
     );
   }, [selectedTime, isAnyWorrySelected, isTextareaFilled]);
 

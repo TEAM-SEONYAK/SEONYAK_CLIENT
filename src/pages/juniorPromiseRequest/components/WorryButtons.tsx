@@ -1,8 +1,8 @@
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
-import { ButtonCheckIc } from '../../../../assets/svgs';
-import { WORRY_SELECTION_BUTTON } from '../../constants/constants';
+import { ButtonCheckIc } from '../../../assets/svgs';
+import { WORRY_SELECTION_BUTTON } from '../constants/constants';
 
 interface SelectJuniorWorryButtonProps {
   handleCheckWorrySelected: (isSelected: boolean) => void;
@@ -19,7 +19,7 @@ const SelectJuniorWorryButton = ({
     setSelectedButtons((prevSelectedButtons: string[]) =>
       prevSelectedButtons.includes(title)
         ? prevSelectedButtons.filter((buttonTitle) => buttonTitle !== title)
-        : [...prevSelectedButtons, title],
+        : [...prevSelectedButtons, title]
     );
   };
 
