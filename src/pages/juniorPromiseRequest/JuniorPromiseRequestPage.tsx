@@ -1,6 +1,10 @@
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { usePostAppointment } from './hooks/queries';
+
 import CalendarBottomSheet from './components/CalendarBottomSheet';
 import WorryButtons from './components/WorryButtons';
 import WorryTextarea from './components/WorryTextarea';
@@ -10,18 +14,11 @@ import CheckModalContent from './components/CheckModalContent';
 import RequestComplete from './components/RequestComplete';
 import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
-import { useNavigate } from 'react-router-dom';
 import Banner from './components/Banner';
-import { SELECT_JUNIOR_TITLE } from '@pages/juniorPromiseRequest/constants/constants';
-import { usePostAppointment } from './hooks/queries';
 import TitleBox from '@components/commons/TitleBox';
+import { SELECT_JUNIOR_TITLE } from './constants/constants';
 
-interface PromiseRequestPagePropType {
-  seniorId: number;
-  seniorNickname: string;
-}
-
-const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPagePropType) => {
+const JuniorPromiseRequestPage = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAllSelected, setIsAllSelected] = useState(false);
@@ -29,6 +26,7 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
   const [isTextareaFilled, setIsTextareaFilled] = useState(false);
   const [, setUnfilledFields] = useState<number[]>([]);
   const navigate = useNavigate();
+  const location = useLocation();
 
   // 약속 신청하기 눌렸는지 확인
   const [isSubmitClicked, setIsSubmitCicked] = useState(false);
@@ -46,6 +44,9 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
   const [btnId, setBtnId] = useState(0);
   // 선택한 고민 리스트
   const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
+
+  const [seniorId] = useState(location.state?.seniorId);
+  const [seniorNickname] = useState(location.state?.seniorNickname);
 
   // onToggle 함수 정의
   const handleToggle = (button: string) => {
@@ -184,7 +185,7 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
   );
 };
 
-export default PromiseRequestPage;
+export default JuniorPromiseRequestPage;
 
 const ImgHbpromiseIcon = styled(ImgHbpromiseIc)`
   position: absolute;
