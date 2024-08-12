@@ -13,7 +13,8 @@ import { Header } from '@components/commons/Header';
 import { useNavigate } from 'react-router-dom';
 import Banner from './Banner';
 import { usePostAppointment } from '../../hooks/queries';
-import TitleBox from './TitleBox';
+import TitleBox from '../../../../components/commons/TitleBox';
+import { SELECT_JUNIOR_TITLE } from '@pages/juniorPromise/constants/constants';
 
 interface PromiseRequestPagePropType {
   seniorId: number;
@@ -125,7 +126,7 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
 
       <Layout>
         <GrayLine1 />
-        <TitleBox num={0} />
+        <TitleBox title={SELECT_JUNIOR_TITLE[0].title} description={SELECT_JUNIOR_TITLE[0].description} />
         <ScheduleSelect
           selectedTime={selectedTime}
           setIsCalendarOpen={setIsCalendarOpen}
@@ -133,7 +134,7 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
           isSubmitClicked={isSubmitClicked}
         />
         <GrayLine2 />
-        <TitleBox num={1} />
+        <TitleBox title={SELECT_JUNIOR_TITLE[1].title} description={SELECT_JUNIOR_TITLE[1].description} />
         <ToggleButton
           left="선택할래요"
           right="작성할래요"
