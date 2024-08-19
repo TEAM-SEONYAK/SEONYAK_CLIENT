@@ -119,7 +119,7 @@ const JuniorPromiseRequestPage = () => {
 
   return (
     <Wrapper>
-      <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate('/')} title={'약속 신청하기'} />
+      <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate(-1)} title={'약속 신청하기'} />
       <Banner senior={`${seniorNickname} 선배`} />
       <ImgHbpromiseIcon />
 
