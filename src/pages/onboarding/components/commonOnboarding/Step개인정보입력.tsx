@@ -22,7 +22,8 @@ const Step개인정보입력 = () => {
   const [isNicknameValid, setIsNicknameValid] = useState(false);
 
   const [file, setFile] = useState<File>();
-  const [imageFile, setImageFile] = useState(data.image);
+  const [imageFile, setImageFile] = useState(data.imageUrl);
+  console.log(data);
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
 
@@ -75,7 +76,8 @@ const Step개인정보입력 = () => {
   const handleClickLink = () => {
     setData((prev) => ({
       ...prev,
-      image: fileName,
+      imageUrl: imageFile,
+      image: response.fileName,
       nickname: nickname,
     }));
     navigate(pathname.includes('senior') ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
