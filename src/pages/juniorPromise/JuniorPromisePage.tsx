@@ -114,7 +114,6 @@ const JuniorPromisePage = () => {
   const myNickname = data?.data.myNickname;
 
   const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
-  const [isPromiseClicked, setIsPromisedClicked] = useState(false);
   const [seniorId, setSeniorId] = useState(0);
   const [seniorNickname, setSeniorNickname] = useState('');
   const handleSeniorCardClicked = (type: boolean, id: number, name: string) => {
@@ -124,7 +123,12 @@ const JuniorPromisePage = () => {
   };
 
   const handlePromiseClicked = () => {
-    setIsPromisedClicked(true);
+    navigate('/juniorPromiseRequest', {
+      state: {
+        seniorId: seniorId,
+        seniorNickname: seniorNickname,
+      },
+    });
   };
 
   if (isLoading) {
@@ -137,15 +141,7 @@ const JuniorPromisePage = () => {
 
   return (
     <>
-      {isPromiseClicked ? (
-        // 약속 신청하기 클릭하면 후배 약속 신청 페이지로 이동
-        navigate('/juniorPromiseRequest', {
-          state: {
-            seniorId: seniorId,
-            seniorNickname: seniorNickname,
-          },
-        })
-      ) : isSeniorCardClicked ? (
+      {isSeniorCardClicked ? (
         <>
           <Header
             LeftSvg={ArrowLeftIc}
