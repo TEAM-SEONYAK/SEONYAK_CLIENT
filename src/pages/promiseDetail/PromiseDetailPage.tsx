@@ -27,7 +27,7 @@ const PromiseDetail = () => {
   const navigate = useNavigate();
 
   const { tap, myNickname, appointmentId } = location.state;
-  const userRole = 'SENIOR';
+  const userRole = localStorage.getItem('role') + '';
 
   const { juniorInfo, seniorInfo, timeList1, timeList2, timeList3, topic, personalTopic, isSuccess, isLoading } =
     useGetPromiseDetail(appointmentId);
@@ -254,7 +254,6 @@ const PromiseDetail = () => {
           ) : (
             <>
               <BtnWrapper>
-                {/* 구글밋 입장 연결 필요 */}
                 <FullBtn
                   onClick={() => {
                     setIsEnterBtnClicked(true);
@@ -368,8 +367,8 @@ const DeclineContent = styled.div`
   position: relative;
 
   width: 100%;
-  padding: 1.1rem 0 1.1rem 1.5rem;
   height: 4.4rem;
+  padding: 1.1rem 0 1.1rem 1.5rem;
   border-radius: 8px;
 
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
@@ -387,12 +386,13 @@ const ArrowDownMgIcon = styled(ArrowDownMgIc)`
 `;
 
 const Time = styled.div<{ $isActive: boolean }>`
-  width: 100%;
-
   display: flex;
   justify-content: space-between;
 
+  width: 100%;
   padding: 1.1rem 1.5rem;
+  border: ${({ $isActive, theme }) =>
+    $isActive ? `1px solid ${theme.colors.transparentBlue_50}` : '1px solid transparent'};
   border-radius: 8px;
 
   background-color: ${({ theme, $isActive }) =>
@@ -402,9 +402,6 @@ const Time = styled.div<{ $isActive: boolean }>`
 
   ${({ theme }) => theme.fonts.Body1_M_14};
   cursor: pointer;
-
-  border: ${({ $isActive, theme }) =>
-    $isActive ? `1px solid ${theme.colors.transparentBlue_50}` : '1px solid transparent'};
 `;
 
 const ButtonCheckIcon = styled(ButtonCheckIc)<{ isactive: string }>`
@@ -430,8 +427,8 @@ const DeclineText = styled.p`
   width: 100%;
   height: 4.4rem;
 
-  white-space: pre-wrap;
   color: ${({ theme }) => theme.colors.grayScaleDG};
+  white-space: pre-wrap;
   ${({ theme }) => theme.fonts.Body1_M_14}
 `;
 
@@ -444,8 +441,8 @@ const Description = styled.span`
 
 const BtnWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
   gap: 1rem;
+  justify-content: space-between;
   position: fixed;
   bottom: 0;
   z-index: 2;
@@ -458,10 +455,11 @@ const BtnWrapper = styled.div`
 const DeclineBtn = styled.button`
   z-index: 2;
 
-  border-radius: 5px;
-  /* width: 10.6rem; */
   width: 30%;
   height: 5.6rem;
+  border-radius: 5px;
+
+  /* width: 10.6rem; */
 
   background-color: ${({ theme }) => theme.colors.grayScaleBG};
 
@@ -474,10 +472,11 @@ const DeclineBtn = styled.button`
 const AcceptBtn = styled.button<{ $isActive: boolean }>`
   z-index: 2;
 
-  border-radius: 5px;
-  /* width: 21.9rem; */
   width: 70%;
   height: 5.6rem;
+  border-radius: 5px;
+
+  /* width: 21.9rem; */
 
   background-color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleMG2)};
 

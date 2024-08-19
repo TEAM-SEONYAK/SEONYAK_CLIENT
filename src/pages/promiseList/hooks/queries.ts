@@ -11,7 +11,7 @@ export const QUERY_KEY_PROMISE_LIST = {
 export const useGetGoogleMeetLink = (
   appointmentId: number | undefined,
   isEnterBtnClicked: boolean,
-  onSuccessCallback?: (link: string) => void,
+  onSuccessCallback?: (link: string) => void
 ) => {
   const { data, isSuccess } = useQuery({
     queryKey: [QUERY_KEY_PROMISE_LIST.getGoogleMeetLink, appointmentId, isEnterBtnClicked],
@@ -21,6 +21,7 @@ export const useGetGoogleMeetLink = (
 
   useEffect(() => {
     if (isSuccess && data) {
+      console.log('실행됨');
       const googleMeetLink = data;
       if (onSuccessCallback && googleMeetLink) {
         onSuccessCallback(googleMeetLink);

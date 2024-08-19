@@ -5,8 +5,8 @@ import ProfileChip from './ProfileChip';
 import ProfileContainer from './ProfileContainer';
 import PromiseTimerBtn from './PromiseTimerBtn';
 import { profileCardDataType } from '../types/type';
-// import { useGetGoogleMeetLink } from '../hooks/queries';
-// import { useState } from 'react';
+import { useGetGoogleMeetLink } from '../hooks/queries';
+import { useState } from 'react';
 
 interface RecentCardPropType {
   userRole: string;
@@ -16,24 +16,18 @@ interface RecentCardPropType {
 }
 
 const RecentCard = (props: RecentCardPropType) => {
-  // 데모데이
-  const googleMeetLink = 'https://meet.google.com/gnr-wgcr-gcv';
-  const onClickLink = () => {
-    window.open(googleMeetLink, '_blank');
-  };
-
   const { userRole, recentAppointment, appointmentNum, nickname } = props;
   const { diffText, diff, dDayDiff } = useCountdown(recentAppointment?.date, recentAppointment?.startTime);
-  // const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
-  // const [, setGoogleMeetLink] = useState('');
+  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
+  const [, setGoogleMeetLink] = useState('');
 
-  // const handleClickEnterBtn = (link: string) => {
-  //   setGoogleMeetLink(link);
-  //   window.open(link, '_blank');
-  //   setIsEnterBtnClicked(false);
-  // };
+  const handleClickEnterBtn = (link: string) => {
+    setGoogleMeetLink(link);
+    window.open(link, '_blank');
+    setIsEnterBtnClicked(false);
+  };
 
-  // useGetGoogleMeetLink(recentAppointment?.appointmentId, isEnterBtnClicked, handleClickEnterBtn);
+  useGetGoogleMeetLink(recentAppointment?.appointmentId, isEnterBtnClicked, handleClickEnterBtn);
 
   const handleClickUserGuide = () => {
     userRole === 'SENIOR'
@@ -51,6 +45,7 @@ const RecentCard = (props: RecentCardPropType) => {
         <ProfileChip type="userGuide" content="선약 이용방법 보기" onClick={handleClickUserGuide} />
       </RecentNav>
       <DashedDivider />
+      <button onClick={() => setIsEnterBtnClicked(true)}>구글밋 테스트</button>
       {appointmentNum ? (
         <>
           <ProfileContainer
@@ -64,7 +59,7 @@ const RecentCard = (props: RecentCardPropType) => {
             isActive={diff !== undefined && diff <= 0}
             diff={diffText}
             page="recent"
-            onClick={() => onClickLink()}
+            // onClick={() => onClickLink()}
           />
         </>
       ) : (
