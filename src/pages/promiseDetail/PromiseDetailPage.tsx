@@ -110,6 +110,7 @@ const PromiseDetail = () => {
   const handleClickEnterBtn = (link: string) => {
     setGoogleMeetLink(link);
     window.open(link, '_blank');
+    setIsEnterBtnClicked(false);
   };
 
   useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);

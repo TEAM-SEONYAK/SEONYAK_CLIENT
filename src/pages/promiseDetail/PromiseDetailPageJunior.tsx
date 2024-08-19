@@ -92,7 +92,7 @@ const PromiseDetailPageJunior = () => {
 
               <TitleContainer>
                 <Title>{seniorInfo.nickname} 선배님과 상담하고 싶은 내용</Title>
-                {topic[0] !== '' ? (
+                {topic.length !== 0 ? (
                   topic.map((el: string, idx: number) => <Content key={idx + el}>{el}</Content>)
                 ) : (
                   <WrittenContent>{personalTopic}</WrittenContent>
