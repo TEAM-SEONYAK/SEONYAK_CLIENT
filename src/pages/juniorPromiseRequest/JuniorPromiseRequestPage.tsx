@@ -43,9 +43,8 @@ const JuniorPromiseRequestPage = () => {
   const [btnId, setBtnId] = useState(0);
   // 선택한 고민 리스트
   const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
-
-  const [seniorId] = useState(location.state?.seniorId);
-  const [seniorNickname] = useState(location.state?.seniorNickname);
+  // 선배 Id, 닉네임 useLocation에서 가져오기(구조분해할당)
+  const { seniorId, seniorNickname } = location.state || {};
 
   // onToggle 함수 정의
   const handleToggle = (button: string) => {
