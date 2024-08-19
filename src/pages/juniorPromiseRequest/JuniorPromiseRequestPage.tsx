@@ -16,6 +16,7 @@ import { Header } from '@components/commons/Header';
 import Banner from './components/Banner';
 import TitleBox from '@components/commons/TitleBox';
 import { SELECT_JUNIOR_TITLE } from './constants/constants';
+import axios from 'axios';
 
 const JuniorPromiseRequestPage = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
@@ -78,28 +79,37 @@ const JuniorPromiseRequestPage = () => {
 
   const handlePostAppointment = () => {
     if (isAllSelected) {
-      postAppointment({
-        seniorId: seniorId,
-        topic: activeButton === '선택할래요' ? selectedButtons : [],
-        personalTopic: activeButton === '선택할래요' ? '' : inputVal,
-        timeList: [
-          {
-            date: selectedTime[0].clickedDay,
-            startTime: selectedTime[0].selectedTime.split('-')[0],
-            endTime: selectedTime[0].selectedTime.split('-')[1],
+      postAppointment(
+        {
+          seniorId: seniorId,
+          topic: activeButton === '선택할래요' ? selectedButtons : [],
+          personalTopic: activeButton === '선택할래요' ? '' : inputVal,
+          timeList: [
+            {
+              date: selectedTime[0].clickedDay,
+              startTime: selectedTime[0].selectedTime.split('-')[0],
+              endTime: selectedTime[0].selectedTime.split('-')[1],
+            },
+            {
+              date: selectedTime[1].clickedDay,
+              startTime: selectedTime[1].selectedTime.split('-')[0],
+              endTime: selectedTime[1].selectedTime.split('-')[1],
+            },
+            {
+              date: selectedTime[2].clickedDay,
+              startTime: selectedTime[2].selectedTime.split('-')[0],
+              endTime: selectedTime[2].selectedTime.split('-')[1],
+            },
+          ],
+        },
+        {
+          onError: (error) => {
+            if (axios.isAxiosError(error) && error.response?.status === 400) {
+              alert('이미 약속을 신청한 선배입니다.');
+            }
           },
-          {
-            date: selectedTime[1].clickedDay,
-            startTime: selectedTime[1].selectedTime.split('-')[0],
-            endTime: selectedTime[1].selectedTime.split('-')[1],
-          },
-          {
-            date: selectedTime[2].clickedDay,
-            startTime: selectedTime[2].selectedTime.split('-')[0],
-            endTime: selectedTime[2].selectedTime.split('-')[1],
-          },
-        ],
-      });
+        }
+      );
     }
   };
 
