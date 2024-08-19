@@ -21,7 +21,7 @@ const Step개인정보입력 = () => {
   const [isNicknameError, setNicknameError] = useState(false);
   const [isNicknameValid, setIsNicknameValid] = useState(false);
 
-  const [imageFile, setImageFile] = useState<File>(data.imageFile);
+  const [imageFile, setImageFile] = useState<File | null>(data.imageFile || null);
   const [imageUrl, setImageUrl] = useState(data.imageUrl);
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
