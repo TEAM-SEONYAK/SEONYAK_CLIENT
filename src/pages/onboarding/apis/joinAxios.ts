@@ -1,11 +1,9 @@
 import { authAxios } from '@utils/apis';
-import { JoinPropType, JoinRequesetType } from '../type';
+import { JoinPropType } from '../type';
 
 export const joinAxios = (requestBody: JoinPropType) => {
-  const request: JoinRequesetType = {
-    ...requestBody,
-    image: 'https://example.com/business-card.jpg',
-    isSubscribed: requestBody.isSubscribed[4],
-  };
-  return authAxios.patch('/v1/auth/join', request);
+  // 불필요한 데이터 필터링
+  const { imageUrl, imageFile, ...request } = requestBody;
+
+  return authAxios.patch('/v1/auth/join', { ...request, isSubscribed: requestBody.isSubscribed[4] });
 };

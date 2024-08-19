@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { profileImageAxios } from '../apis/profileImageAxios';
+import { presignedUrlAxios } from '../apis/profileImageAxios';
 
 const usePresignedUrl = () => {
-  const { isSuccess, data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['presignedurl'],
-    queryFn: () => profileImageAxios(),
+    queryFn: () => presignedUrlAxios(),
   });
-  return { isSuccess, response: data?.data.data };
+  return { res: data?.data?.data, refetch };
 };
 
 export default usePresignedUrl;

@@ -2,7 +2,7 @@ import { StartProfile1Img, StartProfile2Img } from '@assets/images';
 import { CameraIc } from '@assets/svgs';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
@@ -21,35 +21,18 @@ const Step개인정보입력 = () => {
   const [isNicknameError, setNicknameError] = useState(false);
   const [isNicknameValid, setIsNicknameValid] = useState(false);
 
-  const [file, setFile] = useState<File>();
-  const [imageFile, setImageFile] = useState(data.imageUrl);
-  console.log(data);
+  const [imageFile, setImageFile] = useState<File>(data.imageFile);
+  const [imageUrl, setImageUrl] = useState(data.imageUrl);
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
 
-  const {
-    isSuccess,
-    response: { url, fileName },
-  } = usePresignedUrl();
-  const { mutate } = useProfileQuery();
-
-  useEffect(() => {
-    if (!isSuccess || !file) return;
-    mutate({ url, image: file });
-  }, [isSuccess, url, file]);
+  const { res } = usePresignedUrl();
+  const { mutate: imageUploadMutate } = useProfileQuery();
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    setFile(e.target.files[0]);
-    console.log('💕', e.target.files[0]);
-    console.log('💙', fileName, url);
-
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImageFile(URL.createObjectURL(file));
-    };
+    setImageFile(e.target.files[0]);
+    setImageUrl(URL.createObjectURL(e.target.files[0]));
   };
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,10 +57,13 @@ const Step개인정보입력 = () => {
   };
 
   const handleClickLink = () => {
+    if (!res || !imageFile) return;
+    imageUploadMutate({ url: res.url, image: imageFile });
     setData((prev) => ({
       ...prev,
-      imageUrl: imageFile,
-      image: response.fileName,
+      imageFile,
+      imageUrl,
+      image: res.fileName,
       nickname: nickname,
     }));
     navigate(pathname.includes('senior') ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
@@ -91,7 +77,7 @@ const Step개인정보입력 = () => {
           <ImageInputWrapper>
             <ImageInputLabel>
               <ImgCircle>
-                <img src={imageFile ? imageFile : startImg} alt="프로필 이미지" />
+                <img src={imageUrl ? imageUrl : startImg} alt="프로필 이미지" />
                 <input type="file" accept="image/*" onChange={handleChangeImage} />
               </ImgCircle>
               <CameraIc />
