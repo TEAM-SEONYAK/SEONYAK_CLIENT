@@ -140,17 +140,6 @@ const JuniorPromiseRequestPage = () => {
           activeButton={activeButton}
           onSetActiveButtonHandler={handleToggle}
         />
-        {isModalOpen && (
-          <BtnCloseModal
-            title={'약속 잡기 전 주의해주세요'}
-            isModalOpen={isModalOpen}
-            handleModalOpen={handleModalOpen}
-            handleBtnClick={handlePostAppointment}
-            btnText={'적용할래요'}>
-            <CheckModalContent />
-          </BtnCloseModal>
-        )}
-        {isModalClicked && <RequestComplete seniorNickname={seniorNickname} />}
         {activeButton === '선택할래요' ? (
           <WorryButtons
             selectedButtons={selectedButtons}
@@ -179,6 +168,17 @@ const JuniorPromiseRequestPage = () => {
           </SubmitBtn>
         </PageBottomBar>
       </Layout>
+      {isModalOpen && (
+        <BtnCloseModal
+          title={'약속 잡기 전 주의해주세요'}
+          isModalOpen={isModalOpen}
+          handleModalOpen={handleModalOpen}
+          handleBtnClick={handlePostAppointment}
+          btnText={'적용할래요'}>
+          <CheckModalContent />
+        </BtnCloseModal>
+      )}
+      {isModalClicked && <RequestComplete seniorNickname={seniorNickname} />}
     </Wrapper>
   );
 };
