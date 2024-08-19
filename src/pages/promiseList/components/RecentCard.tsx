@@ -68,7 +68,7 @@ const RecentCard = (props: RecentCardPropType) => {
           />
         </>
       ) : (
-        <EmptyImg />
+        <EmptyImage />
       )}
     </Wrapper>
   );
@@ -107,4 +107,8 @@ const DashedDivider = styled.div`
   height: 0.1rem;
   margin-bottom: 1.39rem;
   border-bottom: 1px dashed ${({ theme }) => theme.colors.grayScaleLG1};
+`;
+
+const EmptyImage = styled(EmptyImg)`
+  width: 100%;
 `;
