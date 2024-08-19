@@ -1,8 +1,7 @@
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { usePostAppointment } from './hooks/queries';
 
 import CalendarBottomSheet from './components/CalendarBottomSheet';
