@@ -22,7 +22,7 @@ const Step개인정보입력 = () => {
   const [isNicknameValid, setIsNicknameValid] = useState(false);
 
   const [imageFile, setImageFile] = useState<File | null>(data.imageFile || null);
-  const [imageUrl, setImageUrl] = useState(data.imageUrl);
+
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
 
@@ -32,7 +32,6 @@ const Step개인정보입력 = () => {
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setImageFile(e.target.files[0]);
-    setImageUrl(URL.createObjectURL(e.target.files[0]));
   };
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +61,6 @@ const Step개인정보입력 = () => {
     setData((prev) => ({
       ...prev,
       imageFile,
-      imageUrl,
       image: res.fileName,
       nickname: nickname,
     }));
@@ -77,7 +75,7 @@ const Step개인정보입력 = () => {
           <ImageInputWrapper>
             <ImageInputLabel>
               <ImgCircle>
-                <img src={imageUrl ? imageUrl : startImg} alt="프로필 이미지" />
+                <img src={imageFile ? URL.createObjectURL(imageFile) : startImg} alt="프로필 이미지" />
                 <input type="file" accept="image/*" onChange={handleChangeImage} />
               </ImgCircle>
               <CameraIc />
