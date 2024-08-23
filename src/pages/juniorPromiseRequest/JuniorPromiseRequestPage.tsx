@@ -1,6 +1,6 @@
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { usePostAppointment } from './hooks/queries';
 
@@ -20,7 +20,7 @@ import { SELECT_JUNIOR_TITLE } from './constants/constants';
 const JuniorPromiseRequestPage = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAllSelected, setIsAllSelected] = useState(false);
+  const [isAllSelected] = useState(false);
   const [isAnyWorrySelected, setIsAnyWorrySelected] = useState(false);
   const [isTextareaFilled, setIsTextareaFilled] = useState(false);
   const [, setUnfilledFields] = useState<number[]>([]);
@@ -109,14 +109,6 @@ const JuniorPromiseRequestPage = () => {
     isAllSelected && handleModalOpen(true);
   };
 
-  // isAllSelected 업데이트
-  useEffect(() => {
-    setIsAllSelected(
-      selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
-        (isAnyWorrySelected || isTextareaFilled)
-    );
-  }, [selectedTime, isAnyWorrySelected, isTextareaFilled]);
-
   return (
     <Wrapper>
       <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate('/')} title={'약속 신청하기'} />
@@ -174,7 +166,13 @@ const JuniorPromiseRequestPage = () => {
             <Label>총 결제금액</Label>
             <Cost>0원</Cost>
           </CostWrapper>
-          <SubmitBtn type="button" onClick={() => handleSubmit(isAllSelected)} $isAllSelected={isAllSelected}>
+          <SubmitBtn
+            type="button"
+            onClick={() => handleSubmit(isAllSelected)}
+            $isAllSelected={
+              selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
+              (isAnyWorrySelected || isTextareaFilled)
+            }>
             약속 신청하기
           </SubmitBtn>
         </PageBottomBar>
