@@ -79,7 +79,7 @@ const JuniorPromiseRequestPage = () => {
   const handlePostAppointment = () => {
     if (isAllSelected) {
       postAppointment({
-        seniorId: seniorId,
+        seniorId,
         topic: activeButton === '선택할래요' ? selectedButtons : [],
         personalTopic: activeButton === '선택할래요' ? '' : inputVal,
         timeList: [

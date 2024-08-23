@@ -125,8 +125,8 @@ const JuniorPromisePage = () => {
   const handlePromiseClicked = () => {
     navigate('/juniorPromiseRequest', {
       state: {
-        seniorId: seniorId,
-        seniorNickname: seniorNickname,
+        seniorId,
+        seniorNickname,
       },
     });
   };
