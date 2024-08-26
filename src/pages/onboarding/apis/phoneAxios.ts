@@ -1,7 +1,8 @@
 import { axios } from '@utils/apis';
+import onboardingKeys from '../queryKeys';
 
 export const phoneVerifyAxios = (phoneNumber: string) => {
-  return axios.post('/phone/verify', {
+  return axios.post(onboardingKeys.phoneVerify[0], {
     phoneNumber,
   });
 };
@@ -12,7 +13,7 @@ export interface phoneVerifycodePropType {
 }
 
 export const phoneVerifycodeAxios = ({ phoneNumber, verificationCode }: phoneVerifycodePropType) => {
-  return axios.post('/phone/verifycode', {
+  return axios.post(onboardingKeys.phonVerifyCode[0], {
     phoneNumber,
     verificationCode,
   });

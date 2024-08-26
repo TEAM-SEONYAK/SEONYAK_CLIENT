@@ -1,7 +1,8 @@
 import { axios } from '@utils/apis';
+import onboardingKeys from '../queryKeys';
 
 export const univNameAxios = (univName: string) => {
-  return axios.get('/search/univ', {
+  return axios.get(onboardingKeys.searchUniv[0], {
     params: {
       univName,
     },
@@ -9,7 +10,7 @@ export const univNameAxios = (univName: string) => {
 };
 
 export const departmentAxios = (univName: string, deptName: string) => {
-  return axios.get('/search/dept', {
+  return axios.get(onboardingKeys.searchDept[0], {
     params: {
       univName,
       deptName,
