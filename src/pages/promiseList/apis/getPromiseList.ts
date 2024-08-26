@@ -3,7 +3,7 @@ import { authAxios } from '@utils/apis';
 
 export const getPromiseList = async () => {
   try {
-    const response = await authAxios.get(`/v1/appointment`);
+    const response = await authAxios.get(`/appointment`);
     // console.log(response.data);
     return response.data.data;
   } catch (error) {

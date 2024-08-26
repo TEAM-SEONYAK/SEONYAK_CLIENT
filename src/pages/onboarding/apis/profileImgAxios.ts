@@ -5,7 +5,7 @@ export const profileImgAxios = async (file: File) => {
     const formData = new FormData();
     formData.append('profileImage', file);
 
-    const response = await authAxios.patch('/v1/profile-image', formData, {
+    const response = await authAxios.patch('/profile-image', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

@@ -1,12 +1,9 @@
-import { axios } from "@utils/apis"
+import { axios } from '@utils/apis';
 
 export const phoneVerifyAxios = (phoneNumber: string) => {
-  return axios.post(
-    '/v1/phone/verify',
-    {
-      phoneNumber,
-    }
-  )
+  return axios.post('/phone/verify', {
+    phoneNumber,
+  });
 };
 
 export interface phoneVerifycodePropType {
@@ -15,11 +12,8 @@ export interface phoneVerifycodePropType {
 }
 
 export const phoneVerifycodeAxios = ({ phoneNumber, verificationCode }: phoneVerifycodePropType) => {
-  return axios.post(
-    '/v1/phone/verifycode',
-    {
-      phoneNumber,
-      verificationCode,
-    }
-  )
+  return axios.post('/phone/verifycode', {
+    phoneNumber,
+    verificationCode,
+  });
 };

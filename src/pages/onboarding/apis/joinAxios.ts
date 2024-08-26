@@ -7,5 +7,5 @@ export const joinAxios = (requestBody: JoinPropType) => {
     image: 'https://example.com/business-card.jpg',
     isSubscribed: requestBody.isSubscribed[4],
   };
-  return authAxios.patch('/v1/auth/join', request);
+  return authAxios.patch('/auth/join', request);
 };

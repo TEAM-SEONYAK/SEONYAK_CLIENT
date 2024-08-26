@@ -25,7 +25,7 @@ export const getSeniorProfile = async (fields: string[], positions: string[]): P
   const positionQuery = positions.map((position) => `position=${position}`).join('&');
   const queryString = fieldQuery && positionQuery ? `${fieldQuery}&${positionQuery}` : `${fieldQuery}${positionQuery}`;
   try {
-    const response = await authAxios.get<GetSeniorProfileResponse>(`/v1/senior/search?${queryString}`);
+    const response = await authAxios.get<GetSeniorProfileResponse>(`/senior/search?${queryString}`);
 
     return response.data;
   } catch (error) {

@@ -5,7 +5,7 @@ export const businessCardAxios = async (file: File) => {
     const formData = new FormData();
     formData.append('businessCardImage', file);
 
-    const response = await authAxios.patch('/v1/businesscard-image', formData, {
+    const response = await authAxios.patch('/businesscard-image', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
