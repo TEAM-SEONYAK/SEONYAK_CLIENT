@@ -1,19 +1,11 @@
 import { axios } from '@utils/apis';
-import onboardingKeys from '../queryKeys';
+import { QueryFunction } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
-export const univNameAxios = (univName: string) => {
-  return axios.get(onboardingKeys.searchUniv[0], {
-    params: {
-      univName,
-    },
-  });
+export const univNameAxios: QueryFunction<AxiosResponse, string[]> = ({ queryKey }) => {
+  return axios.get(queryKey[0]);
 };
 
-export const departmentAxios = (univName: string, deptName: string) => {
-  return axios.get(onboardingKeys.searchDept[0], {
-    params: {
-      univName,
-      deptName,
-    },
-  });
+export const departmentAxios: QueryFunction<AxiosResponse, string[]> = ({ queryKey }) => {
+  return axios.get(queryKey[0]);
 };

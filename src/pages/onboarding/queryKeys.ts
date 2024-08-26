@@ -6,8 +6,8 @@ const onboardingKeys = {
   phoneVerify: ['/phone/verify'],
   phonVerifyCode: ['/phone/verifycode'],
   profileImage: ['/profile-image'],
-  searchUniv: ['/search/univ'],
-  searchDept: ['/search/dept'],
+  searchUniv: (univ: string) => [`/search?univName=${univ}`],
+  searchDept: (univ: string, dept: string) => [`/search/dept?univName=${univ}&deptName=${dept}`],
   univVerify: ['/univ/verify'],
   univVerifycode: ['/univ/verifycode'],
 };

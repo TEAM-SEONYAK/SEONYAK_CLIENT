@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { departmentAxios } from '../apis/searchAxios';
+import onboardingKeys from '../queryKeys';
 
 const useSearchDeptQuery = (univName: string, deptName: string) => {
   const { data } = useQuery({
-    queryKey: ['univ', univName, deptName],
-    queryFn: () => departmentAxios(univName, deptName),
+    queryKey: onboardingKeys.searchDept(univName, deptName),
+    queryFn: departmentAxios,
   });
   return data?.data.data;
 };
