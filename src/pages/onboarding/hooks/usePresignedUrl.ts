@@ -4,7 +4,7 @@ import { presignedUrlAxios } from '../apis/profileImageAxios';
 const usePresignedUrl = () => {
   const { data } = useQuery({
     queryKey: ['presignedurl'],
-    queryFn: () => presignedUrlAxios(),
+    queryFn: presignedUrlAxios,
   });
   return { res: data?.data?.data };
 };
