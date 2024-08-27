@@ -1,12 +1,12 @@
 import { authAxios } from '@utils/apis';
-import onboardingKeys from '../queryKeys';
+import paths from '../queryKeys';
 
 export const profileImgAxios = async (file: File) => {
   try {
     const formData = new FormData();
     formData.append('profileImage', file);
 
-    const response = await authAxios.patch(onboardingKeys.profileImage[0], formData, {
+    const response = await authAxios.patch(paths.profileImage, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

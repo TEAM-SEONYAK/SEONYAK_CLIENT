@@ -1,6 +1,6 @@
 import { authAxios } from '@utils/apis';
 import { JoinPropType, JoinRequesetType } from '../type';
-import onboardingKeys from '../queryKeys';
+import paths from '../queryKeys';
 
 export const joinAxios = (requestBody: JoinPropType) => {
   const request: JoinRequesetType = {
@@ -8,5 +8,5 @@ export const joinAxios = (requestBody: JoinPropType) => {
     image: 'https://example.com/business-card.jpg',
     isSubscribed: requestBody.isSubscribed[4],
   };
-  return authAxios.patch(onboardingKeys.join[0], request);
+  return authAxios.patch(paths.join, request);
 };

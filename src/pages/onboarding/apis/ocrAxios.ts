@@ -1,9 +1,9 @@
 import { axios } from '@utils/apis';
-import onboardingKeys from '../queryKeys';
+import paths from '../queryKeys';
 
 export const ocrUnivAxios = (imageFile: File) => {
   return axios.post(
-    '/ocr/univ',
+    paths.univ,
     {
       imageFile,
     },
@@ -17,7 +17,7 @@ export const ocrUnivAxios = (imageFile: File) => {
 
 export const ocrNameCardAxios = (imageFile: File) => {
   return axios.post(
-    onboardingKeys.businessCard[0],
+    paths.businessCard,
     {
       imageFile,
     },

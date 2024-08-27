@@ -1,8 +1,8 @@
 import { axios } from '@utils/apis';
-import onboardingKeys from '../queryKeys';
+import paths from '../queryKeys';
 
 export const nicknameAxios = (nickname: string) => {
-  return axios.post(onboardingKeys.nickname[0], {
+  return axios.post(paths.nickname, {
     nickname,
   });
 };
