@@ -23,12 +23,10 @@ const JuniorPromisePage = () => {
   const handleFilterActiveBtn = (btnText: string) => {
     setFilterActiveBtn(btnText);
     setIsBottomSheetOpen(true);
-    document.body.style.overflow = 'hidden';
   };
   // 바텀시트 닫기
   const handleCloseBottomSheet = () => {
     setIsBottomSheetOpen(false);
-    document.body.style.overflow = 'auto';
   };
 
   // 바텀시트 내 직무 칩
