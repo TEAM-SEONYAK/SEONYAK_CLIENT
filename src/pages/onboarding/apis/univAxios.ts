@@ -1,5 +1,4 @@
 import { axios } from '@utils/apis';
-import paths from '../queryKeys';
 
 export interface univVerifyPropType {
   email: string;
@@ -8,14 +7,14 @@ export interface univVerifyPropType {
 }
 
 export const univVerifyAxios = ({ email, univName }: univVerifyPropType) => {
-  return axios.post(paths.univVerify, {
+  return axios.post('/v1/univ/verify', {
     email,
     univName,
   });
 };
 
 export const univVerifycodeAxios = ({ email, univName, code }: univVerifyPropType) => {
-  return axios.post(paths.univVerifycode, {
+  return axios.post('/v1/univ/verifycode', {
     email,
     univName,
     code,

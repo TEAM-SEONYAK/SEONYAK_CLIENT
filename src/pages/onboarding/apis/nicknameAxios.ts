@@ -1,8 +1,7 @@
 import { axios } from '@utils/apis';
-import paths from '../queryKeys';
 
 export const nicknameAxios = (nickname: string) => {
-  return axios.post(paths.nickname, {
+  return axios.post('/v1/nickname', {
     nickname,
   });
 };

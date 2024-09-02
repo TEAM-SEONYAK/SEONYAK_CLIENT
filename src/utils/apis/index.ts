@@ -1,14 +1,14 @@
 import * as _axios from 'axios';
 
 export const axios = _axios.default.create({
-  baseURL: '/api/v1',
+  baseURL: '/api',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 export const authAxios = _axios.default.create({
-  baseURL: '/api/v1',
+  baseURL: '/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -24,5 +24,5 @@ authAxios.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );

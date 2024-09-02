@@ -15,7 +15,7 @@ export interface patchSeniorAcceptRequestType {
 
 export const patchSeniorAccept = async ({ appointmentId, googleMeetLink, timeList }: patchSeniorAcceptRequestType) => {
   try {
-    const response = await authAxios.patch('/appointment/accept', {
+    const response = await authAxios.patch('/v1/appointment/accept', {
       appointmentId,
       googleMeetLink,
       timeList,

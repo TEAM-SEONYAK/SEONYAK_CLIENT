@@ -3,7 +3,7 @@ import { authAxios } from '@utils/apis';
 
 export const getGoogleMeetLink = async (appointmentId: number) => {
   try {
-    const response = await authAxios.get(`/google-meet/${appointmentId}`);
+    const response = await authAxios.get(`/v1/google-meet/${appointmentId}`);
     // console.log(response.data.data.googleMeetLink);
     return response.data.data.googleMeetLink;
   } catch (error) {

@@ -1,8 +1,7 @@
 import { axios } from '@utils/apis';
-import paths from '../queryKeys';
 
 export const phoneVerifyAxios = (phoneNumber: string) => {
-  return axios.post(paths.phoneVerify, {
+  return axios.post('/v1/phone/verify', {
     phoneNumber,
   });
 };
@@ -13,7 +12,7 @@ export interface phoneVerifycodePropType {
 }
 
 export const phoneVerifycodeAxios = ({ phoneNumber, verificationCode }: phoneVerifycodePropType) => {
-  return axios.post(paths.phonVerifyCode, {
+  return axios.post('/v1/phone/verifycode', {
     phoneNumber,
     verificationCode,
   });
