@@ -4,7 +4,7 @@ import Nav from '@components/commons/Nav';
 import { SeniorCard } from '@components/commons/SeniorCard';
 import styled from '@emotion/styled';
 import { BottomSheet } from '@pages/juniorPromise/components/BottomSheetBg';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { SeniorListBackground } from './components/SeniorListBackground';
 import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 import PreView from '@pages/seniorProfile/components/preView';
@@ -18,14 +18,6 @@ const JuniorPromisePage = () => {
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
   // 바텀 시트 여는 동작
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (wrapperRef.current) {
-      wrapperRef.current.style.position = isBottomSheetOpen ? 'fixed' : 'relative';
-    }
-  }, [isBottomSheetOpen]);
 
   // 필터 버튼에 정보 넣기, 바텀시트 열기
   const handleFilterActiveBtn = (btnText: string) => {
@@ -150,7 +142,7 @@ const JuniorPromisePage = () => {
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
       ) : (
-        <Wrapper ref={wrapperRef}>
+        <Wrapper isBottomSheetOpen={isBottomSheetOpen}>
           <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
           <Background>
             <HbHomeMainSvgIcon />
@@ -211,7 +203,10 @@ const JuniorPromisePage = () => {
 };
 
 export default JuniorPromisePage;
-const Wrapper = styled.div`
+
+const Wrapper = styled.div<{ isBottomSheetOpen: boolean }>`
+  position: ${({ isBottomSheetOpen }) => (isBottomSheetOpen ? 'fixed' : 'relative')};
+
   min-height: calc(var(--vh, 1vh) * 100 - 44px);
 
   background-color: ${({ theme }) => theme.colors.grayScaleWG};
