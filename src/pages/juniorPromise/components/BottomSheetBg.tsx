@@ -46,12 +46,15 @@ export const BottomSheet = (props: BottomSheetPropType) => {
           <Title>원하는 선배를 찾아볼까요?</Title>
           <Desc>계열, 직무로 원하는 선배를 찾을 수 있어요.</Desc>
         </TitleLayout>
-        <ToggleButton
-          left="계열"
-          right="직무"
-          activeButton={filterActiveBtn}
-          onSetActiveButtonHandler={handleFilterActiveBtn}
-        />
+        <ToggleLayout>
+          <ToggleButton
+            left="계열"
+            right="직무"
+            activeButton={filterActiveBtn}
+            onSetActiveButtonHandler={handleFilterActiveBtn}
+          />
+        </ToggleLayout>
+
         <Content>
           {filterActiveBtn === '계열' ? (
             <FieldLayout>
@@ -135,6 +138,10 @@ const BottomSheetWrapper = styled.form<{ $isBottomSheetOpen: boolean }>`
 
 const TitleLayout = styled.header`
   padding: 1.4rem 16.1rem 1.6rem 2rem;
+`;
+
+const ToggleLayout = styled.div`
+  margin: 0 2rem;
 `;
 
 const Content = styled.div`

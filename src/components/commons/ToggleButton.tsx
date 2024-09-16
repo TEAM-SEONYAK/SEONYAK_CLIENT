@@ -31,7 +31,7 @@ const Wrapper = styled.div`
 const Layout = styled.div`
   display: flex;
 
-  width: 33.7rem;
+  width: 100%;
   height: 4.4rem;
   border-radius: 8px;
 
