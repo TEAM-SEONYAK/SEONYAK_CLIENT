@@ -14,7 +14,7 @@ import Loading from '@components/commons/Loading';
 import { HbHomeMainSvg } from '@assets/svgs';
 
 const JuniorPromisePage = () => {
-  // 필터 버튼
+  // 바텀 시트 내 버튼& 내용 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
   // 바텀 시트 여는 동작
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -23,12 +23,10 @@ const JuniorPromisePage = () => {
   const handleFilterActiveBtn = (btnText: string) => {
     setFilterActiveBtn(btnText);
     setIsBottomSheetOpen(true);
-    document.body.style.overflow = 'hidden';
   };
   // 바텀시트 닫기
   const handleCloseBottomSheet = () => {
     setIsBottomSheetOpen(false);
-    document.body.style.overflow = 'auto';
   };
 
   // 바텀시트 내 직무 칩
@@ -63,11 +61,6 @@ const JuniorPromisePage = () => {
     setChipPositionName([]);
   };
 
-  // 선택된 직무 칩 수
-  const getPositionTrueNum = (arrPosition: boolean[]) => {
-    return arrPosition.filter((n) => n).length;
-  };
-  const positionChipNum = getPositionTrueNum(arrPosition);
   // 칩으로 나갈 선택된 계열 이름 리스트
   const [chipFieldName, setChipFieldName] = useState<string[]>([]);
 
@@ -99,7 +92,7 @@ const JuniorPromisePage = () => {
       }
     });
   };
-  // 직무리스트에 이름빼는 함수
+  // 직무리스트에 이름 빼는 함수
   const deletePositionList = (chipName: string) => {
     setChipPositionName((prev) => prev.filter((name) => name !== chipName));
   };
@@ -149,7 +142,7 @@ const JuniorPromisePage = () => {
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
       ) : (
-        <Wrapper>
+        <Wrapper isBottomSheetOpen={isBottomSheetOpen}>
           <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
           <Background>
             <HbHomeMainSvgIcon />
@@ -160,11 +153,10 @@ const JuniorPromisePage = () => {
           <SeniorListBackground
             handleFilterActiveBtn={handleFilterActiveBtn}
             handleReset={handleReset}
-            positionChipNum={positionChipNum}
+            chipPositionName={chipPositionName}
             chipFieldName={chipFieldName}
             deleteFieldList={deleteFieldList}
             handleChipField={handleChipField}
-            chipPositionName={chipPositionName}
             deletePositionList={deletePositionList}
             handleChipPosition={handleChipPosition}
             $chipFieldName={chipFieldName}
@@ -211,7 +203,10 @@ const JuniorPromisePage = () => {
 };
 
 export default JuniorPromisePage;
-const Wrapper = styled.div`
+
+const Wrapper = styled.div<{ isBottomSheetOpen: boolean }>`
+  position: ${({ isBottomSheetOpen }) => (isBottomSheetOpen ? 'fixed' : 'relative')};
+
   min-height: calc(var(--vh, 1vh) * 100 - 44px);
 
   background-color: ${({ theme }) => theme.colors.grayScaleWG};

@@ -4,17 +4,15 @@ import React, { ReactNode } from 'react';
 import { FilterButton } from './FilterButton';
 import { FIELD_LIST } from '../constants/fieldList';
 import { POSITION_LIST } from '../constants/positionList';
-// import { POSITION_LIST } from '../constants/positionList';
 
 interface SeniorListBackgroundProps {
   children: ReactNode;
   handleFilterActiveBtn: (btnText: string) => void;
   handleReset: () => void;
-  positionChipNum: number;
+  chipPositionName: string[];
   chipFieldName: string[];
   deleteFieldList: (chipName: string) => void;
   handleChipField: (fieldId: number) => void;
-  chipPositionName: string[];
   deletePositionList: (chipName: string) => void;
   handleChipPosition: (postion: number) => void;
   $chipFieldName: string[];
@@ -29,7 +27,6 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
   children,
   handleFilterActiveBtn,
   handleReset,
-  positionChipNum,
   chipFieldName,
   deleteFieldList,
   handleChipField,
@@ -56,7 +53,7 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
         <BtnLayout>
           <FilterButton
             handleFilterActiveBtn={handleFilterActiveBtn}
-            positionChipNum={positionChipNum}
+            chipPositionName={chipPositionName}
             chipFieldName={chipFieldName}
           />
           <LineWrapper>
@@ -126,8 +123,6 @@ const SelectedChipList = styled.div<SelectedChipListProps>`
     $chipFieldName.length > 0 || $chipPositionName.length > 0 ? 'flex' : 'none'};
   gap: 0.8rem;
   align-items: center;
-
-  /* 필요에 따라 가로 스크롤바 생성 */
   overflow: scroll hidden;
 
   height: 4.4rem;
