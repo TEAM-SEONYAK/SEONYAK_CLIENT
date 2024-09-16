@@ -156,7 +156,7 @@ const FieldLayout = styled.div`
   justify-content: space-between;
 
   margin: 0 2rem;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
 `;
 
 const PositionLayout = styled.div`
@@ -165,7 +165,7 @@ const PositionLayout = styled.div`
   gap: 1.2rem 1rem;
   flex-shrink: 0;
 
-  margin: 1rem 2rem;
+  margin: 1.5rem 2rem;
 `;
 
 const Line = styled.div`
