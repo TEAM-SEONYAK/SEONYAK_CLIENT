@@ -200,7 +200,8 @@ const ReloadIcon = styled.button`
 `;
 
 const ExitBottomSheet = styled.button<{ $selectedPositionIndex: boolean; $selectedFieldIndex: boolean }>`
-  width: 27.4rem;
+  flex-grow: 1;
+
   height: 5rem;
   border-radius: 8px;
 
