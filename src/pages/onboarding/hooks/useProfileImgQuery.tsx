@@ -1,13 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { profileImgAxios } from '../apis/profileImgAxios';
+import { uploadProfileImageAxios } from '../apis/profileImageAxios';
 
 export const useProfileQuery = () => {
-  const mutation = useMutation({
-    mutationFn: (image: File) => profileImgAxios(image),
-    onError: (error) => {
-      console.log('프로필 이미지 업로드 에러: ', error);
-    },
+  return useMutation({
+    mutationFn: ({ url, image }: { url: string; image: File }) => uploadProfileImageAxios(url, image),
   });
-
-  return mutation;
 };
