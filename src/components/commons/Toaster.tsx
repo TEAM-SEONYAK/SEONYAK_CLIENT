@@ -15,13 +15,14 @@ const Wrapper = styled.div`
   justify-content: center;
   position: fixed;
   bottom: 10.5rem;
+  left: 50%;
   z-index: 3;
 
-  margin: 0 6.7rem;
   padding: 0.8rem 2rem;
   border-radius: 40px;
 
   background-color: ${({ theme }) => theme.colors.primaryBlue50};
+  transform: translateX(-50%);
 `;
 
 const Text = styled.p`

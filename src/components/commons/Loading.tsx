@@ -31,9 +31,11 @@ const Loading = () => {
 
 const NoMore = styled.div`
   position: absolute;
-  top: 35%;
-  left: 30%;
-  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 999;
 
   width: 12rem;
   height: 12rem;

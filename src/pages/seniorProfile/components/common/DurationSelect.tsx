@@ -65,6 +65,7 @@ export default DurationSelect;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  flex-grow: 1;
 `;
 
 const WaveText = styled.p<{ $isDefault: boolean; $isActive: boolean }>`
