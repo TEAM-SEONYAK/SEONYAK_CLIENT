@@ -20,7 +20,6 @@ import { SELECT_JUNIOR_TITLE } from './constants/constants';
 const JuniorPromiseRequestPage = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAllSelected] = useState(false);
   const [isAnyWorrySelected, setIsAnyWorrySelected] = useState(false);
   const [isTextareaFilled, setIsTextareaFilled] = useState(false);
   const [, setUnfilledFields] = useState<number[]>([]);
@@ -76,37 +75,29 @@ const JuniorPromiseRequestPage = () => {
   };
   const { mutate: postAppointment } = usePostAppointment(() => handleAppointmentSendSuccess());
 
+  // 적용할래요 누르면 실행되는 함수
   const handlePostAppointment = () => {
-    if (isAllSelected) {
-      postAppointment({
-        seniorId,
-        topic: activeButton === '선택할래요' ? selectedButtons : [],
-        personalTopic: activeButton === '선택할래요' ? '' : inputVal,
-        timeList: [
-          {
-            date: selectedTime[0].clickedDay,
-            startTime: selectedTime[0].selectedTime.split('-')[0],
-            endTime: selectedTime[0].selectedTime.split('-')[1],
-          },
-          {
-            date: selectedTime[1].clickedDay,
-            startTime: selectedTime[1].selectedTime.split('-')[0],
-            endTime: selectedTime[1].selectedTime.split('-')[1],
-          },
-          {
-            date: selectedTime[2].clickedDay,
-            startTime: selectedTime[2].selectedTime.split('-')[0],
-            endTime: selectedTime[2].selectedTime.split('-')[1],
-          },
-        ],
-      });
-    }
+    postAppointment({
+      seniorId,
+      topic: activeButton === '선택할래요' ? selectedButtons : [],
+      personalTopic: activeButton === '선택할래요' ? '' : inputVal,
+      timeList: selectedTime.map((item) => ({
+        date: item.clickedDay,
+        startTime: item.selectedTime.split('-')[0],
+        endTime: item.selectedTime.split('-')[1],
+      })),
+    });
   };
 
   // 버튼 클릭시 실행 함수
-  const handleSubmit = (isAllSelected: boolean) => {
+  const handleSubmit = () => {
     setIsSubmitCicked(true);
-    isAllSelected && handleModalOpen(true);
+    const isAllSelected =
+      selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
+      (isAnyWorrySelected || isTextareaFilled);
+    if (isAllSelected) {
+      handleModalOpen(true);
+    }
   };
 
   return (
@@ -168,7 +159,7 @@ const JuniorPromiseRequestPage = () => {
           </CostWrapper>
           <SubmitBtn
             type="button"
-            onClick={() => handleSubmit(isAllSelected)}
+            onClick={handleSubmit}
             $isAllSelected={
               selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
               (isAnyWorrySelected || isTextareaFilled)
