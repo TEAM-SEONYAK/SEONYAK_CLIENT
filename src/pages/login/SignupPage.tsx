@@ -49,6 +49,10 @@ const GoogleLogoIcon = styled(GoogleLogoIc)`
   width: 33px;
   height: 33px;
   margin: 10px;
+
+  fill: ${({ theme }) => theme.colors.grayScaleBlack};
+
+  /* background-color: ${({ theme }) => theme.colors.grayScaleBlack}; */
 `;
 
 const OnboardingBackgroundSBIcon = styled(OnboardingBackgroundSBIc)`
