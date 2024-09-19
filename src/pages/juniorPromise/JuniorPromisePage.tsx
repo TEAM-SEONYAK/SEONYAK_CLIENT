@@ -142,7 +142,7 @@ const JuniorPromisePage = () => {
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
       ) : (
-        <Wrapper isBottomSheetOpen={isBottomSheetOpen}>
+        <PreventScroll isBottomSheetOpen={isBottomSheetOpen}>
           <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
           <Background>
             <HbHomeMainSvgIcon />
@@ -196,7 +196,7 @@ const JuniorPromisePage = () => {
             chipPositionName={chipPositionName}
             pushPositionList={pushPositionList}
           />
-        </Wrapper>
+        </PreventScroll>
       )}
     </>
   );
@@ -204,12 +204,8 @@ const JuniorPromisePage = () => {
 
 export default JuniorPromisePage;
 
-const Wrapper = styled.div<{ isBottomSheetOpen: boolean }>`
+const PreventScroll = styled.div<{ isBottomSheetOpen: boolean }>`
   position: ${({ isBottomSheetOpen }) => (isBottomSheetOpen ? 'fixed' : 'relative')};
-
-  min-height: calc(var(--vh, 1vh) * 100 - 44px);
-
-  background-color: ${({ theme }) => theme.colors.grayScaleWG};
 `;
 
 const Title = styled.p`
