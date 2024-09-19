@@ -15,46 +15,18 @@ import Loading from '@components/commons/Loading';
 import { Banner } from './components/seniorFilter/Banner';
 
 const JuniorPromisePage = () => {
-  // 바텀 시트 내 버튼& 내용 필터 버튼
+  // 선배리스트, 바텀시트 모두에서 필요한 프롭스 리스트
+  // 1. 바텀 시트 내 버튼& 내용 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
-  // 바텀 시트 여는 동작
+  // 1. 바텀 시트 여는 동작
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
-  // 필터 버튼에 정보 넣기, 바텀시트 열기
+  // 1. 필터 버튼에 정보 넣기, 바텀시트 열기
   const handleFilterActiveBtn = (btnText: string) => {
     setFilterActiveBtn(btnText);
     setIsBottomSheetOpen(true);
   };
-  // 바텀시트 닫기
-  const handleCloseBottomSheet = () => {
-    setIsBottomSheetOpen(false);
-  };
-
-  // 바텀시트 내 직무 칩
-  const [selectedPosition, setSelectedPosition] = useState(Array(21).fill(false));
-
-  // 선택직무 리스트
-  const arrPosition = [...selectedPosition];
-
-  const handleChipPosition = (positionId: number) => {
-    arrPosition[positionId] = !arrPosition[positionId];
-
-    setSelectedPosition(arrPosition);
-  };
-
-  // 바텀시트 내 계열 칩
-  const [selectedField, setSelectedField] = useState(Array(7).fill(false));
-
-  // 선택 계열 리스트 T/F
-  const arrField = [...selectedField];
-
-  const handleChipField = (fieldId: number) => {
-    arrField[fieldId] = !arrField[fieldId];
-
-    setSelectedField(arrField);
-  };
-
-  // 초기화 함수
+  // 2. 초기화 함수
   const handleReset = () => {
     setSelectedPosition(Array(21).fill(false));
     setSelectedField(Array(7).fill(false));
@@ -62,10 +34,48 @@ const JuniorPromisePage = () => {
     setChipPositionName([]);
   };
 
-  // 칩으로 나갈 선택된 계열 이름 리스트
+  // 3. 칩으로 나갈 선택된 계열 이름 리스트
   const [chipFieldName, setChipFieldName] = useState<string[]>([]);
 
-  // 계열리스트에 이름넣는 함수
+  // 4. 칩으로 나갈 선택된 직무 리스트
+  const [chipPositionName, setChipPositionName] = useState<string[]>([]);
+
+  // 5. 바텀시트 내 계열 칩
+  const [selectedField, setSelectedField] = useState(Array(7).fill(false));
+
+  // 5. 선택 계열 리스트 T/F
+  const arrField = [...selectedField];
+
+  const handleChipField = (fieldId: number) => {
+    arrField[fieldId] = !arrField[fieldId];
+
+    setSelectedField(arrField);
+  };
+  // 6. 바텀시트 내 직무 칩
+  const [selectedPosition, setSelectedPosition] = useState(Array(21).fill(false));
+
+  // 6. 선택 직무 리스트 T/F
+  const arrPosition = [...selectedPosition];
+
+  const handleChipPosition = (positionId: number) => {
+    arrPosition[positionId] = !arrPosition[positionId];
+
+    setSelectedPosition(arrPosition);
+  };
+  // ------------------------------------------------
+  // S- 계열리스트에 이름빼는 함수
+  const deleteFieldList = (chipName: string) => {
+    setChipFieldName((prev) => prev.filter((name) => name !== chipName));
+  };
+
+  // S- 직무리스트에 이름 빼는 함수
+  const deletePositionList = (chipName: string) => {
+    setChipPositionName((prev) => prev.filter((name) => name !== chipName));
+  };
+
+  // -----------------------------------------------
+
+  // B-계열리스트에 이름넣는 함수
   const pushFieldList = (chipName: string) => {
     setChipFieldName((prev) => {
       if (prev.indexOf(chipName) === -1) {
@@ -76,14 +86,7 @@ const JuniorPromisePage = () => {
     });
   };
 
-  // 계열리스트에 이름빼는 함수
-  const deleteFieldList = (chipName: string) => {
-    setChipFieldName((prev) => prev.filter((name) => name !== chipName));
-  };
-  // 칩으로 나갈 선택된 직무 리스트
-  const [chipPositionName, setChipPositionName] = useState<string[]>([]);
-
-  // 직무리스트에 이름 넣는 함수
+  // B-직무리스트에 이름 넣는 함수
   const pushPositionList = (chipName: string) => {
     setChipPositionName((prev) => {
       if (prev.indexOf(chipName) === -1) {
@@ -93,9 +96,10 @@ const JuniorPromisePage = () => {
       }
     });
   };
-  // 직무리스트에 이름 빼는 함수
-  const deletePositionList = (chipName: string) => {
-    setChipPositionName((prev) => prev.filter((name) => name !== chipName));
+
+  // B-바텀시트 닫기
+  const handleCloseBottomSheet = () => {
+    setIsBottomSheetOpen(false);
   };
 
   // 쿼리 사용하여 데이터 가져오기
