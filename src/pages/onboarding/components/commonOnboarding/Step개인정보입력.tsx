@@ -9,6 +9,7 @@ import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
 import { useProfileQuery } from '@pages/onboarding/hooks/useProfileImgQuery';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { JoinContextType } from '@pages/onboarding/type';
+import usePresignedUrl from '@pages/onboarding/hooks/usePresignedUrl';
 
 const Step개인정보입력 = () => {
   const { data, setData } = useOutletContext<JoinContextType>();
@@ -20,21 +21,17 @@ const Step개인정보입력 = () => {
   const [isNicknameError, setNicknameError] = useState(false);
   const [isNicknameValid, setIsNicknameValid] = useState(false);
 
-  const [imageFile, setImageFile] = useState(data.image);
+  const [imageFile, setImageFile] = useState<File | null>(data.imageFile || null);
+
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
 
-  const profileMutation = useProfileQuery();
+  const { res } = usePresignedUrl();
+  const { mutate: imageUploadMutate } = useProfileQuery();
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImageFile(URL.createObjectURL(file));
-      profileMutation.mutate(file);
-    };
+    setImageFile(e.target.files[0]);
   };
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -59,9 +56,12 @@ const Step개인정보입력 = () => {
   };
 
   const handleClickLink = () => {
+    if (!res || !imageFile) return;
+    imageUploadMutate({ url: res.url, image: imageFile });
     setData((prev) => ({
       ...prev,
-      image: imageFile,
+      imageFile,
+      image: res.fileName,
       nickname: nickname,
     }));
     navigate(pathname.includes('senior') ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
@@ -75,8 +75,8 @@ const Step개인정보입력 = () => {
           <ImageInputWrapper>
             <ImageInputLabel>
               <ImgCircle>
-                <img src={imageFile ? imageFile : startImg} alt="프로필 이미지" />
-                <input type="file" accept="image/*" onChange={(e) => handleChangeImage(e)} />
+                <img src={imageFile ? URL.createObjectURL(imageFile) : startImg} alt="프로필 이미지" />
+                <input type="file" accept="image/*" onChange={handleChangeImage} />
               </ImgCircle>
               <CameraIc />
             </ImageInputLabel>
