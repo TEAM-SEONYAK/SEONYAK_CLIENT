@@ -3,19 +3,16 @@ import styled from '@emotion/styled';
 
 interface IFieldList {
   field: string;
-  selectedField: boolean[];
-  handleChipField: (fieldId: number) => void;
-  fieldId: number;
-  chipFieldName: string;
-  pushFieldList: (chipName: string) => void;
+  handleChipField: (fieldName: string) => void;
+  chipFieldName: string[];
 }
 
 export const FieldList = (props: IFieldList) => {
-  const { field, selectedField, handleChipField, fieldId, chipFieldName, pushFieldList } = props;
-  const isSelected = selectedField[fieldId];
+  const { field, handleChipField, chipFieldName } = props;
+  const isSelected = chipFieldName.includes(field);
+
   const onSelected = () => {
-    handleChipField(fieldId);
-    pushFieldList(chipFieldName);
+    handleChipField(field);
   };
   return (
     <FieldWrapper onClick={onSelected}>

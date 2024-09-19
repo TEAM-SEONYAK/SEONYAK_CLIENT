@@ -2,22 +2,19 @@ import styled from '@emotion/styled';
 
 interface positionListPropType {
   position: string;
-  selectedPosition: boolean[];
-  handleChipPosition: (positionId: number) => void;
-  positionId: number;
-  chipPositionName: string;
-  pushPositionList: (chipName: string) => void;
+  handleChipPosition: (positionName: string) => void;
+  chipPositionName: string[];
 }
 export const PositionList = (props: positionListPropType) => {
-  const { position, selectedPosition, handleChipPosition, positionId, chipPositionName, pushPositionList } = props;
-  const isSeleted = selectedPosition[positionId];
-  const onSeleted = () => {
-    handleChipPosition(positionId);
-    pushPositionList(chipPositionName);
+  const { position, handleChipPosition, chipPositionName } = props;
+  const isSelected = chipPositionName.includes(position);
+
+  const onSelected = () => {
+    handleChipPosition(position);
   };
   return (
     <>
-      <PositionTitle $selectedPositionIndex={isSeleted} onClick={onSeleted}>
+      <PositionTitle $selectedPositionIndex={isSelected} onClick={onSelected}>
         {position}
       </PositionTitle>
     </>

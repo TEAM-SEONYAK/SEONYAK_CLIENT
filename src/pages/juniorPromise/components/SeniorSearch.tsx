@@ -1,8 +1,6 @@
 import { ResetIc, Line292Ic, CloseIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { FilterButton } from './FilterButton';
-import { FIELD_LIST } from '../constants/fieldList';
-import { POSITION_LIST } from '../constants/positionList';
 import React, { ReactNode } from 'react';
 
 interface SeniorSearchProps {
@@ -12,9 +10,9 @@ interface SeniorSearchProps {
   chipPositionName: string[];
   chipFieldName: string[];
   deleteFieldList: (chipName: string) => void;
-  handleChipField: (fieldId: number) => void;
+  handleChipField: (fieldName: string) => void;
   deletePositionList: (chipName: string) => void;
-  handleChipPosition: (position: number) => void;
+  handleChipPosition: (positionName: string) => void;
   $chipFieldName: string[];
   $chipPositionName: string[];
 }
@@ -35,16 +33,13 @@ export const SeniorSearch: React.FC<SeniorSearchProps> = ({
   handleChipPosition,
 }) => {
   const handleDeleteFieldChip = (field: string) => {
-    // 삭제되는 fieldName의 최초데이터에서의 index값 찾기
-    const findDeleteFieldIndex = FIELD_LIST.findIndex((list) => list.field === field);
     deleteFieldList(field);
-    handleChipField(findDeleteFieldIndex);
+    handleChipField(field);
   };
-  const handleDeletePositionChip = (position: string) => {
-    const findDeletePositionIndex = POSITION_LIST.findIndex((list) => list.position === position);
 
+  const handleDeletePositionChip = (position: string) => {
     deletePositionList(position);
-    handleChipPosition(findDeletePositionIndex);
+    handleChipPosition(position);
   };
   return (
     <>

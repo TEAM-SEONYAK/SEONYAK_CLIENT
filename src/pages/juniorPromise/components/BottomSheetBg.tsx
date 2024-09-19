@@ -11,10 +11,9 @@ interface BottomSheetPropType {
   handleFilterActiveBtn: (btnText: string) => void;
   isBottomSheetOpen: boolean;
   handleCloseBottomSheet: () => void;
-  handleChipPosition: (positionId: number) => void;
-  handleChipField: (fieldId: number) => void;
-  selectedPosition: boolean[];
-  selectedField: boolean[];
+  handleChipPosition: (positionName: string) => void;
+  handleChipField: (fieldName: string) => void;
+
   handleReset: () => void;
   chipFieldName: string[];
   pushFieldList: (chipName: string) => void;
@@ -22,16 +21,21 @@ interface BottomSheetPropType {
   pushPositionList: (chipName: string) => void;
 }
 
+interface SelectedChipListProps {
+  $chipFieldName: string[];
+  $chipPositionName: string[];
+}
+
 export const BottomSheet = (props: BottomSheetPropType) => {
   const {
+    chipFieldName,
+    chipPositionName,
     filterActiveBtn,
     handleFilterActiveBtn,
     isBottomSheetOpen,
     handleCloseBottomSheet,
     handleChipPosition,
     handleChipField,
-    selectedPosition,
-    selectedField,
     handleReset,
     pushFieldList,
     pushPositionList,
@@ -60,10 +64,7 @@ export const BottomSheet = (props: BottomSheetPropType) => {
                   key={list.id}
                   field={list.field}
                   handleChipField={handleChipField}
-                  selectedField={selectedField}
-                  fieldId={list.id}
-                  chipFieldName={list.field}
-                  pushFieldList={pushFieldList}
+                  chipFieldName={chipFieldName}
                 />
               ))}
             </FieldLayout>
@@ -73,11 +74,8 @@ export const BottomSheet = (props: BottomSheetPropType) => {
                 <PositionList
                   key={list.id}
                   position={list.position}
-                  selectedPosition={selectedPosition}
                   handleChipPosition={handleChipPosition}
-                  positionId={list.id}
-                  chipPositionName={list.position}
-                  pushPositionList={pushPositionList}
+                  chipPositionName={chipPositionName}
                 />
               ))}
             </PositionLayout>
@@ -89,8 +87,8 @@ export const BottomSheet = (props: BottomSheetPropType) => {
           </ReloadIcon>
           <ExitBottomSheet
             type="button"
-            $selectedPositionIndex={selectedPosition.some((position) => position)}
-            $selectedFieldIndex={selectedField.some((field) => field)}
+            $chipFieldName={chipFieldName}
+            $chipPositionName={chipPositionName}
             onClick={handleCloseBottomSheet}>
             적용할래요
           </ExitBottomSheet>
@@ -199,13 +197,13 @@ const ReloadIcon = styled.button`
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
-const ExitBottomSheet = styled.button<{ $selectedPositionIndex: boolean; $selectedFieldIndex: boolean }>`
+const ExitBottomSheet = styled.button<SelectedChipListProps>`
   width: 27.4rem;
   height: 5rem;
   border-radius: 8px;
 
-  background: ${({ theme, $selectedPositionIndex, $selectedFieldIndex }) =>
-    $selectedPositionIndex || $selectedFieldIndex ? theme.colors.Blue : theme.colors.grayScaleMG1};
+  background: ${({ theme, $chipPositionName, $chipFieldName }) =>
+    $chipFieldName.length > 0 || $chipPositionName.length > 0 ? theme.colors.Blue : theme.colors.grayScaleMG1};
 
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Head2_SB_18};

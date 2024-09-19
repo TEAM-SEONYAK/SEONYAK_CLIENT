@@ -29,8 +29,6 @@ const JuniorPromisePage = () => {
   };
   // 2. 초기화 함수
   const handleReset = () => {
-    setSelectedPosition(Array(21).fill(false));
-    setSelectedField(Array(7).fill(false));
     setChipFieldName([]);
     setChipPositionName([]);
   };
@@ -41,28 +39,28 @@ const JuniorPromisePage = () => {
   // 4. 칩으로 나갈 선택된 직무 리스트
   const [chipPositionName, setChipPositionName] = useState<string[]>([]);
 
-  // 5. 바텀시트 내 계열 칩
-  const [selectedField, setSelectedField] = useState(Array(7).fill(false));
+  // 5. 선택 계열 리스트 배열로
+  // 6. 선택 직무 리스트
+  // 필드나 직무가 선택되었는지 체크하는 로직
+  const isFieldSelected = (fieldName: string) => chipFieldName.includes(fieldName);
+  const isPositionSelected = (positionName: string) => chipPositionName.includes(positionName);
 
-  // 5. 선택 계열 리스트 T/F
-  const arrField = [...selectedField];
-
-  const handleChipField = (fieldId: number) => {
-    arrField[fieldId] = !arrField[fieldId];
-
-    setSelectedField(arrField);
+  const handleChipField = (fieldName: string) => {
+    if (isFieldSelected(fieldName)) {
+      setChipFieldName((prev) => prev.filter((name) => name !== fieldName));
+    } else {
+      setChipFieldName((prev) => [...prev, fieldName]);
+    }
   };
-  // 6. 바텀시트 내 직무 칩
-  const [selectedPosition, setSelectedPosition] = useState(Array(21).fill(false));
 
-  // 6. 선택 직무 리스트 T/F
-  const arrPosition = [...selectedPosition];
-
-  const handleChipPosition = (positionId: number) => {
-    arrPosition[positionId] = !arrPosition[positionId];
-
-    setSelectedPosition(arrPosition);
+  const handleChipPosition = (positionName: string) => {
+    if (isPositionSelected(positionName)) {
+      setChipPositionName((prev) => prev.filter((name) => name !== positionName));
+    } else {
+      setChipPositionName((prev) => [...prev, positionName]);
+    }
   };
+
   // ------------------------------------------------
   // S- 계열리스트에 이름빼는 함수
   const deleteFieldList = (chipName: string) => {
@@ -169,8 +167,6 @@ const JuniorPromisePage = () => {
                 isBottomSheetOpen={isBottomSheetOpen}
                 handleChipField={handleChipField}
                 handleChipPosition={handleChipPosition}
-                selectedPosition={selectedPosition}
-                selectedField={selectedField}
                 handleReset={handleReset}
                 chipFieldName={chipFieldName}
                 pushFieldList={pushFieldList}
