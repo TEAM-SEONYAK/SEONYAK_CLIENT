@@ -160,15 +160,8 @@ const JuniorPromisePage = () => {
               {seniorList?.map((list) => (
                 <SeniorCard
                   key={list.seniorId}
-                  nickname={list.nickname}
-                  company={list.company}
-                  image={list.image}
-                  field={list.field}
-                  position={list.position}
-                  detailPosition={list.detailPosition}
-                  level={list.level}
+                  {...list}
                   variant="secondary"
-                  seniorId={list.seniorId}
                   handleSeniorCardClicked={handleSeniorCardClicked}
                 />
               ))}

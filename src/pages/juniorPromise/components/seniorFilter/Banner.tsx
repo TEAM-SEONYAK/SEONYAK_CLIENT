@@ -3,7 +3,7 @@ import { Header } from '@components/commons/Header';
 import { HeaderLogoIc, AlarmIc } from '@assets/svgs';
 import { HbHomeMainSvg } from '@assets/svgs';
 interface BannerProps {
-  // 일단 임시로 이렇게 해두었는데, 회원가입 안한 유저면 어떻게 할 것인지? 일단은 후배로 해둠
+  // 오류시 '후배'
   myNickname: string | undefined;
 }
 
