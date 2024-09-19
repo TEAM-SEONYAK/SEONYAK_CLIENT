@@ -1,11 +1,11 @@
 import { ResetIc, Line292Ic, CloseIc } from '@assets/svgs';
 import styled from '@emotion/styled';
-import React, { ReactNode } from 'react';
 import { FilterButton } from './FilterButton';
 import { FIELD_LIST } from '../constants/fieldList';
 import { POSITION_LIST } from '../constants/positionList';
+import React, { ReactNode } from 'react';
 
-interface SeniorListBackgroundProps {
+interface SeniorSearchProps {
   children: ReactNode;
   handleFilterActiveBtn: (btnText: string) => void;
   handleReset: () => void;
@@ -14,7 +14,7 @@ interface SeniorListBackgroundProps {
   deleteFieldList: (chipName: string) => void;
   handleChipField: (fieldId: number) => void;
   deletePositionList: (chipName: string) => void;
-  handleChipPosition: (postion: number) => void;
+  handleChipPosition: (position: number) => void;
   $chipFieldName: string[];
   $chipPositionName: string[];
 }
@@ -23,7 +23,7 @@ interface SelectedChipListProps {
   $chipPositionName: string[];
 }
 
-export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
+export const SeniorSearch: React.FC<SeniorSearchProps> = ({
   children,
   handleFilterActiveBtn,
   handleReset,
@@ -47,7 +47,7 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
     handleChipPosition(findDeletePositionIndex);
   };
   return (
-    <ListBackground>
+    <>
       <SeniorSearchWrapper>
         <SearchTitle>선배를 찾아볼까요?</SearchTitle>
         <BtnLayout>
@@ -81,20 +81,9 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
         </SelectedChipList>
       </SeniorSearchWrapper>
       {children}
-    </ListBackground>
+    </>
   );
 };
-
-const ListBackground = styled.div`
-  position: absolute;
-  top: 17.7rem;
-
-  width: 100%;
-  margin-bottom: 9.8rem;
-  border-radius: 16px 16px 0 0;
-
-  background: ${({ theme }) => theme.colors.grayScaleWG};
-`;
 
 const SeniorSearchWrapper = styled.div`
   display: flex;

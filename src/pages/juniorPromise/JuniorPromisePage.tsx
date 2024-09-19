@@ -5,7 +5,8 @@ import { SeniorCard } from '@components/commons/SeniorCard';
 import styled from '@emotion/styled';
 import { BottomSheet } from '@pages/juniorPromise/components/BottomSheetBg';
 import { useState } from 'react';
-import { SeniorListBackground } from './components/SeniorListBackground';
+import { SeniorSearch } from './components/SeniorSearch';
+
 import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
@@ -147,20 +148,37 @@ const JuniorPromisePage = () => {
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
       ) : (
-        <PreventScroll isBottomSheetOpen={isBottomSheetOpen}>
+        <PreventScroll $isBottomSheetOpen={isBottomSheetOpen}>
           <Banner myNickname={myNickname} />
-          <SeniorListBackground
-            handleFilterActiveBtn={handleFilterActiveBtn}
-            handleReset={handleReset}
-            chipPositionName={chipPositionName}
-            chipFieldName={chipFieldName}
-            deleteFieldList={deleteFieldList}
-            handleChipField={handleChipField}
-            deletePositionList={deletePositionList}
-            handleChipPosition={handleChipPosition}
-            $chipFieldName={chipFieldName}
-            $chipPositionName={chipPositionName}>
-            <SeniorListWrapper>
+          <ContentWrapper>
+            <SeniorSearch
+              handleFilterActiveBtn={handleFilterActiveBtn}
+              handleReset={handleReset}
+              chipPositionName={chipPositionName}
+              chipFieldName={chipFieldName}
+              deleteFieldList={deleteFieldList}
+              handleChipField={handleChipField}
+              deletePositionList={deletePositionList}
+              handleChipPosition={handleChipPosition}
+              $chipFieldName={chipFieldName}
+              $chipPositionName={chipPositionName}>
+              <BottomSheet
+                filterActiveBtn={filterActiveBtn}
+                handleFilterActiveBtn={handleFilterActiveBtn}
+                handleCloseBottomSheet={handleCloseBottomSheet}
+                isBottomSheetOpen={isBottomSheetOpen}
+                handleChipField={handleChipField}
+                handleChipPosition={handleChipPosition}
+                selectedPosition={selectedPosition}
+                selectedField={selectedField}
+                handleReset={handleReset}
+                chipFieldName={chipFieldName}
+                pushFieldList={pushFieldList}
+                chipPositionName={chipPositionName}
+                pushPositionList={pushPositionList}
+              />
+            </SeniorSearch>
+            <SeniorCardListLayout>
               {seniorList?.map((list) => (
                 <SeniorCard
                   key={list.seniorId}
@@ -169,25 +187,9 @@ const JuniorPromisePage = () => {
                   handleSeniorCardClicked={handleSeniorCardClicked}
                 />
               ))}
-            </SeniorListWrapper>
-            <Nav />
-          </SeniorListBackground>
-
-          <BottomSheet
-            filterActiveBtn={filterActiveBtn}
-            handleFilterActiveBtn={handleFilterActiveBtn}
-            handleCloseBottomSheet={handleCloseBottomSheet}
-            isBottomSheetOpen={isBottomSheetOpen}
-            handleChipField={handleChipField}
-            handleChipPosition={handleChipPosition}
-            selectedPosition={selectedPosition}
-            selectedField={selectedField}
-            handleReset={handleReset}
-            chipFieldName={chipFieldName}
-            pushFieldList={pushFieldList}
-            chipPositionName={chipPositionName}
-            pushPositionList={pushPositionList}
-          />
+            </SeniorCardListLayout>
+          </ContentWrapper>
+          <Nav />
         </PreventScroll>
       )}
     </>
@@ -196,11 +198,26 @@ const JuniorPromisePage = () => {
 
 export default JuniorPromisePage;
 
-const PreventScroll = styled.div<{ isBottomSheetOpen: boolean }>`
-  position: ${({ isBottomSheetOpen }) => (isBottomSheetOpen ? 'fixed' : 'relative')};
+const PreventScroll = styled.div<{ $isBottomSheetOpen: boolean }>`
+  position: ${({ $isBottomSheetOpen }) => ($isBottomSheetOpen ? 'fixed' : 'relative')};
+
+  width: 100%;
+  height: 100vh;
+
+  background: ${({ theme }) => theme.colors.grayScaleWG};
 `;
 
-const SeniorListWrapper = styled.div`
+const ContentWrapper = styled.div`
+  position: absolute;
+  top: 17.7rem;
+
+  width: 100%;
+  border-radius: 16px 16px 0 0;
+
+  background: ${({ theme }) => theme.colors.grayScaleWG};
+`;
+
+const SeniorCardListLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -208,6 +225,6 @@ const SeniorListWrapper = styled.div`
 
   width: 100vw;
   height: 100%;
-  margin-bottom: 9.8rem;
+  margin-bottom: 10rem;
   padding: 0.8rem 2rem;
 `;
