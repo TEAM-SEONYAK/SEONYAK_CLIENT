@@ -1,4 +1,4 @@
-import { HeaderLogoIc, AlarmIc, ArrowLeftIc } from '@assets/svgs';
+import { ArrowLeftIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import { SeniorCard } from '@components/commons/SeniorCard';
@@ -11,7 +11,8 @@ import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
 import PromiseRequestPage from './components/promiseRequest/PromiseRequestPage';
 import Loading from '@components/commons/Loading';
-import { HbHomeMainSvg } from '@assets/svgs';
+
+import { Banner } from './components/seniorFilter/Banner';
 
 const JuniorPromisePage = () => {
   // 바텀 시트 내 버튼& 내용 필터 버튼
@@ -143,13 +144,7 @@ const JuniorPromisePage = () => {
         </>
       ) : (
         <PreventScroll isBottomSheetOpen={isBottomSheetOpen}>
-          <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
-          <Background>
-            <HbHomeMainSvgIcon />
-          </Background>
-
-          <Title>반가워요 {myNickname}님,고민을 해결해볼까요?</Title>
-
+          <Banner myNickname={myNickname} />
           <SeniorListBackground
             handleFilterActiveBtn={handleFilterActiveBtn}
             handleReset={handleReset}
@@ -208,18 +203,6 @@ const PreventScroll = styled.div<{ isBottomSheetOpen: boolean }>`
   position: ${({ isBottomSheetOpen }) => (isBottomSheetOpen ? 'fixed' : 'relative')};
 `;
 
-const Title = styled.p`
-  position: absolute;
-  top: 6rem;
-  left: 2rem;
-
-  width: 16.8rem;
-  height: 5.6rem;
-
-  color: ${({ theme }) => theme.colors.grayScaleBG};
-  ${({ theme }) => theme.fonts.Head1_SB_20}
-  word-break: keep-all;
-`;
 const SeniorListWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -230,19 +213,4 @@ const SeniorListWrapper = styled.div`
   height: 100%;
   margin-bottom: 9.8rem;
   padding: 0.8rem 2rem;
-`;
-
-const Background = styled.div`
-  position: relative;
-
-  width: 100vw;
-  height: 18.7rem;
-
-  background: linear-gradient(151deg, #cce7ff 17.85%, #b8b1ff 163.57%);
-`;
-
-const HbHomeMainSvgIcon = styled(HbHomeMainSvg)`
-  position: absolute;
-  right: 0;
-  bottom: 0;
 `;
