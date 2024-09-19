@@ -29,7 +29,7 @@ const JuniorPromiseRequestPage = () => {
   const location = useLocation();
 
   // 약속 신청하기 눌렸는지 확인
-  const [isSubmitClicked, setIsSubmitCicked] = useState(false);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   // 적용할래요 눌렀는지 확인
   const [isModalClicked, setIsModalClicked] = useState(false);
   // 캘린더 여닫기
@@ -75,47 +75,43 @@ const JuniorPromiseRequestPage = () => {
   const handleAppointmentSendSuccess = () => {
     setIsModalClicked(true);
   };
-  const { mutate: postAppointment } = usePostAppointment(() => handleAppointmentSendSuccess());
+
+  const handleAppointmentSendError = (error: string) => {
+    alert(error);
+  };
+
+  const { mutate: postAppointment } = usePostAppointment(handleAppointmentSendSuccess, handleAppointmentSendError);
 
   const handlePostAppointment = () => {
     if (isAllSelected) {
-      postAppointment(
-        {
-          seniorId: seniorId,
-          topic: activeButton === '선택할래요' ? selectedButtons : [],
-          personalTopic: activeButton === '선택할래요' ? '' : inputVal,
-          timeList: [
-            {
-              date: selectedTime[0].clickedDay,
-              startTime: selectedTime[0].selectedTime.split('-')[0],
-              endTime: selectedTime[0].selectedTime.split('-')[1],
-            },
-            {
-              date: selectedTime[1].clickedDay,
-              startTime: selectedTime[1].selectedTime.split('-')[0],
-              endTime: selectedTime[1].selectedTime.split('-')[1],
-            },
-            {
-              date: selectedTime[2].clickedDay,
-              startTime: selectedTime[2].selectedTime.split('-')[0],
-              endTime: selectedTime[2].selectedTime.split('-')[1],
-            },
-          ],
-        },
-        {
-          onError: (error) => {
-            if (axios.isAxiosError(error) && error.response?.status === 400) {
-              alert('이미 약속을 신청한 선배입니다.');
-            }
+      postAppointment({
+        seniorId: seniorId,
+        topic: activeButton === '선택할래요' ? selectedButtons : [],
+        personalTopic: activeButton === '선택할래요' ? '' : inputVal,
+        timeList: [
+          {
+            date: selectedTime[0].clickedDay,
+            startTime: selectedTime[0].selectedTime.split('-')[0],
+            endTime: selectedTime[0].selectedTime.split('-')[1],
           },
-        }
-      );
+          {
+            date: selectedTime[1].clickedDay,
+            startTime: selectedTime[1].selectedTime.split('-')[0],
+            endTime: selectedTime[1].selectedTime.split('-')[1],
+          },
+          {
+            date: selectedTime[2].clickedDay,
+            startTime: selectedTime[2].selectedTime.split('-')[0],
+            endTime: selectedTime[2].selectedTime.split('-')[1],
+          },
+        ],
+      });
     }
   };
 
   // 버튼 클릭시 실행 함수
   const handleSubmit = (isAllSelected: boolean) => {
-    setIsSubmitCicked(true);
+    setIsSubmitClicked(true);
     isAllSelected && handleModalOpen(true);
   };
 
