@@ -17,33 +17,30 @@ import { Banner } from './components/seniorFilter/Banner';
 
 const JuniorPromisePage = () => {
   // 선배리스트, 바텀시트 모두에서 필요한 프롭스 리스트
-  // 1. 바텀 시트 내 버튼& 내용 필터 버튼
+  // 바텀 시트 내 버튼& 내용 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
-  // 1. 바텀 시트 여는 동작
+  // 바텀 시트 여는 동작
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
-  // 1. 필터 버튼에 정보 넣기, 바텀시트 열기
+  // 필터 버튼에 정보 넣기, 바텀시트 열기
   const handleFilterActiveBtn = (btnText: string) => {
     setFilterActiveBtn(btnText);
     setIsBottomSheetOpen(true);
   };
-  // 2. 초기화 함수
+  // 초기화 함수
   const handleReset = () => {
     setChipFieldName([]);
     setChipPositionName([]);
   };
 
-  // 3. 칩으로 나갈 선택된 계열 이름 리스트
+  // 칩으로 나갈 선택된 계열 이름 리스트
   const [chipFieldName, setChipFieldName] = useState<string[]>([]);
 
-  // 4. 칩으로 나갈 선택된 직무 리스트
+  // 칩으로 나갈 선택된 직무 리스트
   const [chipPositionName, setChipPositionName] = useState<string[]>([]);
 
-  // 5. 선택 계열 리스트 배열로
-  // 6. 선택 직무 리스트
-  // 필드나 직무가 선택되었는지 체크하는 로직
+  // 선택 계열 리스트 배열로
   const isFieldSelected = (fieldName: string) => chipFieldName.includes(fieldName);
-  const isPositionSelected = (positionName: string) => chipPositionName.includes(positionName);
 
   const handleChipField = (fieldName: string) => {
     if (isFieldSelected(fieldName)) {
@@ -53,6 +50,9 @@ const JuniorPromisePage = () => {
     }
   };
 
+  // 선택 직무 리스트
+  const isPositionSelected = (positionName: string) => chipPositionName.includes(positionName);
+
   const handleChipPosition = (positionName: string) => {
     if (isPositionSelected(positionName)) {
       setChipPositionName((prev) => prev.filter((name) => name !== positionName));
@@ -61,7 +61,15 @@ const JuniorPromisePage = () => {
     }
   };
 
-  // ------------------------------------------------
+  const SeniorSearchCommonProps = {
+    handleFilterActiveBtn,
+    handleReset,
+    chipPositionName,
+    chipFieldName,
+    handleChipField,
+    handleChipPosition,
+  };
+
   // S- 계열리스트에 이름빼는 함수
   const deleteFieldList = (chipName: string) => {
     setChipFieldName((prev) => prev.filter((name) => name !== chipName));
@@ -71,8 +79,6 @@ const JuniorPromisePage = () => {
   const deletePositionList = (chipName: string) => {
     setChipPositionName((prev) => prev.filter((name) => name !== chipName));
   };
-
-  // -----------------------------------------------
 
   // B-계열리스트에 이름넣는 함수
   const pushFieldList = (chipName: string) => {
@@ -103,10 +109,14 @@ const JuniorPromisePage = () => {
 
   // 쿼리 사용하여 데이터 가져오기
   const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
-
   const seniorList = data?.data.seniorList || [];
-  // 내 닉네임 가져오기
   const myNickname = data?.data.myNickname;
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (isError) {
+    return <div>Error occurred</div>;
+  }
 
   const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
   const [isPromiseClicked, setIsPromisedClicked] = useState(false);
@@ -117,18 +127,9 @@ const JuniorPromisePage = () => {
     setSeniorId(id);
     setSeniorNickname(name);
   };
-
   const handlePromiseClicked = () => {
     setIsPromisedClicked(true);
   };
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <div>Error occurred</div>;
-  }
 
   return (
     <>
@@ -150,27 +151,17 @@ const JuniorPromisePage = () => {
           <Banner myNickname={myNickname} />
           <ContentWrapper>
             <SeniorSearch
-              handleFilterActiveBtn={handleFilterActiveBtn}
-              handleReset={handleReset}
-              chipPositionName={chipPositionName}
-              chipFieldName={chipFieldName}
+              {...SeniorSearchCommonProps}
               deleteFieldList={deleteFieldList}
-              handleChipField={handleChipField}
               deletePositionList={deletePositionList}
-              handleChipPosition={handleChipPosition}
               $chipFieldName={chipFieldName}
               $chipPositionName={chipPositionName}>
               <BottomSheet
+                {...SeniorSearchCommonProps}
                 filterActiveBtn={filterActiveBtn}
-                handleFilterActiveBtn={handleFilterActiveBtn}
                 handleCloseBottomSheet={handleCloseBottomSheet}
                 isBottomSheetOpen={isBottomSheetOpen}
-                handleChipField={handleChipField}
-                handleChipPosition={handleChipPosition}
-                handleReset={handleReset}
-                chipFieldName={chipFieldName}
                 pushFieldList={pushFieldList}
-                chipPositionName={chipPositionName}
                 pushPositionList={pushPositionList}
               />
             </SeniorSearch>
