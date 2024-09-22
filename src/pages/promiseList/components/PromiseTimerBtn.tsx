@@ -27,7 +27,9 @@ const Wrapper = styled.button<{ $page: string }>`
   margin-top: 1rem;
   padding: 0.6rem 0 0.5rem;
   border-radius: 5px;
+
   z-index: 5;
+
   height: ${({ $page }) => ($page === 'recent' ? '3.4rem' : '5rem')};
 
   background-color: ${({ theme }) => theme.colors.Blue};

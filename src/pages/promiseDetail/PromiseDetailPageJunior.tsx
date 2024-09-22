@@ -27,7 +27,7 @@ const PromiseDetailPageJunior = () => {
   const myNickname = location.state.myNickname;
   const appointmentId = location.state.appointmentId;
   const seniorId = location.state.seniorId;
-  console.log(location.state);
+  // console.log(location.state);
 
   const [isDetailClicked, setIsDetailClicked] = useState(false);
   const [isEnterBtnClicked] = useState(false);

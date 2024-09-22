@@ -92,6 +92,8 @@ export const useGetPromiseDetail = (appointmentId: number) => {
   const topic = data && data.topic;
   const personalTopic = data && data.personalTopic;
 
+  console.log(data);
+
   // console.log(
   //   appointmentStatus,
   //   juniorInfo,
