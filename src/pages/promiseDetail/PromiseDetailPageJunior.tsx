@@ -14,12 +14,6 @@ import Loading from '@components/commons/Loading';
 import { useGetGoogleMeetLink } from '@pages/promiseList/hooks/queries';
 
 const PromiseDetailPageJunior = () => {
-  // 데모데이
-  const googleMeetLink = 'https://meet.google.com/gnr-wgcr-gcv';
-  const onClickLink = () => {
-    window.open(googleMeetLink, '_blank');
-  };
-
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,12 +24,15 @@ const PromiseDetailPageJunior = () => {
   // console.log(location.state);
 
   const [isDetailClicked, setIsDetailClicked] = useState(false);
-  const [isEnterBtnClicked] = useState(false);
+  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
   const [, setGoogleMeetLink] = useState('');
 
   const handleClickEnterBtn = (link: string) => {
     setGoogleMeetLink(link);
     window.open(link, '_blank');
+    setIsEnterBtnClicked(false);
+    // 라우팅 변경 PR 반영 필요
+    navigate('/');
   };
 
   useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
@@ -116,7 +113,7 @@ const PromiseDetailPageJunior = () => {
                   isActive={diff !== undefined && diff <= 0}
                   diff={diffText}
                   page="detail"
-                  onClick={() => onClickLink()}
+                  onClick={() => setIsEnterBtnClicked(true)}
                 />
               )}
             </BtnWrapper>
