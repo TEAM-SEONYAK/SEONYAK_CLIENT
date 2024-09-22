@@ -37,8 +37,6 @@ export const BottomSheet = (props: BottomSheetPropType) => {
     handleChipPosition,
     handleChipField,
     handleReset,
-    pushFieldList,
-    pushPositionList,
   } = props;
 
   return (
