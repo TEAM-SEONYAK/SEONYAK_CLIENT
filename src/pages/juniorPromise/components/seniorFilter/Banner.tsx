@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 import { Header } from '@components/commons/Header';
 import { HeaderLogoIc, AlarmIc } from '@assets/svgs';
 import { HbHomeMainSvg } from '@assets/svgs';
-interface BannerProps {
+interface BannerPropTypes {
   // 오류시 '후배'
   myNickname: string | undefined;
 }
 
-export const Banner: React.FC<BannerProps> = ({ myNickname }) => {
+export const Banner = ({ myNickname }: BannerPropTypes) => {
   return (
     <>
       <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />

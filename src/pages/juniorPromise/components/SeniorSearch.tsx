@@ -1,9 +1,9 @@
 import { ResetIc, Line292Ic, CloseIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { FilterButton } from './FilterButton';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-interface SeniorSearchProps {
+interface SeniorSearchPropTypes {
   children: ReactNode;
   handleFilterActiveBtn: (btnText: string) => void;
   handleReset: () => void;
@@ -21,17 +21,18 @@ interface SelectedChipListProps {
   $chipPositionName: string[];
 }
 
-export const SeniorSearch: React.FC<SeniorSearchProps> = ({
-  children,
-  handleFilterActiveBtn,
-  handleReset,
-  chipFieldName,
-  deleteFieldList,
-  handleChipField,
-  chipPositionName,
-  deletePositionList,
-  handleChipPosition,
-}) => {
+export const SeniorSearch = (props: SeniorSearchPropTypes) => {
+  const {
+    children,
+    handleFilterActiveBtn,
+    handleReset,
+    chipFieldName,
+    deleteFieldList,
+    handleChipField,
+    chipPositionName,
+    deletePositionList,
+    handleChipPosition,
+  } = props;
   const handleDeleteFieldChip = (field: string) => {
     deleteFieldList(field);
     handleChipField(field);

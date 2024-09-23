@@ -1,13 +1,13 @@
 import { CheckItemIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 
-interface IFieldList {
+interface FieldListPropTypes {
   field: string;
   handleChipField: (fieldName: string) => void;
   chipFieldName: string[];
 }
 
-export const FieldList = (props: IFieldList) => {
+export const FieldList = (props: FieldListPropTypes) => {
   const { field, handleChipField, chipFieldName } = props;
   const isSelected = chipFieldName.includes(field);
 

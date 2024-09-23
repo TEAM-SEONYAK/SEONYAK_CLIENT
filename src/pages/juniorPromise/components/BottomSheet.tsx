@@ -6,7 +6,7 @@ import { PositionList } from './PositionList';
 import { FIELD_LIST } from '../constants/fieldList';
 import { POSITION_LIST } from '../constants/positionList';
 
-interface BottomSheetPropType {
+interface BottomSheetPropTypes {
   filterActiveBtn: string;
   handleFilterActiveBtn: (btnText: string) => void;
   isBottomSheetOpen: boolean;
@@ -26,7 +26,7 @@ interface SelectedChipListProps {
   $chipPositionName: string[];
 }
 
-export const BottomSheet = (props: BottomSheetPropType) => {
+export const BottomSheet = (props: BottomSheetPropTypes) => {
   const {
     chipFieldName,
     chipPositionName,
