@@ -34,11 +34,11 @@ const router = createBrowserRouter([
         element: <JoinPage />,
       },
       {
-        path: 'promiseDetail',
+        path: 'promiseList/promiseDetail',
         element: <PromiseDetail />,
       },
       {
-        path: 'promiseDetailJunior',
+        path: 'promiseList/promiseDetailJunior',
         element: <PromiseDetailPageJunior />,
       },
       {
