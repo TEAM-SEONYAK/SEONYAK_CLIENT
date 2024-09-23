@@ -11,7 +11,7 @@ const RequestComplete = ({ seniorNickname }: SeniorNamePropType) => {
 
   const handleMyPromise = () => {
     // 나의 약속 페이지 이동 라우터 설정
-    navigate('/');
+    navigate('/promiseList');
   };
 
   const handleGoHome = () => {

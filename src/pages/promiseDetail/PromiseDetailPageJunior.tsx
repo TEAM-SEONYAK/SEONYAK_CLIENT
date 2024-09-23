@@ -73,7 +73,7 @@ const PromiseDetailPageJunior = () => {
         </>
       ) : (
         <>
-          <Header LeftSvg={ArrowLeftIc} title="자세히 보기" onClickLeft={() => navigate('/')} />
+          <Header LeftSvg={ArrowLeftIc} title="자세히 보기" onClickLeft={() => navigate('/promiseList')} />
           <Wrapper>
             <Layout>
               <TitleContainer>
