@@ -97,7 +97,7 @@ const JuniorPromiseRequestPage = () => {
 
   // 버튼 클릭시 실행 함수
   const handleSubmit = () => {
-    setIsSubmitCicked(true);
+    setIsSubmitClicked(true);
     const isAllSelected =
       selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
       (isAnyWorrySelected || isTextareaFilled);
