@@ -43,6 +43,8 @@ const PromiseDetailPageJunior = () => {
 
   const countdown = useCountdown(timeList1?.date, timeList1?.startTime);
 
+  const { diffText, diff } = countdown;
+
   if (isLoading) {
     return <Loading />; // 로딩 중일 때 표시
   }
@@ -50,8 +52,6 @@ const PromiseDetailPageJunior = () => {
   if (!isSuccess || !timeList1) {
     return <div>데이터 없음</div>; // 데이터가 없을 때 표시
   }
-
-  const { diffText, diff } = countdown;
 
   const handleClickBackArrow = () => {
     setIsDetailClicked(false);
