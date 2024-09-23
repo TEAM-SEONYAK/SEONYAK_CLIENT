@@ -34,8 +34,6 @@ function useCountdown(date?: string, startTime?: string) {
     return () => clearInterval(timer);
   }, [date, startTime]);
 
-  console.log(timeLeft);
-
   return timeLeft;
 }
 
