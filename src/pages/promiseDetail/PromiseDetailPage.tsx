@@ -277,6 +277,7 @@ const PromiseDetail = () => {
           </>
         )}
       </Wrapper>
+
       {viewType === 'DECLINE' ? (
         <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/">
           <ModalRejectImg />
@@ -286,6 +287,7 @@ const PromiseDetail = () => {
           <ModalAcceptImg />
         </AutoCloseModal>
       )}
+
       <BottomSheet
         btnActive={rejectReason}
         isSheetOpen={isBottomSheetOpen}

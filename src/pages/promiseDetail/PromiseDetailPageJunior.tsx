@@ -108,7 +108,7 @@ const PromiseDetailPageJunior = () => {
               ) : (
                 <PromiseTimerBtn
                   isActive={diff !== undefined && diff <= 0}
-                  diff={diffText}
+                  diff={diff === undefined ? '-' : diffText}
                   page="detail"
                   onClick={() => setIsEnterBtnClicked(true)}
                 />
