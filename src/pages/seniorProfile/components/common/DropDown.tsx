@@ -48,7 +48,7 @@ const DropDown = ({
   return (
     <>
       {isSelectDown && <BackdropContainer onClick={handleClickOutside} />}
-      <div>
+      <>
         <DropdownContainer
           $isDefault={variant === 'default'}
           onClick={handleClickDropdown}
@@ -66,7 +66,7 @@ const DropDown = ({
             ))}
           </SelectContainer>
         )}
-      </div>
+      </>
     </>
   );
 };
@@ -87,7 +87,7 @@ const DropdownContainer = styled.section<{ $isDefault: boolean; $isActive: boole
   justify-content: space-between;
   align-items: center;
 
-  width: ${({ $isDefault }) => ($isDefault ? '13rem' : '12rem')};
+  width: 50%;
   height: 4rem;
   padding: 0.3rem 0 0.3rem ${({ $isDefault }) => ($isDefault ? '1.4rem' : '1.2rem')};
   border: 1px solid ${({ theme, $isWarning }) => ($isWarning ? theme.colors.Red : theme.colors.grayScaleLG1)};
@@ -112,8 +112,7 @@ const SelectContainer = styled.ul<{ $isStartTime: boolean }>`
   overflow-y: scroll;
   position: fixed;
   top: 10rem;
-  right: ${({ $isStartTime }) => !$isStartTime && '2.5rem'};
-  left: ${({ $isStartTime }) => $isStartTime && '2.5rem'};
+  left: ${({ $isStartTime }) => ($isStartTime ? 'calc(50% - 20rem)' : 'calc(50% + 0.5rem)')};
   z-index: 2;
 
   width: 20rem;

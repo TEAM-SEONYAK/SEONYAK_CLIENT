@@ -42,12 +42,14 @@ export default TimeAlldays;
 const Wrapper = styled.div`
   overflow-y: scroll;
 
-  padding: 0 2rem 10rem;
+  width: 100%;
+  padding: 0 0.2rem 10rem;
 `;
 
 const Container = styled.section`
   display: flex;
   align-items: center;
+  flex-grow: 1;
 
   padding-bottom: 1rem;
 `;
