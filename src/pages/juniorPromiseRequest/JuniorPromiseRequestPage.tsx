@@ -95,12 +95,13 @@ const JuniorPromiseRequestPage = () => {
     });
   };
 
+  const isAllSelected =
+    selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
+    (isAnyWorrySelected || isTextareaFilled);
+
   // 버튼 클릭시 실행 함수
   const handleSubmit = () => {
     setIsSubmitClicked(true);
-    const isAllSelected =
-      selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
-      (isAnyWorrySelected || isTextareaFilled);
     if (isAllSelected) {
       handleModalOpen(true);
     }
@@ -152,13 +153,7 @@ const JuniorPromiseRequestPage = () => {
             <Label>총 결제금액</Label>
             <Cost>0원</Cost>
           </CostWrapper>
-          <SubmitBtn
-            type="button"
-            onClick={handleSubmit}
-            $isAllSelected={
-              selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
-              (isAnyWorrySelected || isTextareaFilled)
-            }>
+          <SubmitBtn type="button" onClick={handleSubmit} $isAllSelected={isAllSelected}>
             약속 신청하기
           </SubmitBtn>
         </PageBottomBar>
