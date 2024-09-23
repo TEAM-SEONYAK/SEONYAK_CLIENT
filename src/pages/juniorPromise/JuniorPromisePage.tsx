@@ -3,7 +3,7 @@ import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import { SeniorCard } from '@components/commons/SeniorCard';
 import styled from '@emotion/styled';
-import { BottomSheet } from '@pages/juniorPromise/components/BottomSheetBg';
+import { BottomSheet } from '@pages/juniorPromise/components/BottomSheet';
 import { useState } from 'react';
 import { SeniorSearch } from './components/SeniorSearch';
 
@@ -16,7 +16,6 @@ import Loading from '@components/commons/Loading';
 import { Banner } from './components/seniorFilter/Banner';
 
 const JuniorPromisePage = () => {
-  // 선배리스트, 바텀시트 모두에서 필요한 프롭스 리스트
   // 바텀 시트 내 버튼& 내용 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
   // 바텀 시트 여는 동작
@@ -80,7 +79,7 @@ const JuniorPromisePage = () => {
     setChipPositionName((prev) => prev.filter((name) => name !== chipName));
   };
 
-  // B-계열리스트에 이름넣는 함수
+  // B- 계열리스트에 이름넣는 함수
   const pushFieldList = (chipName: string) => {
     setChipFieldName((prev) => {
       if (prev.indexOf(chipName) === -1) {
@@ -91,7 +90,7 @@ const JuniorPromisePage = () => {
     });
   };
 
-  // B-직무리스트에 이름 넣는 함수
+  // B- 직무리스트에 이름 넣는 함수
   const pushPositionList = (chipName: string) => {
     setChipPositionName((prev) => {
       if (prev.indexOf(chipName) === -1) {
@@ -102,7 +101,7 @@ const JuniorPromisePage = () => {
     });
   };
 
-  // B-바텀시트 닫기
+  // B- 바텀시트 닫기
   const handleCloseBottomSheet = () => {
     setIsBottomSheetOpen(false);
   };
