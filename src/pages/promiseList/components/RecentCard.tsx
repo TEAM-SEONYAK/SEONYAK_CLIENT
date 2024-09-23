@@ -19,10 +19,8 @@ const RecentCard = (props: RecentCardPropType) => {
   const { userRole, recentAppointment, appointmentNum, nickname } = props;
   const { diffText, diff, dDayDiff } = useCountdown(recentAppointment?.date, recentAppointment?.startTime);
   const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
-  const [, setGoogleMeetLink] = useState('');
 
   const handleClickEnterBtn = (link: string) => {
-    setGoogleMeetLink(link);
     window.open(link, '_blank');
     setIsEnterBtnClicked(false);
   };

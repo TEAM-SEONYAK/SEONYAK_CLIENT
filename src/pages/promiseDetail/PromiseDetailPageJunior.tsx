@@ -21,14 +21,11 @@ const PromiseDetailPageJunior = () => {
   const myNickname = location.state.myNickname;
   const appointmentId = location.state.appointmentId;
   const seniorId = location.state.seniorId;
-  // console.log(location.state);
 
   const [isDetailClicked, setIsDetailClicked] = useState(false);
   const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
-  const [, setGoogleMeetLink] = useState('');
 
   const handleClickEnterBtn = (link: string) => {
-    setGoogleMeetLink(link);
     window.open(link, '_blank');
     setIsEnterBtnClicked(false);
     // 라우팅 변경 PR 반영 필요
