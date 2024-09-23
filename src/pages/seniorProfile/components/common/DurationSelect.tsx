@@ -64,13 +64,15 @@ export default DurationSelect;
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  flex-grow: 1;
+
+  width: 100%;
 `;
 
 const WaveText = styled.p<{ $isDefault: boolean; $isActive: boolean }>`
   ${({ theme }) => theme.fonts.Title2_M_16};
-  padding: ${({ $isDefault }) => ($isDefault ? '0 0.4rem 0 0.9rem' : '0 0.3rem 0 0.7rem')};
+  padding: ${({ $isDefault }) => ($isDefault ? '0 0.9rem' : '0 0.7rem')};
 
   color: ${({ $isActive, theme }) => !$isActive && theme.colors.grayScaleMG1};
 `;

@@ -86,8 +86,8 @@ const DropdownContainer = styled.section<{ $isDefault: boolean; $isActive: boole
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-grow: 1;
 
+  width: 50%;
   height: 4rem;
   padding: 0.3rem 0 0.3rem ${({ $isDefault }) => ($isDefault ? '1.4rem' : '1.2rem')};
   border: 1px solid ${({ theme, $isWarning }) => ($isWarning ? theme.colors.Red : theme.colors.grayScaleLG1)};
