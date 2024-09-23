@@ -47,20 +47,20 @@ const PromiseTap = (props: PromiseTapPropType) => {
       {getTapContent(tap).length ? (
         <ProfileWrapper>
           {tap === 'past' &&
-            past.map((profileData, idx) =>
+            past.map((profileData) =>
               profileData.appointmentStatus === 'REJECTED' ? (
                 <ProfileContainer
-                  key={profileData.appointmentId + idx}
+                  key={profileData.appointmentId}
                   myNickname={myNickname}
                   userRole={userRole}
                   tap="rejected"
                   profileCardData={profileData}
-                  isarrow="ture"
+                  isarrow="true"
                   seniorId={profileData.seniorId}
                 />
               ) : (
                 <ProfileContainer
-                  key={profileData.appointmentId + idx}
+                  key={profileData.appointmentId}
                   myNickname={myNickname}
                   userRole={userRole}
                   tap="past"
@@ -68,14 +68,14 @@ const PromiseTap = (props: PromiseTapPropType) => {
                   isarrow="true"
                   seniorId={profileData.seniorId}
                 />
-              ),
+              )
             )}
 
           {tap === 'scheduled' &&
-            scheduled.map((profileCardData, idx) => (
+            scheduled.map((profileCardData) => (
               <ProfileContainer
                 myNickname={myNickname}
-                key={profileCardData.appointmentId + idx}
+                key={profileCardData.appointmentId}
                 userRole={userRole}
                 tap={tap}
                 profileCardData={profileCardData}
@@ -84,10 +84,10 @@ const PromiseTap = (props: PromiseTapPropType) => {
               />
             ))}
           {tap === 'pending' &&
-            pending.map((profileCardData, idx) => (
+            pending.map((profileCardData) => (
               <ProfileContainer
                 myNickname={myNickname}
-                key={profileCardData.appointmentId + idx}
+                key={profileCardData.appointmentId}
                 userRole={userRole}
                 tap={tap}
                 profileCardData={profileCardData}
