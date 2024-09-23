@@ -3,13 +3,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { NaviLookBlackIc, NaviPromiseBlackIc, NaviMyBlackIc } from '../../assets/svgs';
 
-type UserRole = 'JUNIOR' | 'SENIOR';
-
 const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [userRole] = useState<UserRole>('JUNIOR');
+  const userRole = localStorage.getItem('role') + '';
   const [currNav, setCurrNav] = useState(location.pathname);
 
   useEffect(() => {
