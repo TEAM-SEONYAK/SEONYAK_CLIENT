@@ -13,6 +13,7 @@ export interface JoinPropType {
   isSubscribed: boolean[];
   nickname: string;
   image: string;
+  imageFile?: File;
   phoneNumber: string;
   univName: string;
   field: string;

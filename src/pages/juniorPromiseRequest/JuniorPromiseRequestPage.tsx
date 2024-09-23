@@ -1,6 +1,6 @@
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { usePostAppointment } from './hooks/queries';
 
@@ -21,7 +21,6 @@ import axios from 'axios';
 const JuniorPromiseRequestPage = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAllSelected, setIsAllSelected] = useState(false);
   const [isAnyWorrySelected, setIsAnyWorrySelected] = useState(false);
   const [isTextareaFilled, setIsTextareaFilled] = useState(false);
   const [, setUnfilledFields] = useState<number[]>([]);
@@ -82,46 +81,30 @@ const JuniorPromiseRequestPage = () => {
 
   const { mutate: postAppointment } = usePostAppointment(handleAppointmentSendSuccess, handleAppointmentSendError);
 
+  // 적용할래요 누르면 실행되는 함수
   const handlePostAppointment = () => {
-    if (isAllSelected) {
-      postAppointment({
-        seniorId: seniorId,
-        topic: activeButton === '선택할래요' ? selectedButtons : [],
-        personalTopic: activeButton === '선택할래요' ? '' : inputVal,
-        timeList: [
-          {
-            date: selectedTime[0].clickedDay,
-            startTime: selectedTime[0].selectedTime.split('-')[0],
-            endTime: selectedTime[0].selectedTime.split('-')[1],
-          },
-          {
-            date: selectedTime[1].clickedDay,
-            startTime: selectedTime[1].selectedTime.split('-')[0],
-            endTime: selectedTime[1].selectedTime.split('-')[1],
-          },
-          {
-            date: selectedTime[2].clickedDay,
-            startTime: selectedTime[2].selectedTime.split('-')[0],
-            endTime: selectedTime[2].selectedTime.split('-')[1],
-          },
-        ],
-      });
-    }
+    postAppointment({
+      seniorId,
+      topic: activeButton === '선택할래요' ? selectedButtons : [],
+      personalTopic: activeButton === '선택할래요' ? '' : inputVal,
+      timeList: selectedTime.map((item) => ({
+        date: item.clickedDay,
+        startTime: item.selectedTime.split('-')[0],
+        endTime: item.selectedTime.split('-')[1],
+      })),
+    });
   };
 
   // 버튼 클릭시 실행 함수
-  const handleSubmit = (isAllSelected: boolean) => {
-    setIsSubmitClicked(true);
-    isAllSelected && handleModalOpen(true);
-  };
-
-  // isAllSelected 업데이트
-  useEffect(() => {
-    setIsAllSelected(
+  const handleSubmit = () => {
+    setIsSubmitCicked(true);
+    const isAllSelected =
       selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
-        (isAnyWorrySelected || isTextareaFilled)
-    );
-  }, [selectedTime, isAnyWorrySelected, isTextareaFilled]);
+      (isAnyWorrySelected || isTextareaFilled);
+    if (isAllSelected) {
+      handleModalOpen(true);
+    }
+  };
 
   return (
     <Wrapper>
@@ -169,7 +152,13 @@ const JuniorPromiseRequestPage = () => {
             <Label>총 결제금액</Label>
             <Cost>0원</Cost>
           </CostWrapper>
-          <SubmitBtn type="button" onClick={() => handleSubmit(isAllSelected)} $isAllSelected={isAllSelected}>
+          <SubmitBtn
+            type="button"
+            onClick={handleSubmit}
+            $isAllSelected={
+              selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
+              (isAnyWorrySelected || isTextareaFilled)
+            }>
             약속 신청하기
           </SubmitBtn>
         </PageBottomBar>
