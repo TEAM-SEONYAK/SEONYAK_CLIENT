@@ -10,6 +10,7 @@ import { useProfileQuery } from '@pages/onboarding/hooks/useProfileImgQuery';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { JoinContextType } from '@pages/onboarding/type';
 import usePresignedUrl from '@pages/onboarding/hooks/usePresignedUrl';
+import { isAxiosError } from 'axios';
 
 const Step개인정보입력 = () => {
   const { data, setData } = useOutletContext<JoinContextType>();
@@ -18,7 +19,9 @@ const Step개인정보입력 = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState(data.nickname);
   const mutation = useNicknameValid();
-  type nicknameStatusType = 'EMPTY' | 'ERROR' | 'VALID';
+
+  type nicknameErrorType = 'INVALID' | 'CONFLICT';
+  type nicknameStatusType = 'EMPTY' | 'VALID' | nicknameErrorType;
   const [isNicknameStatus, setIsNicknameStatus] = useState<nicknameStatusType>('EMPTY');
 
   const [imageFile, setImageFile] = useState<File | null>(data.imageFile || null);
@@ -47,8 +50,10 @@ const Step개인정보입력 = () => {
       onSuccess: () => {
         setIsNicknameStatus('VALID');
       },
-      onError: () => {
-        setIsNicknameStatus('ERROR');
+      onError: (err) => {
+        if (isAxiosError(err)) {
+          setIsNicknameStatus(err.response?.status === 409 ? 'CONFLICT' : 'INVALID');
+        }
       },
     });
   };
@@ -84,12 +89,14 @@ const Step개인정보입력 = () => {
           <InputBox
             label="닉네임"
             placeholder="닉네임을 입력해 주세요"
-            isError={isNicknameStatus === 'ERROR'}
+            isError={isNicknameStatus === 'INVALID' || isNicknameStatus === 'CONFLICT'}
             value={nickname}
             onChange={handleChangeInput}>
             <InnerButton text="중복확인" onClick={handleCheckNickname} />
           </InputBox>
-          {isNicknameStatus === 'ERROR' ? (
+          {isNicknameStatus === 'CONFLICT' ? (
+            <WarnDescription isShown warnText="이미 사용 중인 닉네임이에요." />
+          ) : isNicknameStatus === 'INVALID' ? (
             <WarnDescription isShown warnText="닉네임이 조건을 충족하지 않아요." />
           ) : (
             <Caption isValid={isNicknameStatus === 'VALID'}>
