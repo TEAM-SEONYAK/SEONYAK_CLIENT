@@ -16,6 +16,7 @@ import { Header } from '@components/commons/Header';
 import Banner from './components/Banner';
 import TitleBox from '@components/commons/TitleBox';
 import { SELECT_JUNIOR_TITLE } from './constants/constants';
+import axios from 'axios';
 
 const JuniorPromiseRequestPage = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
@@ -27,7 +28,7 @@ const JuniorPromiseRequestPage = () => {
   const location = useLocation();
 
   // 약속 신청하기 눌렸는지 확인
-  const [isSubmitClicked, setIsSubmitCicked] = useState(false);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   // 적용할래요 눌렀는지 확인
   const [isModalClicked, setIsModalClicked] = useState(false);
   // 캘린더 여닫기
@@ -73,7 +74,12 @@ const JuniorPromiseRequestPage = () => {
   const handleAppointmentSendSuccess = () => {
     setIsModalClicked(true);
   };
-  const { mutate: postAppointment } = usePostAppointment(() => handleAppointmentSendSuccess());
+
+  const handleAppointmentSendError = (error: string) => {
+    alert(error);
+  };
+
+  const { mutate: postAppointment } = usePostAppointment(handleAppointmentSendSuccess, handleAppointmentSendError);
 
   // 적용할래요 누르면 실행되는 함수
   const handlePostAppointment = () => {
@@ -102,7 +108,7 @@ const JuniorPromiseRequestPage = () => {
 
   return (
     <Wrapper>
-      <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate('/')} title={'약속 신청하기'} />
+      <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate(-1)} title={'약속 신청하기'} />
       <Banner senior={`${seniorNickname} 선배`} />
       <ImgHbpromiseIcon />
 
@@ -123,17 +129,6 @@ const JuniorPromiseRequestPage = () => {
           activeButton={activeButton}
           onSetActiveButtonHandler={handleToggle}
         />
-        {isModalOpen && (
-          <BtnCloseModal
-            title={'약속 잡기 전 주의해주세요'}
-            isModalOpen={isModalOpen}
-            handleModalOpen={handleModalOpen}
-            handleBtnClick={handlePostAppointment}
-            btnText={'적용할래요'}>
-            <CheckModalContent />
-          </BtnCloseModal>
-        )}
-        {isModalClicked && <RequestComplete seniorNickname={seniorNickname} />}
         {activeButton === '선택할래요' ? (
           <WorryButtons
             selectedButtons={selectedButtons}
@@ -168,6 +163,17 @@ const JuniorPromiseRequestPage = () => {
           </SubmitBtn>
         </PageBottomBar>
       </Layout>
+      {isModalOpen && (
+        <BtnCloseModal
+          title={'약속 잡기 전 주의해주세요'}
+          isModalOpen={isModalOpen}
+          handleModalOpen={handleModalOpen}
+          handleBtnClick={handlePostAppointment}
+          btnText={'적용할래요'}>
+          <CheckModalContent />
+        </BtnCloseModal>
+      )}
+      {isModalClicked && <RequestComplete seniorNickname={seniorNickname} />}
     </Wrapper>
   );
 };
