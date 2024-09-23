@@ -11,11 +11,11 @@ export const FieldList = (props: IFieldList) => {
   const { field, handleChipField, chipFieldName } = props;
   const isSelected = chipFieldName.includes(field);
 
-  const onSelected = () => {
+  const handleSelected = () => {
     handleChipField(field);
   };
   return (
-    <FieldWrapper onClick={onSelected}>
+    <FieldWrapper onClick={handleSelected}>
       <FieldTitle isSelected={isSelected}>{field}</FieldTitle>
       <CheckBox isselected={isSelected + ''} />
     </FieldWrapper>

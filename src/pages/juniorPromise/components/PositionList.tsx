@@ -9,12 +9,12 @@ export const PositionList = (props: positionListPropType) => {
   const { position, handleChipPosition, chipPositionName } = props;
   const isSelected = chipPositionName.includes(position);
 
-  const onSelected = () => {
+  const handleSelected = () => {
     handleChipPosition(position);
   };
   return (
     <>
-      <PositionTitle $selectedPositionIndex={isSelected} onClick={onSelected}>
+      <PositionTitle $selectedPositionIndex={isSelected} onClick={handleSelected}>
         {position}
       </PositionTitle>
     </>
