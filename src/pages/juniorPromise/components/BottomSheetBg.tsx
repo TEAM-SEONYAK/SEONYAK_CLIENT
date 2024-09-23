@@ -139,8 +139,6 @@ const BottomSheetWrapper = styled.form<{ $isBottomSheetOpen: boolean }>`
 `;
 
 const TitleLayout = styled.header`
-  display: inline-block;
-
   margin: 0 2rem 1.5rem;
 `;
 
