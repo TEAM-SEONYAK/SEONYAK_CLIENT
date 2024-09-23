@@ -25,7 +25,9 @@ export default FullBottomSheet;
 const Wrapper = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translate(-50%);
+
   z-index: 10;
 
   width: 100vw;
