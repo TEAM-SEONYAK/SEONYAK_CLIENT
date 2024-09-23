@@ -153,7 +153,7 @@ const PromiseDetail = () => {
     <>
       <Header
         LeftSvg={ArrowLeftIc}
-        onClickLeft={() => navigate('/')}
+        onClickLeft={() => navigate('/promiseList')}
         title={viewType === 'DEFAULT' ? '자세히 보기' : '거절하기'}
       />
       <hr />
@@ -444,8 +444,8 @@ const Description = styled.span`
 
 const BtnWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
   gap: 1rem;
+  justify-content: space-between;
   position: fixed;
   bottom: 0;
   z-index: 2;
@@ -459,6 +459,7 @@ const DeclineBtn = styled.button`
   z-index: 2;
 
   border-radius: 5px;
+
   /* width: 10.6rem; */
   width: 30%;
   height: 5.6rem;
@@ -475,6 +476,7 @@ const AcceptBtn = styled.button<{ $isActive: boolean }>`
   z-index: 2;
 
   border-radius: 5px;
+
   /* width: 21.9rem; */
   width: 70%;
   height: 5.6rem;

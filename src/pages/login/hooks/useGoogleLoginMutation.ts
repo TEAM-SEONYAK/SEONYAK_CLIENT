@@ -16,7 +16,7 @@ const useGoogleLoginMutation = ({ role }: useGoogleLoginPropType) => {
       if (responseRole) {
         // 로그인 (이미 가입된 회원)
         localStorage.setItem('role', responseRole);
-        navigate(responseRole === 'SENIOR' ? '/' : '/juniorPromise');
+        navigate(responseRole === 'SENIOR' ? '/promiseList' : '/juniorPromise');
       } else if (role) {
         // 회원가입
         navigate(role === 'SENIOR' ? '/seniorOnboarding' : '/juniorOnboarding');

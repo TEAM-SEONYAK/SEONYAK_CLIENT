@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const ErrorPage = () => {
   const navigate = useNavigate();
   const role = localStorage.getItem('role');
-  const navPath = role === 'SENIOR' ? '/' : '/juniorPromise';
+  const navPath = role === 'SENIOR' ? '/promiseList' : '/juniorPromise';
   return (
     <Wrapper>
       <WarningImgIcon />
