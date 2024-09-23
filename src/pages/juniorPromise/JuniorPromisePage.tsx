@@ -12,6 +12,7 @@ import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
 import PromiseRequestPage from './components/promiseRequest/PromiseRequestPage';
 import Loading from '@components/commons/Loading';
+import ErrorPage from '@pages/errorPage/ErrorPage';
 
 import { Banner } from './components/seniorFilter/Banner';
 
@@ -114,7 +115,7 @@ const JuniorPromisePage = () => {
     return <Loading />;
   }
   if (isError) {
-    return <div>Error occurred</div>;
+    return <ErrorPage />;
   }
 
   const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
