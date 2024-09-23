@@ -8,7 +8,7 @@ const Complete = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/');
+      navigate('/promiseList');
     }, 3000);
     return () => clearTimeout(timer);
   }, []);

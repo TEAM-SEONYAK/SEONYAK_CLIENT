@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <PromiseListPage />,
+        element: <JoinPage />,
       },
       {
         path: 'promiseDetail',
@@ -42,8 +42,8 @@ const router = createBrowserRouter([
         element: <PromiseDetailPageJunior />,
       },
       {
-        path: 'join',
-        element: <JoinPage />,
+        path: 'promiseList',
+        element: <PromiseListPage />,
       },
       {
         path: 'signup',

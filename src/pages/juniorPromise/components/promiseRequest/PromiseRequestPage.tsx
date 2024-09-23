@@ -114,13 +114,13 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
   useEffect(() => {
     setIsAllSelected(
       selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
-        (isAnyWorrySelected || isTextareaFilled),
+        (isAnyWorrySelected || isTextareaFilled)
     );
   }, [selectedTime, isAnyWorrySelected, isTextareaFilled]);
 
   return (
     <Wrapper>
-      <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate('/')} title={'약속 신청하기'} />
+      <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate('/promiseList')} title={'약속 신청하기'} />
       <Banner senior={`${seniorNickname} 선배`} />
       <ImgHbpromiseIcon />
 
