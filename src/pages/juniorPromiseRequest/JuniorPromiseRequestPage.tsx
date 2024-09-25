@@ -1,37 +1,34 @@
 import ToggleButton from '@components/commons/ToggleButton';
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
-import CalendarBottomSheet from './CalendarBottomSheet';
-import WorryButtons from './WorryButtons';
-import WorryTextarea from './WorryTextarea';
-import ScheduleSelect from './ScheduleSelect';
+import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { usePostAppointment } from './hooks/queries';
+
+import CalendarBottomSheet from './components/CalendarBottomSheet';
+import WorryButtons from './components/WorryButtons';
+import WorryTextarea from './components/WorryTextarea';
+import ScheduleSelect from './components/ScheduleSelect';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
-import CheckModalContent from './CheckModalContent';
-import RequestComplete from './RequestComplete';
+import CheckModalContent from './components/CheckModalContent';
+import RequestComplete from './components/RequestComplete';
 import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
-import { useNavigate } from 'react-router-dom';
-import Banner from './Banner';
-import { usePostAppointment } from '../../hooks/queries';
-import TitleBox from '../../../../components/commons/TitleBox';
-import { SELECT_JUNIOR_TITLE } from '@pages/juniorPromise/constants/constants';
+import Banner from './components/Banner';
+import TitleBox from '@components/commons/TitleBox';
+import { SELECT_JUNIOR_TITLE } from './constants/constants';
+import axios from 'axios';
 
-interface PromiseRequestPagePropType {
-  seniorId: number;
-  seniorNickname: string;
-}
-
-const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPagePropType) => {
+const JuniorPromiseRequestPage = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAllSelected, setIsAllSelected] = useState(false);
   const [isAnyWorrySelected, setIsAnyWorrySelected] = useState(false);
   const [isTextareaFilled, setIsTextareaFilled] = useState(false);
   const [, setUnfilledFields] = useState<number[]>([]);
   const navigate = useNavigate();
+  const location = useLocation();
 
   // 약속 신청하기 눌렸는지 확인
-  const [isSubmitClicked, setIsSubmitCicked] = useState(false);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   // 적용할래요 눌렀는지 확인
   const [isModalClicked, setIsModalClicked] = useState(false);
   // 캘린더 여닫기
@@ -46,6 +43,8 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
   const [btnId, setBtnId] = useState(0);
   // 선택한 고민 리스트
   const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
+  // 선배 Id, 닉네임 useLocation에서 가져오기(구조분해할당)
+  const { seniorId, seniorNickname } = location.state || {};
 
   // onToggle 함수 정의
   const handleToggle = (button: string) => {
@@ -75,52 +74,42 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
   const handleAppointmentSendSuccess = () => {
     setIsModalClicked(true);
   };
-  const { mutate: postAppointment } = usePostAppointment(() => handleAppointmentSendSuccess());
 
+  const handleAppointmentSendError = (error: string) => {
+    alert(error);
+  };
+
+  const { mutate: postAppointment } = usePostAppointment(handleAppointmentSendSuccess, handleAppointmentSendError);
+
+  // 적용할래요 누르면 실행되는 함수
   const handlePostAppointment = () => {
+    postAppointment({
+      seniorId,
+      topic: activeButton === '선택할래요' ? selectedButtons : [],
+      personalTopic: activeButton === '선택할래요' ? '' : inputVal,
+      timeList: selectedTime.map((item) => ({
+        date: item.clickedDay,
+        startTime: item.selectedTime.split('-')[0],
+        endTime: item.selectedTime.split('-')[1],
+      })),
+    });
+  };
+
+  const isAllSelected =
+    selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
+    (isAnyWorrySelected || isTextareaFilled);
+
+  // 버튼 클릭시 실행 함수
+  const handleSubmit = () => {
+    setIsSubmitClicked(true);
     if (isAllSelected) {
-      postAppointment({
-        seniorId: seniorId,
-        topic: activeButton === '선택할래요' ? selectedButtons : [],
-        personalTopic: activeButton === '선택할래요' ? '' : inputVal,
-        timeList: [
-          {
-            date: selectedTime[0].clickedDay,
-            startTime: selectedTime[0].selectedTime.split('-')[0],
-            endTime: selectedTime[0].selectedTime.split('-')[1],
-          },
-          {
-            date: selectedTime[1].clickedDay,
-            startTime: selectedTime[1].selectedTime.split('-')[0],
-            endTime: selectedTime[1].selectedTime.split('-')[1],
-          },
-          {
-            date: selectedTime[2].clickedDay,
-            startTime: selectedTime[2].selectedTime.split('-')[0],
-            endTime: selectedTime[2].selectedTime.split('-')[1],
-          },
-        ],
-      });
+      handleModalOpen(true);
     }
   };
 
-  // 버튼 클릭시 실행 함수
-  const handleSubmit = (isAllSelected: boolean) => {
-    setIsSubmitCicked(true);
-    isAllSelected && handleModalOpen(true);
-  };
-
-  // isAllSelected 업데이트
-  useEffect(() => {
-    setIsAllSelected(
-      selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
-        (isAnyWorrySelected || isTextareaFilled)
-    );
-  }, [selectedTime, isAnyWorrySelected, isTextareaFilled]);
-
   return (
     <Wrapper>
-      <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate('/promiseList')} title={'약속 신청하기'} />
+      <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate(-1)} title={'약속 신청하기'} />
       <Banner senior={`${seniorNickname} 선배`} />
       <ImgHbpromiseIcon />
 
@@ -141,17 +130,6 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
           activeButton={activeButton}
           onSetActiveButtonHandler={handleToggle}
         />
-        {isModalOpen && (
-          <BtnCloseModal
-            title={'약속 잡기 전 주의해주세요'}
-            isModalOpen={isModalOpen}
-            handleModalOpen={handleModalOpen}
-            handleBtnClick={handlePostAppointment}
-            btnText={'적용할래요'}>
-            <CheckModalContent />
-          </BtnCloseModal>
-        )}
-        {isModalClicked && <RequestComplete seniorNickname={seniorNickname} />}
         {activeButton === '선택할래요' ? (
           <WorryButtons
             selectedButtons={selectedButtons}
@@ -175,16 +153,27 @@ const PromiseRequestPage = ({ seniorId, seniorNickname }: PromiseRequestPageProp
             <Label>총 결제금액</Label>
             <Cost>0원</Cost>
           </CostWrapper>
-          <SubmitBtn type="button" onClick={() => handleSubmit(isAllSelected)} $isAllSelected={isAllSelected}>
+          <SubmitBtn type="button" onClick={handleSubmit} $isAllSelected={isAllSelected}>
             약속 신청하기
           </SubmitBtn>
         </PageBottomBar>
       </Layout>
+      {isModalOpen && (
+        <BtnCloseModal
+          title={'약속 잡기 전 주의해주세요'}
+          isModalOpen={isModalOpen}
+          handleModalOpen={handleModalOpen}
+          handleBtnClick={handlePostAppointment}
+          btnText={'적용할래요'}>
+          <CheckModalContent />
+        </BtnCloseModal>
+      )}
+      {isModalClicked && <RequestComplete seniorNickname={seniorNickname} />}
     </Wrapper>
   );
 };
 
-export default PromiseRequestPage;
+export default JuniorPromiseRequestPage;
 
 const ImgHbpromiseIcon = styled(ImgHbpromiseIc)`
   position: absolute;
