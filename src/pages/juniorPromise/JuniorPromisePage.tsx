@@ -1,20 +1,22 @@
-import { HeaderLogoIc, AlarmIc, ArrowLeftIc } from '@assets/svgs';
+import { ArrowLeftIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import Nav from '@components/commons/Nav';
 import { SeniorCard } from '@components/commons/SeniorCard';
 import styled from '@emotion/styled';
-import { BottomSheet } from '@pages/juniorPromise/components/BottomSheetBg';
+import { BottomSheet } from '@pages/juniorPromise/components/BottomSheet';
 import { useState } from 'react';
-import { SeniorListBackground } from './components/SeniorListBackground';
+import { SeniorSearch } from './components/SeniorSearch';
+
 import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
 import Loading from '@components/commons/Loading';
-import { HbHomeMainSvg } from '@assets/svgs';
+import ErrorPage from '@pages/errorPage/ErrorPage';
+
+import { Banner } from './components/seniorFilter/Banner';
 import { useNavigate } from 'react-router-dom';
 
 const JuniorPromisePage = () => {
-
   const navigate = useNavigate();
 
   // 바텀 시트 내 버튼& 내용 필터 버튼
@@ -27,39 +29,8 @@ const JuniorPromisePage = () => {
     setFilterActiveBtn(btnText);
     setIsBottomSheetOpen(true);
   };
-  // 바텀시트 닫기
-  const handleCloseBottomSheet = () => {
-    setIsBottomSheetOpen(false);
-  };
-
-  // 바텀시트 내 직무 칩
-  const [selectedPosition, setSelectedPosition] = useState(Array(21).fill(false));
-
-  // 선택직무 리스트
-  const arrPosition = [...selectedPosition];
-
-  const handleChipPosition = (positionId: number) => {
-    arrPosition[positionId] = !arrPosition[positionId];
-
-    setSelectedPosition(arrPosition);
-  };
-
-  // 바텀시트 내 계열 칩
-  const [selectedField, setSelectedField] = useState(Array(7).fill(false));
-
-  // 선택 계열 리스트 T/F
-  const arrField = [...selectedField];
-
-  const handleChipField = (fieldId: number) => {
-    arrField[fieldId] = !arrField[fieldId];
-
-    setSelectedField(arrField);
-  };
-
   // 초기화 함수
   const handleReset = () => {
-    setSelectedPosition(Array(21).fill(false));
-    setSelectedField(Array(7).fill(false));
     setChipFieldName([]);
     setChipPositionName([]);
   };
@@ -67,7 +38,51 @@ const JuniorPromisePage = () => {
   // 칩으로 나갈 선택된 계열 이름 리스트
   const [chipFieldName, setChipFieldName] = useState<string[]>([]);
 
-  // 계열리스트에 이름넣는 함수
+  // 칩으로 나갈 선택된 직무 리스트
+  const [chipPositionName, setChipPositionName] = useState<string[]>([]);
+
+  // 선택 계열 리스트 배열로
+  const isFieldSelected = (fieldName: string) => chipFieldName.includes(fieldName);
+
+  const handleChipField = (fieldName: string) => {
+    if (isFieldSelected(fieldName)) {
+      setChipFieldName((prev) => prev.filter((name) => name !== fieldName));
+    } else {
+      setChipFieldName((prev) => [...prev, fieldName]);
+    }
+  };
+
+  // 선택 직무 리스트
+  const isPositionSelected = (positionName: string) => chipPositionName.includes(positionName);
+
+  const handleChipPosition = (positionName: string) => {
+    if (isPositionSelected(positionName)) {
+      setChipPositionName((prev) => prev.filter((name) => name !== positionName));
+    } else {
+      setChipPositionName((prev) => [...prev, positionName]);
+    }
+  };
+
+  const SeniorSearchCommonProps = {
+    handleFilterActiveBtn,
+    handleReset,
+    chipPositionName,
+    chipFieldName,
+    handleChipField,
+    handleChipPosition,
+  };
+
+  // S- 계열리스트에 이름빼는 함수
+  const deleteFieldList = (chipName: string) => {
+    setChipFieldName((prev) => prev.filter((name) => name !== chipName));
+  };
+
+  // S- 직무리스트에 이름 빼는 함수
+  const deletePositionList = (chipName: string) => {
+    setChipPositionName((prev) => prev.filter((name) => name !== chipName));
+  };
+
+  // B- 계열리스트에 이름넣는 함수
   const pushFieldList = (chipName: string) => {
     setChipFieldName((prev) => {
       if (prev.indexOf(chipName) === -1) {
@@ -78,14 +93,7 @@ const JuniorPromisePage = () => {
     });
   };
 
-  // 계열리스트에 이름빼는 함수
-  const deleteFieldList = (chipName: string) => {
-    setChipFieldName((prev) => prev.filter((name) => name !== chipName));
-  };
-  // 칩으로 나갈 선택된 직무 리스트
-  const [chipPositionName, setChipPositionName] = useState<string[]>([]);
-
-  // 직무리스트에 이름 넣는 함수
+  // B- 직무리스트에 이름 넣는 함수
   const pushPositionList = (chipName: string) => {
     setChipPositionName((prev) => {
       if (prev.indexOf(chipName) === -1) {
@@ -95,17 +103,22 @@ const JuniorPromisePage = () => {
       }
     });
   };
-  // 직무리스트에 이름 빼는 함수
-  const deletePositionList = (chipName: string) => {
-    setChipPositionName((prev) => prev.filter((name) => name !== chipName));
+
+  // B- 바텀시트 닫기
+  const handleCloseBottomSheet = () => {
+    setIsBottomSheetOpen(false);
   };
 
   // 쿼리 사용하여 데이터 가져오기
   const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
-
   const seniorList = data?.data.seniorList || [];
-  // 내 닉네임 가져오기
   const myNickname = data?.data.myNickname;
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (isError) {
+    return <ErrorPage />;
+  }
 
   const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
   const [seniorId, setSeniorId] = useState(0);
@@ -115,7 +128,6 @@ const JuniorPromisePage = () => {
     setSeniorId(id);
     setSeniorNickname(name);
   };
-
   const handlePromiseClicked = () => {
     navigate('/juniorPromiseRequest', {
       state: {
@@ -124,14 +136,6 @@ const JuniorPromisePage = () => {
       },
     });
   };
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <div>Error occurred</div>;
-  }
 
   return (
     <>
@@ -147,61 +151,37 @@ const JuniorPromisePage = () => {
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
       ) : (
-        <Wrapper isBottomSheetOpen={isBottomSheetOpen}>
-          <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="transparent" />
-          <Background>
-            <HbHomeMainSvgIcon />
-          </Background>
-
-          <Title>반가워요 {myNickname}님,고민을 해결해볼까요?</Title>
-
-          <SeniorListBackground
-            handleFilterActiveBtn={handleFilterActiveBtn}
-            handleReset={handleReset}
-            chipPositionName={chipPositionName}
-            chipFieldName={chipFieldName}
-            deleteFieldList={deleteFieldList}
-            handleChipField={handleChipField}
-            deletePositionList={deletePositionList}
-            handleChipPosition={handleChipPosition}
-            $chipFieldName={chipFieldName}
-            $chipPositionName={chipPositionName}>
-            <SeniorListWrapper>
+        <PreventScroll $isBottomSheetOpen={isBottomSheetOpen}>
+          <Banner myNickname={myNickname} />
+          <ContentWrapper>
+            <SeniorSearch
+              {...SeniorSearchCommonProps}
+              deleteFieldList={deleteFieldList}
+              deletePositionList={deletePositionList}
+              $chipFieldName={chipFieldName}
+              $chipPositionName={chipPositionName}>
+              <BottomSheet
+                {...SeniorSearchCommonProps}
+                filterActiveBtn={filterActiveBtn}
+                handleCloseBottomSheet={handleCloseBottomSheet}
+                isBottomSheetOpen={isBottomSheetOpen}
+                pushFieldList={pushFieldList}
+                pushPositionList={pushPositionList}
+              />
+            </SeniorSearch>
+            <SeniorCardListLayout>
               {seniorList?.map((list) => (
                 <SeniorCard
                   key={list.seniorId}
-                  nickname={list.nickname}
-                  company={list.company}
-                  image={list.image}
-                  field={list.field}
-                  position={list.position}
-                  detailPosition={list.detailPosition}
-                  level={list.level}
+                  {...list}
                   variant="secondary"
-                  seniorId={list.seniorId}
                   handleSeniorCardClicked={handleSeniorCardClicked}
                 />
               ))}
-            </SeniorListWrapper>
-            <Nav />
-          </SeniorListBackground>
-
-          <BottomSheet
-            filterActiveBtn={filterActiveBtn}
-            handleFilterActiveBtn={handleFilterActiveBtn}
-            handleCloseBottomSheet={handleCloseBottomSheet}
-            isBottomSheetOpen={isBottomSheetOpen}
-            handleChipField={handleChipField}
-            handleChipPosition={handleChipPosition}
-            selectedPosition={selectedPosition}
-            selectedField={selectedField}
-            handleReset={handleReset}
-            chipFieldName={chipFieldName}
-            pushFieldList={pushFieldList}
-            chipPositionName={chipPositionName}
-            pushPositionList={pushPositionList}
-          />
-        </Wrapper>
+            </SeniorCardListLayout>
+          </ContentWrapper>
+          <Nav />
+        </PreventScroll>
       )}
     </>
   );
@@ -209,27 +189,26 @@ const JuniorPromisePage = () => {
 
 export default JuniorPromisePage;
 
-const Wrapper = styled.div<{ isBottomSheetOpen: boolean }>`
-  position: ${({ isBottomSheetOpen }) => (isBottomSheetOpen ? 'fixed' : 'relative')};
+const PreventScroll = styled.div<{ $isBottomSheetOpen: boolean }>`
+  position: ${({ $isBottomSheetOpen }) => ($isBottomSheetOpen ? 'fixed' : 'relative')};
 
-  min-height: calc(var(--vh, 1vh) * 100 - 44px);
+  width: 100%;
+  height: 100vh;
 
-  background-color: ${({ theme }) => theme.colors.grayScaleWG};
+  background: ${({ theme }) => theme.colors.grayScaleWG};
 `;
 
-const Title = styled.p`
+const ContentWrapper = styled.div`
   position: absolute;
-  top: 6rem;
-  left: 2rem;
+  top: 17.7rem;
 
-  width: 16.8rem;
-  height: 5.6rem;
+  width: 100%;
+  border-radius: 16px 16px 0 0;
 
-  color: ${({ theme }) => theme.colors.grayScaleBG};
-  ${({ theme }) => theme.fonts.Head1_SB_20}
-  word-break: keep-all;
+  background: ${({ theme }) => theme.colors.grayScaleWG};
 `;
-const SeniorListWrapper = styled.div`
+
+const SeniorCardListLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -237,21 +216,6 @@ const SeniorListWrapper = styled.div`
 
   width: 100vw;
   height: 100%;
-  margin-bottom: 9.8rem;
+  margin-bottom: 10rem;
   padding: 0.8rem 2rem;
-`;
-
-const Background = styled.div`
-  position: relative;
-
-  width: 100vw;
-  height: 18.7rem;
-
-  background: linear-gradient(151deg, #cce7ff 17.85%, #b8b1ff 163.57%);
-`;
-
-const HbHomeMainSvgIcon = styled(HbHomeMainSvg)`
-  position: absolute;
-  right: 0;
-  bottom: 0;
 `;

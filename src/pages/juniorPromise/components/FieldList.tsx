@@ -1,24 +1,21 @@
 import { CheckItemIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 
-interface IFieldList {
+interface FieldListPropTypes {
   field: string;
-  selectedField: boolean[];
-  handleChipField: (fieldId: number) => void;
-  fieldId: number;
-  chipFieldName: string;
-  pushFieldList: (chipName: string) => void;
+  handleChipField: (fieldName: string) => void;
+  chipFieldName: string[];
 }
 
-export const FieldList = (props: IFieldList) => {
-  const { field, selectedField, handleChipField, fieldId, chipFieldName, pushFieldList } = props;
-  const isSelected = selectedField[fieldId];
-  const onSelected = () => {
-    handleChipField(fieldId);
-    pushFieldList(chipFieldName);
+export const FieldList = (props: FieldListPropTypes) => {
+  const { field, handleChipField, chipFieldName } = props;
+  const isSelected = chipFieldName.includes(field);
+
+  const handleSelect = () => {
+    handleChipField(field);
   };
   return (
-    <FieldWrapper onClick={onSelected}>
+    <FieldWrapper onClick={handleSelect}>
       <FieldTitle isSelected={isSelected}>{field}</FieldTitle>
       <CheckBox isselected={isSelected + ''} />
     </FieldWrapper>

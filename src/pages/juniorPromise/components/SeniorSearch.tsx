@@ -1,20 +1,18 @@
 import { ResetIc, Line292Ic, CloseIc } from '@assets/svgs';
 import styled from '@emotion/styled';
-import React, { ReactNode } from 'react';
 import { FilterButton } from './FilterButton';
-import { FIELD_LIST } from '../constants/fieldList';
-import { POSITION_LIST } from '../constants/positionList';
+import { ReactNode } from 'react';
 
-interface SeniorListBackgroundProps {
+interface SeniorSearchPropTypes {
   children: ReactNode;
   handleFilterActiveBtn: (btnText: string) => void;
   handleReset: () => void;
   chipPositionName: string[];
   chipFieldName: string[];
   deleteFieldList: (chipName: string) => void;
-  handleChipField: (fieldId: number) => void;
+  handleChipField: (fieldName: string) => void;
   deletePositionList: (chipName: string) => void;
-  handleChipPosition: (postion: number) => void;
+  handleChipPosition: (positionName: string) => void;
   $chipFieldName: string[];
   $chipPositionName: string[];
 }
@@ -23,31 +21,29 @@ interface SelectedChipListProps {
   $chipPositionName: string[];
 }
 
-export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
-  children,
-  handleFilterActiveBtn,
-  handleReset,
-  chipFieldName,
-  deleteFieldList,
-  handleChipField,
-  chipPositionName,
-  deletePositionList,
-  handleChipPosition,
-}) => {
+export const SeniorSearch = (props: SeniorSearchPropTypes) => {
+  const {
+    children,
+    handleFilterActiveBtn,
+    handleReset,
+    chipFieldName,
+    deleteFieldList,
+    handleChipField,
+    chipPositionName,
+    deletePositionList,
+    handleChipPosition,
+  } = props;
   const handleDeleteFieldChip = (field: string) => {
-    // 삭제되는 fieldName의 최초데이터에서의 index값 찾기
-    const findDeleteFieldIndex = FIELD_LIST.findIndex((list) => list.field === field);
     deleteFieldList(field);
-    handleChipField(findDeleteFieldIndex);
+    handleChipField(field);
   };
-  const handleDeletePositionChip = (position: string) => {
-    const findDeletePositionIndex = POSITION_LIST.findIndex((list) => list.position === position);
 
+  const handleDeletePositionChip = (position: string) => {
     deletePositionList(position);
-    handleChipPosition(findDeletePositionIndex);
+    handleChipPosition(position);
   };
   return (
-    <ListBackground>
+    <>
       <SeniorSearchWrapper>
         <SearchTitle>선배를 찾아볼까요?</SearchTitle>
         <BtnLayout>
@@ -81,20 +77,9 @@ export const SeniorListBackground: React.FC<SeniorListBackgroundProps> = ({
         </SelectedChipList>
       </SeniorSearchWrapper>
       {children}
-    </ListBackground>
+    </>
   );
 };
-
-const ListBackground = styled.div`
-  position: absolute;
-  top: 17.7rem;
-
-  width: 100%;
-  margin-bottom: 9.8rem;
-  border-radius: 16px 16px 0 0;
-
-  background: ${({ theme }) => theme.colors.grayScaleWG};
-`;
 
 const SeniorSearchWrapper = styled.div`
   display: flex;
