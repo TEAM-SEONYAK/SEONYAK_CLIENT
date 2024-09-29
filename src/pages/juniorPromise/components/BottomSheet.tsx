@@ -43,17 +43,22 @@ export const BottomSheet = (props: BottomSheetPropTypes) => {
     <>
       <Background $isBottomSheetOpen={isBottomSheetOpen} onClick={handleCloseBottomSheet} />
       <BottomSheetWrapper $isBottomSheetOpen={isBottomSheetOpen}>
-        <TitleLayout>
+        <LineBox>
           <Line />
+        </LineBox>
+        <TitleLayout>
           <Title>원하는 선배를 찾아볼까요?</Title>
           <Desc>계열, 직무로 원하는 선배를 찾을 수 있어요.</Desc>
         </TitleLayout>
-        <ToggleButton
-          left="계열"
-          right="직무"
-          activeButton={filterActiveBtn}
-          onSetActiveButtonHandler={handleFilterActiveBtn}
-        />
+        <ToggleLayout>
+          <ToggleButton
+            left="계열"
+            right="직무"
+            activeButton={filterActiveBtn}
+            onSetActiveButtonHandler={handleFilterActiveBtn}
+          />
+        </ToggleLayout>
+
         <Content>
           {filterActiveBtn === '계열' ? (
             <FieldLayout>
@@ -130,7 +135,11 @@ const BottomSheetWrapper = styled.form<{ $isBottomSheetOpen: boolean }>`
 `;
 
 const TitleLayout = styled.header`
-  padding: 1.4rem 16.1rem 1.6rem 2rem;
+  margin: 0 2rem 1.5rem;
+`;
+
+const ToggleLayout = styled.div`
+  margin: 0 2rem;
 `;
 
 const Content = styled.div`
@@ -145,7 +154,7 @@ const FieldLayout = styled.div`
   justify-content: space-between;
 
   margin: 0 2rem;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
 `;
 
 const PositionLayout = styled.div`
@@ -154,13 +163,21 @@ const PositionLayout = styled.div`
   gap: 1.2rem 1rem;
   flex-shrink: 0;
 
-  margin: 1rem 2rem;
+  margin: 1.5rem 2rem;
+`;
+
+const LineBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 3.3rem;
 `;
 
 const Line = styled.div`
   width: 4.7rem;
   height: 0.3rem;
-  margin: 0 14.4rem 3.3rem;
   border-radius: 5px;
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
@@ -196,7 +213,8 @@ const ReloadIcon = styled.button`
 `;
 
 const ExitBottomSheet = styled.button<SelectedChipListProps>`
-  width: 27.4rem;
+  flex-grow: 1;
+
   height: 5rem;
   border-radius: 8px;
 

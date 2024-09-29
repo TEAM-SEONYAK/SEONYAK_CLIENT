@@ -46,14 +46,12 @@ const TimeWeekdays = ({ profile, setProfile, isWarning }: TimePropType) => {
 
 export default TimeWeekdays;
 
-export const Wrapper = styled.div`
-  padding-left: 2rem;
+export const Wrapper = styled.section`
+  width: 100%;
+  padding: 0 0.2rem 10rem;
 `;
 
 export const TimeContainer = styled.div`
-  display: flex;
-  align-items: center;
-
   padding-bottom: 3.4rem;
 `;
 

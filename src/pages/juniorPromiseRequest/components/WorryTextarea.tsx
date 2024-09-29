@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import Textarea from '../../../../components/commons/Textarea';
+import Textarea from '../../../components/commons/Textarea';
 import styled from '@emotion/styled';
 
 interface SelectJuniorWorryTextareaWrapperProps {

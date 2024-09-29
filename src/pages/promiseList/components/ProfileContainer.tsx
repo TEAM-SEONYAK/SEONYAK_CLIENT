@@ -57,9 +57,9 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
       navigate('./promiseDetailJunior', {
         state: {
           tap: 'pending',
-          myNickname: myNickname,
+          myNickname,
           appointmentId: profileCardData?.appointmentId,
-          seniorId: seniorId,
+          seniorId,
         },
       });
     }
@@ -76,7 +76,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
           tap: 'scheduled',
           myNickname: myNickname,
           appointmentId: profileCardData?.appointmentId,
-          seniorId: seniorId,
+          seniorId,
         },
       });
     }

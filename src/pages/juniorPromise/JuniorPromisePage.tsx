@@ -10,13 +10,15 @@ import { SeniorSearch } from './components/SeniorSearch';
 import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
-import PromiseRequestPage from './components/promiseRequest/PromiseRequestPage';
 import Loading from '@components/commons/Loading';
 import ErrorPage from '@pages/errorPage/ErrorPage';
 
 import { Banner } from './components/seniorFilter/Banner';
+import { useNavigate } from 'react-router-dom';
 
 const JuniorPromisePage = () => {
+  const navigate = useNavigate();
+
   // 바텀 시트 내 버튼& 내용 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
   // 바텀 시트 여는 동작
@@ -119,7 +121,6 @@ const JuniorPromisePage = () => {
   }
 
   const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
-  const [isPromiseClicked, setIsPromisedClicked] = useState(false);
   const [seniorId, setSeniorId] = useState(0);
   const [seniorNickname, setSeniorNickname] = useState('');
   const handleSeniorCardClicked = (type: boolean, id: number, name: string) => {
@@ -128,14 +129,17 @@ const JuniorPromisePage = () => {
     setSeniorNickname(name);
   };
   const handlePromiseClicked = () => {
-    setIsPromisedClicked(true);
+    navigate('/juniorPromiseRequest', {
+      state: {
+        seniorId,
+        seniorNickname,
+      },
+    });
   };
 
   return (
     <>
-      {isPromiseClicked ? (
-        <PromiseRequestPage seniorId={seniorId} seniorNickname={seniorNickname} />
-      ) : isSeniorCardClicked ? (
+      {isSeniorCardClicked ? (
         <>
           <Header
             LeftSvg={ArrowLeftIc}

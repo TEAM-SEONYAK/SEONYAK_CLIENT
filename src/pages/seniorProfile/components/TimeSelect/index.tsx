@@ -84,11 +84,16 @@ const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) =
 export default TimeSelect;
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow-y: scroll;
 
-  padding-top: 3.2rem;
+  padding: 3.2rem 2rem 0;
 `;
 
 const WarnWrapper = styled.div`
-  padding: 1rem 0 0.6rem 1.8rem;
+  align-self: flex-start;
+
+  padding: 1rem 0 0.6rem;
 `;
