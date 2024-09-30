@@ -3,21 +3,8 @@ import styled from '@emotion/styled';
 import JoinButton from '@pages/join/components/Button';
 import Welcome from '@pages/join/components/Welcome';
 import googleLogin from '@pages/login/utils/googleLogin';
-import { getRole, getToken } from '@utils/storage';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const JoinPage = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const token = getToken();
-    const role = getRole();
-
-    if (token && role) {
-      navigate(role === 'SENIOR' ? '/promiseList' : '/juniorPromise');
-    }
-  }, []);
-
   return (
     <>
       <OnboardingGradIcon />
