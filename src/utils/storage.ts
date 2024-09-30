@@ -1,15 +1,15 @@
 export const setToken = (token: string) => {
-  localStorage.setItem('accessToken', token);
+  localStorage.setItem('seonyakToken', token);
 };
 
 export const getToken = () => {
-  return localStorage.getItem('accessToken');
+  return localStorage.getItem('seonyakToken');
 };
 
 export const setRole = (role: string) => {
-  localStorage.setItem('role', role);
+  localStorage.setItem('seonyakRole', role);
 };
 
 export const getRole = () => {
-  return localStorage.getItem('role');
+  return localStorage.getItem('seonyakRole');
 };
