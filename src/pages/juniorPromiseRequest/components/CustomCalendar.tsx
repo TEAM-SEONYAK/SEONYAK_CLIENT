@@ -112,11 +112,13 @@ const StyledCalendar = styled(Calendar)`
 
   .react-calendar__navigation {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     position: relative;
 
     ${({ theme }) => theme.fonts.Head1_SB_20};
+    margin-top: 0.7rem;
+    margin-bottom: 0;
   }
 
   .react-calendar__navigation__arrow {
@@ -125,7 +127,6 @@ const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__tile {
-    max-width: 100%;
     ${({ theme }) => theme.fonts.Title2_M_16};
     border-radius: 100px;
 
