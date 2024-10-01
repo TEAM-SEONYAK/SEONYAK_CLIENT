@@ -114,6 +114,8 @@ const StyledCalendar = styled(Calendar)`
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    position: relative;
+
     ${({ theme }) => theme.fonts.Head1_SB_20};
   }
 
@@ -182,7 +184,15 @@ const StyledCalendar = styled(Calendar)`
 
   .react-calendar__navigation__prev-button,
   .react-calendar__navigation__next-button {
-    border-radius: 100px;
+    position: absolute;
+  }
+
+  .react-calendar__navigation__prev-button {
+    left: 6rem;
+  }
+
+  .react-calendar__navigation__next-button {
+    right: 6rem;
   }
 
   .react-calendar__month-view__days__day--weekend {
