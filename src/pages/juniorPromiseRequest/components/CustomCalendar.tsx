@@ -110,6 +110,39 @@ const StyledCalendar = styled(Calendar)`
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 
+  .disabled-date {
+    color: ${({ theme }) => theme.colors.grayScaleLG2} !important;
+
+    cursor: not-allowed;
+  }
+
+  .react-calendar__month-view__days__day {
+    ${({ theme }) => theme.fonts.Title2_M_16};
+    color: ${({ theme }) => theme.colors.grayScaleBG};
+
+    &:disabled {
+      color: ${({ theme }) => theme.colors.grayScaleLG2};
+    }
+  }
+
+  .react-calendar__month-view__days__day--weekend {
+    ${({ theme }) => theme.fonts.Title2_M_16};
+    color: ${({ theme }) => theme.colors.grayScaleBG};
+
+    &:disabled {
+      color: ${({ theme }) => theme.colors.grayScaleLG2};
+    }
+  }
+
+  .react-calendar__month-view__weekdays {
+    color: ${({ theme }) => theme.colors.grayScaleMG2};
+    ${({ theme }) => theme.fonts.Title2_M_16};
+  }
+
+  .react-calendar__month-view__weekdays abbr {
+    text-decoration: none;
+  }
+
   .react-calendar__navigation {
     display: flex;
     justify-content: center;
@@ -121,9 +154,38 @@ const StyledCalendar = styled(Calendar)`
     margin-bottom: 0;
   }
 
+  .react-calendar__navigation button {
+    ${({ theme }) => theme.fonts.Head2_SB_18};
+    min-width: 4rem;
+  }
+
+  .react-calendar__navigation button:disabled {
+    background: none !important;
+
+    color: ${({ theme }) => theme.colors.grayScaleDG} !important;
+  }
+
+  .react-calendar__navigation button:hover,
+  .react-calendar__navigation button:focus {
+    background: none;
+    background-color: transparent;
+
+    color: ${({ theme }) => theme.colors.grayScaleDG};
+  }
+
   .react-calendar__navigation__arrow {
     width: 2.1rem;
     height: 1.8rem;
+  }
+
+  .react-calendar__navigation__next-button {
+    position: absolute;
+    right: 6rem;
+  }
+
+  .react-calendar__navigation__prev-button {
+    position: absolute;
+    left: 6rem;
   }
 
   .react-calendar__tile {
@@ -145,29 +207,6 @@ const StyledCalendar = styled(Calendar)`
     color: ${({ theme }) => theme.colors.grayScaleWhite} !important;
   }
 
-  .react-calendar__month-view__weekdays {
-    color: ${({ theme }) => theme.colors.grayScaleMG2};
-    ${({ theme }) => theme.fonts.Title2_M_16};
-  }
-
-  .react-calendar__tile:enabled:focus {
-    ${({ theme }) => theme.fonts.Title2_M_16};
-    background: ${({ theme }) => theme.colors.Blue};
-
-    color: ${({ theme }) => theme.colors.grayScaleWhite};
-  }
-
-  .react-calendar__navigation button {
-    ${({ theme }) => theme.fonts.Head2_SB_18};
-    min-width: 4rem;
-  }
-
-  .react-calendar__navigation button:disabled {
-    background: none !important;
-
-    color: ${({ theme }) => theme.colors.grayScaleDG} !important;
-  }
-
   .react-calendar__tile--active:enabled:hover,
   .react-calendar__tile--active:enabled:focus {
     background: ${({ theme }) => theme.colors.Blue};
@@ -175,52 +214,10 @@ const StyledCalendar = styled(Calendar)`
     color: ${({ theme }) => theme.colors.grayScaleWhite};
   }
 
-  .react-calendar__navigation button:hover,
-  .react-calendar__navigation button:focus {
-    background: none;
-    background-color: transparent;
-
-    color: ${({ theme }) => theme.colors.grayScaleDG};
-  }
-
-  .react-calendar__navigation__prev-button,
-  .react-calendar__navigation__next-button {
-    position: absolute;
-  }
-
-  .react-calendar__navigation__prev-button {
-    left: 6rem;
-  }
-
-  .react-calendar__navigation__next-button {
-    right: 6rem;
-  }
-
-  .react-calendar__month-view__days__day--weekend {
+  .react-calendar__tile:enabled:focus {
     ${({ theme }) => theme.fonts.Title2_M_16};
-    color: ${({ theme }) => theme.colors.grayScaleBG};
+    background: ${({ theme }) => theme.colors.Blue};
 
-    &:disabled {
-      color: ${({ theme }) => theme.colors.grayScaleLG2};
-    }
-  }
-
-  .react-calendar__month-view__weekdays abbr {
-    text-decoration: none;
-  }
-
-  .disabled-date {
-    color: ${({ theme }) => theme.colors.grayScaleLG2} !important;
-
-    cursor: not-allowed;
-  }
-
-  .react-calendar__month-view__days__day {
-    ${({ theme }) => theme.fonts.Title2_M_16};
-    color: ${({ theme }) => theme.colors.grayScaleBG};
-
-    &:disabled {
-      color: ${({ theme }) => theme.colors.grayScaleLG2};
-    }
+    color: ${({ theme }) => theme.colors.grayScaleWhite};
   }
 `;
