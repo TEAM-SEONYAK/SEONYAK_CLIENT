@@ -15,14 +15,21 @@ import ErrorPage from '@pages/errorPage/ErrorPage';
 
 import { Banner } from './components/seniorFilter/Banner';
 import { useNavigate } from 'react-router-dom';
+import useSeniorProfileQueries from '../../hooks/seniorProfileQueries';
 
 const JuniorPromisePage = () => {
   const navigate = useNavigate();
 
   // 바텀 시트 내 버튼& 내용 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
-  // 바텀 시트 여는 동작
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [chipFieldName, setChipFieldName] = useState<string[]>([]);
+  const [chipPositionName, setChipPositionName] = useState<string[]>([]);
+  const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
+  const [seniorId, setSeniorId] = useState(0);
+  const [seniorNickname, setSeniorNickname] = useState('');
+
+  const { data, isLoading, isError } = useSeniorProfileQueries(chipFieldName, chipPositionName);
 
   // 필터 버튼에 정보 넣기, 바텀시트 열기
   const handleFilterActiveBtn = (btnText: string) => {
@@ -35,99 +42,12 @@ const JuniorPromisePage = () => {
     setChipPositionName([]);
   };
 
-  // 칩으로 나갈 선택된 계열 이름 리스트
-  const [chipFieldName, setChipFieldName] = useState<string[]>([]);
-
-  // 칩으로 나갈 선택된 직무 리스트
-  const [chipPositionName, setChipPositionName] = useState<string[]>([]);
-
-  // 선택 계열 리스트 배열로
-  const isFieldSelected = (fieldName: string) => chipFieldName.includes(fieldName);
-
-  const handleChipField = (fieldName: string) => {
-    if (isFieldSelected(fieldName)) {
-      setChipFieldName((prev) => prev.filter((name) => name !== fieldName));
-    } else {
-      setChipFieldName((prev) => [...prev, fieldName]);
-    }
-  };
-
-  // 선택 직무 리스트
-  const isPositionSelected = (positionName: string) => chipPositionName.includes(positionName);
-
-  const handleChipPosition = (positionName: string) => {
-    if (isPositionSelected(positionName)) {
-      setChipPositionName((prev) => prev.filter((name) => name !== positionName));
-    } else {
-      setChipPositionName((prev) => [...prev, positionName]);
-    }
-  };
-
-  const SeniorSearchCommonProps = {
-    handleFilterActiveBtn,
-    handleReset,
-    chipPositionName,
-    chipFieldName,
-    handleChipField,
-    handleChipPosition,
-  };
-
-  // S- 계열리스트에 이름빼는 함수
-  const deleteFieldList = (chipName: string) => {
-    setChipFieldName((prev) => prev.filter((name) => name !== chipName));
-  };
-
-  // S- 직무리스트에 이름 빼는 함수
-  const deletePositionList = (chipName: string) => {
-    setChipPositionName((prev) => prev.filter((name) => name !== chipName));
-  };
-
-  // B- 계열리스트에 이름넣는 함수
-  const pushFieldList = (chipName: string) => {
-    setChipFieldName((prev) => {
-      if (prev.indexOf(chipName) === -1) {
-        return [...prev, chipName];
-      } else {
-        return prev.filter((name) => name !== chipName);
-      }
-    });
-  };
-
-  // B- 직무리스트에 이름 넣는 함수
-  const pushPositionList = (chipName: string) => {
-    setChipPositionName((prev) => {
-      if (prev.indexOf(chipName) === -1) {
-        return [...prev, chipName];
-      } else {
-        return prev.filter((name) => name !== chipName);
-      }
-    });
-  };
-
-  // B- 바텀시트 닫기
-  const handleCloseBottomSheet = () => {
-    setIsBottomSheetOpen(false);
-  };
-
-  // 쿼리 사용하여 데이터 가져오기
-  const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
-  const seniorList = data?.data.seniorList || [];
-  const myNickname = data?.data.myNickname;
-  if (isLoading) {
-    return <Loading />;
-  }
-  if (isError) {
-    return <ErrorPage />;
-  }
-
-  const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
-  const [seniorId, setSeniorId] = useState(0);
-  const [seniorNickname, setSeniorNickname] = useState('');
   const handleSeniorCardClicked = (type: boolean, id: number, name: string) => {
     setIsSeniorCardClicked(type);
     setSeniorId(id);
     setSeniorNickname(name);
   };
+
   const handlePromiseClicked = () => {
     navigate('/juniorPromiseRequest', {
       state: {
@@ -137,17 +57,35 @@ const JuniorPromisePage = () => {
     });
   };
 
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorPage />;
+
+  const seniorList = data?.data.seniorList || [];
+  const myNickname = data?.data.myNickname;
+
+  const seniorSearchCommonProps = {
+    handleFilterActiveBtn,
+    handleReset,
+    chipPositionName,
+    chipFieldName,
+    handleChipField: (fieldName: string) => {
+      setChipFieldName((prev) =>
+        prev.includes(fieldName) ? prev.filter((name) => name !== fieldName) : [...prev, fieldName]
+      );
+    },
+    handleChipPosition: (positionName: string) => {
+      setChipPositionName((prev) =>
+        prev.includes(positionName) ? prev.filter((name) => name !== positionName) : [...prev, positionName]
+      );
+    },
+  };
+
   return (
     <>
       {isSeniorCardClicked ? (
         <>
-          <Header
-            LeftSvg={ArrowLeftIc}
-            onClickLeft={() => {
-              setIsSeniorCardClicked(false);
-            }}
-          />
-          <PreView variant="secondary" seniorId={seniorId + ''} />
+          <Header LeftSvg={ArrowLeftIc} onClickLeft={() => setIsSeniorCardClicked(false)} />
+          <PreView variant="secondary" seniorId={String(seniorId)} />
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
       ) : (
@@ -155,18 +93,36 @@ const JuniorPromisePage = () => {
           <Banner myNickname={myNickname} />
           <ContentWrapper>
             <SeniorSearch
-              {...SeniorSearchCommonProps}
-              deleteFieldList={deleteFieldList}
-              deletePositionList={deletePositionList}
+              {...seniorSearchCommonProps}
+              deleteFieldList={(chipName: string) =>
+                setChipFieldName((prev) => prev.filter((name) => name !== chipName))
+              }
+              deletePositionList={(chipName: string) =>
+                setChipPositionName((prev) => prev.filter((name) => name !== chipName))
+              }
               $chipFieldName={chipFieldName}
               $chipPositionName={chipPositionName}>
               <BottomSheet
-                {...SeniorSearchCommonProps}
+                {...seniorSearchCommonProps}
                 filterActiveBtn={filterActiveBtn}
-                handleCloseBottomSheet={handleCloseBottomSheet}
+                handleCloseBottomSheet={() => setIsBottomSheetOpen(false)}
                 isBottomSheetOpen={isBottomSheetOpen}
-                pushFieldList={pushFieldList}
-                pushPositionList={pushPositionList}
+                pushFieldList={(chipName: string) => {
+                  setChipFieldName((prev) => {
+                    if (prev.includes(chipName)) {
+                      return prev.filter((name) => name !== chipName);
+                    }
+                    return [...prev, chipName];
+                  });
+                }}
+                pushPositionList={(chipName: string) => {
+                  setChipPositionName((prev) => {
+                    if (prev.includes(chipName)) {
+                      return prev.filter((name) => name !== chipName);
+                    }
+                    return [...prev, chipName];
+                  });
+                }}
               />
             </SeniorSearch>
             <SeniorCardListLayout>
