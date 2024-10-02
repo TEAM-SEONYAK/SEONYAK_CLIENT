@@ -47,8 +47,6 @@ const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPro
     isRegister ? profile && weekToDay(profile.isDayOfWeek, profile.preferredTimeList) : secondaryPreferredTimeList
   ) as dayOfWeekTimeList;
 
-  console.log(preferredTimeList);
-
   const mutation = useSeniorProfileHook();
   const handleRegisterClick = () => {
     mutation.mutate(

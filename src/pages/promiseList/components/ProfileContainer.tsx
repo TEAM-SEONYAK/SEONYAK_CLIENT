@@ -18,11 +18,10 @@ interface ProfileContainerPropType {
   googleMeetLink?: string;
   detail?: string;
   handleSetIsDetailClicked?: (type: boolean) => void;
-  seniorId?: number;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  const { userRole, profileCardData, tap, isarrow, myNickname, detail, handleSetIsDetailClicked, seniorId } = props;
+  const { userRole, profileCardData, tap, isarrow, myNickname, detail, handleSetIsDetailClicked } = props;
   const navigate = useNavigate();
 
   // 리뷰 모달 띄우기 용
@@ -59,7 +58,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
           tap: 'pending',
           myNickname: myNickname,
           appointmentId: profileCardData?.appointmentId,
-          seniorId: seniorId,
+          seniorId: profileCardData?.seniorId,
         },
       });
     }
@@ -76,7 +75,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
           tap: 'scheduled',
           myNickname: myNickname,
           appointmentId: profileCardData?.appointmentId,
-          seniorId: seniorId,
+          seniorId: profileCardData?.seniorId,
         },
       });
     }

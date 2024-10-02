@@ -17,10 +17,12 @@ const PromiseDetailPageJunior = () => {
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
   const navigate = useNavigate();
   const location = useLocation();
-  const tap = location.state.tap;
-  const myNickname = location.state.myNickname;
-  const appointmentId = location.state.appointmentId;
-  const seniorId = location.state.seniorId;
+  // const tap = location.state.tap;
+  // const myNickname = location.state.myNickname;
+  // const appointmentId = location.state.appointmentId;
+  // const seniorId = location.state.seniorId;
+  const { tap, myNickname, appointmentId, seniorId } = location.state || {};
+  console.log(location.state);
 
   const [isDetailClicked, setIsDetailClicked] = useState(false);
   const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
@@ -28,8 +30,7 @@ const PromiseDetailPageJunior = () => {
   const handleClickEnterBtn = (link: string) => {
     window.open(link, '_blank');
     setIsEnterBtnClicked(false);
-    // 라우팅 변경 PR 반영 필요
-    navigate('/');
+    navigate('/juniorPromise');
   };
 
   useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
@@ -81,7 +82,6 @@ const PromiseDetailPageJunior = () => {
                     isarrow="false"
                     detail="detail"
                     handleSetIsDetailClicked={handleSetIsDetailClicked}
-                    seniorId={seniorId}
                   />
                 </PromiseDiv>
               </TitleContainer>

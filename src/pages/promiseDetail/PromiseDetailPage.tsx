@@ -260,7 +260,13 @@ const PromiseDetail = () => {
                     setIsEnterBtnClicked(true);
                   }}
                   marginLeft={-2}
-                  text={diff === undefined ? `약속시간까지 - 남았어요` : diff <= 0 ? '지금 입장하기' : `약속시간까지 ${diffText} 남았어요`}
+                  text={
+                    diff === undefined
+                      ? `약속시간까지 - 남았어요`
+                      : diff <= 0
+                        ? '지금 입장하기'
+                        : `약속시간까지 ${diffText} 남았어요`
+                  }
                   isActive={diff !== undefined && diff <= 0}
                 />
               </BtnWrapper>
@@ -394,8 +400,7 @@ const Time = styled.div<{ $isActive: boolean }>`
 
   width: 100%;
   padding: 1.1rem 1.5rem;
-  border: ${({ $isActive, theme }) =>
-    $isActive ? `1px solid ${theme.colors.transparentBlue_50}` : '1px solid transparent'};
+  border: ${({ $isActive, theme }) => `1px solid ${$isActive ? theme.colors.transparentBlue_50 : 'transparent'}`};
   border-radius: 8px;
 
   background-color: ${({ theme, $isActive }) =>
@@ -462,8 +467,6 @@ const DeclineBtn = styled.button`
   height: 5.6rem;
   border-radius: 5px;
 
-  /* width: 10.6rem; */
-
   background-color: ${({ theme }) => theme.colors.grayScaleBG};
 
   color: ${({ theme }) => theme.colors.grayScaleWhite};
@@ -475,7 +478,6 @@ const DeclineBtn = styled.button`
 const AcceptBtn = styled.button<{ $isActive: boolean }>`
   z-index: 2;
 
-  /* width: 21.9rem; */
   width: 70%;
   height: 5.6rem;
   border-radius: 5px;
