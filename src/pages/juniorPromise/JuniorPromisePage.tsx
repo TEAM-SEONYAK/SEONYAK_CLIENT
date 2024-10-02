@@ -19,7 +19,6 @@ import useSeniorProfileQueries from '@hooks/seniorProfileQueries';
 const JuniorPromisePage = () => {
   const navigate = useNavigate();
 
-  // 1. 모든 상태 훅을 컴포넌트 최상단에 배치
   // 바텀 시트 내 버튼& 내용 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
   // 바텀 시트 여는 동작
@@ -32,11 +31,9 @@ const JuniorPromisePage = () => {
   const [seniorId, setSeniorId] = useState(0);
   const [seniorNickname, setSeniorNickname] = useState('');
 
-  // 2. useQuery 호출을 조건부 렌더링 밖으로 이동
   // 쿼리 사용하여 데이터 가져오기
   const { data, isLoading, isError } = useSeniorProfileQueries(chipFieldName, chipPositionName);
 
-  // 3. 핸들러 함수들을 상단에 정의
   // 필터 버튼에 정보 넣기, 바텀시트 열기
   const handleFilterActiveBtn = (btnText: string) => {
     setFilterActiveBtn(btnText);
@@ -119,15 +116,12 @@ const JuniorPromisePage = () => {
     });
   };
 
-  // 4. 로딩과 에러 상태 처리
   if (isLoading) return <Loading />;
   if (isError) return <ErrorPage />;
 
-  // 5. 데이터 처리
   const seniorList = data?.data.seniorList || [];
   const myNickname = data?.data.myNickname;
 
-  // 6. 공통 props 객체
   const SeniorSearchCommonProps = {
     handleFilterActiveBtn,
     handleReset,
