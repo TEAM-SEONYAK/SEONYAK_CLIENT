@@ -30,6 +30,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
     }
   };
 
+  console.log(scheduled);
   return (
     <Wrapper>
       <TapContainer>
@@ -56,7 +57,6 @@ const PromiseTap = (props: PromiseTapPropType) => {
                   tap="rejected"
                   profileCardData={profileData}
                   isarrow="true"
-                  seniorId={profileData.seniorId}
                 />
               ) : (
                 <ProfileContainer
@@ -66,7 +66,6 @@ const PromiseTap = (props: PromiseTapPropType) => {
                   tap="past"
                   profileCardData={profileData}
                   isarrow="true"
-                  seniorId={profileData.seniorId}
                 />
               )
             )}
@@ -80,7 +79,6 @@ const PromiseTap = (props: PromiseTapPropType) => {
                 tap={tap}
                 profileCardData={profileCardData}
                 isarrow="true"
-                seniorId={profileCardData.seniorId}
               />
             ))}
           {tap === 'pending' &&
@@ -92,7 +90,6 @@ const PromiseTap = (props: PromiseTapPropType) => {
                 tap={tap}
                 profileCardData={profileCardData}
                 isarrow="true"
-                seniorId={profileCardData.seniorId}
               />
             ))}
         </ProfileWrapper>
