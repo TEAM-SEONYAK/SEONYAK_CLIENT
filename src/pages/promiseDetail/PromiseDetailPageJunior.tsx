@@ -17,12 +17,7 @@ const PromiseDetailPageJunior = () => {
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
   const navigate = useNavigate();
   const location = useLocation();
-  // const tap = location.state.tap;
-  // const myNickname = location.state.myNickname;
-  // const appointmentId = location.state.appointmentId;
-  // const seniorId = location.state.seniorId;
-  const { tap, myNickname, appointmentId, seniorId } = location.state || {};
-  console.log(location.state);
+  const { tap, myNickname, appointmentId, seniorId } = location.state;
 
   const [isDetailClicked, setIsDetailClicked] = useState(false);
   const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
