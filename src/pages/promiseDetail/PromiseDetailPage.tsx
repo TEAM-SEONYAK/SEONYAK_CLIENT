@@ -153,7 +153,7 @@ const PromiseDetail = () => {
     <>
       <Header
         LeftSvg={ArrowLeftIc}
-        onClickLeft={() => navigate('/')}
+        onClickLeft={() => navigate('/promiseList')}
         title={viewType === 'DEFAULT' ? '자세히 보기' : '거절하기'}
       />
       <hr />

@@ -3,13 +3,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { NaviLookBlackIc, NaviPromiseBlackIc, NaviMyBlackIc } from '../../assets/svgs';
 
-type UserRole = 'JUNIOR' | 'SENIOR';
-
 const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [userRole] = useState<UserRole>('JUNIOR');
+  const userRole = localStorage.getItem('role') + '';
   const [currNav, setCurrNav] = useState(location.pathname);
 
   useEffect(() => {
@@ -26,11 +24,11 @@ const Nav = () => {
       if (nav === '둘러보기') {
         setCurrNav('/juniorPromise');
       } else if (nav === '나의 약속') {
-        setCurrNav('/');
+        setCurrNav('/promiseList');
       }
     } else if (userRole === 'SENIOR') {
       if (nav === '나의 약속') {
-        setCurrNav('/');
+        setCurrNav('/promiseList');
       }
     }
   };
@@ -44,8 +42,8 @@ const Nav = () => {
         <TapContent $isActive={currNav === '/juniorPromise'}>둘러보기</TapContent>
       </TapContainer>
       <TapContainer onClick={() => handleOnClickNav('나의 약속')}>
-        <NaviPromiseBlackIcon isactive={(currNav === '/') + ''} />
-        <TapContent $isActive={currNav === '/'}>나의 약속</TapContent>
+        <NaviPromiseBlackIcon isactive={(currNav === '/promiseList') + ''} />
+        <TapContent $isActive={currNav === '/promiseList'}>나의 약속</TapContent>
       </TapContainer>
       <TapContainer onClick={() => userRole === 'JUNIOR' && handleOnClickNav('마이페이지')} disabled={true}>
         <NaviMyBlackIcon isactive={(currNav === '마이페이지') + ''} />

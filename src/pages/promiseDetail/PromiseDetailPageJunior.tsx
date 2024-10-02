@@ -63,7 +63,7 @@ const PromiseDetailPageJunior = () => {
         </>
       ) : (
         <>
-          <Header LeftSvg={ArrowLeftIc} title="자세히 보기" onClickLeft={() => navigate('/')} />
+          <Header LeftSvg={ArrowLeftIc} title="자세히 보기" onClickLeft={() => navigate('/promiseList')} />
           <Wrapper>
             <Layout>
               <TitleContainer>
@@ -90,7 +90,7 @@ const PromiseDetailPageJunior = () => {
 
               <TitleContainer>
                 <Title>{seniorInfo.nickname} 선배님과 상담하고 싶은 내용</Title>
-                {topic[0] !== '' ? (
+                {topic && topic.length ? (
                   topic.map((el: string, idx: number) => <Content key={idx + el}>{el}</Content>)
                 ) : (
                   <WrittenContent>{personalTopic}</WrittenContent>

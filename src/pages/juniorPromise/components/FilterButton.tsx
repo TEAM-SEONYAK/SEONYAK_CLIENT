@@ -1,16 +1,13 @@
 import styled from '@emotion/styled';
-import React from 'react';
 import { ArrowDownIc } from '../../../assets/svgs/index';
-interface FilterButtonProps {
+interface FilterButtonPropTypes {
   handleFilterActiveBtn: (btnText: string) => void;
   chipPositionName: string[];
   chipFieldName: string[];
 }
-export const FilterButton: React.FC<FilterButtonProps> = ({
-  handleFilterActiveBtn,
-  chipPositionName,
-  chipFieldName,
-}) => {
+export const FilterButton = (props: FilterButtonPropTypes) => {
+  const { handleFilterActiveBtn, chipPositionName, chipFieldName } = props;
+
   return (
     <FilterBtnContainer>
       <FilterFieldBtn

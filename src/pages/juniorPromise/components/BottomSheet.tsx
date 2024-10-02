@@ -6,15 +6,14 @@ import { PositionList } from './PositionList';
 import { FIELD_LIST } from '../constants/fieldList';
 import { POSITION_LIST } from '../constants/positionList';
 
-interface BottomSheetPropType {
+interface BottomSheetPropTypes {
   filterActiveBtn: string;
   handleFilterActiveBtn: (btnText: string) => void;
   isBottomSheetOpen: boolean;
   handleCloseBottomSheet: () => void;
-  handleChipPosition: (positionId: number) => void;
-  handleChipField: (fieldId: number) => void;
-  selectedPosition: boolean[];
-  selectedField: boolean[];
+  handleChipPosition: (positionName: string) => void;
+  handleChipField: (fieldName: string) => void;
+
   handleReset: () => void;
   chipFieldName: string[];
   pushFieldList: (chipName: string) => void;
@@ -22,36 +21,44 @@ interface BottomSheetPropType {
   pushPositionList: (chipName: string) => void;
 }
 
-export const BottomSheet = (props: BottomSheetPropType) => {
+interface SelectedChipListProps {
+  $chipFieldName: string[];
+  $chipPositionName: string[];
+}
+
+export const BottomSheet = (props: BottomSheetPropTypes) => {
   const {
+    chipFieldName,
+    chipPositionName,
     filterActiveBtn,
     handleFilterActiveBtn,
     isBottomSheetOpen,
     handleCloseBottomSheet,
     handleChipPosition,
     handleChipField,
-    selectedPosition,
-    selectedField,
     handleReset,
-    pushFieldList,
-    pushPositionList,
   } = props;
 
   return (
     <>
       <Background $isBottomSheetOpen={isBottomSheetOpen} onClick={handleCloseBottomSheet} />
       <BottomSheetWrapper $isBottomSheetOpen={isBottomSheetOpen}>
-        <TitleLayout>
+        <LineBox>
           <Line />
+        </LineBox>
+        <TitleLayout>
           <Title>원하는 선배를 찾아볼까요?</Title>
           <Desc>계열, 직무로 원하는 선배를 찾을 수 있어요.</Desc>
         </TitleLayout>
-        <ToggleButton
-          left="계열"
-          right="직무"
-          activeButton={filterActiveBtn}
-          onSetActiveButtonHandler={handleFilterActiveBtn}
-        />
+        <ToggleLayout>
+          <ToggleButton
+            left="계열"
+            right="직무"
+            activeButton={filterActiveBtn}
+            onSetActiveButtonHandler={handleFilterActiveBtn}
+          />
+        </ToggleLayout>
+
         <Content>
           {filterActiveBtn === '계열' ? (
             <FieldLayout>
@@ -60,10 +67,7 @@ export const BottomSheet = (props: BottomSheetPropType) => {
                   key={list.id}
                   field={list.field}
                   handleChipField={handleChipField}
-                  selectedField={selectedField}
-                  fieldId={list.id}
-                  chipFieldName={list.field}
-                  pushFieldList={pushFieldList}
+                  chipFieldName={chipFieldName}
                 />
               ))}
             </FieldLayout>
@@ -73,11 +77,8 @@ export const BottomSheet = (props: BottomSheetPropType) => {
                 <PositionList
                   key={list.id}
                   position={list.position}
-                  selectedPosition={selectedPosition}
                   handleChipPosition={handleChipPosition}
-                  positionId={list.id}
-                  chipPositionName={list.position}
-                  pushPositionList={pushPositionList}
+                  chipPositionName={chipPositionName}
                 />
               ))}
             </PositionLayout>
@@ -89,8 +90,8 @@ export const BottomSheet = (props: BottomSheetPropType) => {
           </ReloadIcon>
           <ExitBottomSheet
             type="button"
-            $selectedPositionIndex={selectedPosition.some((position) => position)}
-            $selectedFieldIndex={selectedField.some((field) => field)}
+            $chipFieldName={chipFieldName}
+            $chipPositionName={chipPositionName}
             onClick={handleCloseBottomSheet}>
             적용할래요
           </ExitBottomSheet>
@@ -134,7 +135,11 @@ const BottomSheetWrapper = styled.form<{ $isBottomSheetOpen: boolean }>`
 `;
 
 const TitleLayout = styled.header`
-  padding: 1.4rem 16.1rem 1.6rem 2rem;
+  margin: 0 2rem 1.5rem;
+`;
+
+const ToggleLayout = styled.div`
+  margin: 0 2rem;
 `;
 
 const Content = styled.div`
@@ -149,7 +154,7 @@ const FieldLayout = styled.div`
   justify-content: space-between;
 
   margin: 0 2rem;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
 `;
 
 const PositionLayout = styled.div`
@@ -158,13 +163,21 @@ const PositionLayout = styled.div`
   gap: 1.2rem 1rem;
   flex-shrink: 0;
 
-  margin: 1rem 2rem;
+  margin: 1.5rem 2rem;
+`;
+
+const LineBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 3.3rem;
 `;
 
 const Line = styled.div`
   width: 4.7rem;
   height: 0.3rem;
-  margin: 0 14.4rem 3.3rem;
   border-radius: 5px;
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
@@ -199,13 +212,14 @@ const ReloadIcon = styled.button`
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
-const ExitBottomSheet = styled.button<{ $selectedPositionIndex: boolean; $selectedFieldIndex: boolean }>`
-  width: 27.4rem;
+const ExitBottomSheet = styled.button<SelectedChipListProps>`
+  flex-grow: 1;
+
   height: 5rem;
   border-radius: 8px;
 
-  background: ${({ theme, $selectedPositionIndex, $selectedFieldIndex }) =>
-    $selectedPositionIndex || $selectedFieldIndex ? theme.colors.Blue : theme.colors.grayScaleMG1};
+  background: ${({ theme, $chipPositionName, $chipFieldName }) =>
+    $chipFieldName.length > 0 || $chipPositionName.length > 0 ? theme.colors.Blue : theme.colors.grayScaleMG1};
 
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Head2_SB_18};

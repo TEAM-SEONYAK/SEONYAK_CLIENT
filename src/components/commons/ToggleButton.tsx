@@ -10,14 +10,12 @@ interface toggleButtonPropType {
 const ToggleButton = ({ left, right, activeButton, onSetActiveButtonHandler }: toggleButtonPropType) => {
   return (
     <Wrapper>
-      <Layout>
-        <ToggleBtn isActive={activeButton === left} onClick={() => onSetActiveButtonHandler(left)}>
-          {left}
-        </ToggleBtn>
-        <ToggleBtn isActive={activeButton === right} onClick={() => onSetActiveButtonHandler(right)}>
-          {right}
-        </ToggleBtn>
-      </Layout>
+      <ToggleBtn isActive={activeButton === left} onClick={() => onSetActiveButtonHandler(left)}>
+        {left}
+      </ToggleBtn>
+      <ToggleBtn isActive={activeButton === right} onClick={() => onSetActiveButtonHandler(right)}>
+        {right}
+      </ToggleBtn>
     </Wrapper>
   );
 };
@@ -26,12 +24,8 @@ export default ToggleButton;
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-`;
 
-const Layout = styled.div`
-  display: flex;
-
-  width: 33.7rem;
+  width: 100%;
   height: 4.4rem;
   border-radius: 8px;
 

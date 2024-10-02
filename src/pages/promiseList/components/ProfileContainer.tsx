@@ -34,6 +34,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
   // 서버에서 온 date값에서 달, 일 추출
   const { month, day } = extractMonthAndDay(profileCardData?.date + '');
 
+
   // 선배가 보는 후배 상담 내용
   const getTopicDescription = (chosenTopic: string[] | undefined) => {
     const topicLength = chosenTopic?.length;
@@ -56,7 +57,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
       navigate('./promiseDetailJunior', {
         state: {
           tap: 'pending',
-          myNickname: myNickname,
+          myNickname,
           appointmentId: profileCardData?.appointmentId,
           seniorId: profileCardData?.seniorId,
         },

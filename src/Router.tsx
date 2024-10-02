@@ -23,6 +23,7 @@ import JoinPage from '@pages/join/JoinPage';
 import ErrorPage from '@pages/errorPage/ErrorPage';
 import StepComplete from '@pages/onboarding/components/juniorOnboarding/StepComplete';
 import LoginCallback from '@pages/login/LoginCallback';
+import JuniorPromiseRequestPage from '@pages/juniorPromiseRequest/JuniorPromiseRequestPage';
 
 const router = createBrowserRouter([
   {
@@ -31,19 +32,19 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <PromiseListPage />,
+        element: <JoinPage />,
       },
       {
-        path: 'promiseDetail',
+        path: 'promiseList/promiseDetail',
         element: <PromiseDetail />,
       },
       {
-        path: 'promiseDetailJunior',
+        path: 'promiseList/promiseDetailJunior',
         element: <PromiseDetailPageJunior />,
       },
       {
-        path: 'join',
-        element: <JoinPage />,
+        path: 'promiseList',
+        element: <PromiseListPage />,
       },
       {
         path: 'signup',
@@ -152,6 +153,10 @@ const router = createBrowserRouter([
       {
         path: 'juniorPromise',
         element: <JuniorPromisePage />,
+      },
+      {
+        path: 'juniorPromiseRequest',
+        element: <JuniorPromiseRequestPage />,
       },
       {
         path: 'error',

@@ -2,7 +2,7 @@ import { FullBtn } from '@components/commons/FullButton';
 import Loading from '@components/commons/Loading';
 import SeniorCard from '@components/commons/seniorCard/SeniorCard';
 import styled from '@emotion/styled';
-import { useSeniorTimeQuery } from '@pages/juniorPromise/hooks/queries';
+import { useSeniorTimeQuery } from '@pages/juniorPromiseRequest/hooks/queries';
 import ImgTextBox from '@pages/seniorProfile/components/preView/ImgTextBox';
 import ProfileSummary from '@pages/seniorProfile/components/preView/ProfileSummary';
 import Review from '@pages/seniorProfile/components/preView/Review';
