@@ -12,6 +12,7 @@ import { useState } from 'react';
 import PreView from '@pages/seniorProfile/components/preView';
 import Loading from '@components/commons/Loading';
 import { useGetGoogleMeetLink } from '@pages/promiseList/hooks/queries';
+import ErrorPage from '@pages/errorPage/ErrorPage';
 
 const PromiseDetailPageJunior = () => {
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
@@ -46,7 +47,7 @@ const PromiseDetailPageJunior = () => {
   }
 
   if (!isSuccess || !timeList1) {
-    return <div>데이터 없음</div>; // 데이터가 없을 때 표시
+    return <ErrorPage />;
   }
 
   const handleClickBackArrow = () => {
