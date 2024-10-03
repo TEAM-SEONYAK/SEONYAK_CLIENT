@@ -91,10 +91,13 @@ export default CustomCalendar;
 
 const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`
   margin-bottom: 0.5rem;
-  margin-left: 13rem;
 `;
 
 const CalendarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   width: 100vw;
   height: auto;
   padding: 1.5rem 3.3rem 2rem;
