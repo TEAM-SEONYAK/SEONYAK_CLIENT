@@ -15,9 +15,7 @@ interface BottomSheetPropTypes {
 
   handleReset: () => void;
   chipFieldName: string[];
-  pushFieldList: (chipName: string) => void;
   chipPositionName: string[];
-  pushPositionList: (chipName: string) => void;
 }
 
 interface SelectedChipListProps {

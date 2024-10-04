@@ -72,28 +72,6 @@ const JuniorPromisePage = () => {
     setChipPositionName((prev) => prev.filter((name) => name !== chipName));
   };
 
-  // B- 계열리스트에 이름넣는 함수
-  const pushFieldList = (chipName: string) => {
-    setChipFieldName((prev) => {
-      if (prev.indexOf(chipName) === -1) {
-        return [...prev, chipName];
-      } else {
-        return prev.filter((name) => name !== chipName);
-      }
-    });
-  };
-
-  // B- 직무리스트에 이름 넣는 함수
-  const pushPositionList = (chipName: string) => {
-    setChipPositionName((prev) => {
-      if (prev.indexOf(chipName) === -1) {
-        return [...prev, chipName];
-      } else {
-        return prev.filter((name) => name !== chipName);
-      }
-    });
-  };
-
   // B- 바텀시트 닫기
   const handleCloseBottomSheet = () => {
     setFilterActiveBtn(null);
@@ -155,8 +133,6 @@ const JuniorPromisePage = () => {
                 {...SeniorSearchCommonProps}
                 filterActiveBtn={filterActiveBtn}
                 handleCloseBottomSheet={handleCloseBottomSheet}
-                pushFieldList={pushFieldList}
-                pushPositionList={pushPositionList}
               />
             </SeniorSearch>
             <SeniorCardListLayout>
