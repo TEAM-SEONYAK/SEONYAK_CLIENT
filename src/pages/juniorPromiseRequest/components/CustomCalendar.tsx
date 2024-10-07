@@ -114,7 +114,7 @@ const StyledCalendar = styled(Calendar)`
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 
   .disabled-date {
-    color: ${({ theme }) => theme.colors.grayScaleLG2} !important;
+    color: ${({ theme }) => theme.colors.grayScaleLG2};
 
     cursor: not-allowed;
   }
@@ -163,9 +163,9 @@ const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__navigation button:disabled {
-    background: none !important;
+    background: none;
 
-    color: ${({ theme }) => theme.colors.grayScaleDG} !important;
+    color: ${({ theme }) => theme.colors.grayScaleDG};
   }
 
   .react-calendar__navigation button:hover,
@@ -207,7 +207,7 @@ const StyledCalendar = styled(Calendar)`
 
     background-color: ${({ theme }) => theme.colors.Blue};
 
-    color: ${({ theme }) => theme.colors.grayScaleWhite} !important;
+    color: ${({ theme }) => theme.colors.grayScaleWhite};
   }
 
   .react-calendar__tile--active:enabled:hover,
