@@ -260,7 +260,13 @@ const PromiseDetail = () => {
                     setIsEnterBtnClicked(true);
                   }}
                   marginLeft={-2}
-                  text={diff === undefined ? '-' : diff <= 0 ? '지금 입장하기' : `약속시간까지 ${diffText} 남았어요`}
+                  text={
+                    diff === undefined
+                      ? `약속시간까지 - 남았어요`
+                      : diff <= 0
+                        ? '지금 입장하기'
+                        : `약속시간까지 ${diffText} 남았어요`
+                  }
                   isActive={diff !== undefined && diff <= 0}
                 />
               </BtnWrapper>
@@ -277,6 +283,7 @@ const PromiseDetail = () => {
           </>
         )}
       </Wrapper>
+
       {viewType === 'DECLINE' ? (
         <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/">
           <ModalRejectImg />
@@ -286,6 +293,7 @@ const PromiseDetail = () => {
           <ModalAcceptImg />
         </AutoCloseModal>
       )}
+
       <BottomSheet
         btnActive={rejectReason}
         isSheetOpen={isBottomSheetOpen}
@@ -368,8 +376,8 @@ const DeclineContent = styled.div`
   position: relative;
 
   width: 100%;
-  padding: 1.1rem 0 1.1rem 1.5rem;
   height: 4.4rem;
+  padding: 1.1rem 0 1.1rem 1.5rem;
   border-radius: 8px;
 
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
@@ -387,12 +395,12 @@ const ArrowDownMgIcon = styled(ArrowDownMgIc)`
 `;
 
 const Time = styled.div<{ $isActive: boolean }>`
-  width: 100%;
-
   display: flex;
   justify-content: space-between;
 
+  width: 100%;
   padding: 1.1rem 1.5rem;
+  border: ${({ $isActive, theme }) => `1px solid ${$isActive ? theme.colors.transparentBlue_50 : 'transparent'}`};
   border-radius: 8px;
 
   background-color: ${({ theme, $isActive }) =>
@@ -402,9 +410,6 @@ const Time = styled.div<{ $isActive: boolean }>`
 
   ${({ theme }) => theme.fonts.Body1_M_14};
   cursor: pointer;
-
-  border: ${({ $isActive, theme }) =>
-    $isActive ? `1px solid ${theme.colors.transparentBlue_50}` : '1px solid transparent'};
 `;
 
 const ButtonCheckIcon = styled(ButtonCheckIc)<{ isactive: string }>`
@@ -430,8 +435,8 @@ const DeclineText = styled.p`
   width: 100%;
   height: 4.4rem;
 
-  white-space: pre-wrap;
   color: ${({ theme }) => theme.colors.grayScaleDG};
+  white-space: pre-wrap;
   ${({ theme }) => theme.fonts.Body1_M_14}
 `;
 
@@ -458,11 +463,9 @@ const BtnWrapper = styled.div`
 const DeclineBtn = styled.button`
   z-index: 2;
 
-  border-radius: 5px;
-
-  /* width: 10.6rem; */
   width: 30%;
   height: 5.6rem;
+  border-radius: 5px;
 
   background-color: ${({ theme }) => theme.colors.grayScaleBG};
 
@@ -475,11 +478,9 @@ const DeclineBtn = styled.button`
 const AcceptBtn = styled.button<{ $isActive: boolean }>`
   z-index: 2;
 
-  border-radius: 5px;
-
-  /* width: 21.9rem; */
   width: 70%;
   height: 5.6rem;
+  border-radius: 5px;
 
   background-color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleMG2)};
 

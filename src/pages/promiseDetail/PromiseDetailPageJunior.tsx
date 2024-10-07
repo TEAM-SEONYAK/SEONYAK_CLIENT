@@ -14,28 +14,18 @@ import Loading from '@components/commons/Loading';
 import { useGetGoogleMeetLink } from '@pages/promiseList/hooks/queries';
 
 const PromiseDetailPageJunior = () => {
-  // 데모데이
-  const googleMeetLink = 'https://meet.google.com/gnr-wgcr-gcv';
-  const onClickLink = () => {
-    window.open(googleMeetLink, '_blank');
-  };
-
   // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
   const navigate = useNavigate();
   const location = useLocation();
-  const tap = location.state.tap;
-  const myNickname = location.state.myNickname;
-  const appointmentId = location.state.appointmentId;
-  const seniorId = location.state.seniorId;
-  console.log(location.state);
+  const { tap, myNickname, appointmentId, seniorId } = location.state;
 
   const [isDetailClicked, setIsDetailClicked] = useState(false);
-  const [isEnterBtnClicked] = useState(false);
-  const [, setGoogleMeetLink] = useState('');
+  const [isEnterBtnClicked, setIsEnterBtnClicked] = useState(false);
 
   const handleClickEnterBtn = (link: string) => {
-    setGoogleMeetLink(link);
     window.open(link, '_blank');
+    setIsEnterBtnClicked(false);
+    navigate('/juniorPromise');
   };
 
   useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
@@ -49,6 +39,8 @@ const PromiseDetailPageJunior = () => {
 
   const countdown = useCountdown(timeList1?.date, timeList1?.startTime);
 
+  const { diffText, diff } = countdown;
+
   if (isLoading) {
     return <Loading />; // 로딩 중일 때 표시
   }
@@ -56,8 +48,6 @@ const PromiseDetailPageJunior = () => {
   if (!isSuccess || !timeList1) {
     return <div>데이터 없음</div>; // 데이터가 없을 때 표시
   }
-
-  const { diffText, diff } = countdown;
 
   const handleClickBackArrow = () => {
     setIsDetailClicked(false);
@@ -87,7 +77,6 @@ const PromiseDetailPageJunior = () => {
                     isarrow="false"
                     detail="detail"
                     handleSetIsDetailClicked={handleSetIsDetailClicked}
-                    seniorId={seniorId}
                   />
                 </PromiseDiv>
               </TitleContainer>
@@ -101,7 +90,7 @@ const PromiseDetailPageJunior = () => {
 
               <TitleContainer>
                 <Title>{seniorInfo.nickname} 선배님과 상담하고 싶은 내용</Title>
-                {topic[0] !== '' ? (
+                {topic && topic.length ? (
                   topic.map((el: string, idx: number) => <Content key={idx + el}>{el}</Content>)
                 ) : (
                   <WrittenContent>{personalTopic}</WrittenContent>
@@ -114,9 +103,9 @@ const PromiseDetailPageJunior = () => {
               ) : (
                 <PromiseTimerBtn
                   isActive={diff !== undefined && diff <= 0}
-                  diff={diffText}
+                  diff={diff === undefined ? '-' : diffText}
                   page="detail"
-                  onClick={() => onClickLink()}
+                  onClick={() => setIsEnterBtnClicked(true)}
                 />
               )}
             </BtnWrapper>

@@ -30,6 +30,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
     }
   };
 
+  console.log(scheduled);
   return (
     <Wrapper>
       <TapContainer>
@@ -47,52 +48,48 @@ const PromiseTap = (props: PromiseTapPropType) => {
       {getTapContent(tap).length ? (
         <ProfileWrapper>
           {tap === 'past' &&
-            past.map((profileData, idx) =>
+            past.map((profileData) =>
               profileData.appointmentStatus === 'REJECTED' ? (
                 <ProfileContainer
-                  key={profileData.appointmentId + idx}
+                  key={profileData.appointmentId}
                   myNickname={myNickname}
                   userRole={userRole}
                   tap="rejected"
                   profileCardData={profileData}
-                  isarrow="ture"
-                  seniorId={profileData.seniorId}
+                  isarrow="true"
                 />
               ) : (
                 <ProfileContainer
-                  key={profileData.appointmentId + idx}
+                  key={profileData.appointmentId}
                   myNickname={myNickname}
                   userRole={userRole}
                   tap="past"
                   profileCardData={profileData}
                   isarrow="true"
-                  seniorId={profileData.seniorId}
                 />
-              ),
+              )
             )}
 
           {tap === 'scheduled' &&
-            scheduled.map((profileCardData, idx) => (
+            scheduled.map((profileCardData) => (
               <ProfileContainer
                 myNickname={myNickname}
-                key={profileCardData.appointmentId + idx}
+                key={profileCardData.appointmentId}
                 userRole={userRole}
                 tap={tap}
                 profileCardData={profileCardData}
                 isarrow="true"
-                seniorId={profileCardData.seniorId}
               />
             ))}
           {tap === 'pending' &&
-            pending.map((profileCardData, idx) => (
+            pending.map((profileCardData) => (
               <ProfileContainer
                 myNickname={myNickname}
-                key={profileCardData.appointmentId + idx}
+                key={profileCardData.appointmentId}
                 userRole={userRole}
                 tap={tap}
                 profileCardData={profileCardData}
                 isarrow="true"
-                seniorId={profileCardData.seniorId}
               />
             ))}
         </ProfileWrapper>

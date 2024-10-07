@@ -7,7 +7,6 @@ import { BottomSheet } from '@pages/juniorPromise/components/BottomSheet';
 import { useState } from 'react';
 import { SeniorSearch } from './components/SeniorSearch';
 
-import seniorProfileQueries from '../../hooks/seniorProfileQueries';
 import PreView from '@pages/seniorProfile/components/preView';
 import { FullBtn } from '@components/commons/FullButton';
 import Loading from '@components/commons/Loading';
@@ -15,6 +14,7 @@ import ErrorPage from '@pages/errorPage/ErrorPage';
 
 import { Banner } from './components/seniorFilter/Banner';
 import { useNavigate } from 'react-router-dom';
+import useSeniorProfileQueries from '@hooks/seniorProfileQueries';
 
 const JuniorPromisePage = () => {
   const navigate = useNavigate();
@@ -23,6 +23,16 @@ const JuniorPromisePage = () => {
   const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
   // 바텀 시트 여는 동작
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  // 칩으로 나갈 선택된 계열 이름 리스트
+  const [chipFieldName, setChipFieldName] = useState<string[]>([]);
+  // 칩으로 나갈 선택된 직무 리스트
+  const [chipPositionName, setChipPositionName] = useState<string[]>([]);
+  const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
+  const [seniorId, setSeniorId] = useState(0);
+  const [seniorNickname, setSeniorNickname] = useState('');
+
+  // 쿼리 사용하여 데이터 가져오기
+  const { data, isLoading, isError } = useSeniorProfileQueries(chipFieldName, chipPositionName);
 
   // 필터 버튼에 정보 넣기, 바텀시트 열기
   const handleFilterActiveBtn = (btnText: string) => {
@@ -34,13 +44,6 @@ const JuniorPromisePage = () => {
     setChipFieldName([]);
     setChipPositionName([]);
   };
-
-  // 칩으로 나갈 선택된 계열 이름 리스트
-  const [chipFieldName, setChipFieldName] = useState<string[]>([]);
-
-  // 칩으로 나갈 선택된 직무 리스트
-  const [chipPositionName, setChipPositionName] = useState<string[]>([]);
-
   // 선택 계열 리스트 배열로
   const isFieldSelected = (fieldName: string) => chipFieldName.includes(fieldName);
 
@@ -51,7 +54,6 @@ const JuniorPromisePage = () => {
       setChipFieldName((prev) => [...prev, fieldName]);
     }
   };
-
   // 선택 직무 리스트
   const isPositionSelected = (positionName: string) => chipPositionName.includes(positionName);
 
@@ -61,15 +63,6 @@ const JuniorPromisePage = () => {
     } else {
       setChipPositionName((prev) => [...prev, positionName]);
     }
-  };
-
-  const SeniorSearchCommonProps = {
-    handleFilterActiveBtn,
-    handleReset,
-    chipPositionName,
-    chipFieldName,
-    handleChipField,
-    handleChipPosition,
   };
 
   // S- 계열리스트에 이름빼는 함수
@@ -108,26 +101,12 @@ const JuniorPromisePage = () => {
   const handleCloseBottomSheet = () => {
     setIsBottomSheetOpen(false);
   };
-
-  // 쿼리 사용하여 데이터 가져오기
-  const { data, isLoading, isError } = seniorProfileQueries(chipFieldName, chipPositionName);
-  const seniorList = data?.data.seniorList || [];
-  const myNickname = data?.data.myNickname;
-  if (isLoading) {
-    return <Loading />;
-  }
-  if (isError) {
-    return <ErrorPage />;
-  }
-
-  const [isSeniorCardClicked, setIsSeniorCardClicked] = useState(false);
-  const [seniorId, setSeniorId] = useState(0);
-  const [seniorNickname, setSeniorNickname] = useState('');
   const handleSeniorCardClicked = (type: boolean, id: number, name: string) => {
     setIsSeniorCardClicked(type);
     setSeniorId(id);
     setSeniorNickname(name);
   };
+
   const handlePromiseClicked = () => {
     navigate('/juniorPromiseRequest', {
       state: {
@@ -135,6 +114,21 @@ const JuniorPromisePage = () => {
         seniorNickname,
       },
     });
+  };
+
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorPage />;
+
+  const seniorList = data?.data.seniorList || [];
+  const myNickname = data?.data.myNickname;
+
+  const SeniorSearchCommonProps = {
+    handleFilterActiveBtn,
+    handleReset,
+    chipPositionName,
+    chipFieldName,
+    handleChipField,
+    handleChipPosition,
   };
 
   return (
