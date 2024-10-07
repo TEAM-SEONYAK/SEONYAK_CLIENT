@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { getLevelName } from '../../../utils/getLevelName';
+import { useState } from 'react';
 
 interface seniorListPropType {
   nickname: string;
@@ -19,7 +20,8 @@ interface CompanyProps {
 export const SeniorCard = (props: seniorListPropType) => {
   const { nickname, company, field, position, detailPosition, level, variant = 'default', image } = props;
   const levelName = getLevelName(level);
-  const randomColor = Math.floor(Math.random() * 3);
+  const [randomColor] = useState(Math.floor(Math.random() * 3));
+
   return (
     <SeniorCardWrapper $isSmall={variant === 'secondary'}>
       <SeniorCardLayout>
