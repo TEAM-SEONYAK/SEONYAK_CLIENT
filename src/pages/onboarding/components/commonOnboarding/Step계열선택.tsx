@@ -17,7 +17,7 @@ const Step계열선택 = () => {
       field: selectedField,
     }));
     if (pathname.includes('senior')) {
-      navigate('seniorOnboarding/5');
+      navigate('/seniorOnboarding/5');
     } else {
       navigate('/juniorOnboarding/7');
     }

@@ -30,7 +30,13 @@ const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
 
   return (
     <Wrapper>
-      <Header title={ONBOARDING_HEADER[GROUP_STEP - 1]} LeftSvg={ArrowLeftIc} onClickLeft={() => navigate(-1)} />
+      <Header
+        title={ONBOARDING_HEADER[GROUP_STEP - 1]}
+        LeftSvg={ArrowLeftIc}
+        onClickLeft={() => {
+          step === 1 ? navigate('/') : navigate(-1);
+        }}
+      />
       <ProgressBar max={userRole === 'SENIOR' ? 4 : 3} current={GROUP_STEP} />
       <MetaContainer>
         <TitleBox title={title} description={description} />

@@ -12,6 +12,7 @@ import { AlreadyModalView } from '@pages/onboarding/components/commonOnboarding/
 import axios from 'axios';
 import { 이미_가입된_계정_이메일_에러코드 } from '@pages/onboarding/constants';
 import { SuccessImg } from '@assets/images';
+import googleLogin from '@pages/login/utils/googleLogin';
 
 const Step이메일입력 = () => {
   const navigate = useNavigate();
@@ -80,7 +81,7 @@ const Step이메일입력 = () => {
             setIsEmailError(true);
           }
         },
-      },
+      }
     );
   };
 
@@ -162,9 +163,7 @@ const Step이메일입력 = () => {
         isModalOpen={isAlreadyModalOpen}
         handleModalOpen={handleShowAlreadyModal}
         btnText="로그인 하러 가기"
-        handleBtnClick={() => {
-          navigate('/login');
-        }}>
+        handleBtnClick={googleLogin}>
         <AlreadyModalView />
       </BtnCloseModal>
     </Wrapper>
