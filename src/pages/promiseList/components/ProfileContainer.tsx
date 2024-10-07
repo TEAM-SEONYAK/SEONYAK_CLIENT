@@ -54,7 +54,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
       });
     }
     if (userRole === 'JUNIOR' && tap === 'pending') {
-      navigate('./promiseList/promiseDetailJunior', {
+      navigate('/promiseList/promiseDetailJunior', {
         state: {
           tap: 'pending',
           myNickname,
@@ -65,13 +65,13 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
     }
 
     if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
-      navigate('./promiseList/promiseDetail', {
+      navigate('/promiseList/promiseDetail', {
         state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
 
     if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
-      navigate('./promiseList/promiseDetailJunior', {
+      navigate('/promiseList/promiseDetailJunior', {
         state: {
           tap: 'scheduled',
           myNickname: myNickname,
