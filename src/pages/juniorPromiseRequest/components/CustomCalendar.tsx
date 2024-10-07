@@ -191,6 +191,16 @@ const StyledCalendar = styled(Calendar)`
     left: 6rem;
   }
 
+  .react-calendar__navigation__label {
+    pointer-events: none;
+
+    cursor: default;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
   .react-calendar__tile {
     ${({ theme }) => theme.fonts.Title2_M_16};
     border-radius: 100px;
