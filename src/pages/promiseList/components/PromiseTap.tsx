@@ -27,7 +27,7 @@ const PromiseTap = (props: PromiseTapPropType) => {
       setTap(prevTap);
       navigate(location.pathname, { state: '' });
     }
-  }, []);
+  }, [prevTap]);
 
   const getTapContent = (tap: string) => {
     switch (tap) {
