@@ -4,7 +4,7 @@ import ProfileContainer from './ProfileContainer';
 import { PROMISE_TAP } from '../constants/constants';
 import { profileCardDataType } from '../types/type';
 import { getEmptyMessage } from '../utils/getEmptyMessage';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface PromiseTapPropType {
   userRole: string;
@@ -16,6 +16,7 @@ interface PromiseTapPropType {
 
 const PromiseTap = (props: PromiseTapPropType) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [tap, setTap] = useState('pending');
   const { userRole, pending, scheduled, past, myNickname } = props;
 
@@ -24,8 +25,9 @@ const PromiseTap = (props: PromiseTapPropType) => {
   useEffect(() => {
     if (prevTap && Object.keys(prevTap).length !== 0) {
       setTap(prevTap);
+      navigate(location.pathname, { state: '' });
     }
-  }, [prevTap]);
+  }, []);
 
   const getTapContent = (tap: string) => {
     switch (tap) {
