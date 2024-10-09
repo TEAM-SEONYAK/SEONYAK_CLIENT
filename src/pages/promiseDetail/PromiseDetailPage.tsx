@@ -42,7 +42,7 @@ const PromiseDetail = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   // 거절 사유 토글에서 저장
   const [rejectReason, setRejectReason] = useState(DEFAULT_REJECT_TEXT);
-  const [currRejectReason, setCurrRejectReason] = useState('');
+  const [currRejectReason, setCurrRejectReason] = useState(DEFAULT_REJECT_TEXT);
   // 작성한 거절사유 저장
   const [rejectDetail, setRejectDetail] = useState('');
   // 서버 전달용 날짜, 시작시간, 끝시간 저장 state
