@@ -8,9 +8,23 @@ interface BottomSheetPropType {
   handleSheetClose: (type: boolean) => void;
   children: React.ReactNode;
   btnActive: string;
+  setRejectReason: (reason: string) => void;
+  currRejectReason: string;
 }
 
-export const BottomSheet = ({ isSheetOpen, handleSheetClose, children, btnActive }: BottomSheetPropType) => {
+export const BottomSheet = ({
+  isSheetOpen,
+  handleSheetClose,
+  children,
+  btnActive,
+  setRejectReason,
+  currRejectReason,
+}: BottomSheetPropType) => {
+  const handleCloseBottomSheet = () => {
+    handleSheetClose(false);
+    setRejectReason(currRejectReason);
+  };
+
   return (
     <>
       <Background $isSheetOpen={isSheetOpen} onClick={() => handleSheetClose(false)} />
@@ -20,7 +34,7 @@ export const BottomSheet = ({ isSheetOpen, handleSheetClose, children, btnActive
         <ExitBottomSheet
           disabled={btnActive === DEFAULT_REJECT_TEXT}
           type="button"
-          onClick={() => handleSheetClose(false)}
+          onClick={handleCloseBottomSheet}
           $isActive={btnActive !== DEFAULT_REJECT_TEXT}>
           적용할래요
         </ExitBottomSheet>

@@ -42,6 +42,7 @@ const PromiseDetail = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   // 거절 사유 토글에서 저장
   const [rejectReason, setRejectReason] = useState(DEFAULT_REJECT_TEXT);
+  const [currRejectReason, setCurrRejectReason] = useState('');
   // 작성한 거절사유 저장
   const [rejectDetail, setRejectDetail] = useState('');
   // 서버 전달용 날짜, 시작시간, 끝시간 저장 state
@@ -186,7 +187,7 @@ const PromiseDetail = () => {
               </Content>
             ) : (
               <DeclineContent onClick={() => setIsBottomSheetOpen(true)}>
-                {!isBottomSheetOpen && rejectReason}
+                {rejectReason}
                 <ArrowDownMgIcon />
               </DeclineContent>
             )}
@@ -316,18 +317,20 @@ const PromiseDetail = () => {
       )}
 
       <BottomSheet
-        btnActive={rejectReason}
+        btnActive={currRejectReason}
         isSheetOpen={isBottomSheetOpen}
         handleSheetOpen={handleBottomSheetOpen}
-        handleSheetClose={handleBottomSheetClose}>
+        handleSheetClose={handleBottomSheetClose}
+        setRejectReason={setRejectReason}
+        currRejectReason={currRejectReason}>
         <BottomSheetLayout>
           <BottomSheetTitle>거절 사유 선택</BottomSheetTitle>
           <DeclineReasonWrapper>
             {REJECT_REASON.map((el) => (
               <DeclineReason
                 key={el.id}
-                onClick={() => handleRejectReason(el.content)}
-                $isActive={rejectReason === el.content}>
+                onClick={() => setCurrRejectReason(el.content)}
+                $isActive={currRejectReason === el.content}>
                 {el.content}
               </DeclineReason>
             ))}
