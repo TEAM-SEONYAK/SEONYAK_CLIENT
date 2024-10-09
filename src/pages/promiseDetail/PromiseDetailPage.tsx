@@ -149,15 +149,24 @@ const PromiseDetail = () => {
   const { diffText, diff } = countdown;
   const { month, day } = dateInfo;
 
+  // 뒤로가기 버튼
+  const handleBackBtn = () => {
+    if (viewType === 'DEFAULT') {
+      navigate(`/promiseList`, {
+        state: {
+          prevTap: tap,
+        },
+      });
+    } else {
+      setViewType('DEFAULT');
+    }
+  };
+
   return (
     <>
       <Header
         LeftSvg={ArrowLeftIc}
-        onClickLeft={() => navigate(`/promiseList`, {
-          state: {
-            prevTap: tap
-          }
-        })}
+        onClickLeft={handleBackBtn}
         title={viewType === 'DEFAULT' ? '자세히 보기' : '거절하기'}
       />
       <hr />
@@ -289,11 +298,19 @@ const PromiseDetail = () => {
       </Wrapper>
 
       {viewType === 'DECLINE' ? (
-        <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/promiseList">
+        <AutoCloseModal
+          text="선약이 거절되었어요"
+          showModal={isModalOpen}
+          handleShowModal={handleModalOpen}
+          path="/promiseList">
           <ModalRejectImg />
         </AutoCloseModal>
       ) : (
-        <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/promiseList">
+        <AutoCloseModal
+          text="선약이 수락되었어요"
+          showModal={isModalOpen}
+          handleShowModal={handleModalOpen}
+          path="/promiseList">
           <ModalAcceptImg />
         </AutoCloseModal>
       )}
