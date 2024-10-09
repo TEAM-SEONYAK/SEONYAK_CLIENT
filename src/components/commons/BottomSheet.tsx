@@ -15,6 +15,7 @@ export const BottomSheet = ({ isSheetOpen, handleSheetClose, children, btnActive
     <>
       <Background $isSheetOpen={isSheetOpen} onClick={() => handleSheetClose(false)} />
       <BottomSheetWrapper $isSheetOpen={isSheetOpen}>
+        <Handler />
         {children}
         <ExitBottomSheet
           disabled={btnActive === DEFAULT_REJECT_TEXT}
@@ -43,6 +44,7 @@ const Background = styled.div<{ $isSheetOpen: boolean }>`
 const BottomSheetWrapper = styled.form<{ $isSheetOpen: boolean }>`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   position: fixed;
   bottom: 0;
   z-index: 13;
@@ -72,4 +74,17 @@ const ExitBottomSheet = styled.button<{ $isActive: boolean }>`
 
   ${({ theme }) => theme.fonts.Head2_SB_18};
   cursor: pointer;
+`;
+
+const Handler = styled.div`
+  position: fixed;
+  top: 1.6rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 4.7rem;
+  height: 0.3rem;
+  border-radius: 5px;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleLG2};
 `;

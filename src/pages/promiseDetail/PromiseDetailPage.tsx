@@ -546,5 +546,7 @@ const DeclineReason = styled.div<{ $isActive: boolean }>`
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 
   color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleDG)};
+
   ${({ theme }) => theme.fonts.Title2_M_16};
+  cursor: pointer;
 `;
