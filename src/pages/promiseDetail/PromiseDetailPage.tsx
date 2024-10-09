@@ -115,20 +115,13 @@ const PromiseDetail = () => {
 
   useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
 
-  const handleBottomSheetOpen = () => {
-    setIsBottomSheetOpen(true);
-  };
-
   const handleBottomSheetClose = () => {
     setIsBottomSheetOpen(false);
+    setRejectReason(currRejectReason);
   };
 
   const handleClickDeclineBtn = () => {
     setViewType('DECLINE');
-  };
-
-  const handleRejectReason = (reason: string) => {
-    setRejectReason(reason);
   };
 
   const handleRejectDetailReason = (detailReason: string) => {
@@ -319,10 +312,7 @@ const PromiseDetail = () => {
       <BottomSheet
         btnActive={currRejectReason}
         isSheetOpen={isBottomSheetOpen}
-        handleSheetOpen={handleBottomSheetOpen}
-        handleSheetClose={handleBottomSheetClose}
-        setRejectReason={setRejectReason}
-        currRejectReason={currRejectReason}>
+        handleSheetClose={handleBottomSheetClose}>
         <BottomSheetLayout>
           <BottomSheetTitle>거절 사유 선택</BottomSheetTitle>
           <DeclineReasonWrapper>

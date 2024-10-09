@@ -4,12 +4,9 @@ import { DEFAULT_REJECT_TEXT } from '@pages/promiseDetail/constants/constant';
 import React from 'react';
 interface BottomSheetPropType {
   isSheetOpen: boolean;
-  handleSheetOpen: (type: boolean) => void;
-  handleSheetClose: (type: boolean) => void;
+  handleSheetClose: () => void;
   children: React.ReactNode;
   btnActive: string;
-  setRejectReason: (reason: string) => void;
-  currRejectReason: string;
 }
 
 export const BottomSheet = ({
@@ -17,24 +14,18 @@ export const BottomSheet = ({
   handleSheetClose,
   children,
   btnActive,
-  setRejectReason,
-  currRejectReason,
 }: BottomSheetPropType) => {
-  const handleCloseBottomSheet = () => {
-    handleSheetClose(false);
-    setRejectReason(currRejectReason);
-  };
 
   return (
     <>
-      <Background $isSheetOpen={isSheetOpen} onClick={() => handleSheetClose(false)} />
+      <Background $isSheetOpen={isSheetOpen} onClick={handleSheetClose} />
       <BottomSheetWrapper $isSheetOpen={isSheetOpen}>
         <Handler />
         {children}
         <ExitBottomSheet
           disabled={btnActive === DEFAULT_REJECT_TEXT}
           type="button"
-          onClick={handleCloseBottomSheet}
+          onClick={handleSheetClose}
           $isActive={btnActive !== DEFAULT_REJECT_TEXT}>
           적용할래요
         </ExitBottomSheet>
