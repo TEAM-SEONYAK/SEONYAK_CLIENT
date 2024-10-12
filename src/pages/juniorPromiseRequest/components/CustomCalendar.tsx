@@ -1,20 +1,15 @@
 import { BottomSheetRectangleIc } from '@assets/svgs';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { formatCalDateToString } from '../utils/formatCalDateToString';
-import { getTomorrow } from '../utils/getTomorrow';
 import { extractValidKeys } from '../utils/getSeniorValidWeekOfDay';
 
 interface CalendarTileProperties {
   date: Date;
   view: string;
 }
-
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 interface CustomCalendarPropType {
   btnId: number;
@@ -33,45 +28,41 @@ const CustomCalendar = ({ btnId, setSelectedTime, selectedTime, preferredTimeLis
     5: '금',
     6: '토',
   };
-  const preferredDaysofWeek = extractValidKeys(preferredTimeList);
 
-  const [, onChange] = useState<Value>(getTomorrow());
+  const preferredDaysofWeek = extractValidKeys(preferredTimeList);
 
   const handleDateClick = (date: string) => {
     setSelectedTime((prev) => prev.map((item) => (item.id === btnId ? { ...item, clickedDay: date } : item)));
   };
 
   const tileDisabled = ({ date, view }: CalendarTileProperties) => {
-    if (view === 'month') {
-      // 현재 날짜 이전의 날짜를 비활성화
-      if (date <= new Date()) {
-        return true;
-      }
+    // 'month' 뷰가 아닌 경우엔 비활성화 X
+    if (view !== 'month') return false;
 
-      // 이미 선택된 날짜를 비활성화
-      const formattedDate = formatCalDateToString(date);
-      if (selectedTime.some((item) => item.clickedDay === formattedDate)) {
-        return true;
-      }
+    const formattedDate = formatCalDateToString(date);
+    const dayOfWeek = dayOfWeekMap[date.getDay()];
 
-      // 요일을 확인하여 preferredDaysofWeek에 없는 요일을 비활성화
-      const dayOfWeek = date.getDay();
-      const dayOfWeekStr = dayOfWeekMap[dayOfWeek];
-      if (!preferredDaysofWeek.includes(dayOfWeekStr)) {
-        return true;
-      }
-    }
-    return false;
+    // 오늘 이전의 날짜는 비활성화
+    const isPastDate = date <= new Date();
+
+    // 이미 선택된 날짜는 비활성화
+    const isAlreadySelected = selectedTime.some((item) => item.clickedDay === formattedDate);
+
+    // 선호하는 요일이 아닌 날짜는 비활성화
+    const isNotPreferredDay = !preferredDaysofWeek.includes(dayOfWeek);
+
+    // 조건 중 하나라도 true이면 비활성화
+    return isPastDate || isAlreadySelected || isNotPreferredDay;
   };
 
-  const tileClassName = ({ date, view }: CalendarTileProperties) =>
-    view === 'month' && date <= new Date() ? 'disabled-date' : '';
+  const tileClassName = ({ date, view }: CalendarTileProperties) => {
+    return view === 'month' && date <= new Date() ? 'disabled-date' : '';
+  };
 
   return (
     <CalendarContainer>
       <BottomSheetRectangleIcon />
       <StyledCalendar
-        onChange={onChange}
         onClickDay={(value) => handleDateClick(formatCalDateToString(value))}
         value={selectedTime[btnId].clickedDay}
         minDate={new Date()}
