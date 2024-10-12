@@ -28,6 +28,7 @@ const WorryTextarea = ({ setIsTextareaFilled, inputVal, setInputVal }: SelectJun
         height={22}
         inputVal={inputVal}
         handleInputVal={handleInputVal}
+        variant="secondary"
       />
     </Wrapper>
   );
