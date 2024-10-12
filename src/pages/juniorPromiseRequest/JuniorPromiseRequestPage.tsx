@@ -22,7 +22,6 @@ const JuniorPromiseRequestPage = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAnyWorrySelected, setIsAnyWorrySelected] = useState(false);
-  const [isTextareaFilled, setIsTextareaFilled] = useState(false);
   const [, setUnfilledFields] = useState<number[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
@@ -71,6 +70,7 @@ const JuniorPromiseRequestPage = () => {
 
   // 작성할래요 인풋 값 가져오기
   const [inputVal, setInputVal] = useState<string>('');
+  const isTextareaFilled = inputVal.trim() !== '';
   const handleAppointmentSendSuccess = () => {
     setIsModalClicked(true);
   };
@@ -95,9 +95,10 @@ const JuniorPromiseRequestPage = () => {
     });
   };
 
+  // 모든 일정 선택했는지 확인. '선택할래요'인 경우 선택했는지 확인, '작성할래요'인 경우 텍스트 입력했는지 확인
   const isAllSelected =
     selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
-    (isAnyWorrySelected || isTextareaFilled);
+    (activeButton === '선택할래요' ? isAnyWorrySelected : isTextareaFilled);
 
   // 버튼 클릭시 실행 함수
   const handleSubmit = () => {
@@ -137,7 +138,7 @@ const JuniorPromiseRequestPage = () => {
             handleCheckWorrySelected={handleCheckWorrySelected}
           />
         ) : (
-          <WorryTextarea inputVal={inputVal} setInputVal={setInputVal} setIsTextareaFilled={setIsTextareaFilled} />
+          <WorryTextarea inputVal={inputVal} setInputVal={setInputVal} />
         )}
         <CalendarBottomSheet
           selectedTime={selectedTime}
