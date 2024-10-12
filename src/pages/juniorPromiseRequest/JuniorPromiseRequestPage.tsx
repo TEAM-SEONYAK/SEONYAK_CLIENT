@@ -16,7 +16,6 @@ import { Header } from '@components/commons/Header';
 import Banner from './components/Banner';
 import TitleBox from '@components/commons/TitleBox';
 import { SELECT_JUNIOR_TITLE } from './constants/constants';
-import axios from 'axios';
 
 const JuniorPromiseRequestPage = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
@@ -86,7 +85,7 @@ const JuniorPromiseRequestPage = () => {
     postAppointment({
       seniorId,
       topic: activeButton === '선택할래요' ? selectedButtons : [],
-      personalTopic: activeButton === '선택할래요' ? '' : inputVal,
+      personalTopic: activeButton === '작성할래요' ? inputVal : '',
       timeList: selectedTime.map((item) => ({
         date: item.clickedDay,
         startTime: item.selectedTime.split('-')[0],
