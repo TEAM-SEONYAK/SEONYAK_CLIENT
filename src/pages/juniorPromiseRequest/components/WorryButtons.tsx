@@ -5,16 +5,11 @@ import { ButtonCheckIc } from '../../../assets/svgs';
 import { WORRY_SELECTION_BUTTON } from '../constants/constants';
 
 interface SelectJuniorWorryButtonProps {
-  handleCheckWorrySelected: (isSelected: boolean) => void;
   selectedButtons: string[];
   setSelectedButtons: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const SelectJuniorWorryButton = ({
-  handleCheckWorrySelected,
-  selectedButtons,
-  setSelectedButtons,
-}: SelectJuniorWorryButtonProps) => {
+const SelectJuniorWorryButton = ({ selectedButtons, setSelectedButtons }: SelectJuniorWorryButtonProps) => {
   const handleButtonClick = (title: string) => {
     setSelectedButtons((prevSelectedButtons: string[]) =>
       prevSelectedButtons.includes(title)
@@ -22,10 +17,6 @@ const SelectJuniorWorryButton = ({
         : [...prevSelectedButtons, title]
     );
   };
-
-  useEffect(() => {
-    handleCheckWorrySelected(selectedButtons.length > 0);
-  }, [selectedButtons, handleCheckWorrySelected]);
 
   return (
     <Wrapper>
