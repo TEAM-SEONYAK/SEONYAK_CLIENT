@@ -7,8 +7,6 @@ import globalStyle from './styles/globalStyle';
 import theme from './styles/theme';
 
 const App = () => {
-  // const navigate = useNavigate();
-
   const setScreenSize = () => {
     // vh 관련
     const vh = window.innerHeight * 0.01;
@@ -43,7 +41,7 @@ export default App;
 
 const Wrapper = styled.div`
   width: 100vw;
-  min-height: calc(var(--vh, 1vh) * 100 - 44px);
+  min-height: calc(var(--vh, 1vh) * 100 - 54px);
   border: none;
 
   background-color: #fff;

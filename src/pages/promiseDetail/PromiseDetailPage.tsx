@@ -160,7 +160,6 @@ const PromiseDetail = () => {
         })}
         title={viewType === 'DEFAULT' ? '자세히 보기' : '거절하기'}
       />
-      <hr />
       <Wrapper>
         <Layout $viewType={viewType}>
           <TitleContainer>
@@ -331,7 +330,7 @@ const Wrapper = styled.div`
 
   width: 100vw;
   height: 100%;
-  margin-top: 4.4rem;
+  margin-top: 5rem;
   padding: 3rem 1.765rem 0 2.035rem;
   border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 
