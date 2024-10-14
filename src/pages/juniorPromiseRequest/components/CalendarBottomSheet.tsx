@@ -6,6 +6,7 @@ import TimeList from './TimeList';
 import { useSeniorTimeQuery } from '../hooks/queries';
 import { getDayOfWeek } from '../utils/getDay';
 import Loading from '@components/commons/Loading';
+import { BottomSheetRectangleIc } from '@assets/svgs';
 
 interface BottomSheetPropType {
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
@@ -46,6 +47,9 @@ const CalendarBottomSheet = ({
         }}
       />
       <BottomSheetWrapper $isCalendarOpen={isCalendarOpen}>
+        <BottomSheetGripBox>
+          <BottomSheetRectangleIcon />
+        </BottomSheetGripBox>
         <Scroll>
           <CustomCalendar
             btnId={btnId}
@@ -80,6 +84,26 @@ const Scroll = styled.div`
   overflow-y: auto;
 
   margin-bottom: 3rem;
+`;
+
+const BottomSheetGripBox = styled.div`
+  display: block;
+  position: relative;
+
+  height: 5rem;
+  border-radius: 16px 16px 0 0;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
+`;
+
+const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+
+  margin-bottom: 0.5rem;
+
+  transform: translate(-50%, -50%);
 `;
 
 const Background = styled.div<{ $isCalendarOpen: boolean }>`

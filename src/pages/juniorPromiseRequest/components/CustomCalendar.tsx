@@ -1,4 +1,3 @@
-import { BottomSheetRectangleIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import React from 'react';
 import Calendar from 'react-calendar';
@@ -61,7 +60,6 @@ const CustomCalendar = ({ btnId, setSelectedTime, selectedTime, preferredTimeLis
 
   return (
     <CalendarContainer>
-      <BottomSheetRectangleIcon />
       <StyledCalendar
         onClickDay={(value) => handleDateClick(formatCalDateToString(value))}
         value={selectedTime[btnId].clickedDay}
@@ -80,10 +78,6 @@ const CustomCalendar = ({ btnId, setSelectedTime, selectedTime, preferredTimeLis
 
 export default CustomCalendar;
 
-const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`
-  margin-bottom: 0.5rem;
-`;
-
 const CalendarContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -91,10 +85,7 @@ const CalendarContainer = styled.div`
 
   width: 100vw;
   height: auto;
-  padding: 1.5rem 3.3rem 2rem;
-  border-radius: 16px 16px 0 0;
-
-  background: ${({ theme }) => theme.colors.grayScaleWhite};
+  padding: 0 3.3rem 2rem;
 `;
 
 const StyledCalendar = styled(Calendar)`
@@ -144,7 +135,6 @@ const StyledCalendar = styled(Calendar)`
     position: relative;
 
     ${({ theme }) => theme.fonts.Head1_SB_20};
-    margin-top: 0.7rem;
     margin-bottom: 0;
   }
 
