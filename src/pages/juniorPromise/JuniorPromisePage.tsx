@@ -20,9 +20,8 @@ const JuniorPromisePage = () => {
   const navigate = useNavigate();
 
   // 바텀 시트 내 버튼& 내용 필터 버튼
-  const [filterActiveBtn, setFilterActiveBtn] = useState('계열');
-  // 바텀 시트 여는 동작
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [filterActiveBtn, setFilterActiveBtn] = useState<string | null>(null);
+
   // 칩으로 나갈 선택된 계열 이름 리스트
   const [chipFieldName, setChipFieldName] = useState<string[]>([]);
   // 칩으로 나갈 선택된 직무 리스트
@@ -37,14 +36,14 @@ const JuniorPromisePage = () => {
   // 필터 버튼에 정보 넣기, 바텀시트 열기
   const handleFilterActiveBtn = (btnText: string) => {
     setFilterActiveBtn(btnText);
-    setIsBottomSheetOpen(true);
   };
   // 초기화 함수
   const handleReset = () => {
     setChipFieldName([]);
     setChipPositionName([]);
   };
-  // 선택 계열 리스트 배열로
+
+  // 선택 계열 리스트
   const isFieldSelected = (fieldName: string) => chipFieldName.includes(fieldName);
 
   const handleChipField = (fieldName: string) => {
@@ -75,31 +74,9 @@ const JuniorPromisePage = () => {
     setChipPositionName((prev) => prev.filter((name) => name !== chipName));
   };
 
-  // B- 계열리스트에 이름넣는 함수
-  const pushFieldList = (chipName: string) => {
-    setChipFieldName((prev) => {
-      if (prev.indexOf(chipName) === -1) {
-        return [...prev, chipName];
-      } else {
-        return prev.filter((name) => name !== chipName);
-      }
-    });
-  };
-
-  // B- 직무리스트에 이름 넣는 함수
-  const pushPositionList = (chipName: string) => {
-    setChipPositionName((prev) => {
-      if (prev.indexOf(chipName) === -1) {
-        return [...prev, chipName];
-      } else {
-        return prev.filter((name) => name !== chipName);
-      }
-    });
-  };
-
   // B- 바텀시트 닫기
   const handleCloseBottomSheet = () => {
-    setIsBottomSheetOpen(false);
+    setFilterActiveBtn(null);
   };
   const handleSeniorCardClicked = (type: boolean, id: number, name: string) => {
     setIsSeniorCardClicked(type);
@@ -145,7 +122,7 @@ const JuniorPromisePage = () => {
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
       ) : (
-        <PreventScroll $isBottomSheetOpen={isBottomSheetOpen}>
+        <PreventScroll $filterActiveBtn={filterActiveBtn}>
           <Banner myNickname={myNickname} />
           <ContentWrapper>
             <SeniorSearch
@@ -158,9 +135,6 @@ const JuniorPromisePage = () => {
                 {...SeniorSearchCommonProps}
                 filterActiveBtn={filterActiveBtn}
                 handleCloseBottomSheet={handleCloseBottomSheet}
-                isBottomSheetOpen={isBottomSheetOpen}
-                pushFieldList={pushFieldList}
-                pushPositionList={pushPositionList}
               />
             </SeniorSearch>
             <SeniorCardListLayout>
@@ -183,8 +157,8 @@ const JuniorPromisePage = () => {
 
 export default JuniorPromisePage;
 
-const PreventScroll = styled.div<{ $isBottomSheetOpen: boolean }>`
-  position: ${({ $isBottomSheetOpen }) => ($isBottomSheetOpen ? 'fixed' : 'relative')};
+const PreventScroll = styled.div<{ $filterActiveBtn: string | null }>`
+  position: ${({ $filterActiveBtn }) => ($filterActiveBtn !== null ? 'fixed' : 'relative')};
 
   width: 100%;
   height: 100vh;

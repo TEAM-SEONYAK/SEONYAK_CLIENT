@@ -7,18 +7,15 @@ import { FIELD_LIST } from '../constants/fieldList';
 import { POSITION_LIST } from '../constants/positionList';
 
 interface BottomSheetPropTypes {
-  filterActiveBtn: string;
+  filterActiveBtn: string | null;
   handleFilterActiveBtn: (btnText: string) => void;
-  isBottomSheetOpen: boolean;
   handleCloseBottomSheet: () => void;
   handleChipPosition: (positionName: string) => void;
   handleChipField: (fieldName: string) => void;
 
   handleReset: () => void;
   chipFieldName: string[];
-  pushFieldList: (chipName: string) => void;
   chipPositionName: string[];
-  pushPositionList: (chipName: string) => void;
 }
 
 interface SelectedChipListProps {
@@ -32,7 +29,6 @@ export const BottomSheet = (props: BottomSheetPropTypes) => {
     chipPositionName,
     filterActiveBtn,
     handleFilterActiveBtn,
-    isBottomSheetOpen,
     handleCloseBottomSheet,
     handleChipPosition,
     handleChipField,
@@ -41,8 +37,8 @@ export const BottomSheet = (props: BottomSheetPropTypes) => {
 
   return (
     <>
-      <Background $isBottomSheetOpen={isBottomSheetOpen} onClick={handleCloseBottomSheet} />
-      <BottomSheetWrapper $isBottomSheetOpen={isBottomSheetOpen}>
+      <Background $filterActiveBtn={filterActiveBtn} onClick={handleCloseBottomSheet} />
+      <BottomSheetWrapper $filterActiveBtn={filterActiveBtn}>
         <LineBox>
           <Line />
         </LineBox>
@@ -101,8 +97,8 @@ export const BottomSheet = (props: BottomSheetPropTypes) => {
   );
 };
 
-const Background = styled.div<{ $isBottomSheetOpen: boolean }>`
-  display: ${({ $isBottomSheetOpen }) => ($isBottomSheetOpen ? 'flex' : 'none')};
+const Background = styled.div<{ $filterActiveBtn: string | null }>`
+  display: ${({ $filterActiveBtn }) => ($filterActiveBtn === null ? 'none' : 'flex')};
   position: fixed;
   top: 0;
   z-index: 2;
@@ -113,7 +109,7 @@ const Background = styled.div<{ $isBottomSheetOpen: boolean }>`
   background: ${({ theme }) => theme.colors.transparentBlack_65};
 `;
 
-const BottomSheetWrapper = styled.form<{ $isBottomSheetOpen: boolean }>`
+const BottomSheetWrapper = styled.form<{ $filterActiveBtn: string | null }>`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -126,8 +122,8 @@ const BottomSheetWrapper = styled.form<{ $isBottomSheetOpen: boolean }>`
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 
-  opacity: ${({ $isBottomSheetOpen }) => ($isBottomSheetOpen ? 1 : 0)};
-  transform: translateY(${({ $isBottomSheetOpen }) => ($isBottomSheetOpen ? '0' : '100%')});
+  opacity: ${({ $filterActiveBtn }) => ($filterActiveBtn === null ? 0 : 1)};
+  transform: translateY(${({ $filterActiveBtn }) => ($filterActiveBtn === null ? '100%' : '0')});
 
   transition:
     transform 250ms ease-in-out,

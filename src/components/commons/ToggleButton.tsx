@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 interface toggleButtonPropType {
   left: string;
   right: string;
-  activeButton: string;
+  activeButton: string | null;
   onSetActiveButtonHandler: (button: string) => void;
 }
 
