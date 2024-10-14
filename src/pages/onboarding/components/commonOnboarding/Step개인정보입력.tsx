@@ -22,7 +22,7 @@ const Step개인정보입력 = () => {
 
   type nicknameErrorType = 'INVALID' | 'CONFLICT';
   type nicknameStatusType = 'EMPTY' | 'VALID' | nicknameErrorType;
-  const [isNicknameStatus, setIsNicknameStatus] = useState<nicknameStatusType>('EMPTY');
+  const [nicknameStatus, setNicknameStatus] = useState<nicknameStatusType>('EMPTY');
 
   const [imageFile, setImageFile] = useState<File | null>(data.imageFile || null);
 
@@ -41,18 +41,18 @@ const Step개인정보입력 = () => {
     setNickname(e.target.value);
 
     if (e.target.value.length == 0) {
-      setIsNicknameStatus('EMPTY');
+      setNicknameStatus('EMPTY');
     }
   };
 
   const handleCheckNickname = () => {
     mutation.mutate(nickname, {
       onSuccess: () => {
-        setIsNicknameStatus('VALID');
+        setNicknameStatus('VALID');
       },
       onError: (err) => {
         if (isAxiosError(err)) {
-          setIsNicknameStatus(err.response?.status === 409 ? 'CONFLICT' : 'INVALID');
+          setNicknameStatus(err.response?.status === 409 ? 'CONFLICT' : 'INVALID');
         }
       },
     });
@@ -89,25 +89,25 @@ const Step개인정보입력 = () => {
           <InputBox
             label="닉네임"
             placeholder="닉네임을 입력해 주세요"
-            isError={isNicknameStatus === 'INVALID' || isNicknameStatus === 'CONFLICT'}
+            isError={nicknameStatus === 'INVALID' || nicknameStatus === 'CONFLICT'}
             value={nickname}
             onChange={handleChangeInput}>
             <InnerButton text="중복확인" onClick={handleCheckNickname} />
           </InputBox>
-          {isNicknameStatus === 'CONFLICT' ? (
+          {nicknameStatus === 'CONFLICT' ? (
             <WarnDescription isShown warnText="이미 사용 중인 닉네임이에요." />
-          ) : isNicknameStatus === 'INVALID' ? (
+          ) : nicknameStatus === 'INVALID' ? (
             <WarnDescription isShown warnText="닉네임이 조건을 충족하지 않아요." />
           ) : (
-            <Caption isValid={isNicknameStatus === 'VALID'}>
-              {isNicknameStatus === 'VALID'
+            <Caption isValid={nicknameStatus === 'VALID'}>
+              {nicknameStatus === 'VALID'
                 ? '사용 가능한 닉네임이에요'
                 : '8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가'}
             </Caption>
           )}
         </TextBox>
       </div>
-      <FullBtn onClick={handleClickLink} isActive={isNicknameStatus === 'VALID'} />
+      <FullBtn onClick={handleClickLink} isActive={nicknameStatus === 'VALID'} />
     </>
   );
 };

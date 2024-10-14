@@ -24,6 +24,7 @@ import ErrorPage from '@pages/errorPage/ErrorPage';
 import StepComplete from '@pages/onboarding/components/juniorOnboarding/StepComplete';
 import LoginCallback from '@pages/login/LoginCallback';
 import JuniorPromiseRequestPage from '@pages/juniorPromiseRequest/JuniorPromiseRequestPage';
+import HomePage from '@pages/home/HomePage';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        element: <HomePage />,
+      },
+      {
+        path: 'join',
         element: <JoinPage />,
       },
       {
