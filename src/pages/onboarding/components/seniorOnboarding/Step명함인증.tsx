@@ -9,6 +9,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { InputBox, TextBox } from '../TextBox';
 import { useBusinessCardQuery } from '@pages/onboarding/hooks/useBusinessCardQuery';
 import { BizInfoType, JoinContextType } from '@pages/onboarding/type';
+import { getToken } from '@utils/storage';
 
 const Step명함인증 = () => {
   const { setData } = useOutletContext<JoinContextType>();
@@ -27,7 +28,7 @@ const Step명함인증 = () => {
   const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
-    const token = localStorage.getItem('accessToken');
+    const token = getToken();
 
     if (!token) {
       console.error('액세스 토큰이 없습니다.');

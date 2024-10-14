@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { loginAxios } from '../apis/loginAxios';
 import { useNavigate } from 'react-router-dom';
+import { setRole, setToken } from '@utils/storage';
 
 interface useGoogleLoginPropType {
   role?: string;
@@ -10,12 +11,12 @@ const useGoogleLoginMutation = ({ role }: useGoogleLoginPropType) => {
   return useMutation({
     mutationFn: (authorizationCode: string) => loginAxios(authorizationCode),
     onSuccess: (data) => {
-      localStorage.setItem('accessToken', data.data.data.accessToken);
+      setToken(data.data.data.accessToken);
 
       const responseRole = data.data.data.role;
       if (responseRole) {
         // 로그인 (이미 가입된 회원)
-        localStorage.setItem('role', responseRole);
+        setRole(responseRole);
         navigate(responseRole === 'SENIOR' ? '/promiseList' : '/juniorPromise');
       } else if (role) {
         // 회원가입

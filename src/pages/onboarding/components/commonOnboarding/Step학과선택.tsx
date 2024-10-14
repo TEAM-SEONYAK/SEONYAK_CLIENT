@@ -47,14 +47,13 @@ const Step학과선택 = () => {
         },
         {
           onSuccess: () => {
-            navigate('/juniorOnboardingComplete');
+            navigate('/juniorOnboarding/complete');
           },
           onError: (err) => {
             console.log(err);
           },
-        },
+        }
       );
-      alert('온보딩 끝!');
     }
   };
 

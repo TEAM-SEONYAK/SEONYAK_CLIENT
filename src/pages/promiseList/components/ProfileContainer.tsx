@@ -49,12 +49,12 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
   // 상세 페이지 라우팅
   const handleClickProfileContainer = (tap: string, userRole: string) => {
     if (userRole === 'SENIOR' && tap === 'pending') {
-      navigate('/promiseDetail', {
+      navigate('/promiseList/promiseDetail', {
         state: { tap: 'pending', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
     if (userRole === 'JUNIOR' && tap === 'pending') {
-      navigate('./promiseDetailJunior', {
+      navigate('/promiseList/promiseDetailJunior', {
         state: {
           tap: 'pending',
           myNickname,
@@ -65,13 +65,13 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
     }
 
     if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
-      navigate('./promiseDetail', {
+      navigate('/promiseList/promiseDetail', {
         state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
 
     if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
-      navigate('./promiseDetailJunior', {
+      navigate('/promiseList/promiseDetailJunior', {
         state: {
           tap: 'scheduled',
           myNickname: myNickname,

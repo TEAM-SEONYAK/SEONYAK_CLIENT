@@ -7,10 +7,11 @@ import RecentCard from './components/RecentCard';
 import Title from './components/Title';
 import { useGetPromiseList } from './hooks/queries';
 import Loading from '@components/commons/Loading';
+import { getRole } from '@utils/storage';
 
 const PromiseListPage = () => {
   // 유저가 선배일 경우
-  const userRole = localStorage.getItem('role') + '';
+  const userRole = getRole() + '';
 
   const { myNickname, pending, scheduled, past, isLoading } = useGetPromiseList();
 
