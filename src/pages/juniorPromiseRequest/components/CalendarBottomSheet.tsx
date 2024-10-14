@@ -90,7 +90,7 @@ const BottomSheetGripBox = styled.div`
   display: block;
   position: relative;
 
-  height: 5rem;
+  height: 3.8rem;
   border-radius: 16px 16px 0 0;
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
@@ -98,7 +98,7 @@ const BottomSheetGripBox = styled.div`
 
 const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`
   position: absolute;
-  top: 2rem;
+  top: 1.8rem;
   left: 50%;
 
   margin-bottom: 0.5rem;
