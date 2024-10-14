@@ -1,10 +1,11 @@
 import { WarningImg } from '@assets/svgs';
 import styled from '@emotion/styled';
+import { getRole } from '@utils/storage';
 import { useNavigate } from 'react-router-dom';
 
 const ErrorPage = () => {
   const navigate = useNavigate();
-  const role = localStorage.getItem('role');
+  const role = getRole();
   const navPath = role === 'SENIOR' ? '/promiseList' : '/juniorPromise';
   return (
     <Wrapper>

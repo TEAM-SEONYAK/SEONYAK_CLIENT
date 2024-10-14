@@ -18,11 +18,10 @@ interface ProfileContainerPropType {
   googleMeetLink?: string;
   detail?: string;
   handleSetIsDetailClicked?: (type: boolean) => void;
-  seniorId?: number;
 }
 
 const ProfileContainer = (props: ProfileContainerPropType) => {
-  const { userRole, profileCardData, tap, isarrow, myNickname, detail, handleSetIsDetailClicked, seniorId } = props;
+  const { userRole, profileCardData, tap, isarrow, myNickname, detail, handleSetIsDetailClicked } = props;
   const navigate = useNavigate();
 
   // 리뷰 모달 띄우기 용
@@ -34,6 +33,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
 
   // 서버에서 온 date값에서 달, 일 추출
   const { month, day } = extractMonthAndDay(profileCardData?.date + '');
+
 
   // 선배가 보는 후배 상담 내용
   const getTopicDescription = (chosenTopic: string[] | undefined) => {
@@ -59,7 +59,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
           tap: 'pending',
           myNickname,
           appointmentId: profileCardData?.appointmentId,
-          seniorId,
+          seniorId: profileCardData?.seniorId,
         },
       });
     }
@@ -76,7 +76,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
           tap: 'scheduled',
           myNickname: myNickname,
           appointmentId: profileCardData?.appointmentId,
-          seniorId,
+          seniorId: profileCardData?.seniorId,
         },
       });
     }

@@ -15,6 +15,7 @@ import { 이미_사용중인_전화번호_에러코드 } from '@pages/onboarding
 import { SuccessImg } from '@assets/images';
 import { JoinContextType } from '@pages/onboarding/type';
 import useJoinQuery from '@pages/onboarding/hooks/useJoinQuery';
+import googleLogin from '@pages/login/utils/googleLogin';
 
 const Step번호입력 = () => {
   const { data, setData } = useOutletContext<JoinContextType>();
@@ -156,7 +157,7 @@ const Step번호입력 = () => {
             setValidCodeError(true);
           }
         },
-      },
+      }
     );
   };
 
@@ -210,9 +211,7 @@ const Step번호입력 = () => {
         isModalOpen={isAlreadyModalOpen}
         handleModalOpen={handleShowAlreadyModal}
         btnText="로그인 하러 가기"
-        handleBtnClick={() => {
-          navigate('/login');
-        }}>
+        handleBtnClick={googleLogin}>
         <AlreadyModalView />
       </BtnCloseModal>
     </Wrapper>

@@ -1,3 +1,4 @@
+import { getToken } from '@utils/storage';
 import * as _axios from 'axios';
 
 export const axios = _axios.default.create({
@@ -16,7 +17,7 @@ export const authAxios = _axios.default.create({
 
 authAxios.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = getToken();
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -24,5 +25,5 @@ authAxios.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  },
+  }
 );

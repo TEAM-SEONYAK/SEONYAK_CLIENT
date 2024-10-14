@@ -10,6 +10,7 @@ import { useProfileQuery } from '@pages/onboarding/hooks/useProfileImgQuery';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { JoinContextType } from '@pages/onboarding/type';
 import usePresignedUrl from '@pages/onboarding/hooks/usePresignedUrl';
+import { isAxiosError } from 'axios';
 
 const Step개인정보입력 = () => {
   const { data, setData } = useOutletContext<JoinContextType>();
@@ -18,8 +19,10 @@ const Step개인정보입력 = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState(data.nickname);
   const mutation = useNicknameValid();
-  const [isNicknameError, setNicknameError] = useState(false);
-  const [isNicknameValid, setIsNicknameValid] = useState(false);
+
+  type nicknameErrorType = 'INVALID' | 'CONFLICT';
+  type nicknameStatusType = 'EMPTY' | 'VALID' | nicknameErrorType;
+  const [nicknameStatus, setNicknameStatus] = useState<nicknameStatusType>('EMPTY');
 
   const [imageFile, setImageFile] = useState<File | null>(data.imageFile || null);
 
@@ -38,19 +41,19 @@ const Step개인정보입력 = () => {
     setNickname(e.target.value);
 
     if (e.target.value.length == 0) {
-      setNicknameError(false);
-      setIsNicknameValid(false);
+      setNicknameStatus('EMPTY');
     }
   };
 
   const handleCheckNickname = () => {
     mutation.mutate(nickname, {
       onSuccess: () => {
-        setIsNicknameValid(true);
+        setNicknameStatus('VALID');
       },
-      onError: () => {
-        setNicknameError(true);
-        setIsNicknameValid(false);
+      onError: (err) => {
+        if (isAxiosError(err)) {
+          setNicknameStatus(err.response?.status === 409 ? 'CONFLICT' : 'INVALID');
+        }
       },
     });
   };
@@ -86,21 +89,25 @@ const Step개인정보입력 = () => {
           <InputBox
             label="닉네임"
             placeholder="닉네임을 입력해 주세요"
-            isError={isNicknameError}
+            isError={nicknameStatus === 'INVALID' || nicknameStatus === 'CONFLICT'}
             value={nickname}
             onChange={handleChangeInput}>
             <InnerButton text="중복확인" onClick={handleCheckNickname} />
           </InputBox>
-          {isNicknameError ? (
-            <WarnDescription isShown={isNicknameError} warnText="닉네임이 조건을 충족하지 않아요." />
+          {nicknameStatus === 'CONFLICT' ? (
+            <WarnDescription isShown warnText="이미 사용 중인 닉네임이에요." />
+          ) : nicknameStatus === 'INVALID' ? (
+            <WarnDescription isShown warnText="닉네임이 조건을 충족하지 않아요." />
           ) : (
-            <Caption isValid={isNicknameValid}>
-              {isNicknameValid ? '사용 가능한 닉네임이에요' : '8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가'}
+            <Caption isValid={nicknameStatus === 'VALID'}>
+              {nicknameStatus === 'VALID'
+                ? '사용 가능한 닉네임이에요'
+                : '8자리 이내, 문자/숫자 가능, 특수문자/기호 입력 불가'}
             </Caption>
           )}
         </TextBox>
       </div>
-      <FullBtn onClick={handleClickLink} isActive={isNicknameValid} />
+      <FullBtn onClick={handleClickLink} isActive={nicknameStatus === 'VALID'} />
     </>
   );
 };

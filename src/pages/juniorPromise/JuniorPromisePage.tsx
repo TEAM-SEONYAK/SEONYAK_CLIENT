@@ -21,6 +21,7 @@ const JuniorPromisePage = () => {
 
   // 바텀 시트 내 버튼& 내용 필터 버튼
   const [filterActiveBtn, setFilterActiveBtn] = useState<string | null>(null);
+
   // 칩으로 나갈 선택된 계열 이름 리스트
   const [chipFieldName, setChipFieldName] = useState<string[]>([]);
   // 칩으로 나갈 선택된 직무 리스트
@@ -41,6 +42,7 @@ const JuniorPromisePage = () => {
     setChipFieldName([]);
     setChipPositionName([]);
   };
+
   // 선택 계열 리스트
   const isFieldSelected = (fieldName: string) => chipFieldName.includes(fieldName);
 
