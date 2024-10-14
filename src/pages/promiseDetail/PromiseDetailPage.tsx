@@ -203,9 +203,10 @@ const PromiseDetail = () => {
                 <Textarea
                   placeholder="선약을 거절하는 자세한 이유에 대해 작성해주세요 (선택)"
                   wordLimit={200}
-                  height={27.4}
+                  height={20.4}
                   inputVal={rejectDetail}
                   handleInputVal={handleRejectDetailReason}
+                  variant="secondary"
                 />
                 <DeclineText>
                   이 단계 이후로 거절을 취소할 수 없어요 <br />
