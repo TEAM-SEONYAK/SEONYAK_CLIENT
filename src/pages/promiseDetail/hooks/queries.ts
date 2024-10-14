@@ -18,7 +18,7 @@ export const usePatchSeniorReject = (onSuccessCallback?: () => void) => {
   const queryClient = useQueryClient();
 
   const navigate = useNavigate();
-  const { mutate, data } = useMutation({
+  const { mutate, data, isError } = useMutation({
     mutationKey: [QUERY_KEY_PROMISE_DETAIL.patchSeniorReject],
     mutationFn: ({ appointmentId, rejectReason, rejectDetail }: patchSeniorRejectRequestType) =>
       patchSeniorReject({ appointmentId, rejectReason, rejectDetail }),
@@ -34,12 +34,12 @@ export const usePatchSeniorReject = (onSuccessCallback?: () => void) => {
     },
   });
 
-  return { mutate, data };
+  return { mutate, data, isError };
 };
 
 // 구글밋 링크 받기
 export const usePostGoogleMeetLink = (onSuccessCallback?: (data: string) => void) => {
-  const { mutate, data, isPending } = useMutation({
+  const { mutate, data, isPending, isError } = useMutation({
     mutationKey: [QUERY_KEY_PROMISE_DETAIL.postGoogleMeetLink],
     mutationFn: postGoogleMeetLink,
     onSuccess: (data) => {
@@ -49,7 +49,7 @@ export const usePostGoogleMeetLink = (onSuccessCallback?: (data: string) => void
     },
   });
 
-  return { mutate, data, isPending };
+  return { mutate, data, isPending, isError };
 };
 
 // 선배 약속 수락
@@ -57,7 +57,7 @@ export const usePatchSeniorAccept = (onSuccessCallback?: () => void) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { mutate, data, isPending } = useMutation({
+  const { mutate, data, isPending, isError } = useMutation({
     mutationKey: [QUERY_KEY_PROMISE_DETAIL.patchSeniorAccept],
     mutationFn: ({ appointmentId, googleMeetLink, timeList }: patchSeniorAcceptRequestType) =>
       patchSeniorAccept({ appointmentId, googleMeetLink, timeList }),
@@ -74,11 +74,11 @@ export const usePatchSeniorAccept = (onSuccessCallback?: () => void) => {
     },
   });
 
-  return { mutate, data, isPending };
+  return { mutate, data, isPending, isError };
 };
 
 export const useGetPromiseDetail = (appointmentId: number) => {
-  const { data, isSuccess, isLoading } = useQuery({
+  const { data, isSuccess, isLoading, isError } = useQuery({
     queryKey: [QUERY_KEY_PROMISE_DETAIL.getPromiseDetail, appointmentId],
     queryFn: () => getPromiseDetail(appointmentId),
   });
@@ -116,5 +116,6 @@ export const useGetPromiseDetail = (appointmentId: number) => {
     personalTopic,
     isSuccess,
     isLoading,
+    isError
   };
 };
