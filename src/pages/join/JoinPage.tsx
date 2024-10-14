@@ -1,4 +1,4 @@
-import { BigMainLogoIc, OnboardingGradIc } from '@assets/svgs';
+import { BigMainLogoIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import JoinButton from '@pages/join/components/Button';
 import Welcome from '@pages/join/components/Welcome';
@@ -7,8 +7,10 @@ import googleLogin from '@pages/login/utils/googleLogin';
 const JoinPage = () => {
   return (
     <>
-      <OnboardingGradIcon />
       <Welcome />
+      <GradEllipse $type={1} />
+      <GradEllipse $type={2} />
+      <GradEllipse $type={3} />
       <Wrapper>
         <BigMainLogoIcon />
         <TitleWrapper>
@@ -39,15 +41,27 @@ const Wrapper = styled.div`
   align-items: center;
   z-index: 2;
 
+  width: 100%;
   height: 100%;
   padding: 7rem 2rem 3.5rem;
+
+  background-image: url('');
 `;
 
-const OnboardingGradIcon = styled(OnboardingGradIc)`
+const GradEllipse = styled.div<{ $type: number }>`
   position: absolute;
+  top: ${({ $type }) => ($type === 1 ? '12.5rem' : $type === 2 ? '14.3rem' : '29.2rem')};
+  left: ${({ $type }) => ($type === 1 ? '-5.5rem' : $type === 2 ? '15.6rem' : '6rem')};
   z-index: 1;
 
-  width: 100vw;
+  width: 27.7rem;
+  height: 27.9rem;
+  border-radius: '50%';
+
+  background: ${({ $type }) => ($type === 1 ? '#DFEDF9' : $type === 2 ? '#E2E6FA' : '#D9F7FF')};
+
+  opacity: 0.8;
+  filter: blur(60px);
 `;
 
 const BigMainLogoIcon = styled(BigMainLogoIc)`

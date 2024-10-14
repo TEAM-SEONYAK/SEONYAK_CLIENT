@@ -49,7 +49,6 @@ export { default as ProfileCompleteIc } from './img_profile_complete.svg?react';
 export { default as BigMainLogoIc } from './ic_big_main_logo.svg?react';
 export { default as OnboardingBackgroundSBIc } from './img_onboarding_sb.svg?react';
 export { default as OnboardingBackgroundHBIc } from './img_onboarding_hb.svg?react';
-export { default as OnboardingGradIc } from './img_grad.svg?react';
 export { default as ImgPromiseCompleteIc } from './img_promise_complete.svg?react';
 export { default as ModalAcceptImg } from './img_modal_accept.svg?react';
 export { default as ModalRejectImg } from './img_modal_reject.svg?react';
