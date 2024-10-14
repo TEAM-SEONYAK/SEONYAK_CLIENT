@@ -132,7 +132,11 @@ const PromiseDetail = () => {
     window.open(link, '_blank');
   };
 
-  useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
+  const { isError: getGoogleMeetLinkError } = useGetGoogleMeetLink(
+    appointmentId,
+    isEnterBtnClicked,
+    handleClickEnterBtn
+  );
 
   const handleBottomSheetOpen = () => {
     setIsBottomSheetOpen(true);
@@ -170,7 +174,8 @@ const PromiseDetail = () => {
     !timeList1 ||
     postGoogleMeetLinkError ||
     patchSeniorAcceptError ||
-    patchSeniorRejectError
+    patchSeniorRejectError ||
+    getGoogleMeetLinkError
   ) {
     return <ErrorPage />;
   }
