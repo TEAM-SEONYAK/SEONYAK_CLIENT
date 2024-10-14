@@ -2,6 +2,7 @@ import { BigMainLogoIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import JoinButton from '@pages/join/components/Button';
 import Welcome from '@pages/join/components/Welcome';
+import { Gap } from '@pages/login/SignupPage';
 import googleLogin from '@pages/login/utils/googleLogin';
 
 const JoinPage = () => {
@@ -20,6 +21,7 @@ const JoinPage = () => {
             <SubTitle $isHighlight={true}>특별한 약속</SubTitle>
           </TitleContainer>
         </TitleWrapper>
+        <Gap />
         <JoinButton />
         <SignupContainer>
           <QuestionText>이미 아이디가 있으신가요?</QuestionText>
@@ -38,12 +40,14 @@ export default JoinPage;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: stretch;
   align-items: center;
   z-index: 2;
 
   width: 100%;
   height: 100%;
-  padding: 7rem 2rem 3.5rem;
+  min-height: calc(var(--vh, 1vh) * 100 - 44px);
+  padding: 10vh 2rem 3.5rem;
 
   background-image: url('');
 `;
