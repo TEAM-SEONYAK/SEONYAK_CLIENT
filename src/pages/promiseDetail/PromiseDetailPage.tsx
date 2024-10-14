@@ -54,7 +54,9 @@ const PromiseDetail = () => {
   };
 
   // 선배 약속 수락
-  const { mutate: patchSeniorAccept } = usePatchSeniorAccept(() => handleModalOpen(true));
+  const { mutate: patchSeniorAccept, isPending: isPatchSeniorAcceptPending } = usePatchSeniorAccept(() =>
+    handleModalOpen(true)
+  );
 
   // 구글밋 링크 patch 콜백 함수
   const handleSuccessCallback = (link: string) => {
@@ -73,7 +75,7 @@ const PromiseDetail = () => {
   };
 
   // 구글밋 링크 받아오기(post) 후 약속 수락 patch
-  const { mutate: postGoogleMeetLink } = usePostGoogleMeetLink((link) => {
+  const { mutate: postGoogleMeetLink, isPending: isPostGoogleMeetLinkPending } = usePostGoogleMeetLink((link) => {
     handleSuccessCallback(link);
   });
 
@@ -137,7 +139,7 @@ const PromiseDetail = () => {
   const countdown = useCountdown(timeList1?.date, timeList1?.startTime);
   const dateInfo = extractMonthAndDay(timeList1?.date + '');
 
-  if (isLoading) {
+  if (isLoading || isPatchSeniorAcceptPending || isPostGoogleMeetLinkPending) {
     return <Loading />; // 로딩 중일 때 표시
   }
 
@@ -153,11 +155,13 @@ const PromiseDetail = () => {
     <>
       <Header
         LeftSvg={ArrowLeftIc}
-        onClickLeft={() => navigate(`/promiseList`, {
-          state: {
-            prevTap: tap
-          }
-        })}
+        onClickLeft={() =>
+          navigate(`/promiseList`, {
+            state: {
+              prevTap: tap,
+            },
+          })
+        }
         title={viewType === 'DEFAULT' ? '자세히 보기' : '거절하기'}
       />
       <hr />
@@ -289,11 +293,19 @@ const PromiseDetail = () => {
       </Wrapper>
 
       {viewType === 'DECLINE' ? (
-        <AutoCloseModal text="선약이 거절되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/promiseList">
+        <AutoCloseModal
+          text="선약이 거절되었어요"
+          showModal={isModalOpen}
+          handleShowModal={handleModalOpen}
+          path="/promiseList">
           <ModalRejectImg />
         </AutoCloseModal>
       ) : (
-        <AutoCloseModal text="선약이 수락되었어요" showModal={isModalOpen} handleShowModal={handleModalOpen} path="/promiseList">
+        <AutoCloseModal
+          text="선약이 수락되었어요"
+          showModal={isModalOpen}
+          handleShowModal={handleModalOpen}
+          path="/promiseList">
           <ModalAcceptImg />
         </AutoCloseModal>
       )}

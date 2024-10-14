@@ -39,7 +39,7 @@ export const usePatchSeniorReject = (onSuccessCallback?: () => void) => {
 
 // 구글밋 링크 받기
 export const usePostGoogleMeetLink = (onSuccessCallback?: (data: string) => void) => {
-  const { mutate, data } = useMutation({
+  const { mutate, data, isPending } = useMutation({
     mutationKey: [QUERY_KEY_PROMISE_DETAIL.postGoogleMeetLink],
     mutationFn: postGoogleMeetLink,
     onSuccess: (data) => {
@@ -49,7 +49,7 @@ export const usePostGoogleMeetLink = (onSuccessCallback?: (data: string) => void
     },
   });
 
-  return { mutate, data };
+  return { mutate, data, isPending };
 };
 
 // 선배 약속 수락
@@ -57,7 +57,7 @@ export const usePatchSeniorAccept = (onSuccessCallback?: () => void) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { mutate, data } = useMutation({
+  const { mutate, data, isPending } = useMutation({
     mutationKey: [QUERY_KEY_PROMISE_DETAIL.patchSeniorAccept],
     mutationFn: ({ appointmentId, googleMeetLink, timeList }: patchSeniorAcceptRequestType) =>
       patchSeniorAccept({ appointmentId, googleMeetLink, timeList }),
@@ -74,7 +74,7 @@ export const usePatchSeniorAccept = (onSuccessCallback?: () => void) => {
     },
   });
 
-  return { mutate, data };
+  return { mutate, data, isPending };
 };
 
 export const useGetPromiseDetail = (appointmentId: number) => {
