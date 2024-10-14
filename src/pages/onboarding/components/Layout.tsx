@@ -6,7 +6,7 @@ import ProgressBar from '../../../components/commons/ProgressBar';
 import { JUNIOR_ONBOARDING_STEPS, ONBOARDING_HEADER, SENIOR_ONBOARDING_STEPS } from '../constants';
 import convertToGroupStep from '../utils/convertToGroupStep';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { JoinPropType } from '../type';
 
 const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
@@ -27,6 +27,13 @@ const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
     field: '',
     departmentList: [],
   });
+
+  useEffect(() => {
+    // 리로드 시 1단계로 back
+    if (location.pathname.slice(-1) !== '1') {
+      userRole === 'SENIOR' ? navigate('/seniorOnboarding/1') : navigate('/juniorOnboarding/1');
+    }
+  }, []);
 
   return (
     <Wrapper>
