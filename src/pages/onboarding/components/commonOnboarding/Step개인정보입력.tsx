@@ -22,7 +22,7 @@ const Step개인정보입력 = () => {
 
   type nicknameErrorType = 'INVALID' | 'CONFLICT';
   type nicknameStatusType = 'EMPTY' | 'VALID' | nicknameErrorType;
-  const [nicknameStatus, setNicknameStatus] = useState<nicknameStatusType>('EMPTY');
+  const [nicknameStatus, setNicknameStatus] = useState<nicknameStatusType>(data.isNicknameValid ? 'VALID' : 'EMPTY');
 
   const [imageFile, setImageFile] = useState<File | null>(data.imageFile || null);
 
@@ -66,6 +66,7 @@ const Step개인정보입력 = () => {
       imageFile,
       image: res.fileName,
       nickname: nickname,
+      isNicknameValid: true,
     }));
     navigate(pathname.includes('senior') ? '/seniorOnboarding/3' : '/juniorOnboarding/3');
   };
