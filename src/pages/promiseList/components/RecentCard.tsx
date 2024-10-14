@@ -7,6 +7,7 @@ import PromiseTimerBtn from './PromiseTimerBtn';
 import { profileCardDataType } from '../types/type';
 import { useGetGoogleMeetLink } from '../hooks/queries';
 import { useState } from 'react';
+import ErrorPage from '@pages/errorPage/ErrorPage';
 
 interface RecentCardPropType {
   userRole: string;
@@ -24,13 +25,21 @@ const RecentCard = (props: RecentCardPropType) => {
     setIsEnterBtnClicked(false);
   };
 
-  useGetGoogleMeetLink(recentAppointment?.appointmentId, isEnterBtnClicked, handleClickEnterBtn);
+  const { isError: getGoogleMeetLinkError } = useGetGoogleMeetLink(
+    recentAppointment?.appointmentId,
+    isEnterBtnClicked,
+    handleClickEnterBtn
+  );
 
   const handleClickUserGuide = () => {
     userRole === 'SENIOR'
       ? window.open('https://cumbersome-cactus-843.notion.site/c5f4f494d3ee41c6836a9f4828a7bde6?pvs=4', '_blank')
       : window.open('https://cumbersome-cactus-843.notion.site/d394be50d2b44a03878debd0e19bdb2f?pvs=4', '_blank');
   };
+
+  if (getGoogleMeetLinkError) {
+    return <ErrorPage />;
+  }
 
   return (
     <Wrapper $userRole={userRole}>

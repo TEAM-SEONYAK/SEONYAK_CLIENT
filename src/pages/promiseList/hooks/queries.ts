@@ -13,7 +13,7 @@ export const useGetGoogleMeetLink = (
   isEnterBtnClicked: boolean,
   onSuccessCallback?: (link: string) => void,
 ) => {
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isError } = useQuery({
     queryKey: [QUERY_KEY_PROMISE_LIST.getGoogleMeetLink, appointmentId, isEnterBtnClicked],
     queryFn: () => getGoogleMeetLink(appointmentId as number),
     enabled: !!isEnterBtnClicked && appointmentId !== undefined,
@@ -28,11 +28,11 @@ export const useGetGoogleMeetLink = (
     }
   }, [isSuccess, data]);
 
-  return { data, isSuccess };
+  return { data, isSuccess, isError };
 };
 
 export const useGetPromiseList = () => {
-  const { data, isSuccess, isLoading } = useQuery({
+  const { data, isSuccess, isLoading, isError } = useQuery({
     queryKey: [QUERY_KEY_PROMISE_LIST.getPromiseList],
     queryFn: getPromiseList,
   });
@@ -42,5 +42,5 @@ export const useGetPromiseList = () => {
   const scheduled = data && data.scheduled;
   const past = data && data.past;
 
-  return { myNickname, pending, scheduled, past, isSuccess, isLoading };
+  return { myNickname, pending, scheduled, past, isSuccess, isLoading, isError };
 };

@@ -17,10 +17,11 @@ interface PromiseTapPropType {
 const PromiseTap = (props: PromiseTapPropType) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [tap, setTap] = useState('pending');
-  const { userRole, pending, scheduled, past, myNickname } = props;
 
+  const { userRole, pending, scheduled, past, myNickname } = props;
   const { prevTap } = location.state || {};
+
+  const [tap, setTap] = useState('pending');
 
   useEffect(() => {
     if (prevTap && Object.keys(prevTap).length !== 0) {

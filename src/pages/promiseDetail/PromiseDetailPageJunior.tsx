@@ -12,9 +12,9 @@ import { useState } from 'react';
 import PreView from '@pages/seniorProfile/components/preView';
 import Loading from '@components/commons/Loading';
 import { useGetGoogleMeetLink } from '@pages/promiseList/hooks/queries';
+import ErrorPage from '@pages/errorPage/ErrorPage';
 
 const PromiseDetailPageJunior = () => {
-  // 라우터 이동할 때 location으로 약속id, 눌린 탭 상태값(pending, sheduled, ..) 받아와야함
   const navigate = useNavigate();
   const location = useLocation();
   const { tap, myNickname, appointmentId, seniorId } = location.state;
@@ -28,25 +28,40 @@ const PromiseDetailPageJunior = () => {
     navigate('/juniorPromise');
   };
 
-  useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
+  const { isError: getGoogleMeetLinkError } = useGetGoogleMeetLink(
+    appointmentId,
+    isEnterBtnClicked,
+    handleClickEnterBtn
+  );
 
   const handleSetIsDetailClicked = (type: boolean) => {
     setIsDetailClicked(type);
   };
 
-  const { juniorInfo, seniorInfo, timeList1, topic, personalTopic, isSuccess, isLoading } =
-    useGetPromiseDetail(appointmentId);
+  const {
+    juniorInfo,
+    seniorInfo,
+    timeList1,
+    topic,
+    personalTopic,
+    isLoading,
+    isError: getPromiseDetailError,
+  } = useGetPromiseDetail(appointmentId);
 
   const countdown = useCountdown(timeList1?.date, timeList1?.startTime);
 
   const { diffText, diff } = countdown;
 
-  if (isLoading) {
-    return <Loading />; // 로딩 중일 때 표시
+  if (tap === undefined || myNickname === undefined || appointmentId === undefined || seniorId === undefined) {
+    navigate('/promiseList');
   }
 
-  if (!isSuccess || !timeList1) {
-    return <div>데이터 없음</div>; // 데이터가 없을 때 표시
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (getPromiseDetailError || !timeList1 || getGoogleMeetLinkError) {
+    return <ErrorPage />;
   }
 
   const handleClickBackArrow = () => {
