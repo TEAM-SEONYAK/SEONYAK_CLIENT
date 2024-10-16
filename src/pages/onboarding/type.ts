@@ -12,7 +12,7 @@ export interface JoinPropType {
   role: 'SENIOR' | 'JUNIOR';
   isSubscribed: boolean[];
   nickname: string;
-  isNicknameValid: boolean;
+  isNicknameValid?: boolean;
   image: string;
   imageFile?: File;
   phoneNumber: string;
