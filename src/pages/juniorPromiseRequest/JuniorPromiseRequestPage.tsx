@@ -16,7 +16,6 @@ import { Header } from '@components/commons/Header';
 import Banner from './components/Banner';
 import TitleBox from '@components/commons/TitleBox';
 import { SELECT_JUNIOR_TITLE } from './constants/constants';
-import axios from 'axios';
 
 const JuniorPromiseRequestPage = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');

@@ -1,6 +1,5 @@
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
-import React, { useEffect } from 'react';
 import { ButtonCheckIc } from '../../../assets/svgs';
 import { WORRY_SELECTION_BUTTON } from '../constants/constants';
 
