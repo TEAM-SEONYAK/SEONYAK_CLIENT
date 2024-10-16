@@ -1,19 +1,12 @@
-import { useEffect } from 'react';
 import Textarea from '../../../components/commons/Textarea';
 import styled from '@emotion/styled';
 
 interface SelectJuniorWorryTextareaWrapperProps {
-  // eslint-disable-next-line no-unused-vars
-  setIsTextareaFilled: (isFilled: boolean) => void;
   inputVal: string;
   setInputVal: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const WorryTextarea = ({ setIsTextareaFilled, inputVal, setInputVal }: SelectJuniorWorryTextareaWrapperProps) => {
-  useEffect(() => {
-    setIsTextareaFilled(inputVal.length > 0);
-  }, [inputVal, setIsTextareaFilled]);
-
+const WorryTextarea = ({ inputVal, setInputVal }: SelectJuniorWorryTextareaWrapperProps) => {
   const handleInputVal = (val: string) => {
     setInputVal(val);
   };
