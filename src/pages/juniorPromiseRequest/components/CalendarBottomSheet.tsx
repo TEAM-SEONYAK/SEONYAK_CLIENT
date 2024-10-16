@@ -47,9 +47,7 @@ const CalendarBottomSheet = ({
         }}
       />
       <BottomSheetWrapper $isCalendarOpen={isCalendarOpen}>
-        <BottomSheetGripBox>
-          <BottomSheetRectangleIcon />
-        </BottomSheetGripBox>
+        <BottomSheetRectangleIcon />
         <Scroll>
           <CustomCalendar
             btnId={btnId}
@@ -86,22 +84,10 @@ const Scroll = styled.div`
   margin-bottom: 3rem;
 `;
 
-const BottomSheetGripBox = styled.div`
-  display: block;
-  position: relative;
-
-  height: 3.8rem;
-  border-radius: 16px 16px 0 0;
-
-  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
-`;
-
 const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`
   position: absolute;
-  top: 1.8rem;
+  top: 1.5rem;
   left: 50%;
-
-  margin-bottom: 0.5rem;
 
   transform: translate(-50%, -50%);
 `;
@@ -129,6 +115,7 @@ const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
 
   height: 100vh;
   margin-left: -2rem;
+  padding: 3.8rem 0 0;
   border-radius: 16px 16px 0 0;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};

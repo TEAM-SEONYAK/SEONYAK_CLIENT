@@ -4,6 +4,8 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { formatCalDateToString } from '../utils/formatCalDateToString';
 import { extractValidKeys } from '../utils/getSeniorValidWeekOfDay';
+import RightArrow from '@assets/svgs/ic_arrow_right_calender.svg';
+import LeftArrow from '@assets/svgs/ic_arrow_left_calender.svg';
 
 interface CalendarTileProperties {
   date: Date;
@@ -64,6 +66,8 @@ const CustomCalendar = ({ btnId, setSelectedTime, selectedTime, preferredTimeLis
         onClickDay={(value) => handleDateClick(formatCalDateToString(value))}
         value={selectedTime[btnId].clickedDay}
         minDate={new Date()}
+        nextLabel={<img src={RightArrow} alt="right-arrow" />}
+        prevLabel={<img src={LeftArrow} alt="left-arrow" />}
         next2Label={null}
         prev2Label={null}
         showNeighboringMonth={false}
@@ -131,15 +135,20 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__navigation {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     position: relative;
 
+    height: 2.5rem;
     ${({ theme }) => theme.fonts.Head1_SB_20};
-    margin-bottom: 0;
+    margin-bottom: 0.2rem;
   }
 
   .react-calendar__navigation button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     ${({ theme }) => theme.fonts.Head2_SB_18};
+
     min-width: 4rem;
   }
 
