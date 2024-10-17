@@ -113,6 +113,7 @@ const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
   bottom: 0;
   z-index: 4;
 
+  width: 100%;
   height: 100vh;
   margin-left: -2rem;
   padding: 3.8rem 0 0;

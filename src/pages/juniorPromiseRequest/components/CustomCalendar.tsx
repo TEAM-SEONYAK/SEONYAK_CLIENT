@@ -84,18 +84,15 @@ export default CustomCalendar;
 
 const CalendarContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 
-  width: 100vw;
-  height: auto;
-  padding: 0 3.3rem 2rem;
+  width: 100%;
 `;
 
 const StyledCalendar = styled(Calendar)`
-  width: 100%;
+  width: 31.5rem;
+  height: 30.5rem;
   border: none;
-  border-radius: 8px;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 
@@ -114,6 +111,10 @@ const StyledCalendar = styled(Calendar)`
     }
   }
 
+  .react-calendar__month-view__weekdays__weekday {
+    padding: 0;
+  }
+
   .react-calendar__month-view__days__day--weekend {
     ${({ theme }) => theme.fonts.Title2_M_16};
     color: ${({ theme }) => theme.colors.grayScaleBG};
@@ -125,6 +126,7 @@ const StyledCalendar = styled(Calendar)`
 
   .react-calendar__month-view__weekdays {
     color: ${({ theme }) => theme.colors.grayScaleMG2};
+
     ${({ theme }) => theme.fonts.Title2_M_16};
   }
 
@@ -140,7 +142,7 @@ const StyledCalendar = styled(Calendar)`
 
     height: 2.5rem;
     ${({ theme }) => theme.fonts.Head1_SB_20};
-    margin-bottom: 0.2rem;
+    margin-bottom: 2rem;
   }
 
   .react-calendar__navigation button {
@@ -197,14 +199,10 @@ const StyledCalendar = styled(Calendar)`
 
     background: none;
 
-    text-align: center;
-
     cursor: pointer;
   }
 
   .react-calendar__tile--active {
-    border-radius: 100px;
-
     background-color: ${({ theme }) => theme.colors.Blue};
 
     color: ${({ theme }) => theme.colors.grayScaleWhite};
