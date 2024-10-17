@@ -4,22 +4,28 @@ import { DEFAULT_REJECT_TEXT } from '@pages/promiseDetail/constants/constant';
 import React from 'react';
 interface BottomSheetPropType {
   isSheetOpen: boolean;
-  handleSheetOpen: (type: boolean) => void;
-  handleSheetClose: (type: boolean) => void;
+  handleSheetClose: () => void;
   children: React.ReactNode;
   btnActive: string;
 }
 
-export const BottomSheet = ({ isSheetOpen, handleSheetClose, children, btnActive }: BottomSheetPropType) => {
+export const BottomSheet = ({
+  isSheetOpen,
+  handleSheetClose,
+  children,
+  btnActive,
+}: BottomSheetPropType) => {
+
   return (
     <>
-      <Background $isSheetOpen={isSheetOpen} onClick={() => handleSheetClose(false)} />
+      <Background $isSheetOpen={isSheetOpen} onClick={handleSheetClose} />
       <BottomSheetWrapper $isSheetOpen={isSheetOpen}>
+        <Handler />
         {children}
         <ExitBottomSheet
           disabled={btnActive === DEFAULT_REJECT_TEXT}
           type="button"
-          onClick={() => handleSheetClose(false)}
+          onClick={handleSheetClose}
           $isActive={btnActive !== DEFAULT_REJECT_TEXT}>
           적용할래요
         </ExitBottomSheet>
@@ -43,6 +49,7 @@ const Background = styled.div<{ $isSheetOpen: boolean }>`
 const BottomSheetWrapper = styled.form<{ $isSheetOpen: boolean }>`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   position: fixed;
   bottom: 0;
   z-index: 13;
@@ -72,4 +79,17 @@ const ExitBottomSheet = styled.button<{ $isActive: boolean }>`
 
   ${({ theme }) => theme.fonts.Head2_SB_18};
   cursor: pointer;
+`;
+
+const Handler = styled.div`
+  position: fixed;
+  top: 1.6rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 4.7rem;
+  height: 0.3rem;
+  border-radius: 5px;
+
+  background-color: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
