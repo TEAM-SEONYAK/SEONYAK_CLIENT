@@ -44,12 +44,11 @@ export { default as SbhbHomeProfile1Img } from './img_sbhbhome_profile1.svg?reac
 export { default as SbhbHomeProfile2Img } from './img_sbhbhome_profile2.svg?react';
 export { default as HbHomeMainIc } from './img_hbhome_main.svg?react';
 export { default as WarningImg } from './img_warning.svg?react';
-export { default as RefreshImgIc } from './img_refresh.svg?react';
+export { default as SeniorRefreshImgIc } from './img_senior_refresh.svg?react';
 export { default as ProfileCompleteIc } from './img_profile_complete.svg?react';
 export { default as BigMainLogoIc } from './ic_big_main_logo.svg?react';
 export { default as OnboardingBackgroundSBIc } from './img_onboarding_sb.svg?react';
 export { default as OnboardingBackgroundHBIc } from './img_onboarding_hb.svg?react';
-export { default as OnboardingGradIc } from './img_grad.svg?react';
 export { default as ImgPromiseCompleteIc } from './img_promise_complete.svg?react';
 export { default as ModalAcceptImg } from './img_modal_accept.svg?react';
 export { default as ModalRejectImg } from './img_modal_reject.svg?react';

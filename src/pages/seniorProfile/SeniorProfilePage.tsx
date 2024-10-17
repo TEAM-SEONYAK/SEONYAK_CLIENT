@@ -43,7 +43,7 @@ const SeniorProfilePage = () => {
   };
 
   return (
-    <div>
+    <>
       {step > 1 && step < 7 && (
         <>
           <Header
@@ -59,7 +59,7 @@ const SeniorProfilePage = () => {
         </>
       )}
       {getComponent()}
-    </div>
+    </>
   );
 };
 
