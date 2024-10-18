@@ -32,7 +32,7 @@ export const useGetGoogleMeetLink = (
 };
 
 export const useGetPromiseList = () => {
-  const { data, isSuccess, isLoading } = useQuery({
+  const { data, isSuccess, isLoading, isError } = useQuery({
     queryKey: [QUERY_KEY_PROMISE_LIST.getPromiseList],
     queryFn: getPromiseList,
   });
@@ -42,5 +42,5 @@ export const useGetPromiseList = () => {
   const scheduled = data && data.scheduled;
   const past = data && data.past;
 
-  return { myNickname, pending, scheduled, past, isSuccess, isLoading };
+  return { myNickname, pending, scheduled, past, isSuccess, isLoading, isError };
 };
