@@ -50,7 +50,7 @@ const Wrapper = styled.header<{ $hasTitle: boolean; $bgColor: 'grayScaleWhite' |
   z-index: 1;
 
   width: 100vw;
-  height: ${({ $hasTitle }) => ($hasTitle ? '5rem' : '4.4rem')};
+  height: 5rem;
   padding: 1rem 2rem;
 
   background-color: ${({ theme, $bgColor }) => ($bgColor ? theme.colors[$bgColor] : 'transparent')};

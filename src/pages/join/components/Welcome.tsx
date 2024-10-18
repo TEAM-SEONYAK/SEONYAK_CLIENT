@@ -29,8 +29,6 @@ const Welcome = () => {
 };
 
 const Container = styled.div`
-  position: absolute;
-  top: 15rem;
   z-index: 3;
 
   width: 35rem;
@@ -42,10 +40,13 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: fixed;
+  top: 50%;
   bottom: 0;
+  left: 50%;
   z-index: 3;
 
   width: 100%;
   height: 100%;
+  transform: translate(-50%, -50%);
 `;
 export default Welcome;

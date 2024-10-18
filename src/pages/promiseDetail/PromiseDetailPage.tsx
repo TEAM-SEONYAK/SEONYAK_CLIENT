@@ -52,6 +52,7 @@ const PromiseDetail = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   // 거절 사유 토글에서 저장
   const [rejectReason, setRejectReason] = useState(DEFAULT_REJECT_TEXT);
+  const [currRejectReason, setCurrRejectReason] = useState(DEFAULT_REJECT_TEXT);
   // 작성한 거절사유 저장
   const [rejectDetail, setRejectDetail] = useState('');
   // 서버 전달용 날짜, 시작시간, 끝시간 저장 state
@@ -144,14 +145,11 @@ const PromiseDetail = () => {
 
   const handleBottomSheetClose = () => {
     setIsBottomSheetOpen(false);
+    setRejectReason(currRejectReason);
   };
 
   const handleClickDeclineBtn = () => {
     setViewType('DECLINE');
-  };
-
-  const handleRejectReason = (reason: string) => {
-    setRejectReason(reason);
   };
 
   const handleRejectDetailReason = (detailReason: string) => {
@@ -184,6 +182,19 @@ const PromiseDetail = () => {
   const { diffText, diff } = countdown;
   const { month, day } = dateInfo;
 
+  // 뒤로가기 버튼
+  const handleBackBtn = () => {
+    if (viewType === 'DEFAULT') {
+      navigate(`/promiseList`, {
+        state: {
+          prevTap: tap,
+        },
+      });
+    } else {
+      setViewType('DEFAULT');
+    }
+  };
+
   return (
     <>
       <Header
@@ -197,7 +208,6 @@ const PromiseDetail = () => {
         }
         title={viewType === 'DEFAULT' ? '자세히 보기' : '거절하기'}
       />
-      <hr />
       <Wrapper>
         <Layout $viewType={viewType}>
           <TitleContainer>
@@ -214,7 +224,7 @@ const PromiseDetail = () => {
               </Content>
             ) : (
               <DeclineContent onClick={() => setIsBottomSheetOpen(true)}>
-                {!isBottomSheetOpen && rejectReason}
+                {rejectReason}
                 <ArrowDownMgIcon />
               </DeclineContent>
             )}
@@ -237,9 +247,10 @@ const PromiseDetail = () => {
                 <Textarea
                   placeholder="선약을 거절하는 자세한 이유에 대해 작성해주세요 (선택)"
                   wordLimit={200}
-                  height={27.4}
+                  height={20.4}
                   inputVal={rejectDetail}
                   handleInputVal={handleRejectDetailReason}
+                  variant="secondary"
                 />
                 <DeclineText>
                   이 단계 이후로 거절을 취소할 수 없어요 <br />
@@ -334,9 +345,8 @@ const PromiseDetail = () => {
       </AutoCloseModal>
 
       <BottomSheet
-        btnActive={rejectReason}
+        btnActive={currRejectReason}
         isSheetOpen={isBottomSheetOpen}
-        handleSheetOpen={handleBottomSheetOpen}
         handleSheetClose={handleBottomSheetClose}>
         <BottomSheetLayout>
           <BottomSheetTitle>거절 사유 선택</BottomSheetTitle>
@@ -344,8 +354,8 @@ const PromiseDetail = () => {
             {REJECT_REASON.map((el) => (
               <DeclineReason
                 key={el.id}
-                onClick={() => handleRejectReason(el.content)}
-                $isActive={rejectReason === el.content}>
+                onClick={() => setCurrRejectReason(el.content)}
+                $isActive={currRejectReason === el.content}>
                 {el.content}
               </DeclineReason>
             ))}
@@ -366,7 +376,7 @@ const Wrapper = styled.div`
 
   width: 100vw;
   height: 100%;
-  margin-top: 4.4rem;
+  margin-top: 5rem;
   padding: 3rem 1.765rem 0 2.035rem;
   border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 
@@ -564,5 +574,7 @@ const DeclineReason = styled.div<{ $isActive: boolean }>`
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 
   color: ${({ $isActive, theme }) => ($isActive ? theme.colors.Blue : theme.colors.grayScaleDG)};
+
   ${({ theme }) => theme.fonts.Title2_M_16};
+  cursor: pointer;
 `;

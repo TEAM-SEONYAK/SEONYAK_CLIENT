@@ -16,13 +16,10 @@ import { Header } from '@components/commons/Header';
 import Banner from './components/Banner';
 import TitleBox from '@components/commons/TitleBox';
 import { SELECT_JUNIOR_TITLE } from './constants/constants';
-import axios from 'axios';
 
 const JuniorPromiseRequestPage = () => {
   const [activeButton, setActiveButton] = useState('선택할래요');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAnyWorrySelected, setIsAnyWorrySelected] = useState(false);
-  const [isTextareaFilled, setIsTextareaFilled] = useState(false);
   const [, setUnfilledFields] = useState<number[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
@@ -64,13 +61,9 @@ const JuniorPromiseRequestPage = () => {
     setUnfilledFields(unfilled);
   };
 
-  // 걱정 버튼 중 하나라도 선택했는지 확인
-  const handleCheckWorrySelected = (isSelected: boolean) => {
-    setIsAnyWorrySelected(isSelected);
-  };
-
   // 작성할래요 인풋 값 가져오기
   const [inputVal, setInputVal] = useState<string>('');
+  const isTextareaFilled = inputVal.trim() !== '';
   const handleAppointmentSendSuccess = () => {
     setIsModalClicked(true);
   };
@@ -86,7 +79,7 @@ const JuniorPromiseRequestPage = () => {
     postAppointment({
       seniorId,
       topic: activeButton === '선택할래요' ? selectedButtons : [],
-      personalTopic: activeButton === '선택할래요' ? '' : inputVal,
+      personalTopic: activeButton === '작성할래요' ? inputVal : '',
       timeList: selectedTime.map((item) => ({
         date: item.clickedDay,
         startTime: item.selectedTime.split('-')[0],
@@ -95,9 +88,10 @@ const JuniorPromiseRequestPage = () => {
     });
   };
 
+  // 모든 일정 선택했는지 확인. '선택할래요'인 경우 선택했는지 확인, '작성할래요'인 경우 텍스트 입력했는지 확인
   const isAllSelected =
     selectedTime.every((item) => item.selectedTime !== '' && item.clickedDay !== '') &&
-    (isAnyWorrySelected || isTextareaFilled);
+    (activeButton === '선택할래요' ? selectedButtons.length > 0 : isTextareaFilled);
 
   // 버튼 클릭시 실행 함수
   const handleSubmit = () => {
@@ -131,13 +125,9 @@ const JuniorPromiseRequestPage = () => {
           onSetActiveButtonHandler={handleToggle}
         />
         {activeButton === '선택할래요' ? (
-          <WorryButtons
-            selectedButtons={selectedButtons}
-            setSelectedButtons={setSelectedButtons}
-            handleCheckWorrySelected={handleCheckWorrySelected}
-          />
+          <WorryButtons selectedButtons={selectedButtons} setSelectedButtons={setSelectedButtons} />
         ) : (
-          <WorryTextarea inputVal={inputVal} setInputVal={setInputVal} setIsTextareaFilled={setIsTextareaFilled} />
+          <WorryTextarea inputVal={inputVal} setInputVal={setInputVal} />
         )}
         <CalendarBottomSheet
           selectedTime={selectedTime}

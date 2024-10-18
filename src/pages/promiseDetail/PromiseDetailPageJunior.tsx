@@ -72,23 +72,16 @@ const PromiseDetailPageJunior = () => {
     <>
       {isDetailClicked ? (
         <>
-          <Header LeftSvg={ArrowLeftIc} title="내가 보낸 약속" onClickLeft={handleClickBackArrow} />
+          <Header LeftSvg={ArrowLeftIc} onClickLeft={handleClickBackArrow} />
           <Divider />
-          <PreView variant="secondary" seniorId={seniorId} />
+          <DetailWrapper>
+            <PreView variant="secondary" seniorId={seniorId} />
+          </DetailWrapper>
         </>
       ) : (
         <>
-          <Header
-            LeftSvg={ArrowLeftIc}
-            title="자세히 보기"
-            onClickLeft={() =>
-              navigate(`/promiseList`, {
-                state: {
-                  prevTap: tap,
-                },
-              })
-            }
-          />
+          <Header LeftSvg={ArrowLeftIc} title="내가 보낸 약속" onClickLeft={() => navigate('/promiseList')} />
+          <Divider />
           <Wrapper>
             <Layout>
               <TitleContainer>
@@ -152,11 +145,18 @@ const Wrapper = styled.div`
 
   width: 100vw;
   height: 100%;
-  margin-top: 4.4rem;
+  margin-top: 5.2rem;
   padding: 3rem 1.974rem 0 2.026rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
+`;
+
+// 임시 Preview 부분 padding 수정되면 적용필
+const DetailWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 3.2rem;
 `;
 
 const Layout = styled.div`
@@ -222,10 +222,10 @@ const BtnWrapper = styled.div`
   padding: 0 2.035rem 0 1.965rem;
 `;
 
-const Divider = styled.hr`
+const Divider = styled.div`
+  position: fixed;
+  top: 5rem;
+
   width: 100vw;
-  height: 0.1rem;
-  margin-top: 5rem;
-  margin-bottom: 3.2rem;
-  border: 1px solid ${({ theme }) => theme.colors.grayScaleLG2};
+  border: 1.4px solid ${({ theme }) => theme.colors.grayScaleLG2};
 `;
