@@ -11,7 +11,6 @@ import { getRole } from '@utils/storage';
 import ErrorPage from '@pages/errorPage/ErrorPage';
 
 const PromiseListPage = () => {
-  // 유저가 선배일 경우
   const userRole = getRole() + '';
 
   const { myNickname, pending, scheduled, past, isLoading, isError } = useGetPromiseList();

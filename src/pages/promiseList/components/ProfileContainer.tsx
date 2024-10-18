@@ -48,11 +48,14 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
 
   // 상세 페이지 라우팅
   const handleClickProfileContainer = (tap: string, userRole: string) => {
+    // [선배] 확정대기 - 약속 상세페이지
     if (userRole === 'SENIOR' && tap === 'pending') {
       navigate('/promiseList/promiseDetail', {
         state: { tap: 'pending', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
+
+    // [후배] 확정대기 - 약속 상세페이지
     if (userRole === 'JUNIOR' && tap === 'pending') {
       navigate('/promiseList/promiseDetailJunior', {
         state: {
@@ -64,12 +67,14 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
       });
     }
 
+    // [선배] 예정약속, 가장가까운약속 - 약속 상세페이지
     if (userRole === 'SENIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
       navigate('/promiseList/promiseDetail', {
         state: { tap: 'scheduled', myNickname: myNickname, appointmentId: profileCardData?.appointmentId },
       });
     }
 
+    // [후배] 예정약속, 가장가까운약속 - 약속 상세페이지
     if (userRole === 'JUNIOR' && (tap === 'scheduled' || tap === 'default') && detail !== 'detail') {
       navigate('/promiseList/promiseDetailJunior', {
         state: {
@@ -81,7 +86,7 @@ const ProfileContainer = (props: ProfileContainerPropType) => {
       });
     }
 
-    // 실제 선배 아이디로 연결 필요
+    // [후배] 약속 상세페이지 - 선배 상세페이지 
     if (
       userRole === 'JUNIOR' &&
       (tap === 'scheduled' || tap === 'default' || tap === 'pending') &&

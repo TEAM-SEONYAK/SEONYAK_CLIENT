@@ -7,6 +7,6 @@ export const postGoogleMeetLink = async () => {
     // console.log(response.data.data.googleMeet);
     return response.data.data.googleMeet;
   } catch (err) {
-    console.log(err);
+    console.error('구글밋 회의실 개설 에러 ', err);
   }
 };

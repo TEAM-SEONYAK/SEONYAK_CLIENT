@@ -21,6 +21,7 @@ import {
 import { extractMonthAndDay } from '@pages/promiseList/utils/extractMonthAndDay';
 import { ModalRejectImg, ModalAcceptImg } from '@assets/svgs';
 import Loading from '@components/commons/Loading';
+import ErrorPage from '@pages/errorPage/ErrorPage';
 
 const PromiseDetail = () => {
   const location = useLocation();
@@ -29,8 +30,17 @@ const PromiseDetail = () => {
   const { tap, myNickname, appointmentId } = location.state;
   const userRole = 'SENIOR';
 
-  const { juniorInfo, seniorInfo, timeList1, timeList2, timeList3, topic, personalTopic, isSuccess, isLoading } =
-    useGetPromiseDetail(appointmentId);
+  const {
+    juniorInfo,
+    seniorInfo,
+    timeList1,
+    timeList2,
+    timeList3,
+    topic,
+    personalTopic,
+    isLoading,
+    isError: getPromiseDetailError,
+  } = useGetPromiseDetail(appointmentId);
 
   // 기본뷰 / 거절뷰
   const [viewType, setViewType] = useState('DEFAULT');
@@ -55,7 +65,11 @@ const PromiseDetail = () => {
   };
 
   // 선배 약속 수락
-  const { mutate: patchSeniorAccept } = usePatchSeniorAccept(() => handleModalOpen(true));
+  const {
+    mutate: patchSeniorAccept,
+    isPending: isPatchSeniorAcceptPending,
+    isError: patchSeniorAcceptError,
+  } = usePatchSeniorAccept(() => handleModalOpen(true));
 
   // 구글밋 링크 patch 콜백 함수
   const handleSuccessCallback = (link: string) => {
@@ -74,7 +88,11 @@ const PromiseDetail = () => {
   };
 
   // 구글밋 링크 받아오기(post) 후 약속 수락 patch
-  const { mutate: postGoogleMeetLink } = usePostGoogleMeetLink((link) => {
+  const {
+    mutate: postGoogleMeetLink,
+    isPending: isPostGoogleMeetLinkPending,
+    isError: postGoogleMeetLinkError,
+  } = usePostGoogleMeetLink((link) => {
     handleSuccessCallback(link);
   });
 
@@ -95,7 +113,9 @@ const PromiseDetail = () => {
   };
 
   // 선배 약속 거절
-  const { mutate: patchSeniorReject } = usePatchSeniorReject(() => handleModalOpen(true));
+  const { mutate: patchSeniorReject, isError: patchSeniorRejectError } = usePatchSeniorReject(() =>
+    handleModalOpen(true)
+  );
   const handleRejectBtn = () => {
     patchSeniorReject({
       appointmentId: appointmentId,
@@ -113,7 +133,15 @@ const PromiseDetail = () => {
     window.open(link, '_blank');
   };
 
-  useGetGoogleMeetLink(appointmentId, isEnterBtnClicked, handleClickEnterBtn);
+  const { isError: getGoogleMeetLinkError } = useGetGoogleMeetLink(
+    appointmentId,
+    isEnterBtnClicked,
+    handleClickEnterBtn
+  );
+
+  const handleBottomSheetOpen = () => {
+    setIsBottomSheetOpen(true);
+  };
 
   const handleBottomSheetClose = () => {
     setIsBottomSheetOpen(false);
@@ -127,16 +155,27 @@ const PromiseDetail = () => {
   const handleRejectDetailReason = (detailReason: string) => {
     setRejectDetail(detailReason);
   };
-  // 훅을 조건문 밖에서 호출
+
   const countdown = useCountdown(timeList1?.date, timeList1?.startTime);
   const dateInfo = extractMonthAndDay(timeList1?.date + '');
 
-  if (isLoading) {
+  if (tap === undefined || myNickname === undefined) {
+    navigate('/promiseList');
+  }
+
+  if (isLoading || isPatchSeniorAcceptPending || isPostGoogleMeetLinkPending) {
     return <Loading />; // 로딩 중일 때 표시
   }
 
-  if (!isSuccess || !timeList1) {
-    return <div>데이터 없음</div>; // 데이터가 없을 때 표시
+  if (
+    getPromiseDetailError ||
+    !timeList1 ||
+    postGoogleMeetLinkError ||
+    patchSeniorAcceptError ||
+    patchSeniorRejectError ||
+    getGoogleMeetLinkError
+  ) {
+    return <ErrorPage />;
   }
 
   // 조건부로 훅의 결과를 처리
@@ -160,7 +199,13 @@ const PromiseDetail = () => {
     <>
       <Header
         LeftSvg={ArrowLeftIc}
-        onClickLeft={handleBackBtn}
+        onClickLeft={() =>
+          navigate(`/promiseList`, {
+            state: {
+              prevTap: tap,
+            },
+          })
+        }
         title={viewType === 'DEFAULT' ? '자세히 보기' : '거절하기'}
       />
       <Wrapper>
@@ -291,23 +336,13 @@ const PromiseDetail = () => {
         )}
       </Wrapper>
 
-      {viewType === 'DECLINE' ? (
-        <AutoCloseModal
-          text="선약이 거절되었어요"
-          showModal={isModalOpen}
-          handleShowModal={handleModalOpen}
-          path="/promiseList">
-          <ModalRejectImg />
-        </AutoCloseModal>
-      ) : (
-        <AutoCloseModal
-          text="선약이 수락되었어요"
-          showModal={isModalOpen}
-          handleShowModal={handleModalOpen}
-          path="/promiseList">
-          <ModalAcceptImg />
-        </AutoCloseModal>
-      )}
+      <AutoCloseModal
+        text={viewType === 'DECLINE' ? '선약이 거절되었어요' : '선약이 수락되었어요'}
+        showModal={isModalOpen}
+        handleShowModal={handleModalOpen}
+        path="/promiseList">
+        {viewType === 'DECLINE' ? <ModalRejectImg /> : <ModalAcceptImg />}
+      </AutoCloseModal>
 
       <BottomSheet
         btnActive={currRejectReason}
