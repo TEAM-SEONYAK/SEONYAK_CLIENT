@@ -139,10 +139,6 @@ const PromiseDetail = () => {
     handleClickEnterBtn
   );
 
-  const handleBottomSheetOpen = () => {
-    setIsBottomSheetOpen(true);
-  };
-
   const handleBottomSheetClose = () => {
     setIsBottomSheetOpen(false);
     setRejectReason(currRejectReason);
@@ -181,19 +177,6 @@ const PromiseDetail = () => {
   // 조건부로 훅의 결과를 처리
   const { diffText, diff } = countdown;
   const { month, day } = dateInfo;
-
-  // 뒤로가기 버튼
-  const handleBackBtn = () => {
-    if (viewType === 'DEFAULT') {
-      navigate(`/promiseList`, {
-        state: {
-          prevTap: tap,
-        },
-      });
-    } else {
-      setViewType('DEFAULT');
-    }
-  };
 
   return (
     <>
