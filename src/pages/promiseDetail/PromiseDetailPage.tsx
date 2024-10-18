@@ -325,23 +325,13 @@ const PromiseDetail = () => {
         )}
       </Wrapper>
 
-      {viewType === 'DECLINE' ? (
-        <AutoCloseModal
-          text="선약이 거절되었어요"
-          showModal={isModalOpen}
-          handleShowModal={handleModalOpen}
-          path="/promiseList">
-          <ModalRejectImg />
-        </AutoCloseModal>
-      ) : (
-        <AutoCloseModal
-          text="선약이 수락되었어요"
-          showModal={isModalOpen}
-          handleShowModal={handleModalOpen}
-          path="/promiseList">
-          <ModalAcceptImg />
-        </AutoCloseModal>
-      )}
+      <AutoCloseModal
+        text={viewType === 'DECLINE' ? '선약이 거절되었어요' : '선약이 수락되었어요'}
+        showModal={isModalOpen}
+        handleShowModal={handleModalOpen}
+        path="/promiseList">
+        {viewType === 'DECLINE' ? <ModalRejectImg /> : <ModalAcceptImg />}
+      </AutoCloseModal>
 
       <BottomSheet
         btnActive={rejectReason}
