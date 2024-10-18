@@ -91,7 +91,6 @@ const CalendarContainer = styled.div`
 
 const StyledCalendar = styled(Calendar)`
   width: 31.5rem;
-  height: 30.5rem;
   border: none;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
@@ -143,6 +142,10 @@ const StyledCalendar = styled(Calendar)`
     height: 2.5rem;
     ${({ theme }) => theme.fonts.Head1_SB_20};
     margin-bottom: 2rem;
+  }
+
+  .react-calendar__navigation_label {
+    width: 12.6rem;
   }
 
   .react-calendar__navigation button {
