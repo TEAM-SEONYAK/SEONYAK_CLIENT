@@ -82,6 +82,10 @@ const Scroll = styled.div`
   overflow-y: auto;
 
   margin-bottom: 3rem;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`

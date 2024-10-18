@@ -82,7 +82,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-grow: 1;
 
-  padding-bottom: 14.4rem;
+  padding: 2rem 1.95rem 14.4rem;
 `;
 
 const Layout = styled.div`
@@ -95,20 +95,31 @@ const Layout = styled.div`
 `;
 
 const Label = styled.div`
-  padding: 2rem 0 0 0.8rem;
+  width: 100%;
   ${({ theme }) => theme.fonts.Title1_SB_16};
 
   color: ${({ theme }) => theme.colors.grayScaleBG};
 `;
 
 const EachTimeButtonBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1rem 0.6rem;
+
+  width: 100%;
 `;
 
 const EachTimeButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 
-  width: 35rem;
+  width: 100%;
+
+  &:first-child {
+    margin-bottom: 2rem;
+  }
 `;

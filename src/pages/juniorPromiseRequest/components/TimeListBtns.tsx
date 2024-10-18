@@ -22,9 +22,7 @@ const Wrapper = styled.div<{ $isActive: boolean }>`
   justify-content: center;
   align-items: center;
 
-  width: 10.8rem;
   height: 3.8rem;
-  margin: 0.5rem 0.3rem;
   border: ${({ $isActive, theme }) =>
     $isActive ? `1px solid ${theme.colors.Blue}` : `1px solid ${theme.colors.grayScaleLG2}`};
   border-radius: 8px;

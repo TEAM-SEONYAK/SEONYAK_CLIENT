@@ -87,10 +87,11 @@ const CalendarContainer = styled.div`
   justify-content: center;
 
   width: 100%;
+  padding: 0 3.35rem 2rem;
 `;
 
 const StyledCalendar = styled(Calendar)`
-  width: 31.5rem;
+  width: 100%;
   border: none;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
@@ -104,6 +105,7 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__month-view__days__day {
     ${({ theme }) => theme.fonts.Title2_M_16};
     color: ${({ theme }) => theme.colors.grayScaleBG};
+    aspect-ratio: 1 / 1;
 
     &:disabled {
       color: ${({ theme }) => theme.colors.grayScaleLG2};
@@ -199,6 +201,7 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__tile {
     ${({ theme }) => theme.fonts.Title2_M_16};
     border-radius: 100px;
+
 
     background: none;
 
