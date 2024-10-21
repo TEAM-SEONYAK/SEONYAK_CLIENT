@@ -1,0 +1,129 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-order", "stylelint-prettier"],
+  "overrides": [
+    {
+      "customSyntax": "postcss-styled-syntax",
+      "files": ["**/*.{ts,tsx,css}"]
+    }
+  ],
+  "rules": {
+    "prettier/prettier": true,
+    "declaration-property-unit-allowed-list": {
+      "/^border/": ["px"],
+      "font-size": ["rem", "%"]
+    },
+    "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "vw", "s", "dvh", "turn", "vh", "fr"],
+    "declaration-empty-line-before": [
+      "always",
+      {
+        "ignore": ["after-comment", "after-declaration", "first-nested", "inside-single-line-block"]
+      }
+    ],
+    "order/properties-order": [
+      {
+        "groupName": "Layout",
+        "emptyLineBefore": "always",
+        "noEmptyLineBetween": true,
+        "properties": [
+          "display",
+          "flex-direction",
+          "flex-wrap",
+          "flex-flow",
+          "gap",
+          "flex",
+          "justify-content",
+          "align-items",
+          "align-content",
+          "flex-basis",
+          "flex-grow",
+          "flex-shrink",
+          "align-self",
+          "visibility",
+          "overflow",
+          "overflow-x",
+          "overflow-y",
+          "float",
+          "clear",
+          "position",
+          "top",
+          "right",
+          "bottom",
+          "left",
+          "z-index"
+        ]
+      },
+      {
+        "groupName": "Box",
+        "emptyLineBefore": "always",
+        "noEmptyLineBetween": true,
+        "properties": [
+          "width",
+          "min-width",
+          "max-width",
+          "height",
+          "min-height",
+          "max-height",
+          "margin",
+          "margin-top",
+          "margin-right",
+          "margin-bottom",
+          "margin-left",
+          "padding",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "border",
+          "border-top",
+          "border-right",
+          "border-bottom",
+          "border-left",
+          "border-color",
+          "border-radius"
+        ]
+      },
+      {
+        "groupName": "Background",
+        "emptyLineBefore": "always",
+        "noEmptyLineBetween": true,
+        "properties": [
+          "background",
+          "background-color",
+          "background-image",
+          "background-position",
+          "background-repeat",
+          "box-shadow"
+        ]
+      },
+      {
+        "groupName": "Font",
+        "emptyLineBefore": "always",
+        "noEmptyLineBetween": true,
+        "properties": [
+          "font",
+          "font-family",
+          "color",
+          "font-style",
+          "font-size",
+          "font-weight",
+          "text-align",
+          "vertical-align",
+          "line-height",
+          "text-transform",
+          "text-decoration",
+          "letter-spacing",
+          "text-indent",
+          "white-space"
+        ]
+      },
+      {
+        "groupName": "Etc",
+        "emptyLineBefore": "always",
+        "noEmptyLineBetween": true,
+        "properties": ["cursor", "opacity", "animation", "transition"]
+      }
+    ],
+    "selector-class-pattern": null
+  }
+}
