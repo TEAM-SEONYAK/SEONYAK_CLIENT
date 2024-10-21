@@ -58,3 +58,5 @@ export { default as HbHomeMainSvg } from './img_hbhome_main.svg?react';
 
 // 가입 페이지 배경
 export { default as JoinBgImgSvg } from './joinBgImg.svg?react';
+export { default as JoinHbBgSvg } from './joinHbBgImg.svg?react';
+export { default as JoinSbBgSvg } from './joinSbBgImg.svg?react';
