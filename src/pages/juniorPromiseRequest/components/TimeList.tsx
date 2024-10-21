@@ -30,18 +30,20 @@ const TimeList = ({ selectedTime, setSelectedTime, btnId, timeList }: TimeListPr
       <Layout>
         {morningTimeList && morningTimeList.length !== 0 && (
           <>
-            <Label>오전</Label>
             <EachTimeButtonContainer>
-              {morningTimeList &&
-                morningTimeList.map(({ startTime, endTime }, idx: number) => (
-                  <TimeListBtns
-                    key={startTime + idx}
-                    startTime={startTime}
-                    endTime={endTime}
-                    isActive={selectedTime[btnId].selectedTime === `${startTime}-${endTime}`}
-                    onClick={() => handleButtonClick(`${startTime}-${endTime}`)}
-                  />
-                ))}
+              <Label>오전</Label>
+              <EachTimeButtonBox>
+                {morningTimeList &&
+                  morningTimeList.map(({ startTime, endTime }, idx: number) => (
+                    <TimeListBtns
+                      key={startTime + idx}
+                      startTime={startTime}
+                      endTime={endTime}
+                      isActive={selectedTime[btnId].selectedTime === `${startTime}-${endTime}`}
+                      onClick={() => handleButtonClick(`${startTime}-${endTime}`)}
+                    />
+                  ))}
+              </EachTimeButtonBox>
             </EachTimeButtonContainer>
           </>
         )}
@@ -50,18 +52,20 @@ const TimeList = ({ selectedTime, setSelectedTime, btnId, timeList }: TimeListPr
       <Layout>
         {afternoonTimeList && afternoonTimeList.length !== 0 && (
           <>
-            <Label>오후</Label>
             <EachTimeButtonContainer>
-              {afternoonTimeList &&
-                afternoonTimeList.map(({ startTime, endTime }, idx: number) => (
-                  <TimeListBtns
-                    key={startTime + idx}
-                    startTime={startTime}
-                    endTime={endTime}
-                    isActive={selectedTime[btnId].selectedTime === `${startTime}-${endTime}`}
-                    onClick={() => handleButtonClick(`${startTime}-${endTime}`)}
-                  />
-                ))}
+              <Label>오후</Label>
+              <EachTimeButtonBox>
+                {afternoonTimeList &&
+                  afternoonTimeList.map(({ startTime, endTime }, idx: number) => (
+                    <TimeListBtns
+                      key={startTime + idx}
+                      startTime={startTime}
+                      endTime={endTime}
+                      isActive={selectedTime[btnId].selectedTime === `${startTime}-${endTime}`}
+                      onClick={() => handleButtonClick(`${startTime}-${endTime}`)}
+                    />
+                  ))}
+              </EachTimeButtonBox>
             </EachTimeButtonContainer>
           </>
         )}
@@ -75,26 +79,47 @@ export default TimeList;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   flex-grow: 1;
 
-  padding-bottom: 14.4rem;
+  padding: 2rem 1.95rem 14.4rem;
 `;
 
 const Layout = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow-y: auto;
+
+  width: 100%;
 `;
 
 const Label = styled.div`
-  padding: 2rem 0 0 1.9rem;
-
+  width: 100%;
   ${({ theme }) => theme.fonts.Title1_SB_16};
+
   color: ${({ theme }) => theme.colors.grayScaleBG};
+`;
+
+const EachTimeButtonBox = styled.div`
+  /* display: flex;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1rem 0.6rem;
+
+  width: 100%;
 `;
 
 const EachTimeButtonContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1rem;
 
-  margin-left: 1.5rem;
+  width: 100%;
+
+  &:first-child {
+    margin-bottom: 2rem;
+  }
 `;

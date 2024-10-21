@@ -1,20 +1,16 @@
-import { BottomSheetRectangleIc } from '@assets/svgs';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { formatCalDateToString } from '../utils/formatCalDateToString';
-import { getTomorrow } from '../utils/getTomorrow';
 import { extractValidKeys } from '../utils/getSeniorValidWeekOfDay';
+import RightArrow from '@assets/svgs/ic_arrow_right_calender.svg';
+import LeftArrow from '@assets/svgs/ic_arrow_left_calender.svg';
 
 interface CalendarTileProperties {
   date: Date;
   view: string;
 }
-
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 interface CustomCalendarPropType {
   btnId: number;
@@ -33,48 +29,45 @@ const CustomCalendar = ({ btnId, setSelectedTime, selectedTime, preferredTimeLis
     5: '금',
     6: '토',
   };
-  const preferredDaysofWeek = extractValidKeys(preferredTimeList);
 
-  const [, onChange] = useState<Value>(getTomorrow());
+  const preferredDaysofWeek = extractValidKeys(preferredTimeList);
 
   const handleDateClick = (date: string) => {
     setSelectedTime((prev) => prev.map((item) => (item.id === btnId ? { ...item, clickedDay: date } : item)));
   };
 
   const tileDisabled = ({ date, view }: CalendarTileProperties) => {
-    if (view === 'month') {
-      // 현재 날짜 이전의 날짜를 비활성화
-      if (date <= new Date()) {
-        return true;
-      }
+    // 'month' 뷰가 아닌 경우엔 비활성화 X
+    if (view !== 'month') return false;
 
-      // 이미 선택된 날짜를 비활성화
-      const formattedDate = formatCalDateToString(date);
-      if (selectedTime.some((item) => item.clickedDay === formattedDate)) {
-        return true;
-      }
+    const formattedDate = formatCalDateToString(date);
+    const dayOfWeek = dayOfWeekMap[date.getDay()];
 
-      // 요일을 확인하여 preferredDaysofWeek에 없는 요일을 비활성화
-      const dayOfWeek = date.getDay();
-      const dayOfWeekStr = dayOfWeekMap[dayOfWeek];
-      if (!preferredDaysofWeek.includes(dayOfWeekStr)) {
-        return true;
-      }
-    }
-    return false;
+    // 오늘 이전의 날짜는 비활성화
+    const isPastDate = date <= new Date();
+
+    // 이미 선택된 날짜는 비활성화
+    const isAlreadySelected = selectedTime.some((item) => item.clickedDay === formattedDate);
+
+    // 선호하는 요일이 아닌 날짜는 비활성화
+    const isNotPreferredDay = !preferredDaysofWeek.includes(dayOfWeek);
+
+    // 조건 중 하나라도 true이면 비활성화
+    return isPastDate || isAlreadySelected || isNotPreferredDay;
   };
 
-  const tileClassName = ({ date, view }: CalendarTileProperties) =>
-    view === 'month' && date <= new Date() ? 'disabled-date' : '';
+  const tileClassName = ({ date, view }: CalendarTileProperties) => {
+    return view === 'month' && date <= new Date() ? 'disabled-date' : '';
+  };
 
   return (
     <CalendarContainer>
-      <BottomSheetRectangleIcon />
       <StyledCalendar
-        onChange={onChange}
         onClickDay={(value) => handleDateClick(formatCalDateToString(value))}
         value={selectedTime[btnId].clickedDay}
         minDate={new Date()}
+        nextLabel={<img src={RightArrow} alt="right-arrow" />}
+        prevLabel={<img src={LeftArrow} alt="left-arrow" />}
         next2Label={null}
         prev2Label={null}
         showNeighboringMonth={false}
@@ -89,100 +82,38 @@ const CustomCalendar = ({ btnId, setSelectedTime, selectedTime, preferredTimeLis
 
 export default CustomCalendar;
 
-const BottomSheetRectangleIcon = styled(BottomSheetRectangleIc)`
-  margin-bottom: 0.5rem;
-  margin-left: 13rem;
-`;
-
 const CalendarContainer = styled.div`
-  width: 100vw;
-  height: auto;
-  padding: 1.5rem 3.3rem 2rem;
-  border-radius: 16px 16px 0 0;
+  display: flex;
+  justify-content: center;
 
-  background: ${({ theme }) => theme.colors.grayScaleWhite};
+  width: 100%;
+  padding: 0 3.35rem 2rem;
 `;
 
 const StyledCalendar = styled(Calendar)`
   width: 100%;
   border: none;
-  border-radius: 8px;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
 
-  .react-calendar__navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    ${({ theme }) => theme.fonts.Head1_SB_20};
+  .disabled-date {
+    color: ${({ theme }) => theme.colors.grayScaleLG2};
+
+    cursor: not-allowed;
   }
 
-  .react-calendar__navigation__arrow {
-    width: 2.1rem;
-    height: 1.8rem;
-  }
-
-  .react-calendar__tile {
-    max-width: 100%;
+  .react-calendar__month-view__days__day {
     ${({ theme }) => theme.fonts.Title2_M_16};
-    border-radius: 100px;
+    color: ${({ theme }) => theme.colors.grayScaleBG};
+    aspect-ratio: 1 / 1;
 
-    background: none;
-
-    text-align: center;
-
-    cursor: pointer;
+    &:disabled {
+      color: ${({ theme }) => theme.colors.grayScaleLG2};
+    }
   }
 
-  .react-calendar__tile--active {
-    border-radius: 100px;
-
-    background-color: ${({ theme }) => theme.colors.Blue};
-
-    color: ${({ theme }) => theme.colors.grayScaleWhite} !important;
-  }
-
-  .react-calendar__month-view__weekdays {
-    color: ${({ theme }) => theme.colors.grayScaleMG2};
-    ${({ theme }) => theme.fonts.Title2_M_16};
-  }
-
-  .react-calendar__tile:enabled:focus {
-    ${({ theme }) => theme.fonts.Title2_M_16};
-    background: ${({ theme }) => theme.colors.Blue};
-
-    color: ${({ theme }) => theme.colors.grayScaleWhite};
-  }
-
-  .react-calendar__navigation button {
-    ${({ theme }) => theme.fonts.Head2_SB_18};
-    min-width: 4rem;
-  }
-
-  .react-calendar__navigation button:disabled {
-    background: none !important;
-
-    color: ${({ theme }) => theme.colors.grayScaleDG} !important;
-  }
-
-  .react-calendar__tile--active:enabled:hover,
-  .react-calendar__tile--active:enabled:focus {
-    background: ${({ theme }) => theme.colors.Blue};
-
-    color: ${({ theme }) => theme.colors.grayScaleWhite};
-  }
-
-  .react-calendar__navigation button:hover,
-  .react-calendar__navigation button:focus {
-    background: none;
-    background-color: transparent;
-
-    color: ${({ theme }) => theme.colors.grayScaleDG};
-  }
-
-  .react-calendar__navigation__prev-button,
-  .react-calendar__navigation__next-button {
-    border-radius: 100px;
+  .react-calendar__month-view__weekdays__weekday {
+    padding: 0;
   }
 
   .react-calendar__month-view__days__day--weekend {
@@ -194,22 +125,106 @@ const StyledCalendar = styled(Calendar)`
     }
   }
 
+  .react-calendar__month-view__weekdays {
+    color: ${({ theme }) => theme.colors.grayScaleMG2};
+
+    ${({ theme }) => theme.fonts.Title2_M_16};
+  }
+
   .react-calendar__month-view__weekdays abbr {
     text-decoration: none;
   }
 
-  .disabled-date {
-    color: ${({ theme }) => theme.colors.grayScaleLG2} !important;
+  .react-calendar__navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 
-    cursor: not-allowed;
+    height: 2.5rem;
+    ${({ theme }) => theme.fonts.Head1_SB_20};
+    margin-bottom: 2rem;
   }
 
-  .react-calendar__month-view__days__day {
-    ${({ theme }) => theme.fonts.Title2_M_16};
-    color: ${({ theme }) => theme.colors.grayScaleBG};
+  .react-calendar__navigation_label {
+    width: 12.6rem;
+  }
 
-    &:disabled {
-      color: ${({ theme }) => theme.colors.grayScaleLG2};
+  .react-calendar__navigation button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ${({ theme }) => theme.fonts.Head2_SB_18};
+
+    min-width: 4rem;
+  }
+
+  .react-calendar__navigation button:disabled {
+    background: none;
+
+    color: ${({ theme }) => theme.colors.grayScaleDG};
+  }
+
+  .react-calendar__navigation button:hover,
+  .react-calendar__navigation button:focus {
+    background: none;
+    background-color: transparent;
+
+    color: ${({ theme }) => theme.colors.grayScaleDG};
+  }
+
+  .react-calendar__navigation__arrow {
+    width: 2.1rem;
+    height: 1.8rem;
+  }
+
+  .react-calendar__navigation__next-button {
+    position: absolute;
+    right: 6rem;
+  }
+
+  .react-calendar__navigation__prev-button {
+    position: absolute;
+    left: 6rem;
+  }
+
+  .react-calendar__navigation__label {
+    pointer-events: none;
+
+    cursor: default;
+
+    &:hover {
+      background-color: transparent;
     }
+  }
+
+  .react-calendar__tile {
+    ${({ theme }) => theme.fonts.Title2_M_16};
+    border-radius: 100px;
+
+
+    background: none;
+
+    cursor: pointer;
+  }
+
+  .react-calendar__tile--active {
+    background-color: ${({ theme }) => theme.colors.Blue};
+
+    color: ${({ theme }) => theme.colors.grayScaleWhite};
+  }
+
+  .react-calendar__tile--active:enabled:hover,
+  .react-calendar__tile--active:enabled:focus {
+    background: ${({ theme }) => theme.colors.Blue};
+
+    color: ${({ theme }) => theme.colors.grayScaleWhite};
+  }
+
+  .react-calendar__tile:enabled:focus {
+    ${({ theme }) => theme.fonts.Title2_M_16};
+    background: ${({ theme }) => theme.colors.Blue};
+
+    color: ${({ theme }) => theme.colors.grayScaleWhite};
   }
 `;
