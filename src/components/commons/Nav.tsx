@@ -2,19 +2,20 @@ import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { NaviLookBlackIc, NaviPromiseBlackIc, NaviMyBlackIc } from '../../assets/svgs';
+import { getRole } from '@utils/storage';
 
 const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const userRole = localStorage.getItem('role') + '';
+  const userRole = getRole();
   const [currNav, setCurrNav] = useState(location.pathname);
 
   useEffect(() => {
     if (currNav !== location.pathname) {
       navigate(currNav);
     }
-  }, [currNav, navigate, location.pathname]);
+  }, [currNav, location.pathname]);
 
   // 유저가 선배일 경우 접근 가능한 곳 : 나의 약속
   // 유저가 후배일 경우 접근 가능한 곳 : 둘러보기, 나의 약속
