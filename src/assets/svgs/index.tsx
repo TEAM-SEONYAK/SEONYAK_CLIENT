@@ -55,3 +55,8 @@ export { default as ModalRejectImg } from './img_modal_reject.svg?react';
 export { default as ComingSoonModalImg } from './comingSoonModalImg.svg?react';
 export { default as GhostImg } from './img_ghost.svg?react';
 export { default as HbHomeMainSvg } from './img_hbhome_main.svg?react';
+
+// 가입 페이지 배경
+export { default as JoinBgImgSvg } from './joinBgImg.svg?react';
+export { default as JoinHbBgSvg } from './joinHbBgImg.svg?react';
+export { default as JoinSbBgSvg } from './joinSbBgImg.svg?react';

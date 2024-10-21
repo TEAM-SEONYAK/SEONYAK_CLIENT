@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import { useLocation } from 'react-router-dom';
 import googleLogin from './utils/googleLogin';
+import { JoinHbBgSvg, JoinSbBgSvg } from '@assets/svgs';
 
 const SignupPage = () => {
   const role = useLocation().state.role;
@@ -10,21 +11,8 @@ const SignupPage = () => {
 
   return (
     <>
-      {role === 'SENIOR' ? (
-        <>
-          <GradEllipseSb $type={1} />
-          <GradEllipseSb $type={2} />
-          <GradEllipseSb $type={3} />
-        </>
-      ) : (
-        <>
-          <GradEllipseHb $type={1} />
-          <GradEllipseHb $type={2} />
-          <GradEllipseHb $type={3} />
-        </>
-      )}
+      {role === 'SENIOR' ? <JoinSbBgSvgIcon /> : <JoinHbBgSvgIcon />}
       <SignUpContainer>
-        {role === 'SENIOR' ? <OnboardingBackgroundSBIcon /> : <OnboardingBackgroundHBIcon />}
         <DescTextWrapper>
           <MetaText>반가워요!</MetaText>
           {isSenior ? (
@@ -45,7 +33,7 @@ const SignupPage = () => {
             </>
           )}
         </DescTextWrapper>
-        <Gap />
+        {role === 'SENIOR' ? <OnboardingBackgroundSBIc /> : <OnboardingBackgroundHBIc />}
         <BtnContainer onClick={() => googleLogin(role)}>
           <GoogleLogoIcon />
           <Text>구글로 시작하기</Text>
@@ -60,13 +48,13 @@ export default SignupPage;
 const SignUpContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
+  justify-content: space-evenly;
   align-items: center;
   position: relative;
   z-index: 1;
 
   width: 100%;
-  height: 100%;
+  height: 100dvh;
   min-height: calc(var(--vh, 1vh) * 100 - 44px);
   padding: 6rem 2rem 3.6rem;
 `;
@@ -75,36 +63,18 @@ export const Gap = styled.div`
   flex-grow: 1;
 `;
 
-const GradEllipseSb = styled.div<{ $type: number }>`
-  position: absolute;
-  top: ${({ $type }) => ($type === 1 ? '12.5rem' : $type === 2 ? '14.3rem' : '29.2rem')};
-  left: ${({ $type }) => ($type === 1 ? '-5.5rem' : $type === 2 ? '15.6rem' : '6rem')};
-  z-index: 0;
+const JoinSbBgSvgIcon = styled(JoinSbBgSvg)`
+  position: fixed;
 
-  width: 27.7rem;
-  height: 27.9rem;
-  border-radius: '50%';
-
-  background: ${({ $type }) => ($type === 1 ? '#DFEDF9' : $type === 2 ? '#E2E6FA' : '#D9F7FF')};
-
-  opacity: 0.8;
-  filter: blur(60px);
+  width: 100%;
+  height: 100dvh;
 `;
 
-const GradEllipseHb = styled.div<{ $type: number }>`
-  position: absolute;
-  top: ${({ $type }) => ($type === 1 ? '14.3rem' : $type === 2 ? '12.5rem' : '29.2rem')};
-  left: ${({ $type }) => ($type === 1 ? '-5.9rem' : $type === 2 ? '17.8rem' : '3.8rem')};
-  z-index: 0;
+const JoinHbBgSvgIcon = styled(JoinHbBgSvg)`
+  position: fixed;
 
-  width: 27.7rem;
-  height: 27.9rem;
-  border-radius: '50%';
-
-  background: ${({ $type }) => ($type === 1 ? '#E2FAFA' : $type === 2 ? '#F9E1DF' : '#D9F7FF')};
-
-  opacity: 0.8;
-  filter: blur(60px);
+  width: 100%;
+  height: 100dvh;
 `;
 
 const MetaText = styled.p`
@@ -119,6 +89,8 @@ const DescTextWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  padding-bottom: 3.2rem;
 `;
 const DescText = styled.span<{ $isActive: boolean }>`
   ${({ theme }) => theme.fonts.Title1_SB_16};
@@ -153,22 +125,4 @@ const GoogleLogoIcon = styled(GoogleLogoIc)`
   width: 33px;
   height: 33px;
   margin: 10px;
-`;
-
-const OnboardingBackgroundSBIcon = styled(OnboardingBackgroundSBIc)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  z-index: -1;
-`;
-
-const OnboardingBackgroundHBIcon = styled(OnboardingBackgroundHBIc)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  z-index: -1;
 `;

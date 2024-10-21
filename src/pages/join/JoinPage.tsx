@@ -4,14 +4,13 @@ import JoinButton from '@pages/join/components/Button';
 import Welcome from '@pages/join/components/Welcome';
 import { Gap } from '@pages/login/SignupPage';
 import googleLogin from '@pages/login/utils/googleLogin';
+import { JoinBgImgSvg } from '@assets/svgs';
 
 const JoinPage = () => {
   return (
     <>
       <Welcome />
-      <GradEllipse $type={1} />
-      <GradEllipse $type={2} />
-      <GradEllipse $type={3} />
+      <JoinBgImgSvgIcon />
       <Wrapper>
         <BigMainLogoIcon />
         <TitleWrapper>
@@ -45,27 +44,16 @@ const Wrapper = styled.div`
   z-index: 2;
 
   width: 100%;
-  height: 100%;
+  height: 100dvh;
   min-height: calc(var(--vh, 1vh) * 100 - 44px);
   padding: 10vh 2rem 3.5rem;
-
-  background-image: url('');
 `;
 
-const GradEllipse = styled.div<{ $type: number }>`
-  position: absolute;
-  top: ${({ $type }) => ($type === 1 ? '12.5rem' : $type === 2 ? '14.3rem' : '29.2rem')};
-  left: ${({ $type }) => ($type === 1 ? '-5.5rem' : $type === 2 ? '15.6rem' : '6rem')};
-  z-index: 1;
+const JoinBgImgSvgIcon = styled(JoinBgImgSvg)`
+  position: fixed;
 
-  width: 27.7rem;
-  height: 27.9rem;
-  border-radius: '50%';
-
-  background: ${({ $type }) => ($type === 1 ? '#DFEDF9' : $type === 2 ? '#E2E6FA' : '#D9F7FF')};
-
-  opacity: 0.8;
-  filter: blur(60px);
+  width: 100%;
+  height: 100dvh;
 `;
 
 const BigMainLogoIcon = styled(BigMainLogoIc)`
