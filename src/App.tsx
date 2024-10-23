@@ -1,10 +1,11 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import { Outlet } from 'react-router-dom';
 import globalStyle from './styles/globalStyle';
 import theme from './styles/theme';
+import Loading from '@components/commons/Loading';
 
 const App = () => {
   const setScreenSize = () => {
@@ -30,8 +31,10 @@ const App = () => {
   return (
     <Wrapper>
       <ThemeProvider theme={theme}>
-        <Global styles={globalStyle} />
-        <Outlet />
+        <Suspense fallback={<Loading />}>
+          <Global styles={globalStyle} />
+          <Outlet />
+        </Suspense>
       </ThemeProvider>
     </Wrapper>
   );

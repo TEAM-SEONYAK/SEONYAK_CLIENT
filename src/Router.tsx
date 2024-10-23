@@ -1,6 +1,5 @@
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
-
 import App from './App';
 
 import Layout from '@pages/onboarding/components/Layout';
