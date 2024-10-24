@@ -52,9 +52,11 @@ const SeniorCardWrapper = styled.div<{ $isSmall: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  justify-content: center;
   align-items: center;
 
   width: 100%;
+  padding-top: 3.2rem;
   border-radius: 8px;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
@@ -63,7 +65,7 @@ const SeniorCardWrapper = styled.div<{ $isSmall: boolean }>`
 const SeniorCardLayout = styled.div`
   display: flex;
   gap: 1.5rem;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   width: 100%;
