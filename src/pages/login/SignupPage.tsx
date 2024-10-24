@@ -61,10 +61,6 @@ const SignUpContainer = styled.div`
   padding: 6rem 2rem 3.6rem;
 `;
 
-export const Gap = styled.div`
-  flex-grow: 1;
-`;
-
 const JoinSbBgSvgIcon = styled(JoinSbBgSvg)`
   position: fixed;
 

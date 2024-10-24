@@ -1,13 +1,17 @@
 import styled from '@emotion/styled';
-import Lottie from 'lottie-web';
 import { useRef, useEffect } from 'react';
+
+import * as lottie from 'lottie-web/build/player/lottie_light';
 import WelcomeJson from '@assets/lottie/welcome.json';
+
+type LottiePlayer = typeof lottie.default;
+const lottiePlayer = lottie as any as LottiePlayer;
 
 const Welcome = () => {
   const likecontainer = useRef<HTMLDivElement>(null!);
   useEffect(() => {
     if (likecontainer.current !== null) {
-      const animation = Lottie.loadAnimation({
+      const animation = lottiePlayer.loadAnimation({
         container: likecontainer.current,
         renderer: 'svg',
         loop: true,
