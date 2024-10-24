@@ -1,4 +1,5 @@
-import { HeaderLogoIc, SeniorRefreshImgIc } from '@assets/svgs';
+import { HeaderLogoIc } from '@assets/svgs';
+import img_senior_refresh from '@assets/images/img_senior_refresh.png';
 import { FullBtn } from '@components/commons/FullButton';
 import { Header } from '@components/commons/Header';
 import styled from '@emotion/styled';
@@ -12,7 +13,7 @@ const Init = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number
         <GradEllipse $type={1} />
         <GradEllipse $type={2} />
         <GradEllipse $type={3} />
-        <SeniorRefreshImgIcon />
+        <SeniorRefreshImg src={img_senior_refresh} />
         <Text>좋아요!</Text>
         <Text>이제 후배들이 선배님을 알 수 있도록</Text>
         <Text>
@@ -38,7 +39,8 @@ const InitWrapper = styled.div`
   min-height: calc(var(--vh, 1vh) * 100 - 44px);
   padding: 11vh 6.15rem;
 `;
-const SeniorRefreshImgIcon = styled(SeniorRefreshImgIc)`
+
+const SeniorRefreshImg = styled.img`
   position: absolute;
   top: 30vh;
   left: 14vh;

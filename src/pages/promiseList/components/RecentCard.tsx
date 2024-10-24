@@ -1,4 +1,4 @@
-import { EmptyImg } from '@assets/svgs';
+import img_empty from '@assets/images/img_empty.png';
 import styled from '@emotion/styled';
 import useCountdown from '@hooks/useCountDown';
 import ProfileChip from './ProfileChip';
@@ -68,7 +68,7 @@ const RecentCard = (props: RecentCardPropType) => {
           />
         </>
       ) : (
-        <EmptyImage />
+        <EmptyImg src={img_empty} />
       )}
     </Wrapper>
   );
@@ -109,6 +109,6 @@ const DashedDivider = styled.div`
   border-bottom: 1px dashed ${({ theme }) => theme.colors.grayScaleLG1};
 `;
 
-const EmptyImage = styled(EmptyImg)`
+const EmptyImg = styled.img`
   width: 100%;
 `;
