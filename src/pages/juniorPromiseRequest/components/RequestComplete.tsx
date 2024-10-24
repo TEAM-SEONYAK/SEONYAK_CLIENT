@@ -1,4 +1,4 @@
-import { ImgPromiseCompleteIc } from '@assets/svgs';
+import img_promise_complete from '@assets/images/img_promise_complete.png';
 import { FullBtn } from '@components/commons/FullButton';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ const RequestComplete = ({ seniorNickname }: SeniorNamePropType) => {
         {seniorNickname} 선배님과의
         <br /> 약속 신청이 완료됐어요!
       </Title>
-      <ImgPromiseCompleteIc />
+      <PromiseCompleteImg src={img_promise_complete} />
       <FullBtn paddingBottom={5.6} isActive={true} text={'나의 약속으로'} onClick={handleMyPromise} />
       <HomeBtn onClick={handleGoHome}>홈으로</HomeBtn>
     </Wrapper>
@@ -64,4 +64,9 @@ const Wrapper = styled.div`
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Head1_B_20};
+`;
+
+const PromiseCompleteImg = styled.img`
+  width: 33.1rem;
+  height: 32.1rem;
 `;
