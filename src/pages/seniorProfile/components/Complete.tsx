@@ -1,4 +1,4 @@
-import { ProfileCompleteIc } from '@assets/svgs';
+import { ProfileCompleteImg } from '@assets/images';
 import styled from '@emotion/styled';
 import { SENIOR_PROFILE_STEPS } from '@pages/seniorProfile/constants';
 import { useEffect } from 'react';
@@ -16,7 +16,7 @@ const Complete = () => {
     <Wrapper>
       <Meta>{SENIOR_PROFILE_STEPS[7].meta}</Meta>
       <Description>{SENIOR_PROFILE_STEPS[7].description}</Description>
-      <ProfileCompleteIc />
+      <Img src={ProfileCompleteImg} alt="" />
     </Wrapper>
   );
 };
@@ -48,4 +48,8 @@ const Description = styled.p`
   color: ${({ theme }) => theme.colors.grayScaleMG2};
 
   ${({ theme }) => theme.fonts.Body1_M_14};
+`;
+
+const Img = styled.img`
+  width: 33.1rem;
 `;

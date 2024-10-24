@@ -1,15 +1,14 @@
 import { BigMainLogoIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import JoinButton from '@pages/join/components/Button';
-import Welcome from '@pages/join/components/Welcome';
-import { Gap } from '@pages/login/SignupPage';
+// import Welcome from '@pages/join/components/Welcome';
 import googleLogin from '@pages/login/utils/googleLogin';
 import { JoinBgImgSvg } from '@assets/svgs';
 
 const JoinPage = () => {
   return (
     <>
-      <Welcome />
+      {/* <Welcome /> */}
       <JoinBgImgSvgIcon />
       <Wrapper>
         <BigMainLogoIcon />
@@ -117,4 +116,8 @@ const Underline = styled.hr`
   width: 7.2rem;
   margin-top: -1px;
   border: 0.5px solid;
+`;
+
+const Gap = styled.div`
+  flex-grow: 1;
 `;

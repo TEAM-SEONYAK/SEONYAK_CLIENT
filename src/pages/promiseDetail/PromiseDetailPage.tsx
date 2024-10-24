@@ -19,7 +19,8 @@ import {
   useGetPromiseDetail,
 } from './hooks/queries';
 import { extractMonthAndDay } from '@pages/promiseList/utils/extractMonthAndDay';
-import { ModalRejectImg, ModalAcceptImg } from '@assets/svgs';
+import img_modal_reject from '@assets/images/img_modal_reject.png';
+import img_modal_accept from '@assets/images/img_modal_accept.png';
 import Loading from '@components/commons/Loading';
 import ErrorPage from '@pages/errorPage/ErrorPage';
 
@@ -324,7 +325,7 @@ const PromiseDetail = () => {
         showModal={isModalOpen}
         handleShowModal={handleModalOpen}
         path="/promiseList">
-        {viewType === 'DECLINE' ? <ModalRejectImg /> : <ModalAcceptImg />}
+        <ModalImg src={viewType === 'DECLINE' ? img_modal_reject : img_modal_accept} />
       </AutoCloseModal>
 
       <BottomSheet
@@ -560,4 +561,9 @@ const DeclineReason = styled.div<{ $isActive: boolean }>`
 
   ${({ theme }) => theme.fonts.Title2_M_16};
   cursor: pointer;
+`;
+
+const ModalImg = styled.img`
+  width: 27rem;
+  height: 17.1rem;
 `;

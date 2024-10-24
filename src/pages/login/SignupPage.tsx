@@ -1,4 +1,6 @@
-import { GoogleLogoIc, OnboardingBackgroundHBIc, OnboardingBackgroundSBIc } from '@assets/svgs';
+import ic_google_logo from '@assets/images/ic_google_logo.png';
+import img_onboardingHB from '@assets/images/img_onboardingHB.png';
+import img_onboardingSB from '@assets/images/img_onboardingSB.png';
 import styled from '@emotion/styled';
 import theme from '@styles/theme';
 import { useLocation } from 'react-router-dom';
@@ -33,9 +35,9 @@ const SignupPage = () => {
             </>
           )}
         </DescTextWrapper>
-        {role === 'SENIOR' ? <OnboardingBackgroundSBIc /> : <OnboardingBackgroundHBIc />}
+        {role === 'SENIOR' ? <OnboardingSBImg src={img_onboardingSB} /> : <OnboardingHBImg src={img_onboardingHB} />}
         <BtnContainer onClick={() => googleLogin(role)}>
-          <GoogleLogoIcon />
+          <GoogleLogoImg src={ic_google_logo} />
           <Text>구글로 시작하기</Text>
         </BtnContainer>
       </SignUpContainer>
@@ -57,10 +59,6 @@ const SignUpContainer = styled.div`
   height: 100dvh;
   min-height: calc(var(--vh, 1vh) * 100 - 44px);
   padding: 6rem 2rem 3.6rem;
-`;
-
-export const Gap = styled.div`
-  flex-grow: 1;
 `;
 
 const JoinSbBgSvgIcon = styled(JoinSbBgSvg)`
@@ -118,11 +116,21 @@ const Text = styled.p`
   text-align: center;
 `;
 
-const GoogleLogoIcon = styled(GoogleLogoIc)`
+const GoogleLogoImg = styled.img`
   position: absolute;
   left: 1rem;
 
   width: 33px;
   height: 33px;
   margin: 10px;
+`;
+
+const OnboardingHBImg = styled.img`
+  width: 26.2rem;
+  height: 32.8rem;
+`;
+
+const OnboardingSBImg = styled.img`
+  width: 27.5rem;
+  height: 35.3rem;
 `;

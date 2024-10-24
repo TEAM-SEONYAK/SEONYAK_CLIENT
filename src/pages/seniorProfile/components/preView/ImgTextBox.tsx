@@ -1,10 +1,11 @@
-import { AwardMedalIc, CareerFlagIc } from '@assets/svgs';
+import img_flag from '@assets/images/img_flag.png';
+import img_medal from '@assets/images/img_medal.png';
 import styled from '@emotion/styled';
 
 const ImgTextBox = ({ variant = 'career', text }: { variant?: 'career' | 'award'; text: string }) => {
   return (
     <Wrapper>
-      {variant === 'career' ? <CareerFlagIcon /> : <AwardMedalIcon />}
+      <CareerMedalImg src={variant === 'career' ? img_flag : img_medal} />
       <Text>{text}</Text>
     </Wrapper>
   );
@@ -24,11 +25,7 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grayScaleWG};
 `;
 
-const CareerFlagIcon = styled(CareerFlagIc)`
-  width: 5.5rem;
-  height: 7rem;
-`;
-const AwardMedalIcon = styled(AwardMedalIc)`
+const CareerMedalImg = styled.img`
   width: 5.5rem;
   height: 7rem;
 `;
