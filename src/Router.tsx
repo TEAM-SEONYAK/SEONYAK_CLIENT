@@ -1,6 +1,6 @@
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 
 // import JuniorPromisePage from './pages/juniorPromise/JuniorPromisePage';
 // import SignupPage from './pages/login/SignupPage';
@@ -32,6 +32,7 @@ import LoginCallback from '@pages/login/LoginCallback';
 import HomePage from '@pages/home/HomePage';
 import JoinPage from '@pages/join/JoinPage';
 import ErrorPage from '@pages/errorPage/ErrorPage';
+import Loading from '@components/commons/Loading';
 
 const SignupPage = lazy(() => import('./pages/login/SignupPage'));
 const Step약관동의 = lazy(() => import('@pages/onboarding/components/commonOnboarding/Step약관동의'));
@@ -59,7 +60,11 @@ const PromiseDetailPageJunior = lazy(() => import('@pages/promiseDetail/PromiseD
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <App />
+      </Suspense>
+    ),
     children: [
       {
         index: true,
@@ -67,27 +72,51 @@ const router = createBrowserRouter([
       },
       {
         path: 'join',
-        element: <JoinPage />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <JoinPage />
+          </Suspense>
+        ),
       },
       {
         path: 'promiseList/promiseDetail',
-        element: <PromiseDetail />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <PromiseDetail />
+          </Suspense>
+        ),
       },
       {
         path: 'promiseList/promiseDetailJunior',
-        element: <PromiseDetailPageJunior />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <PromiseDetailPageJunior />
+          </Suspense>
+        ),
       },
       {
         path: 'promiseList',
-        element: <PromiseListPage />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <PromiseListPage />
+          </Suspense>
+        ),
       },
       {
         path: 'signup',
-        element: <SignupPage />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <SignupPage />
+          </Suspense>
+        ),
       },
       {
         path: 'auth/google',
-        element: <LoginCallback />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <LoginCallback />
+          </Suspense>
+        ),
       },
       {
         path: 'seniorOnboarding',
@@ -99,43 +128,83 @@ const router = createBrowserRouter([
           },
           {
             path: '1',
-            element: <Step약관동의 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step약관동의 />
+              </Suspense>
+            ),
           },
           {
             path: '2',
-            element: <Step개인정보입력 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step개인정보입력 />
+              </Suspense>
+            ),
           },
           {
             path: '3',
-            element: <Step학교선택 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step학교선택 />
+              </Suspense>
+            ),
           },
           {
             path: '4',
-            element: <Step계열선택 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step계열선택 />
+              </Suspense>
+            ),
           },
           {
             path: '5',
-            element: <Step학과선택 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step학과선택 />
+              </Suspense>
+            ),
           },
           {
             path: '6',
-            element: <Step졸업인증 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step졸업인증 />
+              </Suspense>
+            ),
           },
           {
             path: '7',
-            element: <Step명함인증 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step명함인증 />
+              </Suspense>
+            ),
           },
           {
             path: '8',
-            element: <Step직무선택 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step직무선택 />
+              </Suspense>
+            ),
           },
           {
             path: '9',
-            element: <Step재직기간 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step재직기간 />
+              </Suspense>
+            ),
           },
           {
             path: '10',
-            element: <Step번호입력 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step번호입력 />
+              </Suspense>
+            ),
           },
         ],
       },
@@ -149,49 +218,93 @@ const router = createBrowserRouter([
           },
           {
             path: '1',
-            element: <Step약관동의 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step약관동의 />
+              </Suspense>
+            ),
           },
           {
             path: '2',
-            element: <Step개인정보입력 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step개인정보입력 />
+              </Suspense>
+            ),
           },
           {
             path: '3',
-            element: <Step번호입력 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step번호입력 />
+              </Suspense>
+            ),
           },
           {
             path: '4',
-            element: <Step학교선택 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step학교선택 />
+              </Suspense>
+            ),
           },
           {
             path: '5',
-            element: <Step이메일입력 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step이메일입력 />
+              </Suspense>
+            ),
           },
           {
             path: '6',
-            element: <Step계열선택 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step계열선택 />
+              </Suspense>
+            ),
           },
           {
             path: '7',
-            element: <Step학과선택 />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <Step학과선택 />
+              </Suspense>
+            ),
           },
           {
             path: 'complete',
-            element: <StepComplete />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <StepComplete />
+              </Suspense>
+            ),
           },
         ],
       },
       {
         path: 'seniorProfile',
-        element: <SeniorProfilePage />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <SeniorProfilePage />
+          </Suspense>
+        ),
       },
       {
         path: 'juniorPromise',
-        element: <JuniorPromisePage />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <JuniorPromisePage />
+          </Suspense>
+        ),
       },
       {
         path: 'juniorPromiseRequest',
-        element: <JuniorPromiseRequestPage />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <JuniorPromiseRequestPage />
+          </Suspense>
+        ),
       },
       {
         path: 'error',
