@@ -11,7 +11,7 @@ export { default as ArrowLeftIc } from './icn_arrow_left.svg?react';
 export { default as AlarmIc } from './logo-alarm.svg?react';
 export { default as HeaderLogoIc } from './img_headerlogo.svg?react';
 export { default as CloseIc } from './ic_close.svg?react';
-export { default as TechCharacterIc } from './tech_character.svg?react';
+// export { default as TechCharacterIc } from './tech_character.svg?react';
 export { default as ErrorSmallIc } from './ic_error_small.svg?react';
 export { default as CameraIc } from './ic_camera.svg?react';
 export { default as CheckItemIc } from './ic_check_item.svg?react';
