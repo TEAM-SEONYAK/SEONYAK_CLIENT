@@ -2,31 +2,6 @@ import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from './App';
 import { lazy, Suspense } from 'react';
 
-// import JuniorPromisePage from './pages/juniorPromise/JuniorPromisePage';
-// import SignupPage from './pages/login/SignupPage';
-// import PromiseListPage from './pages/promiseList/PromiseListPage';
-// import SeniorProfilePage from './pages/seniorProfile/SeniorProfilePage';
-// import Step약관동의 from '@pages/onboarding/components/commonOnboarding/Step약관동의';
-// import Step개인정보입력 from '@pages/onboarding/components/commonOnboarding/Step개인정보입력';
-// import Step학교선택 from '@pages/onboarding/components/commonOnboarding/Step학교선택';
-// import Step계열선택 from '@pages/onboarding/components/commonOnboarding/Step계열선택';
-// import Step학과선택 from '@pages/onboarding/components/commonOnboarding/Step학과선택';
-// import Step졸업인증 from '@pages/onboarding/components/seniorOnboarding/Step졸업인증';
-// import Step명함인증 from '@pages/onboarding/components/seniorOnboarding/Step명함인증';
-// import Step직무선택 from '@pages/onboarding/components/seniorOnboarding/Step직무선택';
-// import Step재직기간 from '@pages/onboarding/components/seniorOnboarding/Step재직기간';
-// import Step번호입력 from '@pages/onboarding/components/commonOnboarding/Step번호입력';
-// import Step이메일입력 from '@pages/onboarding/components/juniorOnboarding/Step이메일입력';
-// import Layout from '@pages/onboarding/components/Layout';
-// import JoinPage from '@pages/join/JoinPage';
-// import ErrorPage from '@pages/errorPage/ErrorPage';
-// import StepComplete from '@pages/onboarding/components/juniorOnboarding/StepComplete';
-// import LoginCallback from '@pages/login/LoginCallback';
-// import JuniorPromiseRequestPage from '@pages/juniorPromiseRequest/JuniorPromiseRequestPage';
-// import HomePage from '@pages/home/HomePage';
-// import PromiseDetail from '@pages/promiseDetail/PromiseDetailPage';
-// import PromiseDetailPageJunior from '@pages/promiseDetail/PromiseDetailPageJunior';
-
 import Layout from '@pages/onboarding/components/Layout';
 import LoginCallback from '@pages/login/LoginCallback';
 import HomePage from '@pages/home/HomePage';

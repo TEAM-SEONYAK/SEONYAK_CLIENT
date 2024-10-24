@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useEffect, useRef } from 'react';
 
 import * as lottie from 'lottie-web/build/player/lottie_light';
-import SpinnerJson from '../../assets/lottie/spinner.json';
+import SpinnerJson from '../../assets/lottie/spinner_light.json';
 
 type LottiePlayer = typeof lottie.default;
 const lottiePlayer = lottie as any as LottiePlayer;
