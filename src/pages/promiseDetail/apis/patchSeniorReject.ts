@@ -13,7 +13,7 @@ export const patchSeniorReject = async ({
   rejectDetail,
 }: patchSeniorRejectRequestType) => {
   try {
-    const response = await authAxios.patch('/v1/appointment/reject', {
+    const response = await authAxios.patch('/api/v1/appointment/reject', {
       appointmentId,
       rejectReason,
       rejectDetail,

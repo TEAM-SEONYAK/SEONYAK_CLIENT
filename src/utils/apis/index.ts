@@ -1,15 +1,17 @@
 import { getToken } from '@utils/storage';
 import * as _axios from 'axios';
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 export const axios = _axios.default.create({
-  baseURL: '/api',
+  baseURL: `${baseUrl}`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 export const authAxios = _axios.default.create({
-  baseURL: '/api',
+  baseURL: `${baseUrl}`,
   headers: {
     'Content-Type': 'application/json',
   },
