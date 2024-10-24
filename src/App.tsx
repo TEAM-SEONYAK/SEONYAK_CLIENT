@@ -31,10 +31,8 @@ const App = () => {
   return (
     <Wrapper>
       <ThemeProvider theme={theme}>
-        {/* <Suspense fallback={<Loading />}> */}
         <Global styles={globalStyle} />
         <Outlet />
-        {/* </Suspense> */}
       </ThemeProvider>
     </Wrapper>
   );
