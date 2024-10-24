@@ -9,7 +9,7 @@ import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { usePhoneVerify, usePhoneVerifycode } from '@pages/onboarding/hooks/usePhoneQuery';
 import { BtnCloseModal, BtnModalTitle } from '@components/commons/modal/BtnModal';
-import { WarningImg } from '@assets/svgs';
+import img_warning from '@assets/images/img_warning.png';
 import axios from 'axios';
 import { 이미_사용중인_전화번호_에러코드 } from '@pages/onboarding/constants';
 import { SuccessImg } from '@assets/images';
@@ -242,7 +242,7 @@ export const AlreadyModalView = () => {
   const PHONEMODAL_TEXT = `이미 서비스에 가입한 번호예요\n변경을 원하시는 경우\n해당 계정으로 로그인을 하신 후\n이의 신청해주시길 바랍니다`;
   return (
     <ModalWrapper>
-      <WarningImg />
+      <WarnImg src={img_warning} />
       <BtnModalTitle>가입된 계정이 있어요</BtnModalTitle>
       <ModalDescription>{PHONEMODAL_TEXT}</ModalDescription>
     </ModalWrapper>
@@ -270,4 +270,9 @@ const ModalDescription = styled.p`
   white-space: pre-wrap;
 
   ${({ theme }) => theme.fonts.Body1_M_14};
+`;
+
+const WarnImg = styled.img`
+  width: 7.1rem;
+  height: 7.1rem;
 `;
