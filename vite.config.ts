@@ -29,5 +29,24 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'vendor';
+            }
+            // lottie-web은 lottie 청크로 분리
+            if (id.includes('lottie-web')) {
+              return 'lottie';
+            }
+            // react-calendar는 calendar 청크로 분리
+            if (id.includes('react-calendar')) {
+              return 'calendar';
+            }
+          },
+        },
+      },
+    },
   };
 });
