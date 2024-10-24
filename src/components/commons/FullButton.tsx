@@ -35,9 +35,9 @@ const Wrapper = styled.div<{ $isTransparent: boolean; $paddingBottom?: number; $
   position: fixed;
   bottom: 0;
   z-index: 9;
-  margin-left: ${({ $marginLeft }) => $marginLeft}rem;
 
   width: 100%;
+  margin-left: ${({ $marginLeft }) => $marginLeft}rem;
   padding: 0 2rem 3.8rem;
   padding-bottom: ${({ $paddingBottom }) => $paddingBottom}rem;
 

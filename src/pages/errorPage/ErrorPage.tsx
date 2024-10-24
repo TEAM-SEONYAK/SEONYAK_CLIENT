@@ -1,7 +1,7 @@
-import { WarningImg } from '@assets/svgs';
 import styled from '@emotion/styled';
 import { getRole } from '@utils/storage';
 import { useNavigate } from 'react-router-dom';
+import img_waring from '@assets/images/img_warning.png';
 
 const ErrorPage = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const ErrorPage = () => {
   const navPath = role === 'SENIOR' ? '/promiseList' : '/juniorPromise';
   return (
     <Wrapper>
-      <WarningImgIcon />
+      <WarningImg src={img_waring} />
       <Meta>오류가 발생했어요</Meta>
       <Description onClick={() => navigate(navPath)}>홈으로</Description>
     </Wrapper>
@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   padding: 16.7rem 9.8rem 23.7rem 9.9rem;
 `;
 
-const WarningImgIcon = styled(WarningImg)`
+const WarningImg = styled.img`
   width: 12.8rem;
   height: 14rem;
 `;

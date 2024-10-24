@@ -11,7 +11,8 @@ import ScheduleSelect from './components/ScheduleSelect';
 import { BtnCloseModal } from '@components/commons/modal/BtnModal';
 import CheckModalContent from './components/CheckModalContent';
 import RequestComplete from './components/RequestComplete';
-import { ArrowLeftIc, ImgHbpromiseIc } from '@assets/svgs';
+import { ArrowLeftIc } from '@assets/svgs';
+import img_hbpromise from '@assets/images/img_hbpromise.png';
 import { Header } from '@components/commons/Header';
 import Banner from './components/Banner';
 import TitleBox from '@components/commons/TitleBox';
@@ -105,7 +106,7 @@ const JuniorPromiseRequestPage = () => {
     <Wrapper>
       <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate(-1)} title={'약속 신청하기'} />
       <Banner senior={`${seniorNickname} 선배`} />
-      <ImgHbpromiseIcon />
+      <HbPromiseImg src={img_hbpromise} />
 
       <Layout>
         <GrayLine1 />
@@ -165,7 +166,7 @@ const JuniorPromiseRequestPage = () => {
 
 export default JuniorPromiseRequestPage;
 
-const ImgHbpromiseIcon = styled(ImgHbpromiseIc)`
+const HbPromiseImg = styled.img`
   position: absolute;
   top: 5rem;
   right: 0;
