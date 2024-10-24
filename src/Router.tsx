@@ -21,10 +21,10 @@ const Step번호입력 = lazy(() => import('@pages/onboarding/components/commonO
 const Step이메일입력 = lazy(() => import('@pages/onboarding/components/juniorOnboarding/Step이메일입력'));
 const StepComplete = lazy(() => import('@pages/onboarding/components/juniorOnboarding/StepComplete'));
 
-const SeniorProfilePage = lazy(() => import('@pages/juniorPromiseRequest/JuniorPromiseRequestPage'));
+const SeniorProfilePage = lazy(() => import('@pages/seniorProfile/SeniorProfilePage'));
 
 const JuniorPromisePage = lazy(() => import('./pages/juniorPromise/JuniorPromisePage'));
-const JuniorPromiseRequestPage = lazy(() => import('./pages/juniorPromise/JuniorPromisePage'));
+const JuniorPromiseRequestPage = lazy(() => import('./pages/juniorPromiseRequest/JuniorPromiseRequestPage'));
 
 const PromiseListPage = lazy(() => import('./pages/promiseList/PromiseListPage'));
 const PromiseDetail = lazy(() => import('@pages/promiseDetail/PromiseDetailPage'));
