@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { NaviLookBlackIc, NaviPromiseBlackIc, NaviMyBlackIc } from '../../assets/svgs';
 import { getRole } from '@utils/storage';
+import { AutoCloseModal } from './modal/AutoCloseModal';
+import { ComingSoonImg } from '@assets/images';
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -10,6 +12,7 @@ const Nav = () => {
 
   const userRole = getRole();
   const [currNav, setCurrNav] = useState(location.pathname);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (currNav !== location.pathname) {
@@ -21,36 +24,43 @@ const Nav = () => {
   // 유저가 후배일 경우 접근 가능한 곳 : 둘러보기, 나의 약속
   // 접근 불가능한 곳은 클릭 안되고, 라우팅 처리 안됨
   const handleOnClickNav = (nav: string) => {
-    if (userRole === 'JUNIOR') {
-      if (nav === '둘러보기') {
-        setCurrNav('/juniorPromise');
-      } else if (nav === '나의 약속') {
+    switch (nav) {
+      case '둘러보기':
+        userRole === 'JUNIOR' ? setCurrNav('/juniorPromise') : setShowModal(true);
+        break;
+      case '나의 약속':
         setCurrNav('/promiseList');
-      }
-    } else if (userRole === 'SENIOR') {
-      if (nav === '나의 약속') {
-        setCurrNav('/promiseList');
-      }
+        break;
+      case '마이페이지':
+        setShowModal(true);
+        break;
     }
   };
 
   return (
-    <Wrapper>
-      <TapContainer
-        onClick={() => userRole === 'JUNIOR' && handleOnClickNav('둘러보기')}
-        disabled={userRole === 'SENIOR'}>
-        <NaviLookBlackIcon isactive={(currNav === '/juniorPromise') + ''} />
-        <TapContent $isActive={currNav === '/juniorPromise'}>둘러보기</TapContent>
-      </TapContainer>
-      <TapContainer onClick={() => handleOnClickNav('나의 약속')}>
-        <NaviPromiseBlackIcon isactive={(currNav === '/promiseList') + ''} />
-        <TapContent $isActive={currNav === '/promiseList'}>나의 약속</TapContent>
-      </TapContainer>
-      <TapContainer onClick={() => userRole === 'JUNIOR' && handleOnClickNav('마이페이지')} disabled={true}>
-        <NaviMyBlackIcon isactive={(currNav === '마이페이지') + ''} />
-        <TapContent $isActive={currNav === '마이페이지'}>마이페이지</TapContent>
-      </TapContainer>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <TapContainer onClick={() => handleOnClickNav('둘러보기')} $disabled={userRole === 'SENIOR'}>
+          <NaviLookBlackIcon isactive={(currNav === '/juniorPromise') + ''} />
+          <TapContent $isActive={currNav === '/juniorPromise'}>둘러보기</TapContent>
+        </TapContainer>
+        <TapContainer onClick={() => handleOnClickNav('나의 약속')}>
+          <NaviPromiseBlackIcon isactive={(currNav === '/promiseList') + ''} />
+          <TapContent $isActive={currNav === '/promiseList'}>나의 약속</TapContent>
+        </TapContainer>
+        <TapContainer onClick={() => handleOnClickNav('마이페이지')} $disabled={true}>
+          <NaviMyBlackIcon isactive={(currNav === '마이페이지') + ''} />
+          <TapContent $isActive={currNav === '마이페이지'}>마이페이지</TapContent>
+        </TapContainer>
+      </Wrapper>
+
+      <AutoCloseModal
+        text="아직 준비중인 기능이에요"
+        showModal={showModal}
+        handleShowModal={(type: boolean) => setShowModal(type)}>
+        <img src={ComingSoonImg} alt="준비중인 기능 모달" />
+      </AutoCloseModal>
+    </>
   );
 };
 
@@ -70,14 +80,14 @@ const Wrapper = styled.nav`
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
 `;
 
-const TapContainer = styled.div<{ disabled?: boolean }>`
+const TapContainer = styled.div<{ $disabled?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
 
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  cursor: ${({ $disabled }) => ($disabled ? 'not-allowed' : 'pointer')};
 `;
 
 const TapContent = styled.span<{ $isActive: boolean }>`
