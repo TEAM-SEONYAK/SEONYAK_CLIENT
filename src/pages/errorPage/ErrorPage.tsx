@@ -6,12 +6,11 @@ import { FullBtn } from '@components/commons/FullButton';
 const ErrorPage = () => {
   const navigate = useNavigate();
 
-  const homeButton = () => {
-    // 로컬스토리지 초기화
+  const handleHomeButton = () => {
     localStorage.clear();
-    // 루트 경로로 navigate
     navigate('/');
   };
+
   return (
     <Wrapper>
       <WarningImg src={img_waring} />
@@ -21,7 +20,7 @@ const ErrorPage = () => {
         <Link>고객센터</Link>
         <Link>자주 묻는 질문</Link>
       </LinkLayout>
-      <FullBtn text="홈으로" onClick={() => homeButton()} />
+      <FullBtn text="홈으로" onClick={() => handleHomeButton()} />
     </Wrapper>
   );
 };
