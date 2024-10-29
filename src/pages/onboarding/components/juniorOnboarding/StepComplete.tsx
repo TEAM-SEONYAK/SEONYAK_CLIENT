@@ -1,9 +1,11 @@
 import { ProfileCompleteImg } from '@assets/images';
 import styled from '@emotion/styled';
+import { JoinContextType } from '@pages/onboarding/type';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
 const StepComplete = () => {
+  const { data } = useOutletContext<JoinContextType>();
   const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -14,9 +16,9 @@ const StepComplete = () => {
   return (
     <Wrapper>
       <Title>
-        고생하셨어요!
+        {data.nickname} 후배님
         <br />
-        회원가입이 완료되었어요
+        반가워요!
       </Title>
       <Description>바로 선약을 시작하고, 선배와 약속을 잡아보세요</Description>
       <Img src={ProfileCompleteImg} alt="" />
