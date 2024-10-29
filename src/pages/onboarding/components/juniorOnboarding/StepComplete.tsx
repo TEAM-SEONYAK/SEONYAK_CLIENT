@@ -1,7 +1,16 @@
 import { ProfileCompleteImg } from '@assets/images';
 import styled from '@emotion/styled';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const StepComplete = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/juniorPromise');
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <Wrapper>
       <Title>
