@@ -3,13 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import img_waring from '@assets/images/img_warning.png';
 import { FullBtn } from '@components/commons/FullButton';
 
+const URLS = {
+  customerCenter: 'https://tally.so/r/3XB0Wz',
+  askedQuestion: 'https://cumbersome-cactus-843.notion.site/f4c466a64a914980a0b2794891790505',
+};
+
 const ErrorPage = () => {
   const navigate = useNavigate();
 
-  const handleHomeButton = () => {
+  const handleHomeBtn = () => {
     localStorage.clear();
     navigate('/');
   };
+
+  const handleOpenUrl = (url: string) => window.open(url);
 
   return (
     <Wrapper>
@@ -17,10 +24,10 @@ const ErrorPage = () => {
       <Meta>오류가 발생했어요</Meta>
       <Description>궁금한 사항이 해결되지 않으셨나요?</Description>
       <LinkLayout>
-        <Link>고객센터</Link>
-        <Link>자주 묻는 질문</Link>
+        <Link onClick={() => handleOpenUrl(URLS.customerCenter)}>고객센터</Link>
+        <Link onClick={() => handleOpenUrl(URLS.askedQuestion)}>자주 묻는 질문</Link>
       </LinkLayout>
-      <FullBtn text="홈으로" onClick={() => handleHomeButton()} />
+      <FullBtn text="홈으로" onClick={() => handleHomeBtn()} />
     </Wrapper>
   );
 };
