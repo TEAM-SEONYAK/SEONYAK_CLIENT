@@ -87,7 +87,7 @@ const Divider = styled.div`
   top: 4.9rem;
 
   width: 100%;
-  height: 1.4px;
+  height: 0.14rem;
 
   background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
