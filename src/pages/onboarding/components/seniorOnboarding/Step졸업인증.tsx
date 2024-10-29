@@ -94,5 +94,4 @@ const Img = styled.img`
 const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
-  margin-left: -2rem;
 `;
