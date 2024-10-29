@@ -4,7 +4,7 @@ import Complete from '@pages/seniorProfile/components/Complete';
 import Init from '@pages/seniorProfile/components/Init';
 import PreView from '@pages/seniorProfile/components/preView/index';
 import { seniorProfileRegisterType, seniorProfileInitial } from '@pages/seniorProfile/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Career from './components/Career';
 import Example from './components/Example';
 import Sentence from './components/Sentence';
@@ -14,11 +14,20 @@ import { SENIOR_PROFILE_STEPS } from './constants';
 import { Header } from '../../components/commons/Header';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SeniorProfilePage = () => {
   const [step, setStep] = useState(0);
   const [profile, setProfile] = useState<seniorProfileRegisterType>(seniorProfileInitial);
-  const userName = step >= 2 && step <= 4 ? '도현' : '';
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { seniorId, nickname } = location.state || {};
+  const userName = step >= 2 && step <= 4 ? nickname : '';
+
+  useEffect(() => {
+    if (!seniorId || !nickname) navigate('/');
+  }, [seniorId, nickname, navigate]);
+
   const getComponent = () => {
     switch (step) {
       case 0:
@@ -34,7 +43,7 @@ const SeniorProfilePage = () => {
       case 5:
         return <TimeSelect profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 6:
-        return <PreView setStep={setStep} profile={profile} seniorId={11 + ''} />;
+        return <PreView setStep={setStep} profile={profile} seniorId={seniorId} />;
       case 7:
         return <Complete />;
       default:
