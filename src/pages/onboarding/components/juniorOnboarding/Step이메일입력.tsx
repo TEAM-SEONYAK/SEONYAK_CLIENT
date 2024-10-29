@@ -18,9 +18,12 @@ const Step이메일입력 = () => {
   const navigate = useNavigate();
   const { univName } = useLocation().state;
 
+  const handleClickLink = () => {
+    navigate('/juniorOnboarding/6');
+  };
+
   const verifyMutation = useUnivVerify();
   const verifycodeMutation = useUnivVerifycode();
-  console.log({ verifycodeMutation });
   const [isEmailError, setIsEmailError] = useState(false);
   const [isValidCodeError, setIsValidCodeError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -95,7 +98,20 @@ const Step이메일입력 = () => {
   };
 
   const handleClickButton = () => {
-    navigate('/juniorOnboarding/6');
+    verifycodeMutation.mutate(
+      { email, univName, code },
+      {
+        onSuccess: () => {
+          setIsModalOpen(true);
+          setTimeout(() => {
+            handleClickLink();
+          }, 2000);
+        },
+        onError: () => {
+          setIsValidCodeError(true);
+        },
+      },
+    );
   };
 
   const handleShowAlreadyModal = (type: boolean) => {
