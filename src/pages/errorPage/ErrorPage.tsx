@@ -1,17 +1,23 @@
 import styled from '@emotion/styled';
-import { getRole } from '@utils/storage';
-import { useNavigate } from 'react-router-dom';
+// import { getRole } from '@utils/storage';
+// import { useNavigate } from 'react-router-dom';
 import img_waring from '@assets/images/img_warning.png';
+import { FullBtn } from '@components/commons/FullButton';
 
 const ErrorPage = () => {
-  const navigate = useNavigate();
-  const role = getRole();
-  const navPath = role === 'SENIOR' ? '/promiseList' : '/juniorPromise';
+  // const navigate = useNavigate();
+  // const role = getRole();
+  // const navPath = role === 'SENIOR' ? '/promiseList' : '/juniorPromise';
   return (
     <Wrapper>
       <WarningImg src={img_waring} />
       <Meta>오류가 발생했어요</Meta>
-      <Description onClick={() => navigate(navPath)}>홈으로</Description>
+      <Description>궁금한 사항이 해결되지 않으셨나요?</Description>
+      <LinkLayout>
+        <Link>고객센터</Link>
+        <Link>자주 묻는 질문</Link>
+      </LinkLayout>
+      <FullBtn text='홈으로'/>
     </Wrapper>
   );
 };
@@ -34,19 +40,38 @@ const WarningImg = styled.img`
 `;
 
 const Meta = styled.p`
-  margin-top: 3rem;
+  margin-top: 2.4rem;
 
   color: ${({ theme }) => theme.colors.grayScaleBG};
 
-  ${({ theme }) => theme.fonts.Head2_SB_18};
+  ${({ theme }) => theme.fonts.Head1_B_20};
 `;
 
 const Description = styled.p`
-  margin-top: 0.7rem;
+  margin-top: 0.8rem;
+
+  color: ${({ theme }) => theme.colors.grayScaleMG1};
+  text-align: center;
+  white-space: nowrap;
+
+  ${({ theme }) => theme.fonts.Title1_SB_16};
+`;
+
+const LinkLayout = styled.div`
+  display: flex;
+  gap: 2.4rem;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Link = styled.p`
+  margin-top: 1.6rem;
 
   color: ${({ theme }) => theme.colors.grayScaleMG1};
   text-align: center;
   text-decoration: underline;
-  text-underline-offset: 0.3rem;
-  ${({ theme }) => theme.fonts.Title2_R_16};
+
+  text-underline-offset: 0.2rem;
+
+  ${({ theme }) => theme.fonts.Title1_SB_16};
 `;
