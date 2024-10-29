@@ -1,17 +1,13 @@
 import { ProfileCompleteImg } from '@assets/images';
 import styled from '@emotion/styled';
-import { JoinContextType } from '@pages/onboarding/type';
-import { useOutletContext } from 'react-router-dom';
 
 const StepComplete = () => {
-  const { data } = useOutletContext<JoinContextType>();
-
   return (
     <Wrapper>
       <Title>
-        {data.nickname} 후배님
+        고생하셨어요!
         <br />
-        반가워요!
+        회원가입이 완료되었어요
       </Title>
       <Description>바로 선약을 시작하고, 선배와 약속을 잡아보세요</Description>
       <Img src={ProfileCompleteImg} alt="" />
