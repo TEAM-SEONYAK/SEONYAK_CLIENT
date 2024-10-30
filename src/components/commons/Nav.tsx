@@ -57,7 +57,7 @@ const Nav = () => {
       <AutoCloseModal
         text="아직 준비중인 기능이에요"
         showModal={showModal}
-        handleShowModal={(type: boolean) => setShowModal(type)}>
+        handleShowModal={(show: boolean) => setShowModal(show)}>
         <img src={ComingSoonImg} alt="준비중인 기능 모달" />
       </AutoCloseModal>
     </>

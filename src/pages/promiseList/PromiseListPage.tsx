@@ -42,7 +42,7 @@ const PromiseListPage = () => {
       <AutoCloseModal
         text="알림은 문자를 확인해주세요 !"
         showModal={showModal}
-        handleShowModal={(type: boolean) => setShowModal(type)}>
+        handleShowModal={(show: boolean) => setShowModal(show)}>
         <ModalImg src={img_modal_accept} />
       </AutoCloseModal>
     </>
