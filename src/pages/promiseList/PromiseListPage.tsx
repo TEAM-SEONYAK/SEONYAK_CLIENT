@@ -11,7 +11,7 @@ import { getRole } from '@utils/storage';
 import ErrorPage from '@pages/errorPage/ErrorPage';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import { useState } from 'react';
-import img_success from '@assets/images/img_success.png';
+import img_modal_accept from '@assets/images/img_modal_accept.png';
 
 const PromiseListPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -43,7 +43,7 @@ const PromiseListPage = () => {
         text="알림은 문자를 확인해주세요 !"
         showModal={showModal}
         handleShowModal={(type: boolean) => setShowModal(type)}>
-        <ModalImg src={img_success} />
+        <ModalImg src={img_modal_accept} />
       </AutoCloseModal>
     </>
   );
