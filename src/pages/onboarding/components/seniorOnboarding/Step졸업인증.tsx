@@ -7,6 +7,7 @@ import { FullBtn } from '@components/commons/FullButton';
 import { useNavigate } from 'react-router-dom';
 import { SuccessImg } from '@assets/images';
 import useOCRUnivQuery from '@pages/onboarding/hooks/useOCRUnivQuery';
+import Loading from '@components/commons/Loading';
 
 const Step졸업인증 = () => {
   const DEFAULT_TEXT = '졸업증명서를 첨부해 주세요';
@@ -49,6 +50,7 @@ const Step졸업인증 = () => {
 
   return (
     <>
+      {mutation.isPending && <Loading isTransparent />}
       <Wrapper>
         <div style={{ padding: '0 2rem' }}>
           <TextBox label="졸업증명서">
