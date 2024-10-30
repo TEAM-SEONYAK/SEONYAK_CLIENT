@@ -1,7 +1,7 @@
 import { authAxios, axios } from '@utils/apis';
 
 export const profileUrlAxios = () => {
-  return authAxios.get('/v1/image/profile');
+  return authAxios.get('/api/v1/image/profile');
 };
 
 export const uploadProfileImageAxios = async (url: string, file: File) => {
