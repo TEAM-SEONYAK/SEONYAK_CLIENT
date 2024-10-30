@@ -103,6 +103,8 @@ const Content = styled.section`
 
 const ListWrapper = styled.section`
   display: flex;
+
+  cursor: pointer;
 `;
 
 const ListBold = styled.span`

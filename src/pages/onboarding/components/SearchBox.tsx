@@ -45,6 +45,9 @@ const InputWrapper = styled.div`
   border-radius: 8px;
 
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+
+  cursor: pointer;
+
 `;
 
 const Input = styled.input`

@@ -209,6 +209,8 @@ const BlackButton = styled.label`
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   text-align: center;
 
+  cursor: pointer;
+
   & > input {
     display: none;
   }

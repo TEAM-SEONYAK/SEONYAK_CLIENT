@@ -129,6 +129,8 @@ const FileLabel = styled.label<{ $isError: boolean }>`
   border-radius: 8px;
 
   background-color: ${({ $isError, theme }) => ($isError ? theme.colors.transparentRed_3 : theme.colors.grayScaleLG1)};
+
+  cursor: pointer;
 `;
 
 const FileInput = styled.input`

@@ -108,6 +108,8 @@ const BtnContainer = styled.div`
   border-radius: 5px;
 
   background-color: ${({ theme }) => theme.colors.grayScaleBG};
+
+  cursor: pointer;
 `;
 
 const Text = styled.p`

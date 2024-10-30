@@ -58,6 +58,8 @@ const ItemWrapper = styled.li`
 
   height: 4.8rem;
   padding: 1rem 0;
+
+  cursor: pointer;
 `;
 
 const Text = styled.p`
