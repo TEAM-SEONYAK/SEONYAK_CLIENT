@@ -45,6 +45,7 @@ const Step명함인증 = () => {
     setData((prev) => ({
       ...prev,
       company: info?.company,
+      businessCard: res.fileName,
     }));
     navigate('/seniorOnboarding/8');
   };
