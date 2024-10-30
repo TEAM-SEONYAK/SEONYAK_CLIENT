@@ -9,8 +9,12 @@ import { useGetPromiseList } from './hooks/queries';
 import Loading from '@components/commons/Loading';
 import { getRole } from '@utils/storage';
 import ErrorPage from '@pages/errorPage/ErrorPage';
+import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
+import { useState } from 'react';
+import img_modal_accept from '@assets/images/img_modal_accept.png';
 
 const PromiseListPage = () => {
+  const [showModal, setShowModal] = useState(false);
   const userRole = getRole() + '';
 
   const { myNickname, pending, scheduled, past, isLoading, isError } = useGetPromiseList();
@@ -20,7 +24,7 @@ const PromiseListPage = () => {
 
   return (
     <>
-      <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} bgColor="gray" />
+      <Header LeftSvg={HeaderLogoIc} RightSvg={AlarmIc} onClickRight={() => setShowModal(true)} bgColor="gray" />
       <Wrapper>
         <RecentLayout>
           <Title nickname={myNickname} userRole={userRole} count={scheduled.length} />
@@ -34,6 +38,13 @@ const PromiseListPage = () => {
         <PromiseTap myNickname={myNickname} userRole={userRole} pending={pending} scheduled={scheduled} past={past} />
         <Nav />
       </Wrapper>
+
+      <AutoCloseModal
+        text="알림은 문자를 확인해주세요 !"
+        showModal={showModal}
+        handleShowModal={(show: boolean) => setShowModal(show)}>
+        <ModalImg src={img_modal_accept} />
+      </AutoCloseModal>
     </>
   );
 };
@@ -55,4 +66,9 @@ const Wrapper = styled.div`
 const RecentLayout = styled.div`
   width: 100vw;
   padding: 1.5rem 2rem 0;
+`;
+
+const ModalImg = styled.img`
+  width: 27rem;
+  height: 17.2rem;
 `;

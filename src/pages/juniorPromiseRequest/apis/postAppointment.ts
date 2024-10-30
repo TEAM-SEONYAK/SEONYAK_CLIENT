@@ -18,7 +18,6 @@ export const postAppointment = async ({ seniorId, topic, personalTopic, timeList
   try {
     const response = await authAxios.post('/api/v1/appointment', { seniorId, topic, personalTopic, timeList });
 
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
