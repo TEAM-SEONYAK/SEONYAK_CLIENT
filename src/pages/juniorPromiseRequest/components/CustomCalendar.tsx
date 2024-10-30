@@ -189,6 +189,7 @@ const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__navigation__label {
+    color: ${({ theme }) => theme.colors.grayScaleBG};
     pointer-events: none;
 
     cursor: default;
