@@ -10,9 +10,11 @@ import { InputBox, TextBox } from '../TextBox';
 import { useBusinessCardQuery } from '@pages/onboarding/hooks/useBusinessCardQuery';
 import { BizInfoType, JoinContextType } from '@pages/onboarding/type';
 import { getToken } from '@utils/storage';
+import { useBusinessCardPresignedUrl } from '@pages/onboarding/hooks/usePresignedUrl';
 
 const Step명함인증 = () => {
   const { setData } = useOutletContext<JoinContextType>();
+  const { res } = useBusinessCardPresignedUrl();
   const mutation = useOCRBizQuery();
   const cardmutation = useBusinessCardQuery();
   const navigate = useNavigate();

@@ -9,8 +9,9 @@ import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
 import { useProfileQuery } from '@pages/onboarding/hooks/useProfileImgQuery';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { JoinContextType } from '@pages/onboarding/type';
-import usePresignedUrl from '@pages/onboarding/hooks/usePresignedUrl';
+
 import { isAxiosError } from 'axios';
+import { useProfilePresignedUrl } from '@pages/onboarding/hooks/usePresignedUrl';
 
 const Step개인정보입력 = () => {
   const { data, setData } = useOutletContext<JoinContextType>();
@@ -29,7 +30,7 @@ const Step개인정보입력 = () => {
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
 
-  const { res } = usePresignedUrl();
+  const { res } = useProfilePresignedUrl();
   const { mutate: imageUploadMutate } = useProfileQuery();
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {

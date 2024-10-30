@@ -1,6 +1,6 @@
 import { authAxios, axios } from '@utils/apis';
 
-export const presignedUrlAxios = () => {
+export const businessCardUrlAxios = () => {
   return authAxios.get('/v1/image/businesscard');
 };
 
