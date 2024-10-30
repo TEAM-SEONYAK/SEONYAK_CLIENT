@@ -16,7 +16,7 @@ export interface postAppointmentType {
 
 export const postAppointment = async ({ seniorId, topic, personalTopic, timeList }: postAppointmentType) => {
   try {
-    const response = await authAxios.post('/v1/appointment', { seniorId, topic, personalTopic, timeList });
+    const response = await authAxios.post('/api/v1/appointment', { seniorId, topic, personalTopic, timeList });
 
     // console.log(response.data);
     return response.data;

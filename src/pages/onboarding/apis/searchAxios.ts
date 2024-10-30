@@ -1,7 +1,7 @@
 import { axios } from '@utils/apis';
 
 export const univNameAxios = (univName: string) => {
-  return axios.get('/v1/search/univ', {
+  return axios.get('/api/v1/search/univ', {
     params: {
       univName,
     },
@@ -9,7 +9,7 @@ export const univNameAxios = (univName: string) => {
 };
 
 export const departmentAxios = (univName: string, deptName: string) => {
-  return axios.get('/v1/search/dept', {
+  return axios.get('/api/v1/search/dept', {
     params: {
       univName,
       deptName,

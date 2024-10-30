@@ -2,7 +2,7 @@ import { axios } from '@utils/apis';
 
 export const ocrUnivAxios = (imageFile: File) => {
   return axios.post(
-    '/v1/ocr/univ',
+    '/api/v1/ocr/univ',
     {
       imageFile,
     },
@@ -16,7 +16,7 @@ export const ocrUnivAxios = (imageFile: File) => {
 
 export const ocrNameCardAxios = (imageFile: File) => {
   return axios.post(
-    '/v1/ocr/business-card',
+    '/api/v1/ocr/business-card',
     {
       imageFile,
     },
