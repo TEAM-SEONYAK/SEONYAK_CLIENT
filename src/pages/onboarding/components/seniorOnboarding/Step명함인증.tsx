@@ -9,15 +9,15 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { InputBox, TextBox } from '../TextBox';
 import { useBusinessCardQuery } from '@pages/onboarding/hooks/useBusinessCardQuery';
 import { BizInfoType, JoinContextType } from '@pages/onboarding/type';
-import { getToken } from '@utils/storage';
 import { useBusinessCardPresignedUrl } from '@pages/onboarding/hooks/usePresignedUrl';
 
 const Step명함인증 = () => {
   const { setData } = useOutletContext<JoinContextType>();
   const { res } = useBusinessCardPresignedUrl();
+  const { mutate: imageUploadMutate } = useBusinessCardQuery();
   const mutation = useOCRBizQuery();
-  const cardmutation = useBusinessCardQuery();
   const navigate = useNavigate();
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [isOpen, setOpen] = useState(false);
   const [info, setInfo] = useState<BizInfoType | null>(null);
   const handleSetOpen = (type: boolean) => {
@@ -30,30 +30,18 @@ const Step명함인증 = () => {
   const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
-    const token = getToken();
-
-    if (!token) {
-      console.error('액세스 토큰이 없습니다.');
-      return;
-    }
+    setImageFile(file);
 
     mutation.mutate(file, {
       onSuccess: (res) => {
         setInfo(res.data.data);
       },
     });
-
-    cardmutation.mutate(file, {
-      onSuccess: (res) => {
-        console.log(res);
-      },
-      onError: (error) => {
-        console.error('명함 이미지 업로드 실패:', error);
-      },
-    });
   };
 
   const handleClickLink = () => {
+    if (!res || !imageFile) return;
+    imageUploadMutate({ url: res.url, image: imageFile });
     setData((prev) => ({
       ...prev,
       company: info?.company,
