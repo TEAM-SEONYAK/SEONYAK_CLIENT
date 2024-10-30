@@ -133,6 +133,8 @@ const ImageInputWrapper = styled.div`
 const ImageInputLabel = styled.label`
   position: relative;
 
+  cursor: pointer;
+
   & > svg {
     position: absolute;
     right: 0;

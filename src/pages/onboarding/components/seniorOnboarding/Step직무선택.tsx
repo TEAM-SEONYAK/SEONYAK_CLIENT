@@ -176,6 +176,8 @@ const PositionList = styled.section<{ $isActive: boolean }>`
   border-radius: 8px;
 
   background-color: ${({ theme, $isActive }) => ($isActive ? theme.colors.primaryBlue50 : theme.colors.grayScaleLG2)};
+
+  cursor: pointer;
 `;
 
 const PositionText = styled.p<{ $isActive: boolean }>`
