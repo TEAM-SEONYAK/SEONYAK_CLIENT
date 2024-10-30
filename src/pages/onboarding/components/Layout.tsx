@@ -35,6 +35,7 @@ const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
     }
   }, []);
 
+  if (location.pathname === '/juniorOnboarding/complete') return <Outlet context={{ data }} />;
   return (
     <Wrapper>
       <Header
