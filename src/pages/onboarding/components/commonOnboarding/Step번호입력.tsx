@@ -82,8 +82,7 @@ const Step번호입력 = () => {
         setTimeLeft(TIME);
         setData((prev) => ({
           ...prev,
-          phoneNumber: phoneNumber,
-          businessCard: 'https://example.com/business-card.jpg',
+          phoneNumber: phoneNumber
         }));
       },
       onError: () => {

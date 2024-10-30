@@ -1,17 +1,13 @@
-import { authAxios } from '@utils/apis';
+import { authAxios, axios } from '@utils/apis';
 
-export const businessCardAxios = async (file: File) => {
-  try {
-    const formData = new FormData();
-    formData.append('businessCardImage', file);
+export const businessCardUrlAxios = () => {
+  return authAxios.get('/v1/image/businesscard');
+};
 
-    const response = await authAxios.patch('/api/v1/businesscard-image', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+export const uploadBusinessCardAxios = async (url: string, file: File) => {
+  await axios.put(url, file, {
+    headers: {
+      'Content-Type': file.type,
+    },
+  });
 };
