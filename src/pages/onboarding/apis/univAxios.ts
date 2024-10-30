@@ -8,7 +8,7 @@ export interface univVerifyPropType {
 
 export const univVerifyAxios = ({ email, univName }: univVerifyPropType) => {
   return axios.post(
-    '/v1/univ/verify',
+    '/api/v1/univ/verify',
     {
       email,
       univName,
@@ -19,7 +19,7 @@ export const univVerifyAxios = ({ email, univName }: univVerifyPropType) => {
 
 export const univVerifycodeAxios = ({ email, univName, code }: univVerifyPropType) => {
   return axios.post(
-    '/v1/univ/verifycode',
+    '/api/v1/univ/verifycode',
     {
       email,
       univName,

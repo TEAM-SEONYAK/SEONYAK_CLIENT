@@ -40,10 +40,7 @@ const Step개인정보입력 = () => {
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
-
-    if (e.target.value.length == 0) {
-      setNicknameStatus('EMPTY');
-    }
+    setNicknameStatus('EMPTY');
   };
 
   const handleCheckNickname = () => {

@@ -2,7 +2,7 @@ import { axios } from "@utils/apis"
 
 export const phoneVerifyAxios = (phoneNumber: string) => {
   return axios.post(
-    '/v1/phone/verify',
+    '/api/v1/phone/verify',
     {
       phoneNumber,
     }
@@ -16,7 +16,7 @@ export interface phoneVerifycodePropType {
 
 export const phoneVerifycodeAxios = ({ phoneNumber, verificationCode }: phoneVerifycodePropType) => {
   return axios.post(
-    '/v1/phone/verifycode',
+    '/api/v1/phone/verifycode',
     {
       phoneNumber,
       verificationCode,

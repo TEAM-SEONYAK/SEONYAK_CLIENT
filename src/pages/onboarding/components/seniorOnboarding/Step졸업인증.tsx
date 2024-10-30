@@ -1,7 +1,7 @@
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import WarnDescription from '@components/commons/WarnDescription';
 import styled from '@emotion/styled';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { Caption, InnerButton, InputBox, TextBox } from '../TextBox';
 import { FullBtn } from '@components/commons/FullButton';
 import { useNavigate } from 'react-router-dom';
@@ -41,19 +41,26 @@ const Step졸업인증 = () => {
     setSuccess(type);
   };
 
+  const fileRef = useRef<HTMLInputElement>(null);
+  const handleClickFile = () => {
+    if (!fileRef.current) return;
+    fileRef.current.click();
+  };
+
   return (
     <>
       <Wrapper>
         <div style={{ padding: '0 2rem' }}>
           <TextBox label="졸업증명서">
             <InputBox
+              ref={fileRef}
               label="졸업증명서"
               type="file"
               onChange={handleChangeFile}
               text={file ? file.name : DEFAULT_TEXT}
               placeholder={DEFAULT_TEXT}
               isError={isError}>
-              <InnerButton text="첨부파일" />
+              <InnerButton text="첨부파일" onClick={handleClickFile} />
             </InputBox>
             {isError ? (
               <WarnDescription isShown={isError} warnText="인증에 실패했어요. 학교명이 잘 보이는 지 확인해 주세요." />
@@ -87,5 +94,4 @@ const Img = styled.img`
 const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
-  margin-left: -2rem;
 `;

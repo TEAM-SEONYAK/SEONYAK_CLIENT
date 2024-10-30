@@ -44,6 +44,7 @@ const Step직무선택 = () => {
               label="세부 직무"
               placeholder="구체적인 직무를 작성해 주세요"
               onChange={(e) => setDetailJob(e.target.value)}
+              maxLength={25}
             />
             <Caption>최대 25자까지 작성할 수 있어요</Caption>
           </TextBox>
