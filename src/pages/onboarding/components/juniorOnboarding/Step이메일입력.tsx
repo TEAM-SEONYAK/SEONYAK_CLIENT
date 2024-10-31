@@ -99,7 +99,7 @@ const Step이메일입력 = () => {
 
   const handleClickButton = () => {
     verifycodeMutation.mutate(
-      { email, univName, code },
+      { email, code },
       {
         onSuccess: () => {
           setIsModalOpen(true);
@@ -110,7 +110,7 @@ const Step이메일입력 = () => {
         onError: () => {
           setIsValidCodeError(true);
         },
-      },
+      }
     );
   };
 
