@@ -84,6 +84,11 @@ const Step이메일입력 = () => {
     );
   };
 
+  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    setIsEmailError(false);
+  };
+
   const handleChangeCode = (e: ChangeEvent<HTMLInputElement>) => {
     const codeInput = e.target.value;
     setCode(codeInput);
@@ -127,7 +132,7 @@ const Step이메일입력 = () => {
               label="학교메일"
               placeholder="메일 주소를 입력해 주세요"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChangeEmail}
               isError={isEmailError}>
               <InnerButton onClick={handleClickSend} text={isActive ? '재전송' : '인증번호 전송'} />
             </InputBox>
