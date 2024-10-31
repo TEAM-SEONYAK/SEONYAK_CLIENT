@@ -13,3 +13,8 @@ export const setRole = (role: string) => {
 export const getRole = () => {
   return localStorage.getItem('seonyakRole');
 };
+
+export const clearStorage = () => {
+  localStorage.removeItem('seonyakToken');
+  localStorage.removeItem('seonyakRole');
+};
