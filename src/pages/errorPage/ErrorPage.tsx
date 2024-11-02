@@ -84,4 +84,5 @@ const Link = styled.p`
   text-underline-offset: 0.2rem;
 
   ${({ theme }) => theme.fonts.Title1_SB_16};
+  cursor: pointer;
 `;
