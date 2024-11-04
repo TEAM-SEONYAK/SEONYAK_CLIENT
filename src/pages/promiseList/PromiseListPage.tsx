@@ -7,7 +7,6 @@ import RecentCard from './components/RecentCard';
 import Title from './components/Title';
 import { useGetPromiseList } from './hooks/queries';
 import Loading from '@components/commons/Loading';
-import { getRole } from '@utils/storage';
 import ErrorPage from '@pages/errorPage/ErrorPage';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import { useState } from 'react';
@@ -15,7 +14,7 @@ import img_modal_accept from '@assets/images/img_modal_accept.png';
 
 const PromiseListPage = () => {
   const [showModal, setShowModal] = useState(false);
-  const userRole = getRole() + '';
+  const userRole = localStorage.getItem('seonyakRole') + '';
 
   const { myNickname, pending, scheduled, past, isLoading, isError } = useGetPromiseList();
 
