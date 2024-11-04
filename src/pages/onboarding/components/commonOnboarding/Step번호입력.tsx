@@ -82,7 +82,7 @@ const Step번호입력 = () => {
         setTimeLeft(TIME);
         setData((prev) => ({
           ...prev,
-          phoneNumber: phoneNumber
+          phoneNumber: phoneNumber,
         }));
       },
       onError: () => {
@@ -118,7 +118,6 @@ const Step번호입력 = () => {
     if (pathname.includes('senior')) {
       mutate.mutate(data, {
         onSuccess: (res) => {
-          console.log(res.data.data);
           navigate('/seniorProfile', {
             state: {
               seniorId: res.data.data.seniorId,
