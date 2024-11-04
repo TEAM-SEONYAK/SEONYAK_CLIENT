@@ -7,7 +7,7 @@ import SpinnerJson from '../../assets/lottie/spinner_light.json';
 type LottiePlayer = typeof lottie.default;
 const lottiePlayer = lottie as any as LottiePlayer;
 
-const Loading = () => {
+const Loading = ({ isTransparent = false }: { isTransparent?: boolean }) => {
   //lottie
   const likecontainer = useRef<HTMLDivElement>(null!);
   useEffect(() => {
@@ -27,7 +27,7 @@ const Loading = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper $isTransparent={isTransparent}>
       <NoMore ref={likecontainer}></NoMore>
     </Wrapper>
   );
@@ -39,21 +39,21 @@ const NoMore = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  z-index: 999;
-
   width: 12rem;
   height: 12rem;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ $isTransparent: boolean }>`
   display: flex;
   position: fixed;
   bottom: 0;
+  z-index: 999;
 
   width: 100%;
   height: 100%;
 
-  background-color: ${({ theme }) => theme.colors.grayScaleWhite};
+  background-color: ${({ $isTransparent, theme }) =>
+    $isTransparent ? theme.colors.transparentBlack_65 : theme.colors.grayScaleWhite};
 `;
 
 export default Loading;
