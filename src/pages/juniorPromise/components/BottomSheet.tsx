@@ -142,6 +142,10 @@ const Content = styled.div`
   overflow: auto;
 
   height: 35.2rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const FieldLayout = styled.div`
