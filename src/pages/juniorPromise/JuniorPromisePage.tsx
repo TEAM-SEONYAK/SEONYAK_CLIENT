@@ -1,5 +1,8 @@
-import { ArrowLeftIc } from '@assets/svgs';
+import { HeaderLogoIc, AlarmIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
+import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
+import img_modal_accept from '@assets/images/img_modal_accept.png';
+
 import Nav from '@components/commons/Nav';
 import { SeniorCard } from '@components/commons/SeniorCard';
 import styled from '@emotion/styled';
@@ -17,6 +20,8 @@ import { useNavigate } from 'react-router-dom';
 import useSeniorProfileQueries from '@hooks/seniorProfileQueries';
 
 const JuniorPromisePage = () => {
+  const [showModal, setShowModal] = useState(false);
+
   const navigate = useNavigate();
 
   // 바텀 시트 내 버튼& 내용 필터 버튼
@@ -113,11 +118,12 @@ const JuniorPromisePage = () => {
       {isSeniorCardClicked ? (
         <>
           <Header
-            LeftSvg={ArrowLeftIc}
-            onClickLeft={() => {
-              setIsSeniorCardClicked(false);
-            }}
+            LeftSvg={HeaderLogoIc}
+            RightSvg={AlarmIc}
+            onClickRight={() => setShowModal(true)}
+            bgColor="transparent"
           />
+
           <PreView variant="secondary" seniorId={seniorId + ''} />
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
@@ -151,6 +157,13 @@ const JuniorPromisePage = () => {
           <Nav />
         </PreventScroll>
       )}
+      {/* 모달 컴포넌트 추가 */}
+      <AutoCloseModal
+        text="알림은 문자를 확인해주세요 !"
+        showModal={showModal}
+        handleShowModal={(show: boolean) => setShowModal(show)}>
+        <ModalImg src={img_modal_accept} />
+      </AutoCloseModal>
     </>
   );
 };
@@ -186,4 +199,8 @@ const SeniorCardListLayout = styled.div`
   height: 100%;
   margin-bottom: 10rem;
   padding: 0.8rem 2rem;
+`;
+const ModalImg = styled.img`
+  width: 27rem;
+  height: 17.2rem;
 `;
