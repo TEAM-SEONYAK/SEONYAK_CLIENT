@@ -94,6 +94,7 @@ const TapContent = styled.span<{ $isActive: boolean }>`
   width: fit-content;
 
   color: ${({ theme, $isActive }) => ($isActive ? theme.colors.grayScaleBG : theme.colors.grayScaleMG1)};
+
   ${({ theme }) => theme.fonts.navigation};
 `;
 

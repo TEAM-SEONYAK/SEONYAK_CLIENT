@@ -7,7 +7,6 @@ import { useSeniorTimeQuery } from '../hooks/queries';
 import { getDayOfWeek } from '../utils/getDay';
 import Loading from '@components/commons/Loading';
 import { BottomSheetRectangleIc } from '@assets/svgs';
-import { Wrapper } from '@pages/seniorProfile/components/TimeSelect/TimeWeekdays';
 
 interface BottomSheetPropType {
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
@@ -103,12 +102,12 @@ const Background = styled.div<{ $isCalendarOpen: boolean }>`
   left: 50%;
   z-index: 2;
 
-  transform: translate(-50%, -50%);
-
   width: 100%;
   height: 100dvh;
 
   background: ${({ theme }) => theme.colors.transparentBlack_65};
+
+  transform: translate(-50%, -50%);
 `;
 
 const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
@@ -121,7 +120,7 @@ const BottomSheetWrapper = styled.div<{ $isCalendarOpen: boolean }>`
   z-index: 4;
 
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   padding: 3.8rem 0 0;
   border-radius: 16px 16px 0 0;
 
