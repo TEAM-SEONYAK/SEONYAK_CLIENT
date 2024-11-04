@@ -40,14 +40,30 @@ const Nav = () => {
   return (
     <>
       <Wrapper>
-        <TapContainer onClick={() => handleOnClickNav('둘러보기')} $disabled={userRole === 'SENIOR'}>
-          <NaviLookBlackIcon isactive={(currNav === '/juniorPromise') + ''} />
-          <TapContent $isActive={currNav === '/juniorPromise'}>둘러보기</TapContent>
-        </TapContainer>
-        <TapContainer onClick={() => handleOnClickNav('나의 약속')}>
-          <NaviPromiseBlackIcon isactive={(currNav === '/promiseList') + ''} />
-          <TapContent $isActive={currNav === '/promiseList'}>나의 약속</TapContent>
-        </TapContainer>
+        {userRole === 'SENIOR' ? (
+          <>
+            <TapContainer onClick={() => handleOnClickNav('둘러보기')} $disabled={userRole === 'SENIOR'}>
+              <NaviLookBlackIcon isactive={(currNav === '/juniorPromise') + ''} />
+              <TapContent $isActive={currNav === '/juniorPromise'}>둘러보기</TapContent>
+            </TapContainer>
+            <TapContainer onClick={() => handleOnClickNav('나의 약속')}>
+              <NaviPromiseBlackIcon isactive={(currNav === '/promiseList') + ''} />
+              <TapContent $isActive={currNav === '/promiseList'}>나의 약속</TapContent>
+            </TapContainer>
+          </>
+        ) : (
+          <>
+            <TapContainer onClick={() => handleOnClickNav('나의 약속')}>
+              <NaviPromiseBlackIcon isactive={(currNav === '/promiseList') + ''} />
+              <TapContent $isActive={currNav === '/promiseList'}>나의 약속</TapContent>
+            </TapContainer>
+            <TapContainer onClick={() => handleOnClickNav('둘러보기')}>
+              <NaviLookBlackIcon isactive={(currNav === '/juniorPromise') + ''} />
+              <TapContent $isActive={currNav === '/juniorPromise'}>둘러보기</TapContent>
+            </TapContainer>
+          </>
+        )}
+
         <TapContainer onClick={() => handleOnClickNav('마이페이지')} $disabled={true}>
           <NaviMyBlackIcon isactive={(currNav === '마이페이지') + ''} />
           <TapContent $isActive={currNav === '마이페이지'}>마이페이지</TapContent>
