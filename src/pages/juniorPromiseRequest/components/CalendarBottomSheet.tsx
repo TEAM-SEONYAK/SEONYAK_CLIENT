@@ -7,7 +7,6 @@ import { useSeniorTimeQuery } from '../hooks/queries';
 import { getDayOfWeek } from '../utils/getDay';
 import Loading from '@components/commons/Loading';
 import { BottomSheetRectangleIc } from '@assets/svgs';
-import { Wrapper } from '@pages/seniorProfile/components/TimeSelect/TimeWeekdays';
 
 interface BottomSheetPropType {
   selectedTime: { id: number; selectedTime: string; clickedDay: string }[];
