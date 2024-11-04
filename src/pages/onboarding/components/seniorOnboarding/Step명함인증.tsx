@@ -9,13 +9,16 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { InputBox, TextBox } from '../TextBox';
 import { useBusinessCardQuery } from '@pages/onboarding/hooks/useBusinessCardQuery';
 import { BizInfoType, JoinContextType } from '@pages/onboarding/type';
-import { getToken } from '@utils/storage';
+import { useBusinessCardPresignedUrl } from '@pages/onboarding/hooks/usePresignedUrl';
+import Loading from '@components/commons/Loading';
 
 const Step명함인증 = () => {
   const { setData } = useOutletContext<JoinContextType>();
+  const { res } = useBusinessCardPresignedUrl();
+  const { mutate: imageUploadMutate } = useBusinessCardQuery();
   const mutation = useOCRBizQuery();
-  const cardmutation = useBusinessCardQuery();
   const navigate = useNavigate();
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [isOpen, setOpen] = useState(false);
   const [info, setInfo] = useState<BizInfoType | null>(null);
   const handleSetOpen = (type: boolean) => {
@@ -28,46 +31,37 @@ const Step명함인증 = () => {
   const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
-    const token = getToken();
-
-    if (!token) {
-      console.error('액세스 토큰이 없습니다.');
-      return;
-    }
+    setImageFile(file);
+    setOpen(false);
 
     mutation.mutate(file, {
       onSuccess: (res) => {
         setInfo(res.data.data);
       },
     });
-
-    cardmutation.mutate(file, {
-      onSuccess: (res) => {
-        console.log(res);
-      },
-      onError: (error) => {
-        console.error('명함 이미지 업로드 실패:', error);
-      },
-    });
   };
 
   const handleClickLink = () => {
+    if (!res || !imageFile) return;
+    imageUploadMutate({ url: res.url, image: imageFile });
     setData((prev) => ({
       ...prev,
       company: info?.company,
+      businessCard: res.fileName,
     }));
     navigate('/seniorOnboarding/8');
   };
 
-  const VerificationDone = () =>
-    info && (
+  const VerificationDone = () => (
+    <>
+      {mutation.isPending && <Loading isTransparent />}
       <DoneWrapper>
         <div style={{ padding: '0 2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <TextBox label="회사명">
-            <InputBox label="회사명" placeholder="회사명을 입력해주세요" value={info.company} disabled />
+            <InputBox label="회사명" placeholder="회사명을 입력해주세요" value={info?.company} disabled />
           </TextBox>
           <TextBox label="전화번호">
-            <InputBox label="전화번호" placeholder="연락처를 입력해주세요" value={info.phoneNumber} disabled />
+            <InputBox label="전화번호" placeholder="연락처를 입력해주세요" value={info?.phoneNumber} disabled />
             <Caption>{`회사명과 전화번호를 확인해 주세요`}</Caption>
           </TextBox>
         </div>
@@ -85,9 +79,10 @@ const Step명함인증 = () => {
           </BlueButton>
         </ButtonWrapper>
       </DoneWrapper>
-    );
+    </>
+  );
 
-  return !!info ? (
+  return mutation.isPending || !!info ? (
     <VerificationDone />
   ) : (
     <>
@@ -217,6 +212,8 @@ const BlackButton = styled.label`
   ${({ theme }) => theme.fonts.Head2_SB_18}
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   text-align: center;
+
+  cursor: pointer;
 
   & > input {
     display: none;

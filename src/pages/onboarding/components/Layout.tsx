@@ -35,6 +35,7 @@ const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
     }
   }, []);
 
+  if (location.pathname === '/juniorOnboarding/complete') return <Outlet context={{ data }} />;
   return (
     <Wrapper>
       <Header
@@ -81,7 +82,6 @@ const Content = styled.section`
 const ButtonBg = styled.footer`
   position: fixed;
   bottom: 0;
-  left: 0;
 
   width: 100vw;
   height: 6.4rem;

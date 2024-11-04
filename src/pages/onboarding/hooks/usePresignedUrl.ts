@@ -1,12 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import { presignedUrlAxios } from '../apis/profileImageAxios';
+import { profileUrlAxios } from '../apis/profileImageAxios';
+import { businessCardUrlAxios } from '../apis/businesscardAxios';
 
-const usePresignedUrl = () => {
+export const useProfilePresignedUrl = () => {
   const { data } = useQuery({
-    queryKey: ['presignedurl'],
-    queryFn: presignedUrlAxios,
+    queryKey: ['profile-url'],
+    queryFn: profileUrlAxios,
   });
   return { res: data?.data?.data };
 };
 
-export default usePresignedUrl;
+export const useBusinessCardPresignedUrl = () => {
+  const { data } = useQuery({
+    queryKey: ['businesscard-url'],
+    queryFn: businessCardUrlAxios,
+  });
+  return { res: data?.data?.data };
+};

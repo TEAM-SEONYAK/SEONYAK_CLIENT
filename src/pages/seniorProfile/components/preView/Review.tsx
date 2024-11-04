@@ -23,6 +23,10 @@ const Meta = styled.p`
 `;
 
 const ReviewBox = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
   padding: 4.4rem 8.7rem 4.3rem 8.6rem;
 

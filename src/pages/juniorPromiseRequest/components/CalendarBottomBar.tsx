@@ -80,8 +80,8 @@ const ButtonLayout = styled.footer`
   gap: 1.1rem;
   justify-content: center;
   position: fixed;
-  bottom: 5rem;
-  left: 0;
+  bottom: 0;
+  left: 50%;
 
   width: 100%;
   height: 9.4rem;
@@ -89,6 +89,8 @@ const ButtonLayout = styled.footer`
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
   box-shadow: 0 -8px 30px rgb(0 0 0 / 10%);
+
+  transform: translate(-50%, -50%);
 `;
 
 const ReloadBtn = styled.button`

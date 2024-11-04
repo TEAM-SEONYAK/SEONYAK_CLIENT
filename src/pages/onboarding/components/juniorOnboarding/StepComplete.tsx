@@ -1,11 +1,18 @@
 import { ProfileCompleteImg } from '@assets/images';
 import styled from '@emotion/styled';
 import { JoinContextType } from '@pages/onboarding/type';
-import { useOutletContext } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
 const StepComplete = () => {
   const { data } = useOutletContext<JoinContextType>();
-
+  const navigate = useNavigate();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/juniorPromise');
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <Wrapper>
       <Title>

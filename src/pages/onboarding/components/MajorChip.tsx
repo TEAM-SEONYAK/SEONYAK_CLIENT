@@ -10,7 +10,7 @@ const MajorChip = ({ major, handleClose }: majorChipPropType) => {
   return (
     <Wrapper>
       <Text>{major}</Text>
-      <CancelIc onClick={() => handleClose(major)} />
+      <CancelIc onClick={() => handleClose(major)} style={{cursor: 'pointer'}}/>
     </Wrapper>
   );
 };

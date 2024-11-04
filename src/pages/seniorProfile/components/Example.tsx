@@ -33,6 +33,7 @@ const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<num
       {seniorId ? (
         <>
           <Header LeftSvg={ArrowLeftIc} onClickLeft={() => setSeniorId(0)} />
+          <Divider />
           <PreView seniorId={seniorId + ''} variant="secondary" />
         </>
       ) : (
@@ -79,6 +80,16 @@ const Wrapper = styled.div`
   padding: 1.5rem 2rem 0;
 
   background-color: ${({ theme }) => theme.colors.grayScaleLG1};
+`;
+
+const Divider = styled.div`
+  position: fixed;
+  top: 4.9rem;
+
+  width: 100%;
+  height: 0.14rem;
+
+  background: ${({ theme }) => theme.colors.grayScaleLG2};
 `;
 
 const IconContainer = styled.section`

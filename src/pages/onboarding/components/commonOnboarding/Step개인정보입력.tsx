@@ -9,8 +9,9 @@ import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
 import { useProfileQuery } from '@pages/onboarding/hooks/useProfileImgQuery';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { JoinContextType } from '@pages/onboarding/type';
-import usePresignedUrl from '@pages/onboarding/hooks/usePresignedUrl';
+
 import { isAxiosError } from 'axios';
+import { useProfilePresignedUrl } from '@pages/onboarding/hooks/usePresignedUrl';
 
 const Step개인정보입력 = () => {
   const { data, setData } = useOutletContext<JoinContextType>();
@@ -29,7 +30,7 @@ const Step개인정보입력 = () => {
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
 
-  const { res } = usePresignedUrl();
+  const { res } = useProfilePresignedUrl();
   const { mutate: imageUploadMutate } = useProfileQuery();
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,10 +40,7 @@ const Step개인정보입력 = () => {
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
-
-    if (e.target.value.length == 0) {
-      setNicknameStatus('EMPTY');
-    }
+    setNicknameStatus('EMPTY');
   };
 
   const handleCheckNickname = () => {
@@ -134,6 +132,8 @@ const ImageInputWrapper = styled.div`
 
 const ImageInputLabel = styled.label`
   position: relative;
+
+  cursor: pointer;
 
   & > svg {
     position: absolute;

@@ -7,7 +7,7 @@ const useJoinQuery = () => {
   const mutation = useMutation({
     mutationFn: (requestBody: JoinPropType) => joinAxios(requestBody),
     onSuccess: (data) => {
-      setRole(data.data.role);
+      setRole(data.data.data.userType);
     },
     onError: (error) => {
       console.log('🔴 join patch Error: ', error);
