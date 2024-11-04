@@ -137,6 +137,8 @@ const TapContainer = styled.div`
 const TapText = styled.span<{ $isActive: boolean }>`
   ${({ theme }) => theme.fonts.Title1_SB_16};
   color: ${({ theme, $isActive }) => ($isActive ? theme.colors.grayScaleBG : theme.colors.grayScaleMG2)};
+
+  cursor: pointer;
 `;
 
 const ProfileWrapper = styled.div`
