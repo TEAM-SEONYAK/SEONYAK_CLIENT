@@ -29,6 +29,8 @@ const FieldWrapper = styled.div`
   justify-content: space-between;
 
   padding: 1rem 0;
+
+  cursor: pointer;
 `;
 const FieldTitle = styled.p<{ isSelected: boolean }>`
   ${({ theme }) => theme.fonts.Title1_SB_16};

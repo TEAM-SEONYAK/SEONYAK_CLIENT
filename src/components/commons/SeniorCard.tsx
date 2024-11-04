@@ -69,6 +69,8 @@ const SeniorCardWrapper = styled.div<{ $isSmall: boolean }>`
   border-radius: 8px;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
+
+  cursor: pointer;
 `;
 const SeniorImg = styled.img<{ $isSmall: boolean }>`
   width: ${({ $isSmall }) => ($isSmall ? '8.8rem' : '11.4rem')};

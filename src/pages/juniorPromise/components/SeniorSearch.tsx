@@ -55,7 +55,7 @@ export const SeniorSearch = (props: SeniorSearchPropTypes) => {
           <LineWrapper>
             <Line292Ic />
           </LineWrapper>
-          <ResetIc onClick={handleReset} />
+          <StyledResetIc onClick={handleReset} />
         </BtnLayout>
         <SelectedChipList $chipFieldName={chipFieldName} $chipPositionName={chipPositionName}>
           {chipFieldName.map((field, fieldId) => (
@@ -138,8 +138,14 @@ const Chip = styled.div`
 
 const CloseButton = styled(CloseIc)`
   padding: 0.4962rem 0.4839rem 0.4962rem 0.5084rem;
+
+  cursor: pointer;
 `;
 
 const LineWrapper = styled.div`
   padding-left: 13.7rem;
+`;
+
+const StyledResetIc = styled(ResetIc)`
+  cursor: pointer;
 `;

@@ -39,4 +39,6 @@ const PositionTitle = styled.p<{ $selectedPositionIndex: boolean }>`
   ${({ theme }) => theme.fonts.Caption2_SB_12};
   color: ${({ theme, $selectedPositionIndex }) =>
     $selectedPositionIndex ? theme.colors.Blue : theme.colors.grayScaleDG};
+
+  cursor: pointer;
 `;
