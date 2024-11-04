@@ -25,7 +25,7 @@ const SeniorProfilePage = () => {
   const userName = step >= 2 && step <= 4 ? nickname : '';
 
   useEffect(() => {
-    if (!seniorId || !nickname) navigate('/');
+    // if (!seniorId || !nickname) navigate('/');
   }, [seniorId, nickname, navigate]);
 
   const getComponent = () => {

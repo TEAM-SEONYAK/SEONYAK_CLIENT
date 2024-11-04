@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { DeleteIc, PlusIc } from '@assets/svgs';
+import WarnDescription from '@components/commons/WarnDescription';
 
 import styled from '@emotion/styled';
 import DropDown from '@pages/seniorProfile/components/common/DropDown';
@@ -22,6 +23,10 @@ const DurationSelect = ({
   isWarning,
 }: DurationPropType) => {
   const [isActive, setIsActive] = useState(defaultActive);
+  const invalidTime =
+    selectValue.startTime !== '시작 시간' &&
+    selectValue.endTime !== '마지막 시간' &&
+    selectValue.startTime > selectValue.endTime;
   const handleDelete = () => {
     setIsActive((prev) => !prev);
     setProfile('startTime')('시작 시간');
@@ -35,28 +40,33 @@ const DurationSelect = ({
   };
 
   return (
-    <Wrapper>
-      <DropDown
-        variant={variant}
-        isActive={isActive}
-        defaultValue={selectValue.startTime}
-        setProfile={setProfile('startTime')}
-        isStartTime={true}
-        isWarning={!!(isWarning && selectValue.isActive && selectValue.startTime === '시작 시간')}
-      />
-      <WaveText $isDefault={variant === 'default'} $isActive={isActive}>
-        ~
-      </WaveText>
-      <DropDown
-        variant={variant}
-        isActive={isActive}
-        defaultValue={selectValue.endTime}
-        setProfile={setProfile('endTime')}
-        isStartTime={false}
-        isWarning={!!(isWarning && selectValue.isActive && selectValue.endTime === '마지막 시간')}
-      />
-      {isActive ? <DeleteIcon onClick={handleDelete} /> : <PlusIcon onClick={handlePlus} />}
-    </Wrapper>
+    <>
+      <Wrapper>
+        <DropDown
+          variant={variant}
+          isActive={isActive}
+          defaultValue={selectValue.startTime}
+          setProfile={setProfile('startTime')}
+          isStartTime={true}
+          isWarning={!!(isWarning && selectValue.isActive && selectValue.startTime === '시작 시간') || invalidTime}
+        />
+        <WaveText $isDefault={variant === 'default'} $isActive={isActive}>
+          ~
+        </WaveText>
+        <DropDown
+          variant={variant}
+          isActive={isActive}
+          defaultValue={selectValue.endTime}
+          setProfile={setProfile('endTime')}
+          isStartTime={false}
+          isWarning={!!(isWarning && selectValue.isActive && selectValue.endTime === '마지막 시간') || invalidTime}
+        />
+        {isActive ? <DeleteIcon onClick={handleDelete} /> : <PlusIcon onClick={handlePlus} />}
+      </Wrapper>
+      {/* <WarnWrapper>
+        <WarnDescription isShown={invalidTime} warnText="마지막 시간은 시작 시간 이후여야 합니다." />
+      </WarnWrapper> */}
+    </>
   );
 };
 
@@ -99,4 +109,10 @@ export const PlusIcon = styled(PlusIc)`
   background-color: ${({ theme }) => theme.colors.grayScaleDG};
 
   cursor: pointer;
+`;
+
+const WarnWrapper = styled.div`
+  align-self: flex-start;
+
+  padding: 1rem 0 0.6rem;
 `;
