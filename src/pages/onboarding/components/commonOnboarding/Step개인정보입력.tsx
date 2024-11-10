@@ -44,6 +44,12 @@ const Step개인정보입력 = () => {
   };
 
   const handleCheckNickname = () => {
+    // 닉네임 조건 체크
+    const regExp = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
+    if (!regExp.test(nickname)) {
+      setNicknameStatus('INVALID');
+      return;
+    }
     mutation.mutate(nickname, {
       onSuccess: () => {
         setNicknameStatus('VALID');
