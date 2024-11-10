@@ -90,6 +90,7 @@ const Step개인정보입력 = () => {
             placeholder="닉네임을 입력해 주세요"
             isError={nicknameStatus === 'INVALID' || nicknameStatus === 'CONFLICT'}
             value={nickname}
+            maxLength={8}
             onChange={handleChangeInput}>
             <InnerButton text="중복확인" onClick={handleCheckNickname} />
           </InputBox>
