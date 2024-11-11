@@ -62,7 +62,7 @@ const TimeSelect = ({ profile, setProfile, setStep }: funnelComponentPropType) =
           onSetActiveButtonHandler={handleToggleBtn}
         />
         <WarnWrapper>
-          <WarnDescription isShown={isWarning} warnText="시간을 입력해주세요" />
+          <WarnDescription isShown={isWarning} warnText="시간 입력에 오류가 있어요! 다시 한번 확인해 주세요" />
         </WarnWrapper>
         {selectToggle === leftToggleText ? (
           <TimeWeekdays profile={profile} setProfile={setProfile} isWarning={isWarning} />

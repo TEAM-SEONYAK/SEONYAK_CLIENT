@@ -63,9 +63,6 @@ const DurationSelect = ({
         />
         {isActive ? <DeleteIcon onClick={handleDelete} /> : <PlusIcon onClick={handlePlus} />}
       </Wrapper>
-      {/* <WarnWrapper>
-        <WarnDescription isShown={invalidTime} warnText="마지막 시간은 시작 시간 이후여야 합니다." />
-      </WarnWrapper> */}
     </>
   );
 };

@@ -42,8 +42,11 @@ const InitWrapper = styled.div`
 
 const SeniorRefreshImg = styled.img`
   position: absolute;
-  top: 30vh;
-  left: 14vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -40%);
+
+  width: 70%;
 `;
 
 const Text = styled.p`
