@@ -14,7 +14,7 @@ export interface JoinPropType {
   nickname: string;
   isNicknameValid?: boolean;
   image: string;
-  imageFile?: File;
+  imageFile?: File | null;
   phoneNumber: string;
   univName: string;
   field: string;
