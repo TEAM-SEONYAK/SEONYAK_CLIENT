@@ -61,6 +61,7 @@ const Step번호입력 = () => {
         if (prevTime <= 1000) {
           clearInterval(id);
           setIsActive(false);
+          setVerificationCode('');
           return 0;
         }
         return prevTime - 1000;
