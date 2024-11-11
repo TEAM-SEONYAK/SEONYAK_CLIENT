@@ -44,8 +44,8 @@ const Step약관동의 = () => {
         <Line />
         {약관_LIST.map(({ text, link }, idx) => (
           <li key={text}>
-            <ItemWrapper type="button" onClick={() => handleClickCheck(idx)}>
-              <ItemLeftWrapper>
+            <ItemWrapper type="button">
+              <ItemLeftWrapper onClick={() => handleClickCheck(idx)}>
                 <IconWrapper $isChecked={agreement[idx]}>
                   <CheckItemIc />
                 </IconWrapper>
