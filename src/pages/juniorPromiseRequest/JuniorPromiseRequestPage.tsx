@@ -206,14 +206,15 @@ const PageBottomBar = styled.div`
   align-items: center;
   position: fixed;
   bottom: 0;
+  left: 50%;
 
   width: 100%;
   height: 9.4rem;
-  margin-left: -2rem;
   padding: 1.5rem 0 3rem;
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
   box-shadow: 0 -8px 30px rgb(0 0 0 / 10%);
+  transform: translate(-50%, -50%);
 `;
 
 const CostWrapper = styled.div`
