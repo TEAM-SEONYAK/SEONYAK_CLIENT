@@ -15,6 +15,7 @@ import { Header } from '../../components/commons/Header';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { setRole } from '@utils/storage';
 
 const SeniorProfilePage = () => {
   const [step, setStep] = useState(0);
@@ -26,6 +27,7 @@ const SeniorProfilePage = () => {
 
   useEffect(() => {
     // if (!seniorId || !nickname) navigate('/');
+    setRole('SENIOR');
   }, [seniorId, nickname, navigate]);
 
   const getComponent = () => {
