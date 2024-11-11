@@ -9,8 +9,9 @@ import useNicknameValid from '@pages/onboarding/hooks/useNicknameQuery';
 import { useProfileQuery } from '@pages/onboarding/hooks/useProfileImgQuery';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { JoinContextType } from '@pages/onboarding/type';
-import usePresignedUrl from '@pages/onboarding/hooks/usePresignedUrl';
+
 import { isAxiosError } from 'axios';
+import { useProfilePresignedUrl } from '@pages/onboarding/hooks/usePresignedUrl';
 
 const Step개인정보입력 = () => {
   const { data, setData } = useOutletContext<JoinContextType>();
@@ -29,7 +30,7 @@ const Step개인정보입력 = () => {
   const startImgArr = [StartProfile1Img, StartProfile2Img];
   const startImg = useMemo(() => startImgArr[Math.floor(Math.random() * 2)], []);
 
-  const { res } = usePresignedUrl();
+  const { res } = useProfilePresignedUrl();
   const { mutate: imageUploadMutate } = useProfileQuery();
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,13 +40,16 @@ const Step개인정보입력 = () => {
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
-
-    if (e.target.value.length == 0) {
-      setNicknameStatus('EMPTY');
-    }
+    setNicknameStatus('EMPTY');
   };
 
   const handleCheckNickname = () => {
+    // 닉네임 조건 체크
+    const regExp = /^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/;
+    if (!regExp.test(nickname)) {
+      setNicknameStatus('INVALID');
+      return;
+    }
     mutation.mutate(nickname, {
       onSuccess: () => {
         setNicknameStatus('VALID');
@@ -59,12 +63,13 @@ const Step개인정보입력 = () => {
   };
 
   const handleClickLink = () => {
-    if (!res || !imageFile) return;
-    imageUploadMutate({ url: res.url, image: imageFile });
+    if (res && imageFile) {
+      imageUploadMutate({ url: res.url, image: imageFile });
+    }
     setData((prev) => ({
       ...prev,
       imageFile,
-      image: res.fileName,
+      image: imageFile ? res.fileName : '',
       nickname: nickname,
       isNicknameValid: true,
     }));
@@ -92,6 +97,7 @@ const Step개인정보입력 = () => {
             placeholder="닉네임을 입력해 주세요"
             isError={nicknameStatus === 'INVALID' || nicknameStatus === 'CONFLICT'}
             value={nickname}
+            maxLength={8}
             onChange={handleChangeInput}>
             <InnerButton text="중복확인" onClick={handleCheckNickname} />
           </InputBox>
@@ -134,6 +140,8 @@ const ImageInputWrapper = styled.div`
 
 const ImageInputLabel = styled.label`
   position: relative;
+
+  cursor: pointer;
 
   & > svg {
     position: absolute;

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 interface AutoCloseModalPropType {
   text: string;
   showModal: boolean;
-  handleShowModal: (type: boolean) => void;
+  handleShowModal: (show: boolean) => void;
   children: React.ReactNode;
   path?: string;
 }

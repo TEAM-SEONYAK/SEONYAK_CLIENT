@@ -1,29 +1,21 @@
-import { axios } from "@utils/apis"
+import { axios } from '@utils/apis';
 
 export interface univVerifyPropType {
   email: string;
-  univName: string;
+  univName?: string;
   code?: string;
 }
 
 export const univVerifyAxios = ({ email, univName }: univVerifyPropType) => {
-  return axios.post(
-    '/v1/univ/verify',
-    {
-      email,
-      univName,
-    }
-  )
+  return axios.post('/api/v1/univ/verify', {
+    univName,
+    univMail: email,
+  });
 };
 
-
-export const univVerifycodeAxios = ({ email, univName, code }: univVerifyPropType) => {
-  return axios.post(
-    '/v1/univ/verifycode',
-    {
-      email,
-      univName,
-      code,
-    }
-  )
+export const univVerifycodeAxios = ({ email, code }: univVerifyPropType) => {
+  return axios.post('/api/v1/univ/verifycode', {
+    univEmail: email,
+    verificationCode: code,
+  });
 };

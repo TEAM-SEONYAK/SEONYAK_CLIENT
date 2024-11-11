@@ -1,14 +1,14 @@
 import { BigMainLogoIc } from '@assets/svgs';
 import styled from '@emotion/styled';
 import JoinButton from '@pages/join/components/Button';
-// import Welcome from '@pages/join/components/Welcome';
+import logoGif from '@assets/gif/logoGif.gif';
 import googleLogin from '@pages/login/utils/googleLogin';
 import { JoinBgImgSvg } from '@assets/svgs';
 
 const JoinPage = () => {
   return (
     <>
-      {/* <Welcome /> */}
+      <JoinGif src={logoGif} />
       <JoinBgImgSvgIcon />
       <Wrapper>
         <BigMainLogoIcon />
@@ -19,6 +19,7 @@ const JoinPage = () => {
             <SubTitle $isHighlight={true}>특별한 약속</SubTitle>
           </TitleContainer>
         </TitleWrapper>
+
         <Gap />
         <JoinButton />
         <SignupContainer>
@@ -55,8 +56,20 @@ const JoinBgImgSvgIcon = styled(JoinBgImgSvg)`
   height: 100dvh;
 `;
 
+const JoinGif = styled.img`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 3;
+`;
+
 const BigMainLogoIcon = styled(BigMainLogoIc)`
   z-index: 2;
+
+  width: 17.1rem;
+  height: 4.5rem;
 `;
 
 const TitleWrapper = styled.div`

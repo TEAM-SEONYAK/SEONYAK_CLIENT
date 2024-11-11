@@ -3,8 +3,8 @@ import { authAxios } from '@utils/apis';
 
 export const getSeniorTimeAxios = async (seniorId: number) => {
   try {
-    const response = await authAxios.get(`/v1/senior/time/${seniorId}`);
-    // console.log(response.data.data.preferredTimeList);
+    const response = await authAxios.get(`/api/v1/senior/time/${seniorId}`);
+
     return response.data.data.preferredTimeList;
   } catch (error) {
     console.log(error);

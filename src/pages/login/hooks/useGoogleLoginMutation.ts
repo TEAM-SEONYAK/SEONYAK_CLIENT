@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { loginAxios } from '../apis/loginAxios';
 import { useNavigate } from 'react-router-dom';
-import { setRole, setToken } from '@utils/storage';
+import { clearStorage, setRole, setToken } from '@utils/storage';
 
 interface useGoogleLoginPropType {
   role?: string;
@@ -22,8 +22,11 @@ const useGoogleLoginMutation = ({ role }: useGoogleLoginPropType) => {
         // 회원가입
         navigate(role === 'SENIOR' ? '/seniorOnboarding' : '/juniorOnboarding');
       } else {
-        // 로그인인데, role 정보를 서버에서 받지 못한 상황
-        console.error('🔴 로그인 과정에서 Role 정보를 서버에서 받지 못했어요.');
+        // 존재하지 않는 계정으로 로그인을 시도했을 경우
+        console.error('🔴 존재하지 않는 계정');
+        alert('존재하지 않는 계정이예요. 회원가입을 진행해주세요.');
+        navigate('/');
+        clearStorage();
       }
     },
     onError: (error) => {

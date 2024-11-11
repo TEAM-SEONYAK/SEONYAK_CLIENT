@@ -83,7 +83,6 @@ const Step번호입력 = () => {
         setData((prev) => ({
           ...prev,
           phoneNumber: phoneNumber,
-          businessCard: 'https://example.com/business-card.jpg',
         }));
       },
       onError: () => {
@@ -119,7 +118,6 @@ const Step번호입력 = () => {
     if (pathname.includes('senior')) {
       mutate.mutate(data, {
         onSuccess: (res) => {
-          console.log(res.data.data);
           navigate('/seniorProfile', {
             state: {
               seniorId: res.data.data.seniorId,

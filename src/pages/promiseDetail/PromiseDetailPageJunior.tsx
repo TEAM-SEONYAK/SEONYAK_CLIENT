@@ -80,7 +80,17 @@ const PromiseDetailPageJunior = () => {
         </>
       ) : (
         <>
-          <Header LeftSvg={ArrowLeftIc} title="내가 보낸 약속" onClickLeft={() => navigate('/promiseList')} />
+          <Header
+            LeftSvg={ArrowLeftIc}
+            title="내가 보낸 약속"
+            onClickLeft={() =>
+              navigate(`/promiseList`, {
+                state: {
+                  prevTap: tap,
+                },
+              })
+            }
+          />
           <Divider />
           <Wrapper>
             <Layout>
