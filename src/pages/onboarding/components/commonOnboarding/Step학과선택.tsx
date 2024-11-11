@@ -117,7 +117,6 @@ const Wrapper = styled.main`
   display: flex;
   flex-direction: column;
 
-  height: 100dvh;
   padding-top: 2rem;
 `;
 
