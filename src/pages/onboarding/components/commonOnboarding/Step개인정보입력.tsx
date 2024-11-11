@@ -63,12 +63,13 @@ const Step개인정보입력 = () => {
   };
 
   const handleClickLink = () => {
-    if (!res || !imageFile) return;
-    imageUploadMutate({ url: res.url, image: imageFile });
+    if (res && imageFile) {
+      imageUploadMutate({ url: res.url, image: imageFile });
+    }
     setData((prev) => ({
       ...prev,
       imageFile,
-      image: res.fileName,
+      image: imageFile ? res.fileName : '',
       nickname: nickname,
       isNicknameValid: true,
     }));
