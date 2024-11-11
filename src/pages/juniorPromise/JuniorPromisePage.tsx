@@ -114,10 +114,12 @@ const JuniorPromisePage = () => {
         <>
           <Header
             LeftSvg={ArrowLeftIc}
+            title="선배 프로필"
             onClickLeft={() => {
               setIsSeniorCardClicked(false);
             }}
           />
+          <Divider />
           <PreView variant="secondary" seniorId={seniorId + ''} />
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
@@ -186,4 +188,12 @@ const SeniorCardListLayout = styled.div`
   height: 100%;
   margin-bottom: 10rem;
   padding: 0.8rem 2rem;
+`;
+
+const Divider = styled.div`
+  position: fixed;
+  top: 5rem;
+
+  width: 100vw;
+  border: 1.4px solid ${({ theme }) => theme.colors.grayScaleLG2};
 `;
