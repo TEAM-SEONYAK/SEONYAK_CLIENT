@@ -16,10 +16,11 @@ import { SuccessImg } from '@assets/images';
 import { JoinContextType } from '@pages/onboarding/type';
 import useJoinQuery from '@pages/onboarding/hooks/useJoinQuery';
 import googleLogin from '@pages/login/utils/googleLogin';
+import { setSeniorNickname } from '@utils/storage';
 
 const Step번호입력 = () => {
-  const { data, setData } = useOutletContext<JoinContextType>();
-  const mutate = useJoinQuery();
+  const { data: contextData, setData } = useOutletContext<JoinContextType>();
+  const joinMutate = useJoinQuery();
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const Step번호입력 = () => {
     }));
   };
 
-  const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState(contextData.phoneNumber);
   const [verificationCode, setVerificationCode] = useState('');
 
   const [isDoneModalOpen, setIsDoneModalOpen] = useState(false);
@@ -70,6 +71,7 @@ const Step번호입력 = () => {
     return () => clearInterval(id);
   }, [isActive, timeLeft]);
 
+  // 인증번호 전송
   const handleClickSend = () => {
     if (isActive) {
       setValidCodeError(false);
@@ -114,16 +116,14 @@ const Step번호입력 = () => {
     setIsAlreadyModalOpen(type);
   };
 
+  // SENIOR_PENDING - 프로필 등록 이동
+  // JUNIOR - 온보딩 다음 단계로 이동
   const handleClickLink = () => {
     if (pathname.includes('senior')) {
-      mutate.mutate(data, {
-        onSuccess: (res) => {
-          navigate('/seniorProfile', {
-            state: {
-              seniorId: res.data.data.seniorId,
-              nickname: data.nickname,
-            },
-          });
+      joinMutate.mutate(contextData, {
+        onSuccess: () => {
+          setSeniorNickname(contextData.nickname);
+          navigate('/seniorProfile');
         },
         onError: (err) => {
           console.log(err);
@@ -132,7 +132,8 @@ const Step번호입력 = () => {
     } else navigate('/juniorOnboarding/4');
   };
 
-  const handleClickButton = () => {
+  // 인증확인 버튼
+  const handleClickVerifyButton = () => {
     verifycodeMutation.mutate(
       { phoneNumber: phoneNumber, verificationCode },
       {
@@ -200,7 +201,7 @@ const Step번호입력 = () => {
       <FullBtn
         text="인증 확인"
         isActive={timeLeft > 0 && verificationCode.length == 4 && !isError.isValidCodeError}
-        onClick={handleClickButton}
+        onClick={handleClickVerifyButton}
       />
       <AutoCloseModal text="인증에 성공했어요" showModal={isDoneModalOpen} handleShowModal={handleShowDoneModal}>
         <Img src={SuccessImg} alt="" />
