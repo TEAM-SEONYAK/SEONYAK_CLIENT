@@ -17,4 +17,14 @@ export const getRole = () => {
 export const clearStorage = () => {
   localStorage.removeItem('seonyakToken');
   localStorage.removeItem('seonyakRole');
+  localStorage.removeItem('seniorNickname');
+};
+
+// 온보딩 완료 후 프로필 등록 안 하고 이탈한 선배 정보 저장
+export const setSeniorNickname = (nickname: string) => {
+  localStorage.setItem('seniorNickname', nickname);
+};
+
+export const getSeniorNickname = () => {
+  return localStorage.getItem('seniorNickname');
 };

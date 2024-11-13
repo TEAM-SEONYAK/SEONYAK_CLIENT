@@ -9,11 +9,11 @@ import { JoinHbBgSvg, JoinSbBgSvg } from '@assets/svgs';
 
 const SignupPage = () => {
   const role = useLocation().state.role;
-  const isSenior = role === 'SENIOR';
+  const isSenior = role === 'SENIOR_PENDING';
 
   return (
     <>
-      {role === 'SENIOR' ? <JoinSbBgSvgIcon /> : <JoinHbBgSvgIcon />}
+      {isSenior ? <JoinSbBgSvgIcon /> : <JoinHbBgSvgIcon />}
       <SignUpContainer>
         <DescTextWrapper>
           <MetaText>반가워요!</MetaText>
@@ -35,7 +35,7 @@ const SignupPage = () => {
             </>
           )}
         </DescTextWrapper>
-        {role === 'SENIOR' ? <OnboardingSBImg src={img_onboardingSB} /> : <OnboardingHBImg src={img_onboardingHB} />}
+        {isSenior ? <OnboardingSBImg src={img_onboardingSB} /> : <OnboardingHBImg src={img_onboardingHB} />}
         <BtnContainer onClick={() => googleLogin(role)}>
           <GoogleLogoImg src={ic_google_logo} />
           <Text>구글로 시작하기</Text>
