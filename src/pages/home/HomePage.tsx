@@ -9,7 +9,12 @@ const HomePage = () => {
 
   useEffect(() => {
     if (token && role) {
-      navigate(role === 'SENIOR' ? '/promiseList' : '/juniorPromise');
+      // 온보딩 완료 후 이탈한 선배 (프로필 등록 안 한 선배)
+      if (role === 'SENIOR_PENDING') {
+        navigate('/seniorProfile');
+      } else {
+        navigate(role === 'SENIOR' ? '/promiseList' : '/juniorPromise');
+      }
     } else {
       navigate('/join');
     }
