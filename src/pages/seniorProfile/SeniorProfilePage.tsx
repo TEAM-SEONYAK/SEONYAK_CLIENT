@@ -14,19 +14,20 @@ import { SENIOR_PROFILE_STEPS } from './constants';
 import { Header } from '../../components/commons/Header';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { getSeniorNickname } from '@utils/storage';
 
 const SeniorProfilePage = () => {
   const [step, setStep] = useState(0);
   const [profile, setProfile] = useState<seniorProfileRegisterType>(seniorProfileInitial);
-  const location = useLocation();
+
   const navigate = useNavigate();
-  const { seniorId, nickname } = location.state || {};
+  const nickname = getSeniorNickname();
   const userName = step >= 2 && step <= 4 ? nickname : '';
 
   useEffect(() => {
-    if (!seniorId || !nickname) navigate('/');
-  }, [seniorId, nickname, navigate]);
+    if (!nickname) navigate('/');
+  }, [nickname]);
 
   const getComponent = () => {
     switch (step) {
@@ -43,7 +44,7 @@ const SeniorProfilePage = () => {
       case 5:
         return <TimeSelect profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 6:
-        return <PreView setStep={setStep} profile={profile} seniorId={seniorId} />;
+        return <PreView setStep={setStep} profile={profile} seniorId="" />;
       case 7:
         return <Complete />;
       default:

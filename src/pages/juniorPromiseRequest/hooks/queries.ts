@@ -24,9 +24,10 @@ export const usePostAppointment = (onSuccess?: () => void, onError?: (error: str
   });
 };
 
-export const useSeniorTimeQuery = (seniorId: number) => {
+export const useSeniorTimeQuery = (seniorId: number, isJuniorRequest: boolean) => {
   return useQuery({
     queryKey: [QUERY_KEYS.getSeniorTime, seniorId],
     queryFn: () => getSeniorTimeAxios(seniorId),
+    enabled: !!isJuniorRequest,
   });
 };
