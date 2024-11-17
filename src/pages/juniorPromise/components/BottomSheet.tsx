@@ -142,6 +142,10 @@ const Content = styled.div`
   overflow: auto;
 
   height: 35.2rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const FieldLayout = styled.div`
@@ -219,4 +223,7 @@ const ExitBottomSheet = styled.button<SelectedChipListProps>`
 
   color: ${({ theme }) => theme.colors.grayScaleWhite};
   ${({ theme }) => theme.fonts.Head2_SB_18};
+
+  cursor: ${({ $chipFieldName, $chipPositionName }) =>
+    $chipFieldName.length > 0 || $chipPositionName.length > 0 ? 'pointer' : 'default'};
 `;
