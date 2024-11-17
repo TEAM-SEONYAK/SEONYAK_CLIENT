@@ -12,8 +12,20 @@ const ErrorPage = () => {
   const navigate = useNavigate();
 
   const handleHomeBtn = () => {
-    localStorage.clear();
-    navigate('/');
+    const token = localStorage.getItem('seonyakToken');
+    const role = localStorage.getItem('seonyakRole');
+
+    if (!token || !role) {
+      localStorage.clear();
+      return navigate('/');
+    }
+
+    const routeMap: { [key: string]: string } = {
+      SENIOR: '/promiseList',
+      JUNIOR: '/juniorPromise',
+    };
+
+    navigate(routeMap[role] || '/');
   };
 
   const handleOpenUrl = (url: string) => window.open(url);
