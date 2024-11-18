@@ -214,7 +214,7 @@ const PageBottomBar = styled.div`
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
   box-shadow: 0 -8px 30px rgb(0 0 0 / 10%);
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
 `;
 
 const CostWrapper = styled.div`
