@@ -27,11 +27,7 @@ interface preViewPropType {
 
 const PreView = ({ seniorId, profile, setStep, variant = 'default' }: preViewPropType) => {
   // 선배 카드 정보 조회 (온보딩 정보)
-  const {
-    data: cardData,
-    error: cardDataError,
-    isLoading: isCardDataLoading,
-  } = useSeniorCardQuery(seniorId, variant === 'secondary');
+  const { data: cardData, error: cardDataError, isLoading: isCardDataLoading } = useSeniorCardQuery(seniorId, true);
   // 선배 상세 프로필 조회 (프로필 정보)
   const {
     data: profileData,

@@ -15,7 +15,7 @@ import { Header } from '../../components/commons/Header';
 import ProgressBar from '../../components/commons/ProgressBar';
 import theme from '../../styles/theme';
 import { useNavigate } from 'react-router-dom';
-import { getSeniorNickname } from '@utils/storage';
+import { getSeniorId, getSeniorNickname } from '@utils/storage';
 
 const SeniorProfilePage = () => {
   const [step, setStep] = useState(0);
@@ -23,11 +23,12 @@ const SeniorProfilePage = () => {
 
   const navigate = useNavigate();
   const nickname = getSeniorNickname();
+  const seniorId = getSeniorId() ?? '';
   const userName = step >= 2 && step <= 4 ? nickname : '';
 
   useEffect(() => {
-    if (!nickname) navigate('/');
-  }, [nickname]);
+    if (seniorId === '' || !nickname) navigate('/');
+  }, [nickname, seniorId]);
 
   const getComponent = () => {
     switch (step) {
@@ -44,7 +45,7 @@ const SeniorProfilePage = () => {
       case 5:
         return <TimeSelect profile={profile} setProfile={setProfile} setStep={setStep} />;
       case 6:
-        return <PreView setStep={setStep} profile={profile} seniorId="" />;
+        return <PreView setStep={setStep} profile={profile} seniorId={seniorId} />;
       case 7:
         return <Complete />;
       default:
