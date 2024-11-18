@@ -2,6 +2,7 @@ import { HeaderLogoIc, AlarmIc } from '@assets/svgs';
 import { Header } from '@components/commons/Header';
 import { AutoCloseModal } from '@components/commons/modal/AutoCloseModal';
 import img_modal_accept from '@assets/images/img_modal_accept.png';
+import { ArrowLeftIc } from '@assets/svgs';
 
 import Nav from '@components/commons/Nav';
 import { SeniorCard } from '@components/commons/SeniorCard';
@@ -118,12 +119,13 @@ const JuniorPromisePage = () => {
       {isSeniorCardClicked ? (
         <>
           <Header
-            LeftSvg={HeaderLogoIc}
-            RightSvg={AlarmIc}
-            onClickRight={() => setShowModal(true)}
-            bgColor="transparent"
+            LeftSvg={ArrowLeftIc}
+            title="선배 프로필"
+            onClickLeft={() => {
+              setIsSeniorCardClicked(false);
+            }}
           />
-
+          <Divider />
           <PreView variant="secondary" seniorId={seniorId + ''} />
           <FullBtn text="약속 신청하기" onClick={handlePromiseClicked} />
         </>
@@ -203,4 +205,12 @@ const SeniorCardListLayout = styled.div`
 const ModalImg = styled.img`
   width: 27rem;
   height: 17.2rem;
+`;
+
+const Divider = styled.div`
+  position: fixed;
+  top: 5rem;
+
+  width: 100vw;
+  border: 1.4px solid ${({ theme }) => theme.colors.grayScaleLG2};
 `;
