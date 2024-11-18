@@ -55,23 +55,23 @@ export const SeniorSearch = (props: SeniorSearchPropTypes) => {
           <LineWrapper>
             <Line292Ic />
           </LineWrapper>
-          <ResetIc onClick={handleReset} />
+          <ResetIcon onClick={handleReset} />
         </BtnLayout>
         <SelectedChipList $chipFieldName={chipFieldName} $chipPositionName={chipPositionName}>
           {chipFieldName.map((field, fieldId) => (
             <Chip key={fieldId}>
               {field}
-              <CloseButton onClick={() => handleDeleteFieldChip(field)}>
+              <CloseIcon onClick={() => handleDeleteFieldChip(field)}>
                 <CloseIc />
-              </CloseButton>
+              </CloseIcon>
             </Chip>
           ))}
           {chipPositionName.map((position, positionId) => (
             <Chip key={positionId}>
               {position}
-              <CloseButton onClick={() => handleDeletePositionChip(position)}>
+              <CloseIcon onClick={() => handleDeletePositionChip(position)}>
                 <CloseIc />
-              </CloseButton>
+              </CloseIcon>
             </Chip>
           ))}
         </SelectedChipList>
@@ -136,10 +136,16 @@ const Chip = styled.div`
   color: ${({ theme }) => theme.colors.grayScaleDG};
 `;
 
-const CloseButton = styled(CloseIc)`
+const CloseIcon = styled(CloseIc)`
   padding: 0.4962rem 0.4839rem 0.4962rem 0.5084rem;
+
+  cursor: pointer;
 `;
 
 const LineWrapper = styled.div`
   padding-left: 13.7rem;
+`;
+
+const ResetIcon = styled(ResetIc)`
+  cursor: pointer;
 `;
