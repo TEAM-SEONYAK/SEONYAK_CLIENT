@@ -1,11 +1,11 @@
-import { getSeniorProfileAxios } from "@pages/seniorProfile/apis/getSeniorProfileAxios";
-import { SeniorProfileAPIResType } from "@pages/seniorProfile/types";
-import { useQuery } from "@tanstack/react-query";
+import { getSeniorProfileAxios } from '@pages/seniorProfile/apis/getSeniorProfileAxios';
+import { SeniorProfileAPIResType } from '@pages/seniorProfile/types';
+import { useQuery } from '@tanstack/react-query';
 
-export const useGetSeniorProfileQuery = (seniorId: string) => {
+export const useGetSeniorProfileQuery = (seniorId: string, isJuniorRequest: boolean) => {
   return useQuery<SeniorProfileAPIResType, Error>({
     queryKey: ['seniorProfile', seniorId],
-    queryFn: () => getSeniorProfileAxios(seniorId).then(response => response.data.data),
-  })
+    queryFn: () => getSeniorProfileAxios(seniorId).then((response) => response.data.data),
+    enabled: !!isJuniorRequest,
+  });
 };
-

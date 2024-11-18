@@ -95,7 +95,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'seniorOnboarding',
-        element: <Layout userRole="SENIOR" />,
+        element: <Layout userRole="SENIOR_PENDING" />,
         children: [
           {
             index: true,

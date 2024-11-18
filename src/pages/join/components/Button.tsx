@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const JoinButton = () => {
   const navigate = useNavigate();
   const handleSeniorClick = () => {
-    navigate('/signup', { state: { role: 'SENIOR' } });
+    navigate('/signup', { state: { role: 'SENIOR_PENDING' } });
   };
 
   const handleJuniorClick = () => {

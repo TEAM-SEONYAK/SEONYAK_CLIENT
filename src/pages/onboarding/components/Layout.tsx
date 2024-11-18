@@ -9,11 +9,11 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { JoinPropType } from '../type';
 
-const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
+const Layout = ({ userRole }: { userRole: 'JUNIOR' | 'SENIOR_PENDING' }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const step = +location.pathname.slice(18);
-  const onboardingStep = userRole === 'SENIOR' ? SENIOR_ONBOARDING_STEPS : JUNIOR_ONBOARDING_STEPS;
+  const onboardingStep = userRole === 'SENIOR_PENDING' ? SENIOR_ONBOARDING_STEPS : JUNIOR_ONBOARDING_STEPS;
   const { title, description } = onboardingStep[step ? step - 1 : 0];
   const GROUP_STEP = convertToGroupStep(userRole, step);
 
@@ -31,7 +31,7 @@ const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
   useEffect(() => {
     // 리로드 시 1단계로 back
     if (location.pathname.slice(-1) !== '1') {
-      userRole === 'SENIOR' ? navigate('/seniorOnboarding/1') : navigate('/juniorOnboarding/1');
+      userRole === 'SENIOR_PENDING' ? navigate('/seniorOnboarding/1') : navigate('/juniorOnboarding/1');
     }
   }, []);
 
@@ -45,7 +45,7 @@ const Layout = ({ userRole }: { userRole: 'SENIOR' | 'JUNIOR' }) => {
           step === 1 ? navigate('/') : navigate(-1);
         }}
       />
-      <ProgressBar max={userRole === 'SENIOR' ? 4 : 3} current={GROUP_STEP} />
+      <ProgressBar max={userRole === 'SENIOR_PENDING' ? 4 : 3} current={GROUP_STEP} />
       <MetaContainer>
         <TitleBox title={title} description={description} />
       </MetaContainer>

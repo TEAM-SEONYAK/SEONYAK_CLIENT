@@ -1,5 +1,5 @@
-const convertToGroupStep = (role: 'SENIOR' | 'JUNIOR', step: number): number => {
-  if (role === 'SENIOR') {
+const convertToGroupStep = (role: 'JUNIOR' | 'SENIOR_PENDING', step: number): number => {
+  if (role === 'SENIOR_PENDING') {
     if (step === 1) return 1;
     if (step === 2) return 2;
     if (step <= 6 && step >= 1) return 3;

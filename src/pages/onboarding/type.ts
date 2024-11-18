@@ -9,7 +9,7 @@ export interface BizInfoType {
 }
 
 export interface JoinPropType {
-  role: 'SENIOR' | 'JUNIOR';
+  role: 'SENIOR' | 'JUNIOR' | 'SENIOR_PENDING';
   isSubscribed: boolean[];
   nickname: string;
   isNicknameValid?: boolean;

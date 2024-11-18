@@ -15,9 +15,9 @@ import { useNavigate } from 'react-router-dom';
 const Example = ({ setStep }: { setStep: React.Dispatch<React.SetStateAction<number>> }) => {
   const navigate = useNavigate();
   const [seniorId, setSeniorId] = useState(0);
-  const { data: data1, isLoading: isLoading1, isError: isError1 } = useSeniorCardQuery('1');
-  const { data: data2, isLoading: isLoading2, isError: isError2 } = useSeniorCardQuery('2');
-  const { data: data3, isLoading: isLoading3, isError: isError3 } = useSeniorCardQuery('3');
+  const { data: data1, isLoading: isLoading1, isError: isError1 } = useSeniorCardQuery('1', true);
+  const { data: data2, isLoading: isLoading2, isError: isError2 } = useSeniorCardQuery('2', true);
+  const { data: data3, isLoading: isLoading3, isError: isError3 } = useSeniorCardQuery('3', true);
 
   const dummayData = [data1, data2, data3];
 
