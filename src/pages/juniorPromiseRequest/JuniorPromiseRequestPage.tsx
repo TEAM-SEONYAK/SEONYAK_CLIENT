@@ -105,6 +105,7 @@ const JuniorPromiseRequestPage = () => {
   return (
     <Wrapper>
       <Header LeftSvg={ArrowLeftIc} onClickLeft={() => navigate(-1)} title={'약속 신청하기'} />
+      <Divider />
       <Banner senior={`${seniorNickname} 선배`} />
       <HbPromiseImg src={img_hbpromise} />
 
@@ -205,14 +206,15 @@ const PageBottomBar = styled.div`
   align-items: center;
   position: fixed;
   bottom: 0;
+  left: 50%;
 
   width: 100%;
   height: 9.4rem;
-  margin-left: -2rem;
   padding: 1.5rem 0 3rem;
 
   background-color: ${({ theme }) => theme.colors.grayScaleWhite};
   box-shadow: 0 -8px 30px rgb(0 0 0 / 10%);
+  transform: translateX(-50%);
 `;
 
 const CostWrapper = styled.div`
@@ -269,4 +271,13 @@ const GrayLine2 = styled.div`
   height: 1rem;
 
   background-color: ${({ theme }) => theme.colors.grayScaleWG};
+`;
+
+const Divider = styled.div`
+  position: fixed;
+  top: 5rem;
+  z-index: 1;
+
+  width: 100vw;
+  border: 1.4px solid ${({ theme }) => theme.colors.grayScaleLG2};
 `;
