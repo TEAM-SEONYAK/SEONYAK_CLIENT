@@ -44,9 +44,9 @@ const SeniorRefreshImg = styled.img`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 25rem;
-  height: 34rem;
   transform: translate(-40%, -40%);
+
+  width: 70%;
 `;
 
 const Text = styled.p`

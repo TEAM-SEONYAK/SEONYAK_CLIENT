@@ -56,7 +56,8 @@ const SeniorCardWrapper = styled.div<{ $isSmall: boolean }>`
   align-items: center;
 
   width: 100%;
-  padding-top: 3.2rem;
+  padding: 1rem 1.2rem;
+  height: ${({ $isSmall }) => ($isSmall ? '19%' : '12.6rem')};
   border-radius: 8px;
 
   background: ${({ theme }) => theme.colors.grayScaleWhite};
